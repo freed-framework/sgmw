@@ -21,6 +21,15 @@ export default [
     }]
   },
   {
+    path: '/example',
+    name: 'example',
+    component: Layout,
+    children: [{
+      path: '',
+      component: () => import('@/views/kpi/customerManagement/index.vue')
+    }]
+  },
+  {
     path: '/404',
     name: '404',
     hidden: true,
