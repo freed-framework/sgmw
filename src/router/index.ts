@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import constantRoutes from './routes'
+import Progress from 'nprogress'
 import store from '../store'
+import 'nprogress/nprogress.css'
 // import { ssoLogin, hasTokenRedirect, replaceTokenByUrl } from '../util/auth'
 
 Vue.use(VueRouter)
+
+Progress.configure({ showSpinner: false })
 
 const router = new VueRouter({
   mode: 'history',
@@ -68,9 +72,15 @@ const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
   const token = store.getters['auth/token']
 
+  // process start
+  Progress.start()
+
   if (token) {
     if (to.path === '/login') {
       next({ path: '/' })
+
+      // process done
+      Progress.done()
     } else {
       beforeRole(to, next)
     }
@@ -80,8 +90,15 @@ router.beforeEach((to, from, next) => {
     } else {
       // to login
       next('/login')
+
+      // process done
+      Progress.done()
     }
   }
+})
+
+router.afterEach(() => {
+  Progress.done()
 })
 
 export default router
