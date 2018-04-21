@@ -2,6 +2,7 @@
   <div class="pag-data">
     <boxer
       :title="title"
+      :hasTitle="hasTitle"
       :onAction="handleAction"
       :actionType="actionType"
       :iconType="iconType"
@@ -32,17 +33,20 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
+const noop = () => {}
+
 @Component
 export default class PagTable extends Vue {
   name: string = 'pag-table'
 
+  @Prop({ default: false }) hasTitle: boolean
   @Prop({ default: '' }) title: string
   @Prop({ default: true }) loading: boolean
-  @Prop() handlePageChange: void
+  @Prop({ default: noop }) handlePageChange: void
   @Prop({ default: 0 }) total: number
   @Prop({ default: 1 }) curpage: number
   @Prop({ default: 20 }) size: number
-  @Prop({ default: () => {} }) handleAction: Function
+  @Prop({ default: noop }) handleAction: Function
   @Prop({ default: '' }) actionType: string
   @Prop({ default: '' }) iconType: string
 }
