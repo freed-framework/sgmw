@@ -25,19 +25,25 @@ export default constantRoutes
 const asyncRoutes = [
   {
     path: '/book',
-    name: 'Book',
+    name: '书籍',
     component: Layout,
     meta: { role: [ 'book' ] },
     children: [{
       path: '',
+      name: '列表',
       component: () => import('@/views/book/index.vue'),
-      meta: { role: [ '' ] },
+      meta: { role: [ 'book' ] },
+    }, {
+      path: 'detail',
+      name: '详情',
+      component: () => import('@/views/book/index.vue'),
+      meta: { role: [ 'book' ] },
     }]
   },
   {
     path: '/404',
     name: '404',
-    meta: { hidden: false },
+    hidden: true,
     component: NotFound
   },
   {

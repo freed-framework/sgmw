@@ -52,31 +52,19 @@
         </el-submenu>
       </template>
     </template>
-    routes: {{ aroutes }}
   </el-menu>
 </template>
 
 <script lang="ts">
 import { Getter, State } from 'vuex-class'
 import { Vue, Component } from 'vue-property-decorator'
-import { Menu, Submenu, MenuItem, MenuItemGroup } from 'element-ui'
-import routes from '@/router/routes'
-import { Route } from 'vue-router'
 
-@Component({
-  components: {
-    [Menu.name]: Menu,
-    [Submenu.name]: Submenu,
-    [MenuItem.name]: MenuItem,
-    [MenuItemGroup.name]: MenuItemGroup
-  }
-})
+@Component
 export default class Side extends Vue {
-  @Getter('auth/routes') aroutes
-  routes: Object[] = routes
-  openeds: string[] = []
+  @Getter('auth/routes') routes: Array<any>
+  @State('route') route: any
 
-  @State('route') route: Route
+  openeds: string[] = []
 
   created() {
     this.getOpeneds()
