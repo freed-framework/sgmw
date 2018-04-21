@@ -37,8 +37,8 @@ export default class Home extends Vue {
   initData: boolean = false
 
   @State(state => state.home) home: StateTypes
-  @Getter('home/name') name: string
-  @homeAction('home/getData') getData: any
+  @homeGetter('name') name: string
+  @homeAction('getData') getData: any
   @homeAction('increment') handlerCount
 
   beforeRouteEnter(to: Route, from: Route, next: Function): void {

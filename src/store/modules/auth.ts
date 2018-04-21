@@ -110,8 +110,9 @@ function getAuthRoutes(roles) {
     if (hasPermission(roles, route)) {
       // 是否存在子路由
       if (route.children && route.children.length > 0) {
+        const chidlren: any = route.children
         // 判断子路由权限
-        route.children = route.children.filter(child => {
+        route.children = chidlren.filter(child => {
           if (hasPermission(roles, child)) {
             return child
           }
