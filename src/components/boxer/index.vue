@@ -1,7 +1,7 @@
 <template>
   <div class="boxer">
     <!-- title -->
-    <div class="boxer-title">
+    <div v-if="hasTitle" class="boxer-title">
       <el-row>
         <el-col :span="18">
           <i v-if="iconType" :class="iconType" /><span>{{ title }}</span>
@@ -32,9 +32,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class PagTable extends Vue {
+  @Prop({ default: false }) hasTitle: boolean
   @Prop({ default: '' }) title: string
   @Prop({ default: () => {} }) onAction: Function
-  @Prop({ default: true }) padding: boolean
+  @Prop({ default: false }) padding: boolean
   @Prop({ default: '' }) actionType: string
   @Prop({ default: '' }) iconType: string
 

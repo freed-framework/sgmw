@@ -79,6 +79,15 @@ export default [
     }]
   },
   {
+    path: '/customerManagement',
+    name: '客户管理关键KPI',
+    component: Layout,
+    children: [{
+      path: '',
+      component: () => import('@/views/kpi/customerManagement/index.vue')
+    }]
+  },
+  {
     path: '/404',
     name: '404',
     hidden: true,
