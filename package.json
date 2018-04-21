@@ -14,7 +14,6 @@
     "mock": "json-server --port 9999 --watch ./mock/db.json"
   },
   "pre-commit": [
-    "prelint"
   ],
   "dependencies": {
     "axios": "^0.18.0",
