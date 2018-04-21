@@ -151,7 +151,7 @@ function getAuthRoutes(roles) {
  * 创建 Menus
  * @param routes routes
  */
-function getMenus(routes: any = []) {
+function getMenus(routes: Array<any> = []): Array<any> {
   const menus = []
 
   routes.forEach((route) => {
@@ -163,10 +163,23 @@ function getMenus(routes: any = []) {
       ...(route.hidden && { hidden: route.hidden }),
     }
 
-    if (!menu.text && route.children && route.children.length === 1) {
-      menu.text = route.children[0].meta ? route.children[0].meta.text : ''
-    } else {
-      menu.children = getMenus(route.children)
+    // 如果子路由仅一项
+    // 1. 把子路由的 text 覆盖到 $parent.text
+    // 2. 合并路由 path
+    if (route.children) {
+      if (route.children.length === 1) {
+        const child = route.children[0]
+        const childMeta = child.meta
+        if (childMeta && childMeta.text) {
+          menu.text = childMeta.text
+        }
+        
+        if (child.path !== '') {
+          menu.path = `${menu.path}/${child.path}`
+        }
+      } else {
+        menu.children = getMenus(route.children)
+      }
     }
 
     menus.push(menu)
@@ -179,7 +192,10 @@ const getters = {
   token: (state) => state.token || ls.get(TOKEN_KEY),
   role: (state) => state.role,
   routes: (state) => state.routes,
-  menus: (state) => state.menus
+  menus: (state) => {
+    console.log(state.menus)
+    return state.menus
+  }
 }
 
 export default {
