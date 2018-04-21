@@ -1,11 +1,11 @@
 <template>
-  <div>{{a}}</div>
+<div>
   <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="线索响应率" name="first">线索响应率</el-tab-pane>
-    <el-tab-pane label="线索有效率" name="second">线索有效率</el-tab-pane>
-    <el-tab-pane label="线索成交率" name="third">线索成交率</el-tab-pane>
-    <el-tab-pane label="线索战败率" name="fourth">线索战败率</el-tab-pane>
+    <el-tab-pane v-for = "data in tabs" :label="data.text" :name="data.key" :key= "data.key">
+      111
+    </el-tab-pane>
   </el-tabs>
+</div>
 </template>
 
 <script lang="ts">
