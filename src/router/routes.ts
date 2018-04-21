@@ -21,8 +21,8 @@ export default [
     }]
   },
   {
-    path: '/example',
-    name: 'example',
+    path: '/customerManagement',
+    name: '客户管理关键KPI',
     component: Layout,
     children: [{
       path: '',
