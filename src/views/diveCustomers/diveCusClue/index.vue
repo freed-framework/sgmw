@@ -1,52 +1,20 @@
 <template>
-  <div>
-   123123
-  </div>
+  <div>{{a}}</div>
+  <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="线索响应率" name="first">线索响应率</el-tab-pane>
+    <el-tab-pane label="线索有效率" name="second">线索有效率</el-tab-pane>
+    <el-tab-pane label="线索成交率" name="third">线索成交率</el-tab-pane>
+    <el-tab-pane label="线索战败率" name="fourth">线索战败率</el-tab-pane>
+  </el-tabs>
 </template>
 
 <script lang="ts">
-import { State, Getter, Action } from 'vuex-class'
-import { Component, Vue } from 'vue-property-decorator'
-import { Radio, RadioGroup, RadioButton } from 'element-ui'
-
-@Component({
-  components: {
-    [Radio.name]: Radio,
-    [RadioGroup.name]: RadioGroup,
-    [RadioButton.name]: RadioButton
-  }
-})
-export default class App extends Vue {
-  num: number = 0
-  input: string = ''
-  radio: number = 3
-
-  @State(state => state.home)
-  home: Object
-  @State(state => state.book)
-  book: Object
-
-  @Getter('count') mounted: void
-
-  @Action('book/getData') getData: any
-  @Getter('book/getList') bookList: any
-
-  @Action('book/clearList') actionClearBookList: any
-
-  handlerCount() {
-    this.num++
-  }
-
-  handleChangeRange(val) {
-    // console.log(val)
-  }
-
-  goback() {
-    this.$router.back()
-  }
-
-  created() {
-    this.getData()
-  }
-}
+ import Index from './index.ts'
+ export default Index
 </script>
+
+<style lang="scss">
+@import url('./index.scss');
+</style>
+
+

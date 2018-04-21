@@ -15,6 +15,7 @@ import {
   Col,
   Table,
   Radio,
+  // Tabs,
   TableColumn,
   Loading,
   Pagination,
@@ -54,6 +55,7 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(OptionGroup)
 Vue.use(Radio)
+// Vue.use(Tabs)
 Vue.component('boxer', Boxer)
 
 // 加载骨架

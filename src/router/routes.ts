@@ -22,11 +22,21 @@ export default [
   },
   {
     path: '/diveCustomers',
-    name: '潜在客户线索',
+    name: '潜在客户管理',
     component: Layout,
     children: [{
       path: 'diveCusClue',
+      name: '厂家潜客线索',
       component: () => import('@/views/diveCustomers/diveCusClue/index.vue')
+    }]
+  },
+  {
+    path: '/example',
+    name: 'example',
+    component: Layout,
+    children: [{
+      path: '',
+      component: () => import('@/views/kpi/customerManagement/index.vue')
     }]
   },
   {
