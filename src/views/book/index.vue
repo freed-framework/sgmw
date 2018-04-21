@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>Book</div>
     <div>
         <span>{{ num }}</span>
         <button @click="handlerCount">+</button>

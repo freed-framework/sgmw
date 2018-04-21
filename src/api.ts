@@ -9,8 +9,6 @@ import store from './store'
 
 const http = new Http()
 
-console.log(Promise)
-
 http.axios.defaults.baseURL = process.env.API_HOST
 
 http.request(
@@ -74,3 +72,14 @@ export const getHelloPage = () =>
       })
     }, 2000)
   })
+
+
+export const getRole = () => {
+  const roles = ['admin', 'order', 'book']
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(roles)
+    }, 2000)
+  })
+}
