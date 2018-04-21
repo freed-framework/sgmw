@@ -1,0 +1,33 @@
+{
+  "code":200,
+  "message":"",
+  "data":{
+    "current_page":1,
+    "data":[
+      {
+        "id":5,
+        "name":"123",
+        "total_users":0,
+        "created_at":"2018-03-22 15:11:12",
+        "updated_at":"2018-03-22 15:11:12",
+        "deleted_at":null
+      },{
+        "id":1,
+        "name":"\u63a8\u8350\u4eba1\u7ec4",
+        "total_users":2,
+        "created_at":"2018-03-16 16:10:33",
+        "updated_at":"2018-03-21 09:36:52",
+        "deleted_at":null
+      }
+    ],
+    "first_page_url":"http:\/\/qasales2.mxj.mx\/manage\/agent\/groups\/lists?page_size=100&page=1",
+    "from":1,
+    "last_page":1,
+    "last_page_url":"http:\/\/qasales2.mxj.mx\/manage\/agent\/groups\/lists?page_size=100&page=1",
+    "next_page_url":null,"path":"http:\/\/qasales2.mxj.mx\/manage\/agent\/groups\/lists",
+    "per_page":100,
+    "prev_page_url":null,
+    "to":2,
+    "total":2
+  }
+}

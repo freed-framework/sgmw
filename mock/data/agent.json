@@ -1,0 +1,291 @@
+{
+    "code": 200,
+    "message": "",
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": 162,
+                "name": "fake_Carmela White",
+                "email": "fake_antoinette78@example.com",
+                "created_at": "2018-03-13 16:55:17",
+                "updated_at": "2018-03-13 16:55:17",
+                "deleted_at": null,
+                "mobile": "13862***688",
+                "avatar": "",
+                "login_at": "2018-03-13 16:55:13",
+                "login_ip": "127.0.0.1",
+                "login_address": "\u672c\u673a",
+                "total_login": 1,
+                "is_locked": 0,
+                "signup_ip": "127.0.0.1",
+                "signup_address": "\u672c\u673a",
+                "api_token": "",
+                "bind_one": {
+                    "id": 162,
+                    "app_slug": "sso",
+                    "app_user_id": "fake_52024442",
+                    "app_user_data": null,
+                    "user_id": 162,
+                    "created_at": "2018-03-13 16:55:18",
+                    "updated_at": "2018-03-13 16:55:18",
+                    "deleted_at": null
+                },
+                "multi_attrs": [
+                    {
+                        "id": 162,
+                        "skey": "role",
+                        "svalue": "agent",
+                        "user_id": 162,
+                        "created_at": "2018-03-13 16:55:18",
+                        "updated_at": "2018-03-13 16:55:18",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 326,
+                        "skey": "agent_group_id",
+                        "svalue": "2",
+                        "user_id": 162,
+                        "created_at": "2018-03-20 11:22:46",
+                        "updated_at": "2018-03-20 11:22:46",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 335,
+                        "skey": "agent_leader",
+                        "svalue": "153",
+                        "user_id": 162,
+                        "created_at": "2018-03-20 14:41:59",
+                        "updated_at": "2018-03-20 14:41:59",
+                        "deleted_at": null
+                    }
+                ],
+                "agent_group_name": "",
+                "agent_group_id": "2",
+                "agent_leader_name": "fake_Name Hills",
+                "agent_leader_id": "153"
+            },
+            {
+                "id": 166,
+                "name": "fake_Mrs. Dandre Thompson V",
+                "email": "fake_igusikowski@example.org",
+                "created_at": "2018-03-13 16:55:17",
+                "updated_at": "2018-03-13 16:55:17",
+                "deleted_at": null,
+                "mobile": "13880***851",
+                "avatar": "",
+                "login_at": "2018-03-13 16:55:13",
+                "login_ip": "127.0.0.1",
+                "login_address": "\u672c\u673a",
+                "total_login": 1,
+                "is_locked": 0,
+                "signup_ip": "127.0.0.1",
+                "signup_address": "\u672c\u673a",
+                "api_token": "",
+                "bind_one": {
+                    "id": 166,
+                    "app_slug": "sso",
+                    "app_user_id": "fake_44488856",
+                    "app_user_data": null,
+                    "user_id": 166,
+                    "created_at": "2018-03-13 16:55:18",
+                    "updated_at": "2018-03-13 16:55:18",
+                    "deleted_at": null
+                },
+                "multi_attrs": [
+                    {
+                        "id": 166,
+                        "skey": "role",
+                        "svalue": "agent",
+                        "user_id": 166,
+                        "created_at": "2018-03-13 16:55:18",
+                        "updated_at": "2018-03-13 16:55:18",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 327,
+                        "skey": "agent_group_id",
+                        "svalue": "2",
+                        "user_id": 166,
+                        "created_at": "2018-03-20 11:22:46",
+                        "updated_at": "2018-03-20 11:22:46",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 334,
+                        "skey": "agent_leader",
+                        "svalue": "181",
+                        "user_id": 166,
+                        "created_at": "2018-03-20 14:41:31",
+                        "updated_at": "2018-03-20 14:41:31",
+                        "deleted_at": null
+                    }
+                ],
+                "agent_group_name": "",
+                "agent_group_id": "2",
+                "agent_leader_name": "fake_Laila Doyle",
+                "agent_leader_id": "181"
+            },
+            {
+                "id": 167,
+                "name": "fake_Hipolito Gaylord",
+                "email": "fake_zrosenbaum@example.org",
+                "created_at": "2018-03-13 16:55:17",
+                "updated_at": "2018-03-13 16:55:17",
+                "deleted_at": null,
+                "mobile": "13869***455",
+                "avatar": "",
+                "login_at": "2018-03-13 16:55:13",
+                "login_ip": "127.0.0.1",
+                "login_address": "\u672c\u673a",
+                "total_login": 1,
+                "is_locked": 0,
+                "signup_ip": "127.0.0.1",
+                "signup_address": "\u672c\u673a",
+                "api_token": "",
+                "bind_one": {
+                    "id": 167,
+                    "app_slug": "sso",
+                    "app_user_id": "fake_28202222",
+                    "app_user_data": null,
+                    "user_id": 167,
+                    "created_at": "2018-03-13 16:55:18",
+                    "updated_at": "2018-03-13 16:55:18",
+                    "deleted_at": null
+                },
+                "multi_attrs": [
+                    {
+                        "id": 167,
+                        "skey": "role",
+                        "svalue": "agent",
+                        "user_id": 167,
+                        "created_at": "2018-03-13 16:55:18",
+                        "updated_at": "2018-03-13 16:55:18",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 328,
+                        "skey": "agent_group_id",
+                        "svalue": "2",
+                        "user_id": 167,
+                        "created_at": "2018-03-20 13:40:52",
+                        "updated_at": "2018-03-20 13:40:52",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 333,
+                        "skey": "agent_leader",
+                        "svalue": "165",
+                        "user_id": 167,
+                        "created_at": "2018-03-20 14:40:28",
+                        "updated_at": "2018-03-20 14:40:28",
+                        "deleted_at": null
+                    }
+                ],
+                "agent_group_name": "",
+                "agent_group_id": "2",
+                "agent_leader_name": "fake_Jazmyn Little",
+                "agent_leader_id": "165"
+            },
+            {
+                "id": 172,
+                "name": "fake_Charlene Hamill",
+                "email": "fake_berge.blanche@example.com",
+                "created_at": "2018-03-13 16:55:17",
+                "updated_at": "2018-03-13 16:55:17",
+                "deleted_at": null,
+                "mobile": "13845***242",
+                "avatar": "",
+                "login_at": "2018-03-13 16:55:13",
+                "login_ip": "127.0.0.1",
+                "login_address": "\u672c\u673a",
+                "total_login": 1,
+                "is_locked": 0,
+                "signup_ip": "127.0.0.1",
+                "signup_address": "\u672c\u673a",
+                "api_token": "",
+                "bind_one": {
+                    "id": 172,
+                    "app_slug": "sso",
+                    "app_user_id": "fake_83838864",
+                    "app_user_data": null,
+                    "user_id": 172,
+                    "created_at": "2018-03-13 16:55:18",
+                    "updated_at": "2018-03-13 16:55:18",
+                    "deleted_at": null
+                },
+                "multi_attrs": [
+                    {
+                        "id": 172,
+                        "skey": "role",
+                        "svalue": "agent",
+                        "user_id": 172,
+                        "created_at": "2018-03-13 16:55:18",
+                        "updated_at": "2018-03-13 16:55:18",
+                        "deleted_at": null
+                    },
+                    {
+                        "id": 329,
+                        "skey": "agent_group_id",
+                        "svalue": "2",
+                        "user_id": 172,
+                        "created_at": "2018-03-20 13:40:52",
+                        "updated_at": "2018-03-20 13:40:52",
+                        "deleted_at": null
+                    }
+                ],
+                "agent_group_name": "",
+                "agent_group_id": "2"
+            },
+            {
+                "id": 177,
+                "name": "fake_Prof. Stuart Schmitt",
+                "email": "fake_jast.rachael@example.org",
+                "created_at": "2018-03-13 16:55:17",
+                "updated_at": "2018-03-13 16:55:17",
+                "deleted_at": null,
+                "mobile": "13860***012",
+                "avatar": "",
+                "login_at": "2018-03-13 16:55:13",
+                "login_ip": "127.0.0.1",
+                "login_address": "\u672c\u673a",
+                "total_login": 1,
+                "is_locked": 0,
+                "signup_ip": "127.0.0.1",
+                "signup_address": "\u672c\u673a",
+                "api_token": "",
+                "bind_one": {
+                    "id": 177,
+                    "app_slug": "sso",
+                    "app_user_id": "fake_08167834",
+                    "app_user_data": null,
+                    "user_id": 177,
+                    "created_at": "2018-03-13 16:55:18",
+                    "updated_at": "2018-03-13 16:55:18",
+                    "deleted_at": null
+                },
+                "multi_attrs": [
+                    {
+                        "id": 177,
+                        "skey": "role",
+                        "svalue": "agent",
+                        "user_id": 177,
+                        "created_at": "2018-03-13 16:55:18",
+                        "updated_at": "2018-03-13 16:55:18",
+                        "deleted_at": null
+                    }
+                ]
+            }
+        ],
+        "first_page_url": "http:\/\/qasales2.mxj.mx\/manage\/agent\/users\/lists?page_size=5&srch_name=&srch_mobile=&srch_email=&srch_agent_group_id=0&srch_agent_leader=0&page=1",
+        "from": 1,
+        "last_page": 13,
+        "last_page_url": "http:\/\/qasales2.mxj.mx\/manage\/agent\/users\/lists?page_size=5&srch_name=&srch_mobile=&srch_email=&srch_agent_group_id=0&srch_agent_leader=0&page=13",
+        "next_page_url": "http:\/\/qasales2.mxj.mx\/manage\/agent\/users\/lists?page_size=5&srch_name=&srch_mobile=&srch_email=&srch_agent_group_id=0&srch_agent_leader=0&page=2",
+        "path": "http:\/\/qasales2.mxj.mx\/manage\/agent\/users\/lists",
+        "per_page": 5,
+        "prev_page_url": null,
+        "to": 5,
+        "total": 65
+    }
+}

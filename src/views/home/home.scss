@@ -1,0 +1,17 @@
+.home {
+    width: 960px;
+    background: #fff;
+
+    &-section {
+        margin-bottom: 10px;
+    }
+
+    &-title, &-count {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    &-buttons {
+        width: 400px;
+    }
+}
