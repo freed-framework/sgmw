@@ -21,6 +21,15 @@ export default [
     }]
   },
   {
+    path: '/diveCustomers',
+    name: '潜在客户线索',
+    component: Layout,
+    children: [{
+      path: 'diveCusClue',
+      component: () => import('@/views/diveCustomers/diveCusClue/index.vue')
+    }]
+  },
+  {
     path: '/404',
     name: '404',
     hidden: true,
