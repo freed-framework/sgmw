@@ -3,33 +3,28 @@
     <div class="sg-header">
       <el-form ref="form" :model="form" label-width="84px">
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="日期">
-              <el-date-picker
-                v-model="form.date1"
-                type="year"
-                placeholder="选择年">
+          <el-col :span="12" class="time-group" style="display: flex;">
+            <el-form-item label="注册日期">
+              <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
+                :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
               </el-date-picker>
-              <el-form-item label="至" label-width="25px"/>
-              <el-date-picker
-                v-model="form.date2"
-                type="year"
-                placeholder="选择年">
-              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="至" label-width="25px">
+                <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
+                  :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="KPI类型">
-              <el-select v-model="form.kpi" placeholder="请选择KPI类型">
+            <el-form-item label="厂牌">
+              <el-select v-model="form.kpi" placeholder="请选择厂牌">
                 <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="经销商状态">
-              <el-select v-model="form.dealerStatus" placeholder="请选择经销商状态" >
-                <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text" :value="index" ></el-option>
-              </el-select>
+            <el-form-item label="单据数：" label-width="110px">
+              123
             </el-form-item>
           </el-col>
         </el-row>
@@ -42,7 +37,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :pull="1">
             <el-form-item label="省份">
               <el-select v-model="form.region" placeholder="请选择省份">
                 <el-option label="区域一" value="shanghai"></el-option>
@@ -51,99 +46,46 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="经销商号">
-              <el-input v-model="form.name" placeholder="请输入经销商号"></el-input>
+            <el-form-item label="经销商">
+              <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="销售顾问">
-              <el-input v-model="form.guwen" placeholder="请输入销售顾问"></el-input>
+            <el-form-item label="车系" label-width="110px">
+              <el-select v-model="form.dealerStatus" placeholder="请选择经车系" >
+                <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text" :value="index" ></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="6">
-            <el-form-item label="客户级别">
-              <el-select v-model="form.customerLevel" placeholder="请选择客户级别">
-                <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
+            <el-form-item label="型号">
+              <el-select v-model="form.dealerStatus" placeholder="请选择型号" >
+                <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text" :value="index" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="潜客类型">
-              <el-select v-model="form.customerType" placeholder="请选择潜客类型">
-                <el-option v-for="(text, index) in customerType" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
+          <el-col :span="6" :pull="1">
+            <el-form-item label="物料号">
+              <el-input v-model="form.name" placeholder="请输入物料号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="经销商渠道">
-              <el-select v-model="form.leadChannel" placeholder="请选择经销商渠道">
+            <el-form-item label="颜色">
+              <el-input v-model="form.name" placeholder="请输入颜色"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="省会/地级/县级" label-width="110px">
+              <el-select v-model="form.leadChannel" placeholder="请选择省会/地级/县级">
                 <el-option v-for="(text, index) in leadChannel" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="最后结果">
-              <el-select v-model="form.finalResult" placeholder="请选择最后结果">
-                <el-option v-for="(text, index) in finalResult" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">
-            <el-form-item label="品牌">
-              <el-select v-model="form.region" placeholder="请选择品牌">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="品种">
-              <el-select v-model="form.region" placeholder="请选择品种">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="车系">
-              <el-select v-model="form.region" placeholder="请选择车系">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="车型">
-              <el-select v-model="form.region" placeholder="请选择车型">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="是否试驾">
-              <el-select v-model="form.testDrive" placeholder="请选择是否试驾">
-                <el-option v-for="(text, index) in testDrive" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="到店次数">
-              <el-input-number v-model="form.region" :min="0" label="到店次数"></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="单据数：">
-              123
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :offset="18">
             <el-form-item>
               <el-button type="primary">检索</el-button>
               <el-button type="success">导出</el-button>
@@ -161,18 +103,26 @@
           style="width: 100%"
           :row-class-name="tableRowClassName">>
           <el-table-column
-            prop="date"
-            label="日期"
+            prop="type"
+            label="潜客类型"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="name"
-            label="姓名"
+            prop="way"
+            label="线索渠道"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="address"
-            label="地址">
+            prop="status"
+            label="线索状态">
+          </el-table-column>
+          <el-table-column
+            prop="total"
+            label="总计">
+          </el-table-column>
+          <el-table-column
+            prop="zeroOne"
+            label="01">
           </el-table-column>
         </el-table>
       </pag-table>

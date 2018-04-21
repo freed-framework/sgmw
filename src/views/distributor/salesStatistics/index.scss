@@ -1,4 +1,4 @@
-.sg-custom {
+.sg-salesStatistics {
   .el-row {
     &:last-child {
       margin-bottom: 0;
@@ -23,5 +23,15 @@
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  .el-form-item__content{
+    display: flex;
+  }
+  .el-input__icon{
+    height: 32px;
+  }
+
+  .timestamp{
+    
   }
 }

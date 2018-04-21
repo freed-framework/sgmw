@@ -31,21 +31,29 @@ export default class Index extends mixins(TableColor) {
   testDrive: Array<any> = testDrive
 
   tableData: Array<any> = [{
-    date: '2016-05-02',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1518 弄'
+    type: '2016-05-02',
+    way: '王小虎',
+    status: '上海市普陀区金沙江路 1518 弄',
+    total: '上海市普陀区金沙江路 1518 弄',
+    zeroOne: '上海市普陀区金沙江路 1518 弄'
   }, {
-    date: '2016-05-04',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1517 弄'
+    type: '2016-05-02',
+    way: '王小虎',
+    status: '上海市普陀区金沙江路 1518 弄',
+    total: '上海市普陀区金沙江路 1518 弄',
+    zeroOne: '上海市普陀区金沙江路 1518 弄'
   }, {
-    date: '2016-05-01',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1519 弄'
+    type: '2016-05-02',
+    way: '王小虎',
+    status: '上海市普陀区金沙江路 1518 弄',
+    total: '上海市普陀区金沙江路 1518 弄',
+    zeroOne: '上海市普陀区金沙江路 1518 弄'
   }, {
-    date: '2016-05-03',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1516 弄'
+    type: '2016-05-02',
+    way: '王小虎',
+    status: '上海市普陀区金沙江路 1518 弄',
+    total: '上海市普陀区金沙江路 1518 弄',
+    zeroOne: '上海市普陀区金沙江路 1518 弄'
   }]
 
   created() {

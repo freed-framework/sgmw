@@ -1,5 +1,5 @@
 <template>
-  <div class="sg-custom">
+  <div class="sg-inspectionSystem">
     <div class="sg-header">
       <el-form ref="form" :model="form" label-width="84px">
         <el-row>
@@ -80,18 +80,26 @@
           style="width: 100%"
           :row-class-name="tableRowClassName">>
           <el-table-column
-            prop="date"
-            label="日期"
+            prop="type"
+            label="潜客类型"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="name"
-            label="姓名"
+            prop="way"
+            label="线索渠道"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="address"
-            label="地址">
+            prop="status"
+            label="线索状态">
+          </el-table-column>
+          <el-table-column
+            prop="total"
+            label="总计">
+          </el-table-column>
+          <el-table-column
+            prop="zeroOne"
+            label="01">
           </el-table-column>
         </el-table>
       </pag-table>
