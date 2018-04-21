@@ -4,15 +4,17 @@
       <el-form ref="form" :model="form" label-width="84px">
         <el-row>
           <el-col :span="12">
-            <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
             <el-form-item label="日期">
               <el-date-picker
                 v-model="form.date1"
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                style="width: 100%;">
+                type="year"
+                placeholder="选择年">
+              </el-date-picker>
+              <el-form-item label="至" label-width="25px"/>
+              <el-date-picker
+                v-model="form.date2"
+                type="year"
+                placeholder="选择年">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -92,7 +94,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="品牌">
-              <el-select v-model="form.region11" placeholder="请选择品牌">
+              <el-select v-model="form.region" placeholder="请选择品牌">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
               </el-select>
@@ -100,7 +102,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="品种">
-              <el-select :disabled="!form.region11" v-model="form.region12" placeholder="请选择品种">
+              <el-select v-model="form.region" placeholder="请选择品种">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
               </el-select>
@@ -108,7 +110,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="车系">
-              <el-select v-model="form.region13" placeholder="请选择车系">
+              <el-select v-model="form.region" placeholder="请选择车系">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
               </el-select>
@@ -116,7 +118,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="车型">
-              <el-select v-model="form.region14" placeholder="请选择车型">
+              <el-select v-model="form.region" placeholder="请选择车型">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
               </el-select>
@@ -143,8 +145,8 @@
           </el-col>
           <el-col :span="6">
             <el-form-item>
-              <el-button type="primary" @click="submitForm('form')">检索</el-button>
-              <el-button type="success" @click="resetForm('form')">导出</el-button>
+              <el-button type="primary">检索</el-button>
+              <el-button type="success">导出</el-button>
               <el-button>重置</el-button>
             </el-form-item>
           </el-col>
