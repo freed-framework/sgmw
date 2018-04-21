@@ -39,6 +39,17 @@ const asyncRoutes = [
       component: () => import('@/views/book/index.vue'),
       meta: { role: [ 'book' ] },
     }]
+  },{
+    path: '/distributor',
+    name: '经销商自建线索',
+    component: Layout,
+    meta: { role: [ 'distributor' ] },
+    children: [{
+      path: 'inspection',
+      name: '列表',
+      component: () => import('@/views/distributor/inspection/inspectionList.vue'),
+      meta: { role: [ 'distributor' ] },
+    }]
   },
   {
     path: '/404',
