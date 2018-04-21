@@ -192,10 +192,7 @@ const getters = {
   token: (state) => state.token || ls.get(TOKEN_KEY),
   role: (state) => state.role,
   routes: (state) => state.routes,
-  menus: (state) => {
-    console.log(state.menus)
-    return state.menus
-  }
+  menus: (state) => state.menus
 }
 
 export default {
