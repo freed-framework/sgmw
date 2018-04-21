@@ -17,6 +17,7 @@
       <!-- 分页 -->
       <div class="pag-data-pagination">
         <el-pagination
+          v-if="handlePageChange"
           background
           :disabled="loading"
           layout="prev, pager, next"
@@ -33,7 +34,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
-const noop = () => {}
+function noop() {}
 
 @Component
 export default class PagTable extends Vue {
