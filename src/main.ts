@@ -11,13 +11,15 @@ import Boxer from './components/boxer/index.vue'
 import './assets/common.scss'
 // import './assets/element-chalk.scss'
 import 'element-ui/lib/theme-chalk/index.css'
+import PagTable from '@/components/pag-table/index.vue'
 
 const unsync = sync(store, router) // eslint-disable-line
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
+Vue.use(ElementUI, { size: 'small' })
 Vue.component('boxer', Boxer)
+Vue.component('PagTable', PagTable)
 // 加载骨架
 Vue.use(Skeleton)
 
