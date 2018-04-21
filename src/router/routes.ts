@@ -31,7 +31,7 @@ const asyncRoutes = [
     children: [{
       path: '',
       component: () => import('@/views/book/index.vue'),
-      meta: { role: [ 'book' ] },
+      meta: { role: [ '' ] },
     }]
   },
   {
