@@ -31,7 +31,18 @@ const asyncRoutes = [
     children: [{
       path: '',
       component: () => import('@/views/book/index.vue'),
-      meta: { role: [ 'book' ] },
+      meta: { role: [ '' ] },
+    }]
+  },
+  {
+    path: '/customerManagement',
+    name: '客户管理关键KPI',
+    component: Layout,
+    meta: { role: [ 'book' ] },
+    children: [{
+      path: '',
+      component: () => import('@/views/kpi/customerManagement/index.vue'),
+      meta: { role: [ 'admin' ] }
     }]
   },
   {
