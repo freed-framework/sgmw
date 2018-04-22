@@ -28,13 +28,13 @@ export default class Index extends mixins(TableColor) {
   activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
-    title: '销量统计-年',
+    title: '客户统计-年',
     name: '1'
   }, {
-    title: '销量统计-月',
+    title: '客户统计-月',
     name: '2'
   }, {
-    title: '销量统计-日',
+    title: '客户统计-日',
     name: '3'
   }]
   tabIndex: number = 2

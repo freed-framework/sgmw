@@ -154,6 +154,11 @@
             </el-row>
             <el-row>
               <el-col :span="6">
+                <el-form-item label="到店次数">
+                  <el-input v-model="form.name" placeholder="请输入到店次数"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
                 <el-form-item label="单据数：">
                   123
                 </el-form-item>
@@ -177,29 +182,63 @@
               :row-class-name="tableRowClassName">>
               <el-table-column
                 prop="cors"
-                label="区域"
-                width="180">
+                label="客户级别">
               </el-table-column>
               <el-table-column
                 prop="pro"
-                label="省份"
-                width="180">
+                label="省份">
               </el-table-column>
               <el-table-column
                 prop="code"
-                label="车系">
+                label="潜客类型">
               </el-table-column>
               <el-table-column
                 prop="type"
-                label="型号">
+                label="线索渠道">
               </el-table-column>
               <el-table-column
                 prop="color"
-                label="颜色">
+                label="是否试驾">
               </el-table-column>
               <el-table-column
-                prop="ssx"
-                label="省会/地级/县级">
+                prop="shenf"
+                label="省分">
+              </el-table-column>
+              <el-table-column
+                prop="city"
+                label="城市">
+              </el-table-column>
+              <el-table-column
+                prop="xianf"
+                label="县区">
+              </el-table-column>
+              <el-table-column
+                prop="pinp"
+                label="品牌">
+              </el-table-column>
+              <el-table-column
+                prop="pinz"
+                label="品种">
+              </el-table-column>
+              <el-table-column
+                prop="chex"
+                label="车系">
+              </el-table-column>
+              <el-table-column
+                prop="xingh"
+                label="型号">
+              </el-table-column>
+              <el-table-column
+                prop="creat"
+                label="创建方式">
+              </el-table-column>
+              <el-table-column
+                prop="total"
+                label="总计">
+              </el-table-column>
+              <el-table-column
+                prop="01"
+                label="01">
               </el-table-column>
             </el-table>
           </pag-table>
