@@ -135,6 +135,14 @@
                 prop="ssx"
                 label="省会/地级/县级">
               </el-table-column>
+              <el-table-column
+                prop="total"
+                label="总计">
+              </el-table-column>
+              <el-table-column
+                prop="2017"
+                label="2017">
+              </el-table-column>
             </el-table>
           </pag-table>
         </div>

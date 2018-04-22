@@ -10,7 +10,7 @@
           <div class="sg-header">
             <el-form ref="form" :model="form" label-width="84px">
               <el-row>
-                <el-col :span="12">
+                <el-col :span="10">
                   <el-form-item label="日期">
                     <el-date-picker
                       v-model="form.date1"
@@ -22,7 +22,7 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="6" :offset="2">
                   <el-form-item label="经销商号">
                     <el-input v-model="form.name" placeholder="请输入经销商号"></el-input>
                   </el-form-item>
