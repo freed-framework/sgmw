@@ -52,6 +52,18 @@ const asyncRoutes = [
     }]
   },
   {
+    path: '/diveCustomers',
+    name: '潜在客户管理',
+    component: Layout,
+    meta: { role: [ 'book' ] },
+    children: [{
+      path: 'diveCusClue',
+      name: '厂家潜客线索',
+      component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+      meta: { role: [ 'admin' ] }
+    }]
+  },
+  {
     path: '/404',
     name: '404',
     hidden: true,
