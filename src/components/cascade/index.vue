@@ -46,8 +46,10 @@ let cache = {
   select4: ''
 }
 
-@Component
-export default class Cascade extends mixins(emitter) {
+@Component({
+  mixins: [emitter]
+})
+export default class Cascade extends Vue {
   @Prop() value: any
 
   form: any = {
@@ -63,7 +65,7 @@ export default class Cascade extends mixins(emitter) {
     const { select1, ...props } = cache;
     // const { dispatch: any } = this;
     Object.assign(this.form, props);
-    // dispatch('ElFormItem', 'el.form.change', [this.form]);
+    this.dispatch('ElFormItem', 'el.form.change', [this.form]);
   }
 
   @Watch('form.select2')
@@ -80,6 +82,6 @@ export default class Cascade extends mixins(emitter) {
 }
 </script>
 <style lang="scss">
-@import './index.scss'
+@import './index.scss';
 </style>
 
