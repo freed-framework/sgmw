@@ -79,7 +79,10 @@ export const getRole = () => {
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(roles)
+      resolve({
+        code: 200,
+        data: roles
+      })
     }, 2000)
   })
 }

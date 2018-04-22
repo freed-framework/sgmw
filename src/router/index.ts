@@ -27,7 +27,7 @@ function isConstantRoute(path) {
  * 创建所有路由
  * @param action store.actions
  */
-function creaetRoutesFn(action) {
+function createRoutes(action) {
   return new Promise(resolve => {
     // 添加 auth role
     action.then(() => {
@@ -54,13 +54,13 @@ function beforeRole(to, next) {
     // 如果在静态路由中 则直接进入
     if (isConstantRoute(to.path)) {
       // 添加到所有路由
-      creaetRoutesFn(action)
+      createRoutes(action)
       // 进入路由
       next()
     } else {
       const hackto: any = { ...to, replace: true }
 
-      creaetRoutesFn(action).then(() => next(hackto))
+      createRoutes(action).then(() => next(hackto))
     }
   } else {
     next()
