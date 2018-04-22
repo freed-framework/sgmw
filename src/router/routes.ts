@@ -5,18 +5,17 @@ import NotFound from '@/components/layout/NotFound.vue'
 const constantRoutes = [
   {
     path: '/',
-    name: '首页',
     component: Layout,
     children: [{
       path: '',
+      meta: { text: '首页' },
       component: () => import('@/views/home/index.vue')
     }]
   },
   {
     path: '/login',
-    name: '用户登录',
     hidden: true,
-    component: Login
+    component: () => import('@/views/login/index.vue')
   }
 ]
 
@@ -25,35 +24,69 @@ export default constantRoutes
 const asyncRoutes = [
   {
     path: '/book',
-    name: '书籍',
     component: Layout,
-    meta: { role: [ 'book' ] },
+    meta: {
+      role: ['book'],
+      text: 'Book'
+    },
     children: [{
-      path: '',
-      name: '列表',
+      path: 'list',
       component: () => import('@/views/book/index.vue'),
-      meta: { role: [ 'book' ] },
+      meta: {
+        role: ['book'],
+        text: 'Book List'
+      },
     }, {
       path: 'detail',
-      name: '详情',
       component: () => import('@/views/book/index.vue'),
-      meta: { role: [ '' ] },
+      meta: {
+        role: ['book'],
+        text: 'Book Detail'
+      },
     }]
   },
   {
     path: '/customerManagement',
-    name: '客户管理关键KPI',
     component: Layout,
-    meta: { role: [ 'book' ] },
+    meta: {
+      role: ['book']
+    },
     children: [{
       path: '',
       component: () => import('@/views/kpi/customerManagement/index.vue'),
-      meta: { role: [ 'admin' ] }
+      meta: {
+        text: '客户管理关键KPI',
+        role: ['admin']
+      }
+    }]
+  }, {
+    path: '/distributor',
+    name: '经销商管理',
+    component: Layout,
+    meta: {
+      role: ['book'],
+      text: '经销商管理'
+    },
+    children: [{
+      path: 'inspectionSystem',
+      name: '经销商自建线索',
+      component: () => import('@/views/distributor/inspectionSystem/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '经销商自建线索'
+      },
+    }, {
+      path: 'salesStatistics',
+      name: '销量统计',
+      component: () => import('@/views/distributor/salesStatistics/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '销量统计'
+      },
     }]
   },
   {
     path: '/404',
-    name: '404',
     hidden: true,
     component: NotFound
   },

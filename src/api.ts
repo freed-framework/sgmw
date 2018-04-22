@@ -79,7 +79,12 @@ export const getRole = () => {
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(roles)
+      resolve({
+        code: 200,
+        data: roles
+      })
     }, 2000)
   })
 }
+
+export const login = (params) => http.post('/api/login', params)

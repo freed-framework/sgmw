@@ -15,14 +15,10 @@ router.options('*', function (req, res) {
 
 router.get('/api/get/book', (req, res) => res.json(require('./data/book')))
 router.get('/api/get/hello', (req, res) => res.json(require('./data/hello.json')))
-router.get('/manage/intermediaries/lists', (req, res) => res.json(require('./data/intermediaries.json')))
-router.get('/manage/intermediaries/edit', (req, res) => res.json(require('./data/intermEdit.json')))
-router.get('/manage/agent/group/lists', (req, res) => res.json(require('./data/agentGroups.json')))
-router.get('/manage/agent/search/users', (req, res) => res.json(require('./data/agent.json')))
-router.get('/manage/agent/search/groups', (req, res) => res.json(require('./data/agentGroups.json')))
-// router.get('/manage/seller/users/lists', (req, res) => res.json(require('./data/sellerLists.json')))
-router.get('/manage/seller/groups/lists', (req, res) => res.json(require('./data/sellerListSearchGroups.json')))
-router.get('/api/get/reservations/detail', (req, res) => res.json(require('./data/reservationsDetail.json')))
-
+router.post('/api/login', (req, res) => {
+  setTimeout(() => {
+    res.json(require('./data/login.json'))
+  }, 1000)
+})
 
 module.exports = router

@@ -1,7 +1,8 @@
 import ls from '@/util/localStorage'
 import { ssoLogin, ssoLogout } from '@/util/auth'
 import { constantRoutes, asyncRoutes } from '@/router/routes'
-import { getRole } from '@/api'
+import { getRole, login } from '@/api'
+import { getAuthRoutes, getMenus } from '@/util/permission'
 
 const TOKEN_KEY = 'TOKEN'
 
@@ -16,11 +17,13 @@ const ActionType = {
   SET_ROUTERS: 'SET_ROUTERS',
   // 是否完成权限接口
   ROLE_DONE: 'ROLE_DONE',
+  // 设置用户信息
+  SET_USER: 'SET_USER',
 }
 
 export interface StateType {
-  token: null | string,
-  userInfo: {} | Object,
+  token: string | null,
+  user: {} | Object,
   [prop: string]: any
 }
 
@@ -28,7 +31,7 @@ const state: StateType = {
   // 储存用户 token, 暂时默认为 true
   token: null,
   // 用户信息
-  userInfo: {},
+  user: {},
   // 判断是否拉取了权限
   role: false,
   // 可用路由
@@ -59,6 +62,11 @@ const mutations = {
   },
   [ActionType.ROLE_DONE](state: StateType, done: boolean) {
     state.role = done
+  },
+  [ActionType.SET_USER](state: StateType, payload: any) {
+    state.user = {
+      ...payload
+    }
   }
 }
 
@@ -76,61 +84,27 @@ const actions = {
     ssoLogin()
   },
   // 登录
-  login({ commit }, options) {
-    commit(ActionType.SET_TOKEN, '123')
+  async login({ commit }, params) {
+    const res = await login(params)
+
+    commit(ActionType.SET_USER, res.data)
+    commit(ActionType.SET_TOKEN, '1')
   },
   // 通过权限接口的返回创建最终路由
   async getRoles({ commit }, data) {
-    const res = await getRole()
+    const res: any = await getRole()
+    const authRoutes = getAuthRoutes(res.data, asyncRoutes)
 
-    commit(ActionType.SET_ROUTERS, getAuthRoutes(res))
+    commit(ActionType.SET_ROUTERS, authRoutes)
     commit(ActionType.ROLE_DONE, true)
   }
-}
-
-/**
- * 判断是否有相应权限
- * @param roles 权限数组
- * @param route 单个路由
- */
-function hasPermission(roles: string[], route: any) {
-  if (route.meta && route.meta.role) {
-    return roles.some(role => route.meta.role.indexOf(role) >= 0)
-  } else {
-    return true
-  }
-}
-
-/**
- * 获取有权限的路由
- * @param roles 权限列表
- */
-function getAuthRoutes(roles) {
-  return asyncRoutes.filter(route => {
-    if (hasPermission(roles, route)) {
-      // 是否存在子路由
-      if (route.children && route.children.length > 0) {
-        const chidlren: any = route.children
-        // 判断子路由权限
-        route.children = chidlren.filter(child => {
-          if (hasPermission(roles, child)) {
-            return child
-          }
-          return false
-        })
-
-        return route
-      } else {
-        return route
-      }
-    }
-  })
 }
 
 const getters = {
   token: (state) => state.token || ls.get(TOKEN_KEY),
   role: (state) => state.role,
-  routes: (state) => state.routes
+  routes: (state) => state.routes,
+  menus: (state) => getMenus(state.routes)
 }
 
 export default {
