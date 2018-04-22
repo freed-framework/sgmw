@@ -35,6 +35,7 @@
   </el-row>
 </template>
 <script lang="ts">
+/* eslint-disable */
 import emitter from 'element-ui/src/mixins/emitter';
 import { mixins } from 'vue-class-component'
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
@@ -63,7 +64,7 @@ export default class Cascade extends mixins(Emitter) {
 
   @Watch('form.select1')
   watchSelct1(val) {
-    const { select1, ...props } = cache;
+    const { select1, ...props } = cache
     // const { dispatch: any } = this;
     Object.assign(this.form, props);
     this.dispatch('ElFormItem', 'el.form.change', [this.form]);
