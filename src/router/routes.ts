@@ -83,6 +83,14 @@ const asyncRoutes = [
         role: ['admin'],
         text: '销量统计'
       },
+    }, {
+      path: 'subStatistics',
+      name: '潜客统计',
+      component: () => import('@/views/distributor/subStatistics/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '潜客统计'
+      },
     }]
   },
   {
