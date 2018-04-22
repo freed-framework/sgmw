@@ -11,7 +11,7 @@
               <el-date-picker
                 v-model="value4"
                 type="month"
-                placeholder="选择月">
+                placeholder="选择月份">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -47,7 +47,7 @@
           </el-col>
            <el-col :span="8">
             <el-form-item label="平台">
-              <el-select v-model="form.customerLevel" placeholder="">
+              <el-select v-model="form.customerLevel" placeholder="请选择平台">
                 <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
@@ -56,21 +56,21 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="主渠道">
-              <el-select v-model="form.customerLevel" placeholder="">
+              <el-select v-model="form.customerLevel" placeholder="请选择主渠道">
                 <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="分渠道">
-              <el-select v-model="form.customerType" placeholder="">
+              <el-select v-model="form.customerType" placeholder="请选择分渠道">
                 <el-option v-for="(text, index) in customerType" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="子渠道">
-              <el-select v-model="form.testDrive" placeholder="请选择是否试驾">
+              <el-select v-model="form.testDrive" placeholder="请选择子渠道">
                 <el-option v-for="(text, index) in testDrive" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
@@ -79,7 +79,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="线索类型">
-              <el-select v-model="form.testDrive" placeholder="线索类型">
+              <el-select v-model="form.testDrive" placeholder="请选择线索类型">
                 <el-option v-for="(text, index) in testDrive" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
@@ -100,7 +100,7 @@
         </el-row>
       </el-form>
       </div>
-      <div class="sg-mian">
+      <div class="sg-main">
         <pag-table v-if="activeName === 1">
           <el-table
             :data="tableData"

@@ -16,71 +16,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="品牌">
-              <el-select v-model="form.kpi" placeholder="请选择品牌">
+            <el-form-item label="客户类型">
+              <el-select v-model="form.kpi" placeholder="请选择">
                 <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="区域">
-              <el-select v-model="form.region" placeholder="请选择区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="省份">
-              <el-select v-model="form.region" placeholder="请选择省份">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="经销商">
-              <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
-            </el-form-item>
-          </el-col>
-           <el-col :span="8">
-            <el-form-item label="平台">
-              <el-select v-model="form.customerLevel" placeholder="">
-                <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="主渠道">
-              <el-select v-model="form.customerLevel" placeholder="">
-                <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="分渠道">
-              <el-select v-model="form.customerType" placeholder="">
-                <el-option v-for="(text, index) in customerType" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="子渠道">
-              <el-select v-model="form.testDrive" placeholder="请选择是否试驾">
-                <el-option v-for="(text, index) in testDrive" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="线索类型">
-              <el-select v-model="form.testDrive" placeholder="线索类型">
-                <el-option v-for="(text, index) in testDrive" :key="index" :label="text" :value="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -96,8 +34,8 @@
               <el-button>重置</el-button>
             </el-form-item>
           </el-col>
-        
         </el-row>
+      
       </el-form>
       </div>
       <div class="sg-mian">
