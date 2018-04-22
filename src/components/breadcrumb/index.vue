@@ -14,31 +14,22 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import { Breadcrumb, BreadcrumbItem } from 'element-ui'
 import { State } from 'vuex-class'
 
-@Component({
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem
-  }
-})
+@Component
 export default class BreadcrumbLayer extends Vue {
   level: any = []
 
   @State('route') route: any
-  @Watch('route')
-  watchRoute() {
-    this.getBreadcrumb()
-  }
 
-  created() {
+  @Watch('route')
+  onRouteChanged() {
     this.getBreadcrumb()
   }
 
   getBreadcrumb(): void {
     const routes = this.$route.matched.map(item => ({
-      name: item.name,
+      name: item.meta.text,
       path: item.path,
       pageRoot: false,
     }))
@@ -54,11 +45,15 @@ export default class BreadcrumbLayer extends Vue {
 
     const f = matched[0]
 
-    if (f && f.path !== '') {
+    if (f && f.path !== '/') {
       this.level = [{ path: '/', name: '首页' }].concat(matched)
     } else {
       this.level = matched
     }
+  }
+
+  created() {
+    this.getBreadcrumb()
   }
 }
 </script>
