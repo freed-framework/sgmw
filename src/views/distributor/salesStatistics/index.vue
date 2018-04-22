@@ -103,26 +103,30 @@
           style="width: 100%"
           :row-class-name="tableRowClassName">>
           <el-table-column
+            prop="cors"
+            label="区域"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="pro"
+            label="省份"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="code"
+            label="车系">
+          </el-table-column>
+          <el-table-column
             prop="type"
-            label="潜客类型"
-            width="180">
+            label="型号">
           </el-table-column>
           <el-table-column
-            prop="way"
-            label="线索渠道"
-            width="180">
+            prop="color"
+            label="颜色">
           </el-table-column>
           <el-table-column
-            prop="status"
-            label="线索状态">
-          </el-table-column>
-          <el-table-column
-            prop="total"
-            label="总计">
-          </el-table-column>
-          <el-table-column
-            prop="zeroOne"
-            label="01">
+            prop="ssx"
+            label="省会/地级/县级">
           </el-table-column>
         </el-table>
       </pag-table>
