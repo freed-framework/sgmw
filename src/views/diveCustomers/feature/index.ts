@@ -19,35 +19,43 @@ import {
     tabs: Object = [
       {
         key: 1,
-        text: '线索响应率'
+        text: '个人月收入'
       },
       {
         key: 2,
-        text: '线索有效率'
+        text: '家庭月收入'
       },
       {
         key: 3,
-        text: '线索成交率'
+        text: '文化水平'
       },
       {
         key: 4,
-        text: '线索战败率'
+        text: '从事行业'
       },
       {
         key: 5,
-        text: '线索试驾率'
+        text: '从事职业'
       },
       {
         key: 6,
-        text: '线索响应时间'
+        text: '车辆使用地市'
       },
       {
         key: 7,
-        text: '渠道线索量'
+        text: '车辆使用区县'
       },
       {
         key: 8,
-        text: '战败原因'
+        text: '进店次数'
+      },
+      {
+        key: 9,
+        text: '进店次数与成交'
+      },
+      {
+        key: 10,
+        text: '年龄段'
       },
     ]
   

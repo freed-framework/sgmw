@@ -19,35 +19,35 @@ import {
     tabs: Object = [
       {
         key: 1,
-        text: '线索响应率'
+        text: '意向车系分析'
       },
       {
         key: 2,
-        text: '线索有效率'
+        text: '意向车型分析'
       },
       {
         key: 3,
-        text: '线索成交率'
+        text: '购车用途分析'
       },
       {
         key: 4,
-        text: '线索战败率'
+        text: '意向颜色分析'
       },
       {
         key: 5,
-        text: '线索试驾率'
+        text: '参考第一竞品分析'
       },
       {
         key: 6,
-        text: '线索响应时间'
+        text: '参考第二竞品分析'
       },
       {
         key: 7,
-        text: '渠道线索量'
+        text: '购车预算分析'
       },
       {
         key: 8,
-        text: '战败原因'
+        text: '购车形态分析'
       },
     ]
   

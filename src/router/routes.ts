@@ -62,15 +62,41 @@ const asyncRoutes = [
   },
   {
     path: '/diveCustomers',
-    name: '潜在客户管理',
     component: Layout,
-    meta: { role: [ 'book' ] },
+    meta: { 
+      role: [ 'book' ],
+      text: '潜在客户管理'
+    },
     children: [{
       path: 'diveCusClue',
-      name: '厂家潜客线索',
       component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
-      meta: { role: [ 'admin' ] }
-    }]
+      meta: {
+        text: '厂家潜客线索',
+        role: [ 'admin' ]
+      }
+    },{
+      path: 'salerWorkNum',
+      component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
+      meta: {
+        text: '销售顾问工作量',
+        role: [ 'admin' ]
+      }
+    },{
+      path: 'buyerIntention',
+      component: () => import('@/views/diveCustomers/buyerIntention/index.vue'),
+      meta: {
+        text: '潜在客户购买意向分析',
+        role: [ 'admin' ]
+      }
+    },{
+      path: 'feature',
+      component: () => import('@/views/diveCustomers/feature/index.vue'),
+      meta: {
+        text: '潜在客户特征分析',
+        role: [ 'admin' ]
+      }
+    }
+  ]
   },
   {
     path: '/404',
