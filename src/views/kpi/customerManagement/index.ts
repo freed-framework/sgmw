@@ -10,8 +10,13 @@ import {
   finalResult, testDrive
 } from '../../../dictionary'
 import { kpi } from './kpi'
+import Cascade from '../../../components/cascade/index.vue'
 
-@Component
+@Component({
+  components: {
+    Cascade
+  }
+})
 export default class Index extends mixins(TableColor) {
   form: any = {
     dealerStatus: 0,
@@ -21,6 +26,13 @@ export default class Index extends mixins(TableColor) {
     finalResult: 0,
     testDrive: '',
     kpi: 0
+  }
+
+  select: any = {
+    select1: '',
+    select2: '',
+    select3: '',
+    select4: ''
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -48,6 +60,11 @@ export default class Index extends mixins(TableColor) {
     name: '王小虎',
     address: '上海市普陀区金沙江路 1516 弄'
   }]
+
+  @Watch('select')
+  watchSelect(val) {
+    console.log(val, '----------------------')
+  }
 
   submitForm(formName) {
     const $form: any = this.$refs[formName]
