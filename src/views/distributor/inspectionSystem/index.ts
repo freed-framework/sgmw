@@ -19,8 +19,10 @@ export default class Index extends mixins(TableColor) {
     dealerleadChannel: '',
     leadChannel: 0,
     finalResult: 0,
-    testDrive: ''
+    testDrive: '',
   }
+  activeName: string = 'first'
+
 
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
@@ -29,6 +31,7 @@ export default class Index extends mixins(TableColor) {
   leadChannel: Array<any> = leadChannel
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
+
 
   tableData: Array<any> = [{
     type: '2016-05-02',
@@ -58,5 +61,9 @@ export default class Index extends mixins(TableColor) {
 
   created() {
     console.log(this.dealerStatus)
+  }
+
+  handleClick(tab, event) {
+    console.log(tab, event);
   }
 }

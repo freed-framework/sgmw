@@ -24,6 +24,7 @@ export default class Index extends mixins(TableColor) {
     endDatePicker: this.processDate(),
     kpi: 0
   }
+  activeName: string = 'first'  
 
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
@@ -64,6 +65,10 @@ export default class Index extends mixins(TableColor) {
   }]
 
   $refs: any
+
+  handleClick(tab, event) {
+    console.log(tab, event);
+  }
 
   created() {
     console.log(this.dealerStatus)
