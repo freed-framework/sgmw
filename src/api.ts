@@ -83,3 +83,5 @@ export const getRole = () => {
     }, 2000)
   })
 }
+
+export const login = (params) => http.post('/api/login', params)
