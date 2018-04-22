@@ -38,6 +38,7 @@
 import emitter from 'element-ui/src/mixins/emitter';
 import { mixins } from 'vue-class-component'
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+import Emitter from '@/mixins/Emitter'
 
 let cache = {
   select1: '',
@@ -47,9 +48,9 @@ let cache = {
 }
 
 @Component({
-  mixins: [emitter]
+  // mixins: [emitter]
 })
-export default class Cascade extends Vue {
+export default class Cascade extends mixins(Emitter) {
   @Prop() value: any
 
   form: any = {
