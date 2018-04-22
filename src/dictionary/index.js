@@ -1,30 +1,30 @@
 // 经销商状态
-export const dealerStatus = ['非注销']
+export const dealerStatus = [{label: '非注销'}]
 // 客户类型
-export const dealerCustomerType = ['全部', '自然到店（来电）', '互联网营销', '客户营销', '营销活动']
+export const dealerCustomerType = [{label: '全部'}, {label: '自然到店（来电）'}, {label: '互联网营销'}, {label: '客户营销'}, {label: '营销活动'}]
 // 线索渠道 经销商
-export const leadChannel = ['全部', '自然到店', '来电咨询', '经销商互联网', '员工自媒体推广', '基盘客户转介绍', '基盘客户转换购', '员工购车及介绍', '行销', '商圈展示', '车展', '客户拦截']
+export const leadChannel = [{label: '全部'}, {label: '自然到店'}, {label: '来电咨询'}, {label: '经销商互联网'}, {label: '员工自媒体推广'}, {label: '基盘客户转介绍'}, {label: '基盘客户转换购'}, {label: '员工购车及介绍'}, {label: '行销'}, {label: '商圈展示'}, {label: '车展'}, {label: '客户拦截'}]
 // 线索状态
-export const leadStatus = ['全部', '未跟进', '跟进中', '已成交', '已战败']
+export const leadStatus = [{label: '全部'}, {label: '未跟进'}, {label: '跟进中'}, {label: '已成交'}, {label: '已战败'}]
 // 厂牌
-export const brand = ['空', '五菱', '宝骏', '专用车']
+export const brand = [{label: '空'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
 // 最后结果
-export const finalResult = ['全部', '待定', '已成交', '已战败']
+export const finalResult = [{label: '全部'}, {label: '待定'}, {label: '已成交'}, {label: '已战败'}]
 // 客户级别
-export const customerLevel = ['空', '全部', '0级', 'H级', 'A级', 'B级', 'C级', 'N级', 'F级']
+export const customerLevel = [{label: '空'}, {label: '全部'}, {label: '0级'}, {label: 'H级'}, {label: 'A级'}, {label: 'B级'}, {label: 'C级'}, {label: 'N级'}, {label: 'F级'}]
 // 线索渠道
-export const dealerleadChannel = ['经销商自建线索“线索渠道', '厂家互联网投放-广告投放', '厂家互联网投放-广告投放', '厂家互联网投放-自有平台', '厂家互联网投放-采集平台', '厂家互联网投放-电商平台']
+export const dealerleadChannel = [{label: '经销商自建线索“线索渠道'}, {label: '厂家互联网投放-广告投放'}, {label: '厂家互联网投放-广告投放'}, {label: '厂家互联网投放-自有平台'}, {label: '厂家互联网投放-采集平台'}, {label: '厂家互联网投放-电商平台'}]
 // 汽车品牌
-export const carBrands = ['全部', '五菱', '宝骏']
+export const carBrands = [{label: '全部'}, {label: '五菱'}, {label: '宝骏'}]
 // 是否试驾
-export const testDrive = ['是', '否']
+export const testDrive = [{label: '是'}, {label: '否'}]
 // 创建方式
-export const createType = ['全部', '网站', '手机']
+export const createType = [{label: '全部'}, {label: '网站'}, {label: '手机'}]
 // 厂家潜客线索
-export const leadType = ['促销车订购', '预约试乘试驾', '在线询价', '促销活动', '常规车预定', '来电咨询', '在线留言咨询', 'GMAC贷款购车', '其他贷款购车', '活动报名', '其他']
+export const leadType = [{label: '促销车订购'}, {label: '预约试乘试驾'}, {label: '在线询价'}, {label: '促销活动'}, {label: '常规车预定'}, {label: '来电咨询'}, {label: '在线留言咨询'}, {label: 'GMAC贷款购车'}, {label: '其他贷款购车'}, {label: '活动报名'}, {label: '其他'}]
 // 季度
-export const quarterly = ['Q1', 'Q2', 'Q3', 'Q4']
+export const quarterly = [{label: 'Q1'}, {label: 'Q2'}, {label: 'Q3'}, {label: 'Q4'}]
 // 经营性质
-export const businessNature = ['一级', '二级']
+export const businessNature = [{label: '一级'}, {label: '二级'}]
 // 客户类型
-export const customerType = ['直接来店', '来电咨询', '外展及其他', '经销商互联网']
+export const customerType = [{label: '直接来店'}, {label: '来电咨询'}, {label: '外展及其他'}, {label: '经销商互联网'}]
