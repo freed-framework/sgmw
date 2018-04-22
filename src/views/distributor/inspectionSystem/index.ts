@@ -21,8 +21,19 @@ export default class Index extends mixins(TableColor) {
     finalResult: 0,
     testDrive: '',
   }
-  activeName: string = 'first'
-
+  activeName: string = '1'
+  editableTabsValue: string = '2'
+  editableTabs: any = [{
+    title: '线索统计-年',
+    name: '1'
+  }, {
+    title: '线索统计-月',
+    name: '2'
+  }, {
+    title: '线索统计-日',
+    name: '3'
+  }]
+  tabIndex: number = 2
 
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
