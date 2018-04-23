@@ -13,7 +13,9 @@
     "build": "node ./build/build.js --watch",
     "mock": "json-server --port 9999 --watch ./mock/db.json"
   },
-  "pre-commit": [],
+  "pre-commit": [
+    "prelint"
+  ],
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.2.2",

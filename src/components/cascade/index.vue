@@ -35,9 +35,11 @@
   </el-row>
 </template>
 <script lang="ts">
+/* eslint-disable */
 import emitter from 'element-ui/src/mixins/emitter';
 import { mixins } from 'vue-class-component'
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+import Emitter from '@/mixins/Emitter'
 
 let cache = {
   select1: '',
@@ -46,8 +48,10 @@ let cache = {
   select4: ''
 }
 
-@Component
-export default class Cascade extends mixins(emitter) {
+@Component({
+  // mixins: [emitter]
+})
+export default class Cascade extends mixins(Emitter) {
   @Prop() value: any
 
   form: any = {
@@ -60,10 +64,10 @@ export default class Cascade extends mixins(emitter) {
 
   @Watch('form.select1')
   watchSelct1(val) {
-    const { select1, ...props } = cache;
+    const { select1, ...props } = cache
     // const { dispatch: any } = this;
     Object.assign(this.form, props);
-    // dispatch('ElFormItem', 'el.form.change', [this.form]);
+    this.dispatch('ElFormItem', 'el.form.change', [this.form]);
   }
 
   @Watch('form.select2')
@@ -80,6 +84,6 @@ export default class Cascade extends mixins(emitter) {
 }
 </script>
 <style lang="scss">
-@import './index.scss'
+@import './index.scss';
 </style>
 
