@@ -97,6 +97,7 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(formName) {
     const $form: any = this.$refs[formName]
+    console.log($form);
     $form.resetFields()
   }
 }
