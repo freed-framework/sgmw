@@ -6,10 +6,8 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
-} from '../../../dictionary'
-// import { kpi } from './kpi'
+  customerType
+} from '../../../dictionary/index.js'
 
   @Component
   export default class Index extends mixins(TableColor) {
@@ -52,21 +50,10 @@ import {
     ]
   
     form: any = {
-      dealerStatus: 0,
-      customerLevel: 0,
       customerType: '',
-      leadChannel: 0,
-      finalResult: 0,
-      testDrive: '',
-      // kpi: 0
     }
   
-    dealerStatus: Array<any> = dealerStatus
-    customerLevel: Array<any> = customerLevel
     customerType: Array<any> = customerType
-    leadChannel: Array<any> = leadChannel
-    finalResult: Array<any> = finalResult
-    testDrive: Array<any> = testDrive
     // kpi: Array<any> = kpi
   
     tableData: Array<any> = [{
@@ -85,9 +72,11 @@ import {
       response_rate: '100.00'
     }]
   
-    submitForm(formName) {
+    submitForm(formName,index) {
+      console.log(1111,formName,index)
       const $form: any = this.$refs[formName]
-      $form.validate((valid) => {
+      console.log($form)
+      $form[index-1].validate((valid) => {
         if (valid) {
           console.log(this.form)
         } else {
@@ -97,9 +86,9 @@ import {
       })
     }
   
-    resetForm(formName) {
+    resetForm(formName, index) {
       const $form: any = this.$refs[formName]
-      $form.resetFields()
+      $form[index-1].resetFields();
     }
   }
   

@@ -120,8 +120,7 @@ const asyncRoutes = [
         text: '潜在客户特征分析',
         role: [ 'admin' ]
       }
-    }
-  ]
+    }]
   },
   {
     path: '/404',

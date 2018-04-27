@@ -8,7 +8,7 @@ import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType, leadChannel,
   finalResult, testDrive
-} from '../../../dictionary'
+} from '../../../dictionary/index.js'
 // import { kpi } from './kpi'
 
   @Component

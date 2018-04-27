@@ -110,33 +110,297 @@
             <el-table-column
               prop="area"
               label="区域"
-              width="120">
+              >
             </el-table-column>
             <el-table-column
               prop="province"
               label="省份"
-              width="120">
+              >
             </el-table-column>
             <el-table-column
               prop="date"
               label="日期"
-              width="120">
+              >
             </el-table-column>
             <el-table-column
               prop="response_num"
               label="响应数"
-              width="160">
+              >
             </el-table-column>
             <el-table-column
               prop="sendnum"
               label="发送线索数"
-              width="160">
+              >
             </el-table-column>
             <el-table-column
               prop="response_rate"
               label="响应率"
-              width="160">
+              >
             </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 2">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_num"
+              label="响应数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="sendnum"
+              label="发送线索数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="线索有效率"
+              >
+            </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 3">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_num"
+              label="成交数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="sendnum"
+              label="创造潜客数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="成交率"
+              >
+            </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 4">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="日期"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="response_num"
+              label="战败数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="sendnum"
+              label="创造潜客数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="战败率"
+              >
+            </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 5">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_num"
+              label="试驾数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="sendnum"
+              label="创造潜客数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="试驾率"
+              >
+            </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 6">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_num"
+              label="3小时以内"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="sendnum"
+              label="6小时以内"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="1天内"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="3天内"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_rate"
+              label="超过3天"
+              >
+            </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 7">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="线索渠道"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="response_num"
+              label="线索数"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="sendnum"
+              label="占比"
+              >
+            </el-table-column>
+          </el-table>
+        </pag-table>
+        <pag-table v-if="activeName === 8">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">>
+            <el-table-column
+              prop="area"
+              label="区域"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="province"
+              label="省份"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="战败原因"
+              >
+            </el-table-column>
+            <el-table-column
+              v-for="(date,index ) in time"
+              :key="index"
+              prop="response_num"
+              label="date"
+              >
+            </el-table-column>
+
           </el-table>
         </pag-table>
       </div>

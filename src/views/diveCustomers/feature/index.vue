@@ -1,5 +1,5 @@
 <template>
-<div class="sg-divecustom">
+<div class="sg-feature">
   <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane v-for = "data in tabs" :label="data.text" :name="data.key" :key= "data.key">
       <div class="sg-header">
@@ -17,8 +17,8 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="客户类型">
-              <el-select v-model="form.kpi" placeholder="请选择品牌">
-                <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
+              <el-select v-model="form.customerType" placeholder="请选择品牌">
+                <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="index" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
