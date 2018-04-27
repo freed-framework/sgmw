@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const kpi = [
   '潜客跟进及时率',
   '邀约到店',

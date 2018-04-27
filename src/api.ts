@@ -108,3 +108,7 @@ export const init = () => {
   })
 }
 
+/**
+ * kpi相关
+ */
+export const kpiList = (params) => http.post('/api/store-customer-defeat-rate/query', params)

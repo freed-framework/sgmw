@@ -8,3 +8,4 @@ interface ExtendsWindow extends Window {
 
 declare var window: ExtendsWindow;
 declare var process: any;
+declare var Dete: any;

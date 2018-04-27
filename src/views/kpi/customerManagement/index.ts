@@ -1,9 +1,12 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
   Watch
 } from 'vue-property-decorator'
+import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType, leadChannel,
@@ -18,21 +21,17 @@ import Cascade from '../../../components/cascade/index.vue'
   }
 })
 export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    kpi: 0
-  }
 
-  select: any = {
-    select1: '',
-    select2: '',
-    select3: '',
-    select4: ''
+  @Action('kpi/getKpiList') actionGetKpiList: any
+  @Getter('kpi/getList') kpiList: any
+
+  kpiType: any = 0
+
+  dealer: any = 0
+
+
+  form: any = {
+    date: [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()]
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -43,34 +42,20 @@ export default class Index extends mixins(TableColor) {
   testDrive: Array<any> = testDrive
   kpi: Array<any> = kpi
 
-  tableData: Array<any> = [{
-    date: '2016-05-02',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    date: '2016-05-04',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1517 弄'
-  }, {
-    date: '2016-05-01',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1519 弄'
-  }, {
-    date: '2016-05-03',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1516 弄'
-  }]
-
-  @Watch('select')
-  watchSelect(val) {
-    console.log(val, '----------------------')
-  }
-
   submitForm(formName) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {
       if (valid) {
-        console.log(this.form) 
+        const submit: any = {}
+        const { date, ...props } = this.form
+        if (date) {
+          submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
+          submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
+        }        
+        Object.assign(submit, {
+            "province": "全部"
+        }, props)
+        this.actionGetKpiList(submit)
       } else {
         console.log('error submit!!')
         return false
