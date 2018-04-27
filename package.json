@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.2.2",
+    "moment": "^2.22.1",
     "nprogress": "^0.2.0",
     "vue": "^2.5.2",
     "vue-property-decorator": "^6.0.0",
