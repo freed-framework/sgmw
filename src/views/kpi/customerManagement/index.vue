@@ -123,9 +123,11 @@
             </el-form-item>
           </el-col>
         </el-row> -->
+        <el-form-item>
         <cascade
-          v-model="select"
+          v-model="form.select"
         />
+        </el-form-item>
         <el-row>
           <el-col :span="6">
             <el-form-item label="是否试驾">

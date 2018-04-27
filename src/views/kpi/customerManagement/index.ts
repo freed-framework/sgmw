@@ -25,14 +25,13 @@ export default class Index extends mixins(TableColor) {
     leadChannel: 0,
     finalResult: 0,
     testDrive: '',
-    kpi: 0
-  }
-
-  select: any = {
-    select1: '',
-    select2: '',
-    select3: '',
-    select4: ''
+    kpi: 0,
+    select: {
+      select1: '',
+      select2: '',
+      select3: '',
+      select4: ''
+    }
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -60,11 +59,6 @@ export default class Index extends mixins(TableColor) {
     name: '王小虎',
     address: '上海市普陀区金沙江路 1516 弄'
   }]
-
-  @Watch('select')
-  watchSelect(val) {
-    console.log(val, '----------------------')
-  }
 
   submitForm(formName) {
     const $form: any = this.$refs[formName]
