@@ -7,20 +7,22 @@ import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive
+  finalResult, testDrive, leadStatus
 } from '../../../dictionary'
 
 @Component
 export default class Index extends mixins(TableColor) {
-  form: any = {
+  ruleForm: any = {
     dealerStatus: 0,
     customerLevel: 0,
     customerType: '',
     dealerleadChannel: '',
     leadChannel: 0,
+    leadStatus: 0,
     finalResult: 0,
-    testDrive: '',
+    testDrive: ''
   }
+
   activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
@@ -40,6 +42,7 @@ export default class Index extends mixins(TableColor) {
   customerType: Array<any> = customerType
   dealerleadChannel: Array<any> = dealerleadChannel
   leadChannel: Array<any> = leadChannel
+  leadStatus: Array<any> = leadStatus
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
 
@@ -70,11 +73,31 @@ export default class Index extends mixins(TableColor) {
     zeroOne: '上海市普陀区金沙江路 1518 弄'
   }]
 
+  $refs: any
+
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
+  }
+
+  submitForm(formName) {
+    const $form: any = this.$refs[formName]
+    $form.validate((valid) => {
+      if (valid) {
+        // console.log(this.form)
+      } else {
+        // console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(formName) {
+    const $form: any = this.$refs[formName]
+    console.log($form);
+    $form.resetFields()
   }
 }
