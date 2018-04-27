@@ -91,12 +91,11 @@
           </el-col>
           <el-col :span="8">
             <el-form-item>
-              <el-button type="primary" @click="submitForm('form')">检索</el-button>
-              <el-button type="success" @click="resetForm('form')">导出</el-button>
+              <el-button type="primary" @click="submitForm('form',activeName)">检索</el-button>
+              <el-button type="success" @click="resetForm('form',activeName)">导出</el-button>
               <el-button>重置</el-button>
             </el-form-item>
           </el-col>
-        
         </el-row>
       </el-form>
       </div>
@@ -406,13 +405,12 @@
       </div>
     </el-tab-pane>
   </el-tabs>
-  
 </div>
 </template>
 
 <script lang="ts">
- import Index from './index.ts'
- export default Index
+import Index from './index.ts'
+export default Index
 </script>
 
 <style lang="scss">

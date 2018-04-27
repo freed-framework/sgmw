@@ -1,7 +1,7 @@
 import {
   Component,
-  Vue,
-  Watch
+  // Vue,
+  // Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
@@ -9,6 +9,7 @@ import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus
 } from '../../../dictionary'
+// import http from './../../../util/http';
 
 @Component
 export default class Index extends mixins(TableColor) {
@@ -47,47 +48,36 @@ export default class Index extends mixins(TableColor) {
   testDrive: Array<any> = testDrive
 
 
-  tableData: Array<any> = [{
-    type: '2016-05-02',
-    way: '王小虎',
-    status: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    zeroOne: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    type: '2016-05-02',
-    way: '王小虎',
-    status: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    zeroOne: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    type: '2016-05-02',
-    way: '王小虎',
-    status: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    zeroOne: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    type: '2016-05-02',
-    way: '王小虎',
-    status: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    zeroOne: '上海市普陀区金沙江路 1518 弄'
-  }]
+  tableData: Array<any> = []
 
   $refs: any
 
   created() {
     // console.log(this.dealerStatus)
+    // post('api/report/dealersSelf', {})
+    //   .then(res => {
+    //     console.log(res)
+    //     this.tableData = res;
+    //   })
   }
 
   handleClick(tab, event) {
     // console.log(tab, event);
   }
 
-  submitForm(formName) {
-    const $form: any = this.$refs[formName]
-    $form.validate((valid) => {
+  submitForm(formName, index) {
+    const $ruleForm: any = this.$refs[formName]
+    $ruleForm[index - 1].validate((valid) => {
       if (valid) {
-        // console.log(this.form)
+        // console.log(1,this.ruleForm)
+        // console.log(2,this.ruleForm.date1)
+        // post('api/report/dealersSelf',{
+        //   ...this.ruleForm
+        // })
+        // .then(res => {
+        //   console.log(res)
+        //   this.tableData = res;
+        // })
       } else {
         // console.log('error submit!!')
         return false
@@ -96,8 +86,8 @@ export default class Index extends mixins(TableColor) {
   }
 
   resetForm(formName) {
-    const $form: any = this.$refs[formName]
-    console.log($form);
-    $form.resetFields()
+    const $ruleForm: any = this.$refs[formName]
+    // console.log($ruleForm);
+    $ruleForm.resetFields()
   }
 }

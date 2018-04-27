@@ -10,7 +10,25 @@
           <div class="sg-header">
             <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
               <el-row>
-                <el-col :span="10">
+                <!-- <el-col v-if="activeName === '1'" :span="10">
+                  <el-form-item label="年度">
+                    <el-date-picker
+                    v-model="ruleForm.date1"
+                    type="year"
+                    placeholder="选择年">
+                  </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col v-if="activeName === '2'" :span="10">
+                  <el-form-item label="月份">
+                    <el-date-picker
+                    v-model="ruleForm.date1"
+                    type="month"
+                    placeholder="选择月">
+                  </el-date-picker>
+                  </el-form-item>
+                </el-col> -->
+                <!-- <el-col v-if="activeName === '3'" :span="10"> -->
                   <el-form-item label="日期">
                     <el-date-picker
                       v-model="ruleForm.date1"
@@ -21,7 +39,7 @@
                       style="width: 100%;">
                     </el-date-picker>
                   </el-form-item>
-                </el-col>
+                <!-- </el-col> -->
                 <el-col :span="6" :offset="2">
                   <el-form-item label="经销商号">
                     <el-input v-model="ruleForm.name" placeholder="请输入经销商号"></el-input>
@@ -69,11 +87,11 @@
                     123
                   </el-form-item>
                 </el-col>
-                <el-col :span="6" :offset="18">
+                <el-col :span="8" :offset="18">
                   <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
+                    <el-button type="primary" @click="submitForm('ruleForm', activeName)">检索</el-button>
                     <el-button type="success">导出</el-button>
-                    <el-button @click="resetForm('ruleForm')">重置</el-button>
+                    <el-button @click="resetForm('ruleForm',activeName)">重置</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -117,7 +135,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+// import { Component, Vue } from 'vue-property-decorator'
 import Index from './index.ts'
 export default Index
 </script>
