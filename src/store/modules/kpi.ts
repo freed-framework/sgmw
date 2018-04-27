@@ -1,4 +1,5 @@
 import { kpiList } from '../../api'
+import { formatData } from '../helpers'
 
 const ActionType = {
   FETCH_KPI_LIST: 'FETCH_KPI_LIST',
@@ -18,17 +19,10 @@ const actions = {
   },
 }
 
-function parseData(data) {
-  return {
-    title: Object.keys(data[0]),
-    list: data
-  }
-}
-
 const mutations = {
   [ActionType.FETCH_KPI_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.list = parseData(data)
+    state.list = formatData(data)
   },
 }
 

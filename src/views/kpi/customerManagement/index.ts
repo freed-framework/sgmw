@@ -31,7 +31,7 @@ export default class Index extends mixins(TableColor) {
 
 
   form: any = {
-    date: [new Date(Number(new Date()) - 40000), new Date()]
+    date: [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()]
   }
 
   dealerStatus: Array<any> = dealerStatus
