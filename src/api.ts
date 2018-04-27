@@ -55,7 +55,7 @@ http.response(
 export const getBookPage = () =>
   new Promise(resolve => {
     setTimeout(() => {
-      http.get('get/book').then(res => {
+      http.get('/get/book').then(res => {
         resolve(res)
       })
     }, 2000)
@@ -67,7 +67,7 @@ export const getBookPage = () =>
 export const getHelloPage = () =>
   new Promise(resolve => {
     setTimeout(() => {
-      http.get('get/hello').then(res => {
+      http.get('/get/hello').then(res => {
         resolve(res)
       })
     }, 2000)
@@ -111,4 +111,4 @@ export const init = () => {
 /**
  * kpi相关
  */
-export const kpiList = (params) => http.post('/api/store-customer-defeat-rate/query', params)
+export const kpiList = (params) => http.post('/store-customer-defeat-rate/query', params)
