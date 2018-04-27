@@ -1,0 +1,10 @@
+{
+  "code": 200,
+  "data": {
+    "user": {
+      "name": "denglingbo",
+      "age": 22
+    },
+    "role": ["admin", "order", "book"]
+  }
+}

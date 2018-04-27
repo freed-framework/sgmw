@@ -30,6 +30,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import { State, Getter, Action } from 'vuex-class'
 import { Component, Vue } from 'vue-property-decorator'
 
@@ -79,6 +80,7 @@ export default class Login extends Vue {
 <style style="scss">
 .el-header {
   border-bottom: 1px solid #ebebeb;
+  background: #fff;
 }
 .login-outer {
   width: 400px;
@@ -97,5 +99,6 @@ export default class Login extends Vue {
   width: 100%;
   height: 60px;
   border-top: 1px solid #ebebeb;
+  background: #fff;
 }
 </style>

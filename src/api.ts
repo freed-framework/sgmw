@@ -55,7 +55,7 @@ http.response(
 export const getBookPage = () =>
   new Promise(resolve => {
     setTimeout(() => {
-      http.get('/api/get/book').then(res => {
+      http.get('get/book').then(res => {
         resolve(res)
       })
     }, 2000)
@@ -67,24 +67,44 @@ export const getBookPage = () =>
 export const getHelloPage = () =>
   new Promise(resolve => {
     setTimeout(() => {
-      http.get('/api/get/hello').then(res => {
+      http.get('get/hello').then(res => {
         resolve(res)
       })
     }, 2000)
   })
 
 
-export const getRole = () => {
-  const roles = ['admin', 'order', 'book']
+// 获取权限接口
+// export const getRole = () => {
+//   const roles = ['admin', 'order', 'book']
 
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        code: 200,
-        data: roles
-      })
-    }, 2000)
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve({
+//         code: 200,
+//         data: roles
+//       })
+//     }, 2000)
+//   })
+// }
+
+export const login = (params) => http.post('/login', params)
+// export const init = () => http.get('/init')
+
+/* eslint-disable */
+// for 4.28
+export const init = () => {
+  return new Promise((resolve) => {
+    
+    resolve({
+      code: 200,
+      data: {
+        user: {
+          name: 'den'
+        },
+        roles: ['admin']
+      }
+    })
   })
 }
 
-export const login = (params) => http.post('/api/login', params)
