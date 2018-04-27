@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
@@ -64,7 +65,7 @@ export default class Index extends mixins(TableColor) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {
       if (valid) {
-        console.log(this.form)
+        console.log(this.form) 
       } else {
         console.log('error submit!!')
         return false

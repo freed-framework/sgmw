@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Layout from '@/components/layout/Layout.vue'
 import Login from '@/components/layout/Login.vue'
 import NotFound from '@/components/layout/NotFound.vue'
@@ -82,6 +83,54 @@ const asyncRoutes = [
       meta: {
         role: ['admin'],
         text: '销量统计'
+      },
+    }, {
+      path: 'subStatistics',
+      name: '潜客统计',
+      component: () => import('@/views/distributor/subStatistics/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '潜客统计'
+      },
+    }, {
+      path: 'trafficStatistics',
+      name: '发车统计',
+      component: () => import('@/views/distributor/trafficStatistics/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '发车统计'
+      },
+    }, {
+      path: 'shopCustomers',
+      name: '到店统计',
+      component: () => import('@/views/distributor/shopCustomers/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '到店统计'
+      },
+    }, {
+      path: 'defeatCustomer',
+      name: '战败统计',
+      component: () => import('@/views/distributor/defeatCustomer/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '战败统计'
+      },
+    }, {
+      path: 'customerStatistics',
+      name: '客户统计',
+      component: () => import('@/views/distributor/customerStatistics/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '客户统计'
+      },
+    }, {
+      path: 'finalInventStatist',
+      name: '期末库存统计',
+      component: () => import('@/views/distributor/finalInventStatist/index.vue'),
+      meta: {
+        role: ['admin'],
+        text: '期末库存统计'
       },
     }]
   },
