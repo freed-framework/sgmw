@@ -58,7 +58,8 @@ export default class http {
           if (status !== 200 && status !== 401) {
           }
         }
-        return error
+        // return error
+        throw new Error(error)
       })
   }
 

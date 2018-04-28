@@ -7,11 +7,13 @@ const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    children: [{
-      path: '',
-      meta: { text: '首页' },
-      component: () => import('@/views/home/index.vue')
-    }]
+    hidden: true,
+    redirect: '/customerManagement',
+    // children: [{
+    //   path: '',
+    //   meta: { text: '首页' },
+    //   component: () => import('@/views/home/index.vue')
+    // }]
   },
   {
     path: '/login',
@@ -50,7 +52,7 @@ const asyncRoutes = [
     path: '/customerManagement',
     component: Layout,
     meta: {
-      role: ['book']
+      role: ['admin']
     },
     children: [{
       path: '',

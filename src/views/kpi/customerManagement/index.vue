@@ -34,17 +34,15 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="区域">
-              <el-select v-model="form.region" placeholder="请选择区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+              <el-select v-model="region" placeholder="请选择区域">
+                <el-option v-for="(key, id) in regionList" :label="key" :key="key" :value="id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="省份">
-              <el-select v-model="form.region" placeholder="请选择省份">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+              <el-select v-model="form.province" placeholder="请选择省份">
+                <el-option v-for="key in provinceList" :label="key" :key="key" :value="key"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -125,6 +123,7 @@
         </el-row> -->
         <cascade
           v-model="form.select"
+          @change="handleCacadeChange"
         />
         <el-row>
           <el-col :span="6">
@@ -141,13 +140,13 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="单据数：">
-              123
+              {{(kpiList.pagination && kpiList.pagination.total) || 0}}
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-button type="primary" @click="submitForm('form')">检索</el-button>
             <el-button type="success" @click="resetForm('form')">导出</el-button>
-            <el-button>重置</el-button>
+            <el-button @click="resetForm('form')">重置</el-button>
           </el-col>
         </el-row>
       </el-form>

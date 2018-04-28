@@ -15,6 +15,9 @@ router.options('*', function (req, res) {
 
 router.get('/api/get/book', (req, res) => res.json(require('./data/book')))
 router.get('/api/get/hello', (req, res) => res.json(require('./data/hello.json')))
+
+// deo
+router.get('/api/init', (req, res) => res.json(require('./data/init.json')))
 router.post('/api/login', (req, res) => {
   setTimeout(() => {
     res.json(require('./data/login.json'))
