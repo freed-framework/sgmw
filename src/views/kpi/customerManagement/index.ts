@@ -12,6 +12,7 @@ import {
   dealerStatus, customerLevel, customerType, leadChannel,
   finalResult, testDrive
 } from '../../../dictionary'
+import AreaData from '../../../dictionary/area'
 import { kpi } from './kpi'
 import Cascade from '../../../components/cascade/index.vue'
 
@@ -29,9 +30,12 @@ export default class Index extends mixins(TableColor) {
 
   dealer: any = 0
 
+  region: any = '0'
+
 
   form: any = {
-    date: [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()]
+    date: [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()],
+    province: '全部'
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -41,6 +45,8 @@ export default class Index extends mixins(TableColor) {
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
   kpi: Array<any> = kpi
+  provinceList: any = AreaData.province_list
+  regionList: any = AreaData.region_list
 
   submitForm(formName) {
     const $form: any = this.$refs[formName]
@@ -52,9 +58,7 @@ export default class Index extends mixins(TableColor) {
           submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
           submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
         }        
-        Object.assign(submit, {
-            "province": "全部"
-        }, props)
+        Object.assign(submit, props)
         this.actionGetKpiList(submit)
       } else {
         console.log('error submit!!')
@@ -67,4 +71,20 @@ export default class Index extends mixins(TableColor) {
     const $form: any = this.$refs[formName]
     $form.resetFields()
   }
+
+  @Watch('region')
+  watchRegionChange(val, old) {
+    const province = {}
+    const data: any = AreaData
+    const value = Number(val) 
+    for (let i in data.province_list) {
+      const max: any = value + 100000;
+      if (i === '0' || (i > val && i < max) || val === '0') {
+        province[i] = data.province_list[i]
+      }
+    }
+
+    this.provinceList = province
+    this.form.province = '全部'
+  } 
 }
