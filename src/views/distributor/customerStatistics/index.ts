@@ -7,23 +7,22 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, customerType,
+  provincialCapital, brand, cityCapital, countyAreaCapital
 } from '../../../dictionary'
-import { kpi } from './kpi' 
 
 @Component
 export default class Index extends mixins(TableColor) {
   form: any = {
     dealerStatus: 0,
     customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
+    customerType: 0,
+    provincialCapital: 0,
+    cityCapital: 0,
+    brand: 0,
     startDatePicker: this.beginDate(),
     endDatePicker: this.processDate(),
-    kpi: 0
+    name: ''
   }
   
   activeName: string = '1'
@@ -43,10 +42,10 @@ export default class Index extends mixins(TableColor) {
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
   customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
-  finalResult: Array<any> = finalResult
-  testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
+  cityCapital: Array<any> = cityCapital
+  countyAreaCapital: Array<any> = countyAreaCapital
+  provincialCapital: Array<any> = provincialCapital
+  brand: Array<any> = brand
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -93,8 +92,8 @@ export default class Index extends mixins(TableColor) {
     // console.log(val, '----------------------')
   }
 
-  submitForm(ruleForm, index) {
-    const $form: any = this.$refs[ruleForm]
+  submitForm(form, index) {
+    const $form: any = this.$refs[form]
     $form.validate((valid) => {
       if (valid) {
         // console.log(this.form)
@@ -105,10 +104,11 @@ export default class Index extends mixins(TableColor) {
     })
   }
 
-  resetForm(ruleForm) {
+  resetForm(form) {
     // const indexNum: any = Number(this.activeName)
-    const $form: any = this.$refs[ruleForm]
-    // this.$refs[ruleForm].resetFields()
+    const $form: any = this.$refs[form]
+    console.log($form)
+    // this.$refs[form].resetFields()
     $form.resetFields()
   }
 

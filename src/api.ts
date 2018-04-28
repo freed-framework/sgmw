@@ -125,3 +125,7 @@ export const allRegionList = () => http.get('/regiProvcityCounty/allList')
  * kpi相关
  */
 export const kpiList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 经销商相关
+ */
+export const finalInventStatistList = (params) => http.post('/store-customer-defeat-rate/query', params)

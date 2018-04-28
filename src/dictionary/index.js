@@ -1,3 +1,4 @@
+/* eslint-disable */
 // 经销商状态
 export const dealerStatus = [{label: '非注销'}, {lable: '已注册'}]
 // 客户类型
@@ -15,7 +16,7 @@ export const brands = [{label: '全部'}, {label: '待定'}, {label: '已成交'
 // 品种
 export const varieties = [{label: '全部'}, {label: '待定'}, {label: '已成交'}, {label: '已战败'}]
 // 客户级别
-export const customerLevel = [{label: '空'}, {label: '全部'}, {label: '0级'}, {label: 'H级'}, {label: 'A级'}, {label: 'B级'}, {label: 'C级'}, {label: 'N级'}, {label: 'F级'}]
+export const customerLevel = [/*{label: '空'}, */{label: '全部'}, {label: '0级'}, {label: 'H级'}, {label: 'A级'}, {label: 'B级'}, {label: 'C级'}, {label: 'N级'}, {label: 'F级'}]
 // 线索渠道
 export const dealerleadChannel = [{label: '经销商自建线索“线索渠道'}, {label: '厂家互联网投放-广告投放'}, {label: '厂家互联网投放-广告投放'}, {label: '厂家互联网投放-自有平台'}, {label: '厂家互联网投放-采集平台'}, {label: '厂家互联网投放-电商平台'}]
 // 汽车品牌
