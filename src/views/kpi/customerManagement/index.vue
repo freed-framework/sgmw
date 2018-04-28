@@ -123,6 +123,7 @@
         </el-row> -->
         <cascade
           v-model="form.select"
+          @change="handleCacadeChange"
         />
         <el-row>
           <el-col :span="6">
@@ -145,7 +146,7 @@
           <el-col :span="6">
             <el-button type="primary" @click="submitForm('form')">检索</el-button>
             <el-button type="success" @click="resetForm('form')">导出</el-button>
-            <el-button>重置</el-button>
+            <el-button @click="resetForm('form')">重置</el-button>
           </el-col>
         </el-row>
       </el-form>

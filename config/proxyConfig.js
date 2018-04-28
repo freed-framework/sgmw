@@ -6,7 +6,7 @@ module.exports = {
   dev: {
     proxyTable: {
       '/api': {
-        target: 'http://210.41.121.161:8080',
+        target: 'http://210.41.121.161:8080/api',
         changeOrigin: true,
         pathRewrite: {
           // '^/res': ''

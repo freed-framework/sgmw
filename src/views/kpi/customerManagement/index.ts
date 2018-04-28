@@ -16,6 +16,8 @@ import AreaData from '../../../dictionary/area'
 import { kpi } from './kpi'
 import Cascade from '../../../components/cascade/index.vue'
 
+const cacheDate = [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()]
+
 @Component({
   components: {
     Cascade
@@ -32,9 +34,15 @@ export default class Index extends mixins(TableColor) {
 
   region: any = '0'
 
+  cascade: any = {}
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
 
   form: any = {
-    date: [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()],
+    date: cacheDate,
     province: '全部'
   }
 
@@ -48,6 +56,11 @@ export default class Index extends mixins(TableColor) {
   provinceList: any = AreaData.province_list
   regionList: any = AreaData.region_list
 
+  handleCacadeChange(cascade, data = {}) {
+    this.cascadeContext = cascade
+    this.cascade = data
+  }
+
   submitForm(formName) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {
@@ -58,7 +71,8 @@ export default class Index extends mixins(TableColor) {
           submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
           submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
         }        
-        Object.assign(submit, props)
+        Object.assign(submit, props, this.cascade)
+        console.log(submit)
         this.actionGetKpiList(submit)
       } else {
         console.log('error submit!!')
@@ -69,6 +83,8 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(formName) {
     const $form: any = this.$refs[formName]
+    this.region = '0'
+    this.cascadeContext.clear()
     $form.resetFields()
   }
 

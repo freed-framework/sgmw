@@ -109,6 +109,13 @@ export const init = () => {
 }
 
 /**
+ * common相关
+ */
+// 获取品牌车系车型
+export const allBrandList = () => http.get('/series/allList')
+
+/**
  * kpi相关
  */
 export const kpiList = (params) => http.post('/store-customer-defeat-rate/query', params)
+
