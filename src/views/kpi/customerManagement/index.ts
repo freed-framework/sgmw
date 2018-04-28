@@ -16,7 +16,7 @@ import AreaData from '../../../dictionary/area'
 import { kpi } from './kpi'
 import Cascade from '../../../components/cascade/index.vue'
 
-const cacheDate = [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()]
+const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
 
 @Component({
   components: {
