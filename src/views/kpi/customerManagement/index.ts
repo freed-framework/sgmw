@@ -45,7 +45,8 @@ export default class Index extends mixins(TableColor) {
     date: cacheDate,
     province: '全部',
     channel: '全部',
-    custLevel: '全部'
+    custLevel: '全部',
+    brand: '全部' // 测试
   }
 
   dealerStatus: Array<any> = dealerStatus

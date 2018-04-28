@@ -60,7 +60,7 @@ export default class Cascade extends mixins(Emitter) {
   @Prop() value: any
 
   form: any = {
-    brand: '',
+    brand: '全部', // 测试
     vehVariety: '',
     vehSerices: '',
     vehModel: ''
