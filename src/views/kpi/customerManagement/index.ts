@@ -43,7 +43,9 @@ export default class Index extends mixins(TableColor) {
 
   form: any = {
     date: cacheDate,
-    province: '全部'
+    province: '全部',
+    channel: '全部',
+    custLevel: '全部'
   }
 
   dealerStatus: Array<any> = dealerStatus
