@@ -112,7 +112,7 @@
         </div>
       </el-tab-pane>
     </el-tabs>
-  </el-form>    
+  </el-form>
 </template>
 
 <script lang="ts">
