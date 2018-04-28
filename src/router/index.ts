@@ -33,7 +33,6 @@ function createRoutes(action) {
     action.then(() => {
       const routes = store.getters['auth/routes']
       router.addRoutes(routes)
-
       resolve()
     })
   })
@@ -47,9 +46,9 @@ function createRoutes(action) {
 function beforeRole(to, next) {
   const role = store.getters['auth/role']
 
-  // 如果没有 role 就绪，进行 role 获取
+  // 拉取权限
   if (!role) {
-    const action = store.dispatch('auth/getRoles')
+    const action = store.dispatch('auth/init')
 
     // 如果在静态路由中 则直接进入
     if (isConstantRoute(to.path)) {
@@ -70,12 +69,11 @@ function beforeRole(to, next) {
 const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
-  const token = store.getters['auth/token']
-
+  const isAuth = store.getters['auth/isAuth']
   // process start
   Progress.start()
 
-  if (token) {
+  if (isAuth) {
     if (to.path === '/login') {
       next({ path: '/' })
 

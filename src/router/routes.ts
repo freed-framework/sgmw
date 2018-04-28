@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Layout from '@/components/layout/Layout.vue'
 import Login from '@/components/layout/Login.vue'
 import NotFound from '@/components/layout/NotFound.vue'
@@ -6,11 +7,13 @@ const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    children: [{
-      path: '',
-      meta: { text: '首页' },
-      component: () => import('@/views/home/index.vue')
-    }]
+    hidden: true,
+    redirect: '/customerManagement',
+    // children: [{
+    //   path: '',
+    //   meta: { text: '首页' },
+    //   component: () => import('@/views/home/index.vue')
+    // }]
   },
   {
     path: '/login',
@@ -49,7 +52,7 @@ const asyncRoutes = [
     path: '/customerManagement',
     component: Layout,
     meta: {
-      role: ['book']
+      role: ['admin']
     },
     children: [{
       path: '',

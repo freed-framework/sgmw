@@ -52,6 +52,7 @@ let cache = {
   // mixins: [emitter]
 })
 export default class Cascade extends mixins(Emitter) {
+  name: string = 'Cascade'
   @Prop() value: any
 
   form: any = {
@@ -62,12 +63,17 @@ export default class Cascade extends mixins(Emitter) {
     Object.assign(this.form, this.value);
   }
 
+  @Watch('form', {deep: true})
+  watchForm() {
+    console.log(this.form)
+    this.dispatch('ElFormItem', 'el.form.change', [this.form]);
+  }
+
   @Watch('form.select1')
   watchSelct1(val) {
     const { select1, ...props } = cache
     // const { dispatch: any } = this;
     Object.assign(this.form, props);
-    this.dispatch('ElFormItem', 'el.form.change', [this.form]);
   }
 
   @Watch('form.select2')

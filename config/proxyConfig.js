@@ -5,21 +5,21 @@ module.exports = {
   // 本地 mock
   dev: {
     proxyTable: {
-      // '/res': {
-      //   target: 'http://0.0.0.0:9999',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/res': ''
-      //   }
-      // }
+      '/api': {
+        target: 'http://210.41.121.161:8080',
+        changeOrigin: true,
+        pathRewrite: {
+          // '^/res': ''
+        }
+      }
     }
   },
 
   // 联调
   test: {
     proxyTable: {
-      '/xxx': {
-        // target: 'https://xxx.com',
+      '/api': {
+        target: 'http://210.41.121.161:8080',
         changeOrigin: true,
         pathRewrite: {
           // '^/manage': ''

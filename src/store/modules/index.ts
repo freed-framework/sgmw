@@ -7,9 +7,11 @@
 import auth from './auth'
 import home from './home'
 import book from './book'
+import kpi from './kpi'
 
 export default {
   auth,
   home,
   book,
+  kpi,
 }
