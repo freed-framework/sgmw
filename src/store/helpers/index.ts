@@ -1,4 +1,15 @@
 /* eslint-disable */
+export function initList() {
+  return {
+    title: [],
+    list: [],
+    pagination: {
+      pageNum: 0,
+      pageSize: 0,
+      total: 0
+    }
+  }
+}
 /**
  * 处理数据
  * @param data 后端返会数据中的data

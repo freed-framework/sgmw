@@ -140,7 +140,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="单据数：">
-              {{(kpiList.pagination && kpiList.pagination.total) || 0}}
+              {{kpiList.pagination.total}}
             </el-form-item>
           </el-col>
           <el-col :span="6">
