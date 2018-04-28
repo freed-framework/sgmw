@@ -125,4 +125,3 @@ export const allRegionList = () => http.get('/regiProvcityCounty/allList')
  * kpi相关
  */
 export const kpiList = (params) => http.post('/store-customer-defeat-rate/query', params)
-
