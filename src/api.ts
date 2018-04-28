@@ -11,6 +11,11 @@ const http = new Http()
 
 http.axios.defaults.baseURL = process.env.API_HOST
 
+// 当构建环境为 test 的时候进行该配置
+if (process.env.CONTEXT === 'test') {
+  http.axios.defaults.withCredentials = true
+}
+
 http.request(
   config => {
     const token = store.getters['auth/token']
@@ -107,6 +112,14 @@ export const init = () => {
     })
   })
 }
+
+/**
+ * common相关
+ */
+// 获取品牌车系车型
+export const allBrandList = () => http.get('/series/allList')
+// 回去省市区数据
+export const allRegionList = () => http.get('/regiProvcityCounty/allList')
 
 /**
  * kpi相关

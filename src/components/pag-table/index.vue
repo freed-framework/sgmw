@@ -15,9 +15,8 @@
       </div>
 
       <!-- 分页 -->
-      <div class="pag-data-pagination">
+      <div v-if="handlePageChange" class="pag-data-pagination">
         <el-pagination
-          v-if="handlePageChange"
           background
           :disabled="loading"
           layout="prev, pager, next"
