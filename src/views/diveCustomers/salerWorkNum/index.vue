@@ -75,12 +75,12 @@
           <el-table-column
             prop="date"
             label="年度"
-            width="180">
+          >
           </el-table-column>
           <el-table-column
             prop="name"
             label="季度"
-            width="180">
+          >
           </el-table-column>
           <el-table-column
             prop="address"

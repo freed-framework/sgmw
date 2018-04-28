@@ -88,3 +88,8 @@ export const getRole = () => {
 }
 
 export const login = (params) => http.post('/api/login', params)
+
+/**
+ * kpi相关
+ */
+export const kpiList = (params) => http.post('/api/store-customer-defeat-rate/query', params)

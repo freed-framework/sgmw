@@ -47,43 +47,43 @@
             <el-table-column
               prop="area"
               label="区域"
-              width="120">
+            >
             </el-table-column>
             <el-table-column
               prop="province"
               label="省份"
-              width="120">
+            >
             </el-table-column>
             <el-table-column
               prop="date"
               label="日期"
-              width="120">
+            >
             </el-table-column>
             <el-table-column
               prop="response_num"
               label="响应数"
-              width="160">
+            >
             </el-table-column>
             <el-table-column
               prop="sendnum"
               label="发送线索数"
-              width="160">
+            >
             </el-table-column>
             <el-table-column
               prop="response_rate"
               label="响应率"
-              width="160">
+             >
             </el-table-column>
           </el-table>
         </pag-table>
       </div>
     </el-tab-pane>
   </el-tabs>
-  
 </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable */
  import Index from './index.ts'
  export default Index
 </script>

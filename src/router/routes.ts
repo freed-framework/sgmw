@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Layout from '@/components/layout/Layout.vue'
 import Login from '@/components/layout/Login.vue'
 import NotFound from '@/components/layout/NotFound.vue'

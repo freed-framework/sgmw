@@ -135,7 +135,8 @@
 </template>
 
 <script lang="ts">
-// import { Component, Vue } from 'vue-property-decorator'
+/* eslint-disable */
+import { Component, Vue } from 'vue-property-decorator'
 import Index from './index.ts'
 export default Index
 </script>
