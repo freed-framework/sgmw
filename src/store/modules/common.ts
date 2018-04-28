@@ -1,13 +1,15 @@
-import { allBrandList } from '../../api'
-import { formatBrandData } from '../helpers'
+import { allBrandList, allRegionList } from '../../api'
+import { formatBrandData, formatRegionData } from '../helpers'
 
 const ActionType = {
   FETCH_COMMON_BRAND_LIST: 'FETCH_COMMON_BRAND_LIST',
+  FETCH_COMMON_REGION_LIST: 'FETCH_COMMON_REGION_LIST',
 }
 
 // initial state
 const state = {
-  list: []
+  brandList: [],
+  regionList: []
 }
 
 // const mockData = {
@@ -254,19 +256,34 @@ const actions = {
 
     commit(ActionType.FETCH_COMMON_BRAND_LIST, payload)
   },
+  async getRegionList({ commit }) {
+    const result = await allRegionList()
+    const payload: any = { ...result }
+
+    commit(ActionType.FETCH_COMMON_REGION_LIST, payload)
+  },
 }
 
 const mutations = {
   [ActionType.FETCH_COMMON_BRAND_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.list = formatBrandData(data)
+    state.brandList = formatBrandData(data)
+  },
+  [ActionType.FETCH_COMMON_REGION_LIST](state: any, payload: any) {
+    const { data = [] } = payload
+    state.regionList = formatRegionData(data)
   },
 }
 
 const getters = {
   brandList(state) {
-    const { list = [] } = state
-    return list
+    const { brandList = [] } = state
+    return brandList
+  },
+  regionList(state) {
+    const { regionList = [] } = state
+
+    return regionList
   }
 }
 

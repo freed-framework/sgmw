@@ -113,6 +113,8 @@ export const init = () => {
  */
 // 获取品牌车系车型
 export const allBrandList = () => http.get('/series/allList')
+// 回去省市区数据
+export const allRegionList = () => http.get('/regiProvcityCounty/allList')
 
 /**
  * kpi相关
