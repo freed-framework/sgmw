@@ -4,30 +4,27 @@ import {
   Vue,
   Watch
 } from 'vue-property-decorator'
+import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  provincialCapital, carType
 } from '../../../dictionary'
-import { kpi } from './kpi' 
 
 @Component
 export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+  @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalVentList: any
+  @Getter('finallnventStatist/getList') finalInventStatistList: any
+
+  ruleForm: any = {
+    region: 0,
+    provincialCapital: 0,
+    carType: 0,
+    brand: ''
   }
   
   activeName: string = '1'
-  editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '期末库存趋势统计-年',
     name: '1'
@@ -37,13 +34,9 @@ export default class Index extends mixins(TableColor) {
   }]
   tabIndex: number = 2
 
-  dealerStatus: Array<any> = dealerStatus
-  customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
-  finalResult: Array<any> = finalResult
-  testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
+
+  provincialCapital: Array<any> = provincialCapital
+  carType: Array<any> = carType
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -108,7 +101,7 @@ export default class Index extends mixins(TableColor) {
   }]
 
   $refs: any
-  @Watch('select')
+  @Watch('ruleForm', {deep: true})
   watchSelect(val) {
     // console.log(val, '----------------------')
   }
@@ -117,7 +110,13 @@ export default class Index extends mixins(TableColor) {
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
       if (valid) {
-        // console.log(this.form)
+        const submit: any = {}
+        const { date, ...props } = this.ruleForm
+        Object.assign(submit, {
+          "province": "全部"
+        }, props)
+        // console.log(submit)
+        this.actionGetFinalVentList(submit)
       } else {
         // console.log('error submit!!')
         return false
@@ -128,7 +127,7 @@ export default class Index extends mixins(TableColor) {
   resetForm(ruleForm) {
     // const indexNum: any = Number(this.activeName)
     const $form: any = this.$refs[ruleForm]
-    // this.$refs[ruleForm].resetFields()
+    console.log($form)
     $form.resetFields()
   }
 
@@ -143,34 +142,12 @@ export default class Index extends mixins(TableColor) {
   dateChangeBeginTime(val) {
     // console.log(val);
     const _this = this
-    _this.form.startDatePicker = val;
+    _this.ruleForm.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
     // console.log(val);
     this.$refs.form.endDatePicker = val;
-  }
-
-  //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-      }
-    }
-  }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
-      }
-    }
   }
 
 }

@@ -9,11 +9,13 @@ import home from './home'
 import book from './book'
 import kpi from './kpi'
 import common from './common'
+import finalInventStatist from './finalInventStatist'
 
 export default {
   auth,
   home,
   book,
   kpi,
-  common
+  common,
+  finalInventStatist
 }
