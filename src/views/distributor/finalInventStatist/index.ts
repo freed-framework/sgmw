@@ -12,17 +12,19 @@ import {
   provincialCapital, carType
 } from '../../../dictionary'
 
+const cache = {
+  region: 0,
+  provincialCapital: 0,
+  carType: 0,
+  brand: ''
+}
+
 @Component
 export default class Index extends mixins(TableColor) {
   @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalVentList: any
   @Getter('finallnventStatist/getList') finalInventStatistList: any
 
-  ruleForm: any = {
-    region: 0,
-    provincialCapital: 0,
-    carType: 0,
-    brand: ''
-  }
+  ruleForm: any = { ...cache }
   
   activeName: string = '1'
   editableTabs: any = [{
@@ -125,10 +127,7 @@ export default class Index extends mixins(TableColor) {
   }
 
   resetForm(ruleForm) {
-    // const indexNum: any = Number(this.activeName)
-    const $form: any = this.$refs[ruleForm]
-    console.log($form)
-    $form.resetFields()
+    this.ruleForm = { ...cache }
   }
 
   handleClick(tab, event) {
