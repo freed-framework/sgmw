@@ -1,5 +1,5 @@
 import { kpiList } from '../../api'
-import { formatData } from '../helpers'
+import { formatData, initList } from '../helpers'
 
 const ActionType = {
   FETCH_KPI_LIST: 'FETCH_KPI_LIST',
@@ -7,7 +7,7 @@ const ActionType = {
 
 // initial state
 const state = {
-  list: []
+  list: initList()
 }
 
 const actions = {
