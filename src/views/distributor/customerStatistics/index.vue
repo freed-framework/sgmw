@@ -25,7 +25,7 @@
               <el-col :span="6">
                 <el-form-item label="厂牌">
                   <el-select v-model="form.kpi" placeholder="请选择厂牌">
-                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
+                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="item.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -39,21 +39,21 @@
               <el-col :span="6">
                 <el-form-item label="省份">
                   <el-select v-model="form.kpi" placeholder="请选择省份">
-                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
+                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="item.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="城市">
                   <el-select v-model="form.kpi" placeholder="请选择城市">
-                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
+                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="item.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="县/城区">
                   <el-select v-model="form.kpi" placeholder="请选择县/城区">
-                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="index" ></el-option>
+                    <el-option v-for="(text, index) in kpi" :key="index" :label="text" :value="item.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -66,9 +66,9 @@
             <el-row>
               <el-col :span="6" :offset="18">
                 <el-form-item>
-                  <el-button type="primary">检索</el-button>
+                  <el-button type="primary" @click="submitForm('form')">检索</el-button>
                   <el-button type="success">导出</el-button>
-                  <el-button>重置</el-button>
+                  <el-button @click="resetForm('form')">重置</el-button>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -116,6 +116,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import Index from './index.ts'
 export default Index
 </script>

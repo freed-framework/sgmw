@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
@@ -6,8 +7,9 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, submersibleType, provincialCapital, cityCapital,
+  countyAreaCapital, brands, varieties, carType, carKinds, dealerleadChannel,
+  testDrive, createType
 } from '../../../dictionary'
 import { kpi } from './kpi' 
 
@@ -15,14 +17,21 @@ import { kpi } from './kpi'
 export default class Index extends mixins(TableColor) {
   form: any = {
     dealerStatus: 0,
+    createType: 0,
+    dealerleadChannel: 0,
     customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
+    submersibleType: 0,
+    provincialCapital: 0,
+    cityCapital: 0,
+    countyAreaCapital: 0,
+    brands: 0,
+    testDrive: 0,
+    varieties: 0,
     finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+    carType: 0,
+    carKinds: 0,
+    date1: '',
+    name: ''
   }
   
   activeName: string = '1'
@@ -40,11 +49,18 @@ export default class Index extends mixins(TableColor) {
   tabIndex: number = 2
 
   dealerStatus: Array<any> = dealerStatus
-  customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
-  finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
+  customerLevel: Array<any> = customerLevel
+  dealerleadChannel: Array<any> = dealerleadChannel
+  submersibleType: Array<any> = submersibleType
+  provincialCapital: Array<any> = provincialCapital
+  cityCapital: Array<any> = cityCapital
+  countyAreaCapital: Array<any> = countyAreaCapital
+  brands: Array<any> = brands
+  varieties: Array<any> = varieties
+  createType: Array<any> = createType
+  carType: Array<any> = carType
+  carKinds: Array<any> = carKinds
   kpi: Array<any> = kpi
 
   tableData: Array<any> = [{
@@ -80,21 +96,45 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
+  }
+
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  submitForm(form, index) {
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      if (valid) {
+        // console.log(this.form)
+      } else {
+        // console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(form) {
+    // const indexNum: any = Number(this.activeName)
+    const $form: any = this.$refs[form]
+    // this.$refs[ruleForm].resetFields()
+    $form.resetFields()
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
+    // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
+    // console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 

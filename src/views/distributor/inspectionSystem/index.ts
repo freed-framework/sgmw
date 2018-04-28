@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
@@ -13,14 +14,16 @@ import {
 @Component
 export default class Index extends mixins(TableColor) {
   ruleForm: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
+    dealerStatus: '',
+    customerLevel:'',
     customerType: '',
     dealerleadChannel: '',
-    leadChannel: 0,
-    leadStatus: 0,
-    finalResult: 0,
-    testDrive: ''
+    leadChannel: '',
+    leadStatus: '',
+    finalResult: '',
+    testDrive: '',
+    date1: '',
+    name: ''
   }
 
   activeName: string = '1'
@@ -83,8 +86,13 @@ export default class Index extends mixins(TableColor) {
     // console.log(tab, event);
   }
 
-  submitForm(formName) {
-    const $form: any = this.$refs[formName]
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  submitForm(ruleForm, index) {
+    const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
       if (valid) {
         // console.log(this.form)
@@ -95,9 +103,11 @@ export default class Index extends mixins(TableColor) {
     })
   }
 
-  resetForm(formName) {
-    const $form: any = this.$refs[formName]
-    console.log($form);
+  resetForm(ruleForm) {
+    // const indexNum: any = Number(this.activeName)
+    const $form: any = this.$refs[ruleForm]
+    // this.$refs[ruleForm].resetFields()
     $form.resetFields()
+    console.log($form)
   }
 }

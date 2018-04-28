@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
@@ -107,23 +108,46 @@ export default class Index extends mixins(TableColor) {
   }]
 
   $refs: any
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  submitForm(ruleForm, index) {
+    const $form: any = this.$refs[ruleForm]
+    $form.validate((valid) => {
+      if (valid) {
+        // console.log(this.form)
+      } else {
+        // console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(ruleForm) {
+    // const indexNum: any = Number(this.activeName)
+    const $form: any = this.$refs[ruleForm]
+    // this.$refs[ruleForm].resetFields()
+    $form.resetFields()
+  }
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
+    // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
+    // console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 

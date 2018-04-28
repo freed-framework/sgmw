@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
@@ -6,23 +7,22 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, customerType, leadChannel, carKinds, carType, brand
 } from '../../../dictionary'
-import { kpi } from './kpi' 
 
 @Component
 export default class Index extends mixins(TableColor) {
   form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
+    province: '',
     leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
+    goodsNum: '',
+    color: '',
+    carKinds: 0,
+    brand: 0,
+    carType: 0,
+    region: 0,
     startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+    endDatePicker: this.processDate()
   }
   
   activeName: string = '1'
@@ -43,9 +43,9 @@ export default class Index extends mixins(TableColor) {
   customerLevel: Array<any> = customerLevel
   customerType: Array<any> = customerType
   leadChannel: Array<any> = leadChannel
-  finalResult: Array<any> = finalResult
-  testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
+  carKinds: Array<any> = carKinds
+  carType: Array<any> = carType
+  brand: Array<any> = brand
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -80,21 +80,45 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
+  }
+
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  submitForm(ruleForm, index) {
+    const $form: any = this.$refs[ruleForm]
+    $form.validate((valid) => {
+      if (valid) {
+        // console.log(this.form)
+      } else {
+        // console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(ruleForm) {
+    // const indexNum: any = Number(this.activeName)
+    const $form: any = this.$refs[ruleForm]
+    // this.$refs[ruleForm].resetFields()
+    $form.resetFields()
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
+    // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
+    // console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 

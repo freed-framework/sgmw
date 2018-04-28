@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Component,
   Vue,
@@ -6,22 +7,25 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
+  finalResult, testDrive, leadStatus, brand, carType, kinds
 } from '../../../dictionary'
 import { kpi } from './kpi' 
 
 @Component
 export default class Index extends mixins(TableColor) {
   form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
     leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
+    brand: 0,
+    carType: 0,
+    kinds: 0,
+    testDrive: 0,
+    region: 0,
+    name: '',
+    goodsNum: '',
+    color: '',
+    startDatePicker: this.beginDate() || '',
+    endDatePicker: this.processDate() || '',
     kpi: 0
   }
   
@@ -38,13 +42,25 @@ export default class Index extends mixins(TableColor) {
     name: '3'
   }]
   tabIndex: number = 2
+  select: any = {
+    select1: '',
+    select2: '',
+    select3: '',
+    select4: ''
+  }
 
+  leadChannel: Array<any> = leadChannel
+  testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
   customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
+  dealerleadChannel: Array<any> = dealerleadChannel
+  leadStatus: Array<any> = leadStatus
   finalResult: Array<any> = finalResult
-  testDrive: Array<any> = testDrive
+  carType: Array<any> = carType
+  kinds: Array<any> = kinds
+  brand: Array<any> = brand
+
   kpi: Array<any> = kpi
 
   tableData: Array<any> = [{
@@ -87,22 +103,27 @@ export default class Index extends mixins(TableColor) {
 
   $refs: any
 
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
+    // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
+    // console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 
@@ -128,4 +149,22 @@ export default class Index extends mixins(TableColor) {
     }
   }
 
+  submitForm(ruleForm, index) {
+    const $form: any = this.$refs[ruleForm]
+    $form.validate((valid) => {
+      if (valid) {
+        // console.log(this.form)
+      } else {
+        // console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(ruleForm) {
+    // const indexNum: any = Number(this.activeName)
+    const $form: any = this.$refs[ruleForm]
+    // this.$refs[ruleForm].resetFields()
+    $form.resetFields()
+  }
 }
