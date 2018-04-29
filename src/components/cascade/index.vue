@@ -11,6 +11,7 @@
 </template>
 <script lang="ts">
 /* eslint-disable */
+
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 
 const cache = []
