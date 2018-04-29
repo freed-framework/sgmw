@@ -16,7 +16,7 @@ import { kpi } from './kpi'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 
-const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
+// const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
 
 @Component({
   components: {
@@ -32,6 +32,12 @@ export default class Index extends mixins(TableColor) {
   kpiType: any = 0
 
   dealer: any = 0
+
+  rules: any = {
+    date: [
+      { required: true, message: '请选择时间' }
+    ]
+  }
 
   cascade: any = {
     region: null,
@@ -51,7 +57,7 @@ export default class Index extends mixins(TableColor) {
   }
 
   form: any = {
-    date: cacheDate,
+    date: [],
     channel: '全部',
     custLevel: '全部',
   }
@@ -87,9 +93,18 @@ export default class Index extends mixins(TableColor) {
   submitForm(formName) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {
+      const { date, ...props } = this.form
+      if(!date[0]) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
         const submit: any = {}
-        const { date, ...props } = this.form
         if (date) {
           submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
           submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
