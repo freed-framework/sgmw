@@ -21,9 +21,8 @@ const cache = {
 
 @Component
 export default class Index extends mixins(TableColor) {
-  @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalVentList: any
-  @Getter('finallnventStatist/getList') finalInventStatistList: any
-
+  @Action('kpi/getFinalInVentStaList') actionFinalInventStatistList: any
+  @Getter('kpi/getList') finalInventStatistList: any
   ruleForm: any = { ...cache }
   
   activeName: string = '1'
@@ -118,7 +117,7 @@ export default class Index extends mixins(TableColor) {
           "province": "全部"
         }, props)
         // console.log(submit)
-        this.actionGetFinalVentList(submit)
+        this.actionFinalInventStatistList(submit)
       } else {
         // console.log('error submit!!')
         return false

@@ -1,4 +1,4 @@
-import { finalInventStatistList } from '../../api'
+import { defeatCustomerList } from '../../api'
 import { formatData, initList } from '../helpers'
 
 const ActionType = {
@@ -11,8 +11,8 @@ const state = {
 }
 
 const actions = {
-  async getFinalInVentStaList({ commit }, param) {
-    const result = await finalInventStatistList(param)
+  async getDefeatCustomerList({ commit }, param) {
+    const result = await defeatCustomerList(param)
     const payload: any = { ...result }
 
     commit(ActionType.FETCH_KPI_LIST, payload)
