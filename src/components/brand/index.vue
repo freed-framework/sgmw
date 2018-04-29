@@ -6,6 +6,7 @@
     :force="force"
     :colLabel="colLabel"
     :placeholders="placeholders"
+    :defaultAll="defaultAll"
     @change="change"
   />
 </template>
@@ -36,6 +37,8 @@ export default class Brand extends Vue {
   @Prop({default: () => ['品牌', '品种', '车系', '车型']}) colLabel: Array<string>
   // placeholders
   @Prop({default: () => []}) placeholders: Array<string>
+    // 是否默认选中全部
+  @Prop({default: false}) defaultAll: boolean
 
   change(...params) {
     this.$emit('change', ...params)

@@ -35,7 +35,6 @@
           <region
             @change="handleRegionChange"
             :cols="[0, 1]"
-            :hasAll="true"
           />
           <el-col :span="6">
             <el-form-item label="经销商号">
@@ -116,7 +115,6 @@
           <brand
             @change="handleCacadeChange"
             :cols="[0, 3]"
-            :hasAll="false"
           />
         </el-row>
         <el-row>
