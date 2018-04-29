@@ -10,6 +10,8 @@ import book from './book'
 import kpi from './kpi'
 import common from './common'
 import finalInventStatist from './finalInventStatist'
+import defeatCustomer from './defeatCustomer'
+import subStatistics from './subStatistics'
 
 export default {
   auth,
@@ -17,5 +19,7 @@ export default {
   book,
   kpi,
   common,
-  finalInventStatist
+  finalInventStatist,
+  defeatCustomer,
+  subStatistics
 }
