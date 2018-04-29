@@ -14,7 +14,6 @@ const actions = {
   async getKpiList({ commit }, param) {
     const result = await kpiList(param)
     const payload: any = { ...result }
-
     commit(ActionType.FETCH_KPI_LIST, payload)
   },
 }

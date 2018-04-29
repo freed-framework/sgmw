@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" label-width="84px">
+  <el-form ref="ruleForm" :model="ruleForm" label-width="96px">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
           :key="index"
@@ -7,7 +7,7 @@
           :label="item.title"
           :name="item.name"
         >
-        <div class="sg-sub-stati">
+        <div class="sg-def-statist">
           <div class="sg-header">
             <el-row>
               <el-col :span="12" class="time-group" style="display: flex;">
@@ -42,7 +42,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="客户级别" label-width="110px">
+                <el-form-item label="客户级别">
                   <el-select v-model="ruleForm.customerLevel" placeholder="请选择客户级别" >
                     <el-option v-for="(text, index) in customerLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>

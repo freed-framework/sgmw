@@ -121,7 +121,6 @@ export default class Index extends mixins(TableColor) {
           "province": "全部"
         }, props)
         // console.log(submit)
-        console.log(this)
         this.actionGetDefeatCustomerList(submit)
       } else {
         // console.log('error submit!!')
