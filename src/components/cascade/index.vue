@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <span>
     <el-col :span="6" v-for="i in 4" :key="i" v-if="(i-1) >= cols[0] && (i-1) <= cols[1]">
       <el-form-item :label="colLabel[i-1]">
         <el-select :clearable="true" v-model="form[keys[i-1]]" :placeholder="placeholders[i-1]">
@@ -7,14 +7,18 @@
         </el-select>
       </el-form-item>
     </el-col>
-  </el-row>
+  </span>
 </template>
 <script lang="ts">
 /* eslint-disable */
-
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 
-const cache = []
+const cache = {
+  a: null,
+  b: null,
+  c: null,
+  d: null
+}
 const all = {
   label: "全部",
   key: '0',
@@ -41,12 +45,7 @@ export default class Cascade extends Vue {
 
   showData: Array<any> = []
   keys: Array<any> = ['a', 'b', 'c', 'd']
-  form: any = {
-    a: null,
-    b: null,
-    c: null,
-    d: null
-  }
+  form: any = {...cache}
 
   /**添加”全部“选型 */
   addAll() {
@@ -82,23 +81,24 @@ export default class Cascade extends Vue {
   }
 
   find(data, val, base) {
+    const re = new RegExp(`^${val}`,"gim");
     const result = {};
     for (let i in data) {
-      if (i > val && i < (Number(val) + base)) {
+      if (re.test(i)) {
         result[i] = data[i]
       }
     }
     return result
   }
 
-  reset() {
-    this.showData = [...this.data]
-    this.form = {
-      a: null,
-      b: null,
-      c: null,
-      d: null
+  clear() {
+    const { hasAll, addAll } = this
+    if (hasAll) {
+      this.addAll()
+    } else {
+      this.showData = [...this.data]
     }
+    this.form = {...cache}
   }
 
   getReult() {
@@ -125,6 +125,8 @@ export default class Cascade extends Vue {
   @Watch('data', {deep: true})
   watchData(val) {
     this.init()
+    this.$forceUpdate()
+    
   }
 
   @Watch('form', {deep: true})

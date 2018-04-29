@@ -12,7 +12,6 @@ import {
   dealerStatus, customerLevel, customerType, leadChannel,
   finalResult, testDrive
 } from '../../../dictionary'
-import AreaData from '../../../dictionary/area'
 import { kpi } from './kpi'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
@@ -34,21 +33,27 @@ export default class Index extends mixins(TableColor) {
 
   dealer: any = 0
 
-  region: any = '0'
-
-  cascade: any = {}
+  cascade: any = {
+    region: null,
+    province: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
 
   cascadeContext: any = {
     clear() {}
   }
 
+  regionContext: any = {
+    clear() {}
+  }
 
   form: any = {
     date: cacheDate,
-    province: '全部',
     channel: '全部',
     custLevel: '全部',
-    brand: '全部' // 测试
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -58,13 +63,25 @@ export default class Index extends mixins(TableColor) {
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
   kpi: Array<any> = kpi
-  provinceList: any = AreaData.province_list
-  regionList: any = AreaData.region_list
+  
 
   handleCacadeChange(vm, data = {}) {
-    console.log(data)
     this.cascadeContext = vm
-    this.cascade = data
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
+    )
   }
 
   submitForm(formName) {
@@ -89,24 +106,8 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(formName) {
     const $form: any = this.$refs[formName]
-    this.region = '0'
     this.cascadeContext.clear()
+    this.regionContext.clear()
     $form.resetFields()
   }
-
-  @Watch('region')
-  watchRegionChange(val, old) {
-    const province = {}
-    const data: any = AreaData
-    const value = Number(val) 
-    for (let i in data.province_list) {
-      const max: any = value + 100000;
-      if (i === '0' || (i > val && i < max) || val === '0') {
-        province[i] = data.province_list[i]
-      }
-    }
-
-    this.provinceList = province
-    this.form.province = '全部'
-  } 
 }

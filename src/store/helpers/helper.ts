@@ -11,8 +11,9 @@ export function format(data, naKeys, chKeys) {
 }
 
 function formatData(data = []) {
+  if (!data) return
   for (let j = 0; j < data.length; j++) {
-    const weight = (j + 1) * 100000
+    const weight = j + 1 + ''
     const item = data[j]
     const name = item[nameKeys[0]]
     result[0][weight] = { label: name, key: weight, value: weight }
@@ -23,8 +24,9 @@ function formatData(data = []) {
 }
 
 function formatLevel1(data = [], w) {
+  if (!data) return
   for (let j = 0; j < data.length; j++) {
-    const weight = w + (j + 1) * 10000
+    const weight = w + '-' + (j + 1)
     const item = data[j]
     const name = item[nameKeys[1]]
     result[1][weight] = { label: name, key: weight, value: weight }
@@ -34,8 +36,9 @@ function formatLevel1(data = [], w) {
 }
 
 function formatLevel2(data = [], w) {
+  if (!data) return
   for (let j = 0; j < data.length; j++) {
-    const weight = w + (j + 1) * 1000
+    const weight = w + '-' + (j + 1)
     const item = data[j]
     const name = item[nameKeys[2]]
     result[2][weight] = { label: name, key: weight, value: weight }
@@ -45,8 +48,9 @@ function formatLevel2(data = [], w) {
 }
 
 function formatLevel3(data = [], w) {
+  if (!data) return
   for (let j = 0; j < data.length; j++) {
-    const weight = w + (j + 1) * 100
+    const weight = w + '-' + (j + 1)
     const item = data[j]
     const name = item[nameKeys[3]]
     result[3][weight] = { label: name, key: weight, value: weight }
