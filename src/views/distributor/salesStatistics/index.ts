@@ -8,7 +8,7 @@ import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, brand, carType, kinds
+  finalResult, testDrive, leadStatus, factoryCard, carType, kinds
 } from '../../../dictionary'
 import { kpi } from './kpi' 
 
@@ -59,7 +59,7 @@ export default class Index extends mixins(TableColor) {
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  brand: Array<any> = brand
+  factoryCard: Array<any> = factoryCard
 
   kpi: Array<any> = kpi
 
