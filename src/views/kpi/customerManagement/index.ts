@@ -108,5 +108,5 @@ export default class Index extends mixins(TableColor) {
 
     this.provinceList = province
     this.form.province = '全部'
-  } 
+  }
 }

@@ -11,23 +11,22 @@
           <div class="sg-header">
             <el-row>
               <el-col :span="6">
-                <el-form-item label="区域" prop="region">
-                  <el-select v-model="ruleForm.region" placeholder="请选择区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                <el-form-item label="区域">
+                  <el-select :clearable="true" v-model="region" placeholder="请选择区域">
+                    <el-option v-for="(key, id) in regionList" :label="key" :key="key" :value="id"></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="省份">
-                  <el-select v-model="ruleForm.provincialCapital" placeholder="请选择省份">
-                    <el-option v-for="(text, index) in provincialCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-select :clearable="true" v-model="ruleForm.province" placeholder="请选择省份">
+                    <el-option v-for="key in provinceList" :label="key" :key="key" :value="key"></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="车系">
-                  <el-select v-model="ruleForm.carType" placeholder="请选择车系">
+                  <el-select :clearable="true" v-model="ruleForm.carType" placeholder="请选择车系">
                     <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -39,7 +38,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="单据数：" label-width="110px">
-                  123
+                  {{finalInventStatistList.pagination.total}}
                 </el-form-item>
               </el-col>
             </el-row>

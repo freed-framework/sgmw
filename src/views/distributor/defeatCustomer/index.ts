@@ -12,7 +12,6 @@ import {
   countyAreaCapital, brands, varieties, carType, carKinds, dealerleadChannel,
   testDrive, createType
 } from '../../../dictionary'
-import { kpi } from './kpi' 
 
 const cache = {
   dealerStatus: 0,
@@ -66,7 +65,6 @@ export default class Index extends mixins(TableColor) {
   createType: Array<any> = createType
   carType: Array<any> = carType
   carKinds: Array<any> = carKinds
-  kpi: Array<any> = kpi
 
   tableData: Array<any> = [{
     cors: '2016-05-02',

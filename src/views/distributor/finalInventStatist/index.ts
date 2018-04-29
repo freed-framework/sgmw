@@ -8,24 +8,31 @@ import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import AreaData from '../../../dictionary/area'
 import {
-  provincialCapital, carType
+  carType
 } from '../../../dictionary'
+import Region from '../../../components/region/index.vue'
+import constantRoutes from '@/router/routes';
 
 const cache = {
-  region: 0,
-  provincialCapital: 0,
-  carType: 0,
-  brand: ''
+  carType: '全部',
+  brand: '',
+  province: '全部'
 }
 
-@Component
+@Component({
+  components: {
+    Region
+  }
+})
 export default class Index extends mixins(TableColor) {
   @Action('finalInventStatist/getFinalInVentStaList') actionFinalInventStatistList: any
   @Getter('finalInventStatist/getList') finalInventStatistList: any
   ruleForm: any = { ...cache }
   
   activeName: string = '1'
+  region: any = '0'
   editableTabs: any = [{
     title: '期末库存趋势统计-年',
     name: '1'
@@ -35,9 +42,9 @@ export default class Index extends mixins(TableColor) {
   }]
   tabIndex: number = 2
 
-
-  provincialCapital: Array<any> = provincialCapital
   carType: Array<any> = carType
+  regionList: any = AreaData.region_list
+  provinceList: any = AreaData.province_list
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -102,9 +109,21 @@ export default class Index extends mixins(TableColor) {
   }]
 
   $refs: any
-  @Watch('ruleForm', {deep: true})
-  watchSelect(val) {
-    // console.log(val, '----------------------')
+  // @Watch('ruleForm', {deep: true})
+  @Watch('region', {deep: true})
+  watchRegionChange(val, old) {
+    const province = {}
+    const data: any = AreaData
+    const value = Number(val) 
+    for (let i in data.province_list) {
+      const max: any = value + 100000;
+      if (i === '0' || (i > val && i < max) || val === '0') {
+        province[i] = data.province_list[i]
+      }
+    }
+    // console.log(province)
+    this.provinceList = province
+    this.ruleForm.province = '全部'
   }
 
   submitForm(ruleForm, index) {
@@ -112,14 +131,14 @@ export default class Index extends mixins(TableColor) {
     $form.validate((valid) => {
       if (valid) {
         const submit: any = {}
-        const { date, ...props } = this.ruleForm
-        Object.assign(submit, {
-          "province": "全部"
-        }, props)
-        // console.log(submit)
+        const { ...props } = this.ruleForm
+        const regionValue = this.region
+        Object.assign(submit, props)
+        Object.assign(submit, regionValue)
+        console.log(submit)
         this.actionFinalInventStatistList(submit)
       } else {
-        // console.log('error submit!!')
+        console.log('error submit!!')
         return false
       }
     })
@@ -127,6 +146,7 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(ruleForm) {
     this.ruleForm = { ...cache }
+    this.region = '0'
   }
 
   handleClick(tab, event) {
