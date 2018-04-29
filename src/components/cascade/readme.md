@@ -112,6 +112,8 @@ force: boolean 暂时不实现
 default: Array
 // 没项label
 colLabel: Array<string>
+// 是否默认选中全部(默认为true)
+defaultAll: boolean
 // 修改回调 返回结果 （vm(组件this) result）
 change: Function
 ```

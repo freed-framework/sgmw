@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <span>
     <el-col :span="6" v-for="i in 4" :key="i" v-if="(i-1) >= cols[0] && (i-1) <= cols[1]">
       <el-form-item :label="colLabel[i-1]">
         <el-select :clearable="true" v-model="form[keys[i-1]]" :placeholder="placeholders[i-1]">
@@ -7,13 +7,24 @@
         </el-select>
       </el-form-item>
     </el-col>
-  </el-row>
+  </span>
 </template>
 <script lang="ts">
 /* eslint-disable */
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 
-const cache = []
+const cache = {
+  a: null,
+  b: null,
+  c: null,
+  d: null
+}
+const cacheAll = {
+  a: '0',
+  b: '0',
+  c: '0',
+  d: '0'
+}
 const all = {
   label: "全部",
   key: '0',
@@ -37,15 +48,12 @@ export default class Cascade extends Vue {
   @Prop({default: () => ['1', '2', '3', '4']}) colLabel: Array<string>
   // placeholders
   @Prop({default: () => []}) placeholders: Array<string>
+  // 是否默认选中全部
+  @Prop({default: false}) defaultAll: boolean
 
   showData: Array<any> = []
   keys: Array<any> = ['a', 'b', 'c', 'd']
-  form: any = {
-    a: null,
-    b: null,
-    c: null,
-    d: null
-  }
+  form: any = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
 
   /**添加”全部“选型 */
   addAll() {
@@ -64,7 +72,7 @@ export default class Cascade extends Vue {
     }
 
     const newData = {
-      0: all
+      '0': all
     };
 
     Object.assign(newData, data)
@@ -81,23 +89,24 @@ export default class Cascade extends Vue {
   }
 
   find(data, val, base) {
+    const re = new RegExp(`^${val}`,"gim");
     const result = {};
     for (let i in data) {
-      if (i > val && i < (Number(val) + base)) {
+      if (re.test(i)) {
         result[i] = data[i]
       }
     }
     return result
   }
 
-  reset() {
-    this.showData = [...this.data]
-    this.form = {
-      a: null,
-      b: null,
-      c: null,
-      d: null
+  clear() {
+    const { hasAll, addAll } = this
+    if (hasAll) {
+      this.addAll()
+    } else {
+      this.showData = [...this.data]
     }
+    this.form = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
   }
 
   getReult() {
@@ -108,7 +117,7 @@ export default class Cascade extends Vue {
     for (let i = 0; i < keys.length; i++) {
       const value = this.form[keys[i]]
       if (value) {
-        result[i] = this.showData[i][value]
+        result[i] = this.showData[i] ? this.showData[i][value] : null
       } else {
         result[i] = null
       }
@@ -124,6 +133,8 @@ export default class Cascade extends Vue {
   @Watch('data', {deep: true})
   watchData(val) {
     this.init()
+    this.$forceUpdate()
+    
   }
 
   @Watch('form', {deep: true})
@@ -134,7 +145,8 @@ export default class Cascade extends Vue {
   @Watch('form.a', {deep: true})
   watchA(val) {
     const { showData, data, addOneAll, find, form } = this;
-    Object.assign(this.form, {b: null, c: null, d: null})
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
     if (val === '0' || !val) {
       this.showData = [showData[0], addOneAll(data[1]), addOneAll(data[2]), addOneAll(data[3])]
       return;
@@ -150,7 +162,8 @@ export default class Cascade extends Vue {
   @Watch('form.b', {deep: true})
   watchB(val) {
     const { showData, data, addOneAll, find, form } = this;
-    Object.assign(this.form, {c: null, d: null})
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
     if (val === '0' || !val) {
       this.showData = [showData[0], showData[1], addOneAll(data[2]), (data[3])]
       return;
@@ -166,7 +179,8 @@ export default class Cascade extends Vue {
   @Watch('form.c', {deep: true})
   watchC(val) {
     const { showData, data, addOneAll, find, form } = this;
-    Object.assign(this.form, {d: null})
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {d: all ? '0' : null})
     if (val === '0' || !val) {
       this.showData = [showData[0], showData[1], showData[2], addOneAll(data[3])]
       return;

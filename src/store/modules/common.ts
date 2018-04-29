@@ -3032,7 +3032,6 @@ const getters = {
   },
   regionList(state) {
     const { regionList = [] } = state
-
     return regionList
   }
 }

@@ -12,12 +12,11 @@ import {
   dealerStatus, customerLevel, customerType, leadChannel,
   finalResult, testDrive
 } from '../../../dictionary'
-import AreaData from '../../../dictionary/area'
 import { kpi } from './kpi'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 
-const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
+// const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
 
 @Component({
   components: {
@@ -34,21 +33,33 @@ export default class Index extends mixins(TableColor) {
 
   dealer: any = 0
 
-  region: any = '0'
+  rules: any = {
+    date: [
+      { required: true, message: '请选择时间' }
+    ]
+  }
 
-  cascade: any = {}
+  cascade: any = {
+    region: null,
+    province: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
 
   cascadeContext: any = {
     clear() {}
   }
 
+  regionContext: any = {
+    clear() {}
+  }
 
   form: any = {
-    date: cacheDate,
-    province: '全部',
+    date: [],
     channel: '全部',
     custLevel: '全部',
-    brand: '全部' // 测试
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -58,21 +69,42 @@ export default class Index extends mixins(TableColor) {
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
   kpi: Array<any> = kpi
-  provinceList: any = AreaData.province_list
-  regionList: any = AreaData.region_list
+  
 
   handleCacadeChange(vm, data = {}) {
-    console.log(data)
     this.cascadeContext = vm
-    this.cascade = data
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
+    )
   }
 
   submitForm(formName) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {
+      const { date, ...props } = this.form
+      if(!date[0]) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
         const submit: any = {}
-        const { date, ...props } = this.form
         if (date) {
           submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
           submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
@@ -89,24 +121,8 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(formName) {
     const $form: any = this.$refs[formName]
-    this.region = '0'
     this.cascadeContext.clear()
+    this.regionContext.clear()
     $form.resetFields()
   }
-
-  @Watch('region')
-  watchRegionChange(val, old) {
-    const province = {}
-    const data: any = AreaData
-    const value = Number(val) 
-    for (let i in data.province_list) {
-      const max: any = value + 100000;
-      if (i === '0' || (i > val && i < max) || val === '0') {
-        province[i] = data.province_list[i]
-      }
-    }
-
-    this.provinceList = province
-    this.form.province = '全部'
-  } 
 }
