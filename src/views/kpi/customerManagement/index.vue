@@ -1,7 +1,7 @@
 <template>
   <div class="sg-custom">
     <div class="sg-header">
-      <el-form ref="form" :model="form" label-width="84px">
+      <el-form ref="form" :rules="rules" :model="form" label-width="84px">
         <el-row>
           <el-col :span="12">
             <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
