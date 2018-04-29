@@ -14,13 +14,15 @@ import {
 } from '../../../dictionary'
 import AreaData from '../../../dictionary/area'
 import { kpi } from './kpi'
-import Cascade from '../../../components/cascade/index.vue'
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
 
 const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
 
 @Component({
   components: {
-    Cascade
+    Brand,
+    Region
   }
 })
 export default class Index extends mixins(TableColor) {
@@ -59,8 +61,9 @@ export default class Index extends mixins(TableColor) {
   provinceList: any = AreaData.province_list
   regionList: any = AreaData.region_list
 
-  handleCacadeChange(cascade, data = {}) {
-    this.cascadeContext = cascade
+  handleCacadeChange(vm, data = {}) {
+    console.log(data)
+    this.cascadeContext = vm
     this.cascade = data
   }
 

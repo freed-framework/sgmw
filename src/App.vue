@@ -11,9 +11,11 @@ import { Vue, Component } from 'vue-property-decorator'
 @Component
 export default class App extends Vue {
   @Action('common/getRegionList') actionGetRegionList: any
+  @Action('common/getBrandList') actionGetBrandList: any
 
   created() {
     this.actionGetRegionList()
+    this.actionGetBrandList()
   }
 }
 </script>
