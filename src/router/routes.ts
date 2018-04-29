@@ -67,7 +67,7 @@ const asyncRoutes = [
     name: '经销商管理',
     component: Layout,
     meta: {
-      role: ['admin'],
+      role: ['book'],
       text: '经销商管理'
     },
     children: [{

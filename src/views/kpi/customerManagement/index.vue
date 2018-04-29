@@ -121,10 +121,16 @@
             </el-form-item>
           </el-col>
         </el-row> -->
-        <cascade
-          v-model="form.select"
+        <brand
           @change="handleCacadeChange"
+          :cols="[0, 3]"
+          :hasAll="false"
         />
+        <!-- <region
+          @change="handleCacadeChange"
+          :cols="[1, 2]"
+          :hasAll="true"
+        /> -->
         <el-row>
           <el-col :span="6">
             <el-form-item label="是否试驾">
