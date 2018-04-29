@@ -24,7 +24,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="厂牌">
-                  <el-input v-model="ruleForm.brand" placeholder="请输入厂牌"></el-input>
+                  <el-input v-model="ruleForm.factoryCard" placeholder="请输入厂牌"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>

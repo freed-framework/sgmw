@@ -8,7 +8,7 @@ export const leadChannel = [{label: '全部'}, {label: '自然到店'}, {label: 
 // 线索状态
 export const leadStatus = [{label: '全部'}, {label: '未跟进'}, {label: '跟进中'}, {label: '已成交'}, {label: '已战败'}]
 // 厂牌
-export const brand = [{label: '空'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
+export const factoryCard = [{label: '空'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
 // 最后结果
 export const finalResult = [{label: '全部'}, {label: '待定'}, {label: '已成交'}, {label: '已战败'}]
 // 品牌

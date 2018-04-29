@@ -16,7 +16,7 @@ import Region from '../../../components/region/index.vue'
 
 const cache = {
   carType: '全部',
-  brand: '',
+  factoryCard: '',
   province: '全部'
 }
 
@@ -122,22 +122,11 @@ export default class Index extends mixins(TableColor) {
 
   $refs: any
   @Watch('ruleForm', {deep: true})
-  handleCacadeChange(vm, data = {}) {
-    this.cascadeContext = vm
-    Object.assign(this.cascade,
-      {
-        brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
-      }
-    )
-  }
 
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
-      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : '全部'}
     )
   }
 
@@ -147,7 +136,8 @@ export default class Index extends mixins(TableColor) {
       if (valid) {
         const submit: any = {}
         const { ...props } = this.ruleForm     
-        Object.assign(submit, props, this.cascade)
+        Object.assign(submit, this.cascade)
+        Object.assign(submit, props)
         console.log(submit)
         this.actionFinalInventStatistList(submit)
       } else {

@@ -6,6 +6,7 @@
     :force="force"
     :colLabel="colLabel"
     :placeholders="placeholders"
+    :defaultAll="defaultAll"
     @change="change"
   />
 </template>
@@ -36,6 +37,8 @@ export default class Region extends Vue {
   @Prop({default: () => ['区域', '省份', '城市', '县区']}) colLabel: Array<string>
   // placeholders
   @Prop({default: () => []}) placeholders: Array<string>
+  // 是否默认选中全部
+  @Prop({default: false}) defaultAll: boolean
 
   data: any = [
   {
