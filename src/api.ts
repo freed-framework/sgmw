@@ -133,3 +133,7 @@ export const finalInventStatistList = (params) => http.post('/store-customer-def
  * 战败统计
  */
 export const defeatCustomerList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 潜客统计
+ */
+export const subStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)

@@ -1,8 +1,8 @@
-import { defeatCustomerList } from '../../api'
+import { subStatisticsList } from '../../api'
 import { formatData, initList } from '../helpers'
 
 const ActionType = {
-  FETCH_DEFEAT_CUSTOME_LIST: 'FETCH_DEFEAT_CUSTOME_LIST',
+  FETCH_KPI_LIST: 'FETCH_KPI_LIST',
 }
 
 // initial state
@@ -11,16 +11,16 @@ const state = {
 }
 
 const actions = {
-  async getDefeatCustomerList({ commit }, param) {
-    const result = await defeatCustomerList(param)
+  async getSubStatisticsListList({ commit }, param) {
+    const result = await subStatisticsList(param)
     const payload: any = { ...result }
 
-    commit(ActionType.FETCH_DEFEAT_CUSTOME_LIST, payload)
+    commit(ActionType.FETCH_KPI_LIST, payload)
   },
 }
 
 const mutations = {
-  [ActionType.FETCH_DEFEAT_CUSTOME_LIST](state: any, payload: any) {
+  [ActionType.FETCH_KPI_LIST](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

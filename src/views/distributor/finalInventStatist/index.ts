@@ -21,8 +21,8 @@ const cache = {
 
 @Component
 export default class Index extends mixins(TableColor) {
-  @Action('kpi/getFinalInVentStaList') actionFinalInventStatistList: any
-  @Getter('kpi/getList') finalInventStatistList: any
+  @Action('finalInventStatist/getFinalInVentStaList') actionFinalInventStatistList: any
+  @Getter('finalInventStatist/getList') finalInventStatistList: any
   ruleForm: any = { ...cache }
   
   activeName: string = '1'

@@ -5,6 +5,7 @@ import {
   Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, submersibleType, provincialCapital,
@@ -13,21 +14,26 @@ import {
 } from '../../../dictionary'
 import { kpi } from './kpi' 
 
+const cache = {
+  dealerStatus: 0,
+  region: 0,
+  submersibleType: 0,
+  customerLevel: 0,
+  customerType: '',
+  leadChannel: 0,
+  finalResult: 0,
+  provincialCapital: 0,
+  testDrive: '',
+  startDatePicker: '',
+  endDatePicker: '',
+  kpi: 0
+}
+
 @Component
 export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    submersibleType: 0,
-    customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    provincialCapital: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
-  }
+  @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
+  @Getter('subStatistics/getList') subStatisticsList: any
+  ruleForm: any = { ...cache }
   
   activeName: string = '1'
   editableTabsValue: string = '2'
@@ -140,11 +146,16 @@ export default class Index extends mixins(TableColor) {
   }
 
   submitForm(ruleForm, index) {
-    console.log(this.$refs[ruleForm])
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
       if (valid) {
-        // console.log(this.form)
+        const submit: any = {}
+        const { date, ...props } = this.ruleForm
+        Object.assign(submit, {
+          "province": "全部"
+        }, props)
+        // console.log(submit)
+        this.actionSubStatisticsListList(submit)
       } else {
         // console.log('error submit!!')
         return false
@@ -153,16 +164,13 @@ export default class Index extends mixins(TableColor) {
   }
 
   resetForm(ruleForm) {
-    // const indexNum: any = Number(this.activeName)
-    const $form: any = this.$refs[ruleForm]
-    // this.$refs[ruleForm].resetFields()
-    $form.resetFields()
+    this.ruleForm = { ...cache }
   }
 
   dateChangeBeginTime(val) {
     // console.log(val);
     const _this = this
-    _this.form.startDatePicker = val;
+    _this.ruleForm.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
@@ -183,8 +191,8 @@ export default class Index extends mixins(TableColor) {
     let self = this
     return {
       disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
+        if(self.ruleForm.startDatePicker){
+          return new Date(self.ruleForm.startDatePicker).getTime() > time.getTime()
         } else {
           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
         }

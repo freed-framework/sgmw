@@ -35,8 +35,8 @@ const cache = {
 
 @Component
 export default class Index extends mixins(TableColor) {
-  @Action('kpi/getDefeatCustomerList') actiondefeatCustomerList: any
-  @Getter('kpi/getList') defeatCustomerList: any
+  @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
+  @Getter('defeatCustomer/getList') defeatCustomerList: any
   ruleForm: any = { ...cache }
   
   activeName: string = '1'
@@ -123,7 +123,7 @@ export default class Index extends mixins(TableColor) {
           "province": "全部"
         }, props)
         // console.log(submit)
-        this.actiondefeatCustomerList(submit)
+        this.actionGetDefeatCustomerList(submit)
       } else {
         // console.log('error submit!!')
         return false
