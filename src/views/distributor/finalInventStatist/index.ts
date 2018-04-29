@@ -13,7 +13,6 @@ import {
   carType
 } from '../../../dictionary'
 import Region from '../../../components/region/index.vue'
-import constantRoutes from '@/router/routes';
 
 const cache = {
   carType: '全部',
@@ -30,6 +29,19 @@ export default class Index extends mixins(TableColor) {
   @Action('finalInventStatist/getFinalInVentStaList') actionFinalInventStatistList: any
   @Getter('finalInventStatist/getList') finalInventStatistList: any
   ruleForm: any = { ...cache }
+
+  cascade: any = {
+    region: null,
+    province: null
+  }
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
   
   activeName: string = '1'
   region: any = '0'
@@ -109,32 +121,33 @@ export default class Index extends mixins(TableColor) {
   }]
 
   $refs: any
-  // @Watch('ruleForm', {deep: true})
-  @Watch('region', {deep: true})
-  watchRegionChange(val, old) {
-    const province = {}
-    const data: any = AreaData
-    const value = Number(val) 
-    for (let i in data.province_list) {
-      const max: any = value + 100000;
-      if (i === '0' || (i > val && i < max) || val === '0') {
-        province[i] = data.province_list[i]
+  @Watch('ruleForm', {deep: true})
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
       }
-    }
-    // console.log(province)
-    this.provinceList = province
-    this.ruleForm.province = '全部'
+    )
   }
 
-  submitForm(ruleForm, index) {
-    const $form: any = this.$refs[ruleForm]
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
+    )
+  }
+
+  submitForm(formName) {
+    const $form: any = this.$refs[formName]
     $form.validate((valid) => {
       if (valid) {
         const submit: any = {}
-        const { ...props } = this.ruleForm
-        const regionValue = this.region
-        Object.assign(submit, props)
-        Object.assign(submit, regionValue)
+        const { ...props } = this.ruleForm     
+        Object.assign(submit, props, this.cascade)
         console.log(submit)
         this.actionFinalInventStatistList(submit)
       } else {
@@ -147,25 +160,12 @@ export default class Index extends mixins(TableColor) {
   resetForm(ruleForm) {
     this.ruleForm = { ...cache }
     this.region = '0'
+    this.cascadeContext.clear()
+    this.regionContext.clear()
   }
 
   handleClick(tab, event) {
     // console.log(tab, event);
-  }
-
-  created() {
-    // console.log(this.dealerStatus)
-  }
-
-  dateChangeBeginTime(val) {
-    // console.log(val);
-    const _this = this
-    _this.ruleForm.startDatePicker = val;
-  }
-
-  dateChangeEndTime(val) {
-    // console.log(val);
-    this.$refs.form.endDatePicker = val;
   }
 
 }

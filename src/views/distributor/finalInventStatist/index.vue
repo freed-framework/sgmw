@@ -10,20 +10,11 @@
         <div class="sg-custom">
           <div class="sg-header">
             <el-row>
-              <el-col :span="6">
-                <el-form-item label="区域">
-                  <el-select :clearable="true" v-model="region" placeholder="请选择区域">
-                    <el-option v-for="(key, id) in regionList" :label="key" :key="key" :value="id"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="省份">
-                  <el-select :clearable="true" v-model="ruleForm.province" placeholder="请选择省份">
-                    <el-option v-for="key in provinceList" :label="key" :key="key" :value="key"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
+              <region
+                @change="handleRegionChange"
+                :cols="[0, 1]"
+                :hasAll="true"
+              />
               <el-col :span="6">
                 <el-form-item label="车系">
                   <el-select :clearable="true" v-model="ruleForm.carType" placeholder="请选择车系">
@@ -36,13 +27,13 @@
                   <el-input v-model="ruleForm.brand" placeholder="请输入厂牌"></el-input>
                 </el-form-item>
               </el-col>
+            </el-row>
+            <el-row>
               <el-col :span="6">
                 <el-form-item label="单据数：" label-width="110px">
                   {{finalInventStatistList.pagination.total}}
                 </el-form-item>
               </el-col>
-            </el-row>
-            <el-row>
               <el-col :span="6" :offset="18">
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
