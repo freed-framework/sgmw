@@ -13,7 +13,7 @@
               <el-col :span="12" class="time-group" style="display: flex;">
                 <el-form-item label="日期">
                     <el-date-picker
-                      v-model="ruleForm.date1"
+                      v-model="ruleForm.date"
                       type="daterange"
                       range-separator="至"
                       start-placeholder="开始日期"
@@ -29,7 +29,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="经销商状态">
-                  <el-select v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
+                  <el-select :clearable="true" v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
                     <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -38,110 +38,68 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="销售顾问">
-                  <el-input v-model="ruleForm.name" placeholder="请输入销售顾问"></el-input>
+                  <el-input v-model="ruleForm.SalesConsultant" placeholder="请输入销售顾问"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="客户级别">
-                  <el-select v-model="ruleForm.customerLevel" placeholder="请选择客户级别" >
+                  <el-select :clearable="true" v-model="ruleForm.customerLevel" placeholder="请选择客户级别" >
                     <el-option v-for="(text, index) in customerLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="最后结果">
-                  <el-select v-model="ruleForm.region" placeholder="请选择最后结果">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                  <el-select :clearable="true" v-model="ruleForm.finalResult" placeholder="请选择最后结果">
+                    <el-option v-for="(item, index) in finalResult" :key="index" :label="item.label" :value="item.label"></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="潜客类型">
-                  <el-select v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
+                  <el-select :clearable="true" v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
                     <el-option v-for="(text, index) in submersibleType" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="6">
-                <el-form-item label="客户所在省会">
-                  <el-select v-model="ruleForm.provincialCapital" placeholder="请选择客户所在省会" >
-                    <el-option v-for="(text, index) in provincialCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="客户所在城市">
-                  <el-select v-model="ruleForm.cityCapital" placeholder="请选择客户所在城市" >
-                    <el-option v-for="(text, index) in cityCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="客户所在县区">
-                  <el-select v-model="ruleForm.countyAreaCapital" placeholder="请选择客户所在县区" >
-                    <el-option v-for="(text, index) in countyAreaCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
+              <region
+                @change="handleRegionChange"
+                :cols="[1, 3]"
+              />
             </el-row>
             <el-row>
-              <el-col :span="6">
-                <el-form-item label="品牌">
-                  <el-select v-model="ruleForm.brands" placeholder="请选择品牌" >
-                    <el-option v-for="(text, index) in brands" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="品种">
-                  <el-select v-model="ruleForm.varieties" placeholder="请选择品种" >
-                    <el-option v-for="(text, index) in varieties" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="车系">
-                  <el-select v-model="ruleForm.carType" placeholder="请选择车系" >
-                    <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="车型">
-                  <el-select v-model="ruleForm.carKinds" placeholder="请选择车型" >
-                    <el-option v-for="(text, index) in carKinds" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
+              <brand
+                @change="handleCacadeChange"
+                :cols="[0, 3]"
+              />
             </el-row>
             <el-row>
               <el-col :span="6">
                 <el-form-item label="线索渠道">
-                  <el-select v-model="ruleForm.dealerleadChannel" placeholder="线索渠道" >
+                  <el-select :clearable="true" v-model="ruleForm.dealerleadChannel" placeholder="线索渠道" >
                     <el-option v-for="(text, index) in dealerleadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="是否试驾">
-                  <el-select v-model="ruleForm.testDrive" placeholder="请选择是否试驾" >
+                  <el-select :clearable="true" v-model="ruleForm.testDrive" placeholder="请选择是否试驾" >
                     <el-option v-for="(text, index) in testDrive" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="创建方式">
-                  <el-select v-model="ruleForm.createType" placeholder="请选择创建方式" >
+                  <el-select :clearable="true" v-model="ruleForm.createType" placeholder="请选择创建方式" >
                     <el-option v-for="(text, index) in createType" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="到店次数">
-                  <el-input v-model="ruleForm.name" placeholder="请输入到店次数"></el-input>
+                  <el-input v-model="ruleForm.numberOfStores" placeholder="请输入到店次数"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>

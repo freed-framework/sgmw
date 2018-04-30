@@ -23,9 +23,9 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="厂牌" prop="brand">
-                    <el-select v-model="form.brand" placeholder="请选择厂牌">
-                      <el-option v-for="(text, index) in brand" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-form-item label="厂牌" prop="factoryCard">
+                    <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">
+                      <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -36,22 +36,10 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="6">
-                  <el-form-item label="区域" prop="region">
-                    <el-select v-model="form.region" placeholder="请选择区域">
-                      <el-option label="区域一" value="shanghai"></el-option>
-                      <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6" :pull="1">
-                  <el-form-item label="省份" prop="region">
-                    <el-select v-model="form.region" placeholder="请选择省份">
-                      <el-option label="区域一" value="shanghai"></el-option>
-                      <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                <region
+                  @change="handleRegionChange"
+                  :cols="[1, 2]"
+                />
                 <el-col :span="6">
                   <el-form-item label="经销商" prop="name">
                     <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
@@ -59,7 +47,7 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="车系" label-width="110px" prop="carType">
-                    <el-select v-model="form.carType" placeholder="请选择经车系" >
+                    <el-select :clearable="true" v-model="form.carType" placeholder="请选择经车系" >
                       <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
@@ -68,7 +56,7 @@
               <el-row>
                 <el-col :span="6">
                   <el-form-item label="型号" prop="kinds">
-                    <el-select v-model="form.kinds" placeholder="请选择型号" >
+                    <el-select :clearable="true" v-model="form.kinds" placeholder="请选择型号" >
                       <el-option v-for="(text, index) in kinds" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
@@ -85,7 +73,7 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="省会/地级/县级" label-width="110px" prop="leadChannel">
-                    <el-select v-model="form.leadChannel" placeholder="请选择省会/地级/县级">
+                    <el-select :clearable="true" v-model="form.leadChannel" placeholder="请选择省会/地级/县级">
                       <el-option v-for="(text, index) in leadChannel" :key="index" :label="text.label" :value="text.label"></el-option>
                     </el-select>
                   </el-form-item>

@@ -12,6 +12,7 @@ import common from './common'
 import finalInventStatist from './finalInventStatist'
 import defeatCustomer from './defeatCustomer'
 import subStatistics from './subStatistics'
+import salesStatistics from './salesStatistics'
 
 export default {
   auth,
@@ -21,5 +22,6 @@ export default {
   common,
   finalInventStatist,
   defeatCustomer,
+  salesStatistics,
   subStatistics
 }

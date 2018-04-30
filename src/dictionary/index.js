@@ -1,6 +1,6 @@
 /* eslint-disable */
 // 经销商状态
-export const dealerStatus = [{label: '非注销'}, {lable: '已注册'}]
+export const dealerStatus = [{label: '非注销'}, {label: '已注册'}]
 // 客户类型
 export const dealerCustomerType = [{label: '全部'}, {label: '自然到店（来电）'}, {label: '互联网营销'}, {label: '客户营销'}, {label: '营销活动'}]
 // 线索渠道

@@ -5,28 +5,59 @@ import {
   Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import { State, Getter, Action } from 'vuex-class'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, factoryCard, carType, kinds
+  finalResult, testDrive, leadStatus, carType, kinds, factoryCard
 } from '../../../dictionary'
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
 import { kpi } from './kpi' 
 
-@Component
-export default class Index extends mixins(TableColor) {
-  form: any = {
-    leadChannel: 0,
-    brand: 0,
+const cache = {
+  leadChannel: 0,
+    factoryCard: 0,
     carType: 0,
     kinds: 0,
     testDrive: 0,
-    region: 0,
     name: '',
     goodsNum: '',
     color: '',
-    startDatePicker: this.beginDate() || '',
-    endDatePicker: this.processDate() || '',
+    startDatePicker: '',
+    endDatePicker: '',
     kpi: 0
+}
+
+@Component({
+  components: {
+    Brand,
+    Region
+  }
+})
+export default class Index extends mixins(TableColor) {
+  @Action('salesStatistics/getDefeatCustomerList') actionGetDefeatCustomerList: any
+  @Getter('salesStatistics/getList') defeatCustomerList: any
+
+  form: any = { ...cache }
+
+  cascade: any = {
+    region: null,
+    province: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
+
+  rules: any = {
+    startDatePicker: [
+      { required: false, message: '请选择时间' }
+    ],
+    endDatePicker: [
+      { required: false, message: '请选择时间' }
+    ]
   }
   
   activeName: string = '1'
@@ -49,6 +80,14 @@ export default class Index extends mixins(TableColor) {
     select4: ''
   }
 
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
@@ -56,10 +95,10 @@ export default class Index extends mixins(TableColor) {
   customerType: Array<any> = customerType
   dealerleadChannel: Array<any> = dealerleadChannel
   leadStatus: Array<any> = leadStatus
+  factoryCard: Array<any> = factoryCard
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  factoryCard: Array<any> = factoryCard
 
   kpi: Array<any> = kpi
 
@@ -116,6 +155,25 @@ export default class Index extends mixins(TableColor) {
     // console.log(this.dealerStatus)
   }
 
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
+    )
+  }
+
   dateChangeBeginTime(val) {
     // console.log(val);
     const _this = this
@@ -149,22 +207,35 @@ export default class Index extends mixins(TableColor) {
     }
   }
 
-  submitForm(ruleForm, index) {
-    const $form: any = this.$refs[ruleForm]
+  submitForm(form) {
+    const $form: any = this.$refs[form]
     $form.validate((valid) => {
+      const { date, ...props } = this.form
+      if(!props.beginTime && !props.endTime) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
-        // console.log(this.form)
+        const submit: any = {}
+        Object.assign(submit, props)
+        Object.assign(submit, this.cascade)
+        console.log(submit)
+        this.actionGetDefeatCustomerList(submit)
       } else {
-        // console.log('error submit!!')
+        console.log('error submit!!')
         return false
       }
     })
   }
 
-  resetForm(ruleForm) {
-    // const indexNum: any = Number(this.activeName)
-    const $form: any = this.$refs[ruleForm]
-    // this.$refs[ruleForm].resetFields()
-    $form.resetFields()
+  resetForm(form) {
+    this.form = { ...cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
   }
 }
