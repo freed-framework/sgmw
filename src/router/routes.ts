@@ -7,13 +7,13 @@ const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    hidden: true,
-    redirect: '/customerManagement',
-    // children: [{
-    //   path: '',
-    //   meta: { text: '首页' },
-    //   component: () => import('@/views/home/index.vue')
-    // }]
+    // hidden: true,
+    // redirect: '/customerManagement',
+    children: [{
+      path: '',
+      meta: { text: '首页' },
+      component: () => import('@/views/home/index.vue')
+    }]
   },
   {
     path: '/login',
@@ -47,6 +47,23 @@ const asyncRoutes = [
         text: 'Book Detail'
       },
     }]
+  },
+  {
+    path: '/management',
+    component: Layout,
+    meta: {
+      role: ['admin']
+    },
+    children: [
+      {
+        path: 'role',
+        component: () => import('@/views/management/Role.vue'),
+        meta: {
+          role: ['admin'],
+          text: '权限管理'
+        }
+      }
+    ]
   },
   {
     path: '/customerManagement',
@@ -190,56 +207,3 @@ export {
   asyncRoutes,
   constantRoutes,
 }
-
-/*
-export default [
-  {
-    path: '/',
-    name: '首页',
-    component: Layout,
-    children: [{
-      path: '',
-      component: () => import('@/views/home/index.vue')
-    }]
-  },
-  {
-    path: '/book',
-    name: 'Book',
-    component: Layout,
-    children: [{
-      path: '',
-      component: () => import('@/views/book/index.vue')
-    }]
-  },
-  {
-    path: '/diveCustomers',
-    name: '潜在客户管理',
-    component: Layout,
-    children: [{
-      path: 'diveCusClue',
-      name: '厂家潜客线索',
-      component: () => import('@/views/diveCustomers/diveCusClue/index.vue')
-    }]
-  },
-  {
-    path: '/customerManagement',
-    name: '客户管理关键KPI',
-    component: Layout,
-    children: [{
-      path: '',
-      component: () => import('@/views/kpi/customerManagement/index.vue')
-    }]
-  },
-  {
-    path: '/404',
-    name: '404',
-    hidden: true,
-    component: NotFound
-  },
-  {
-    path: '*',
-    hidden: true,
-    redirect: '/404'
-  }
-]
-*/
