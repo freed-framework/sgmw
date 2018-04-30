@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="form" label-width="84px">
+  <el-form ref="form" :model="form" label-width="106px">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
           :key="index"
@@ -31,7 +31,7 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="单据数：">
-                    {{defeatCustomerList.pagination.total}}
+                    {{salesStatisticsList.pagination.total}}
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -45,23 +45,11 @@
                     <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
                   </el-form-item>
                 </el-col>
+                <brand
+                  @change="handleCacadeChange"
+                  :cols="[2, 3]"
+                />
                 <el-col :span="6">
-                  <el-form-item label="车系" label-width="110px" prop="carType">
-                    <el-select :clearable="true" v-model="form.carType" placeholder="请选择经车系" >
-                      <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item label="型号" prop="kinds">
-                    <el-select :clearable="true" v-model="form.kinds" placeholder="请选择型号" >
-                      <el-option v-for="(text, index) in kinds" :key="index" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6" :pull="1">
                   <el-form-item label="物料号" prop="goodsNum">
                     <el-input v-model="form.goodsNum" placeholder="请输入物料号"></el-input>
                   </el-form-item>
@@ -71,11 +59,14 @@
                     <el-input v-model="form.color" placeholder="请输入颜色"></el-input>
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="6">
-                  <el-form-item label="省会/地级/县级" label-width="110px" prop="leadChannel">
-                    <el-select :clearable="true" v-model="form.leadChannel" placeholder="请选择省会/地级/县级">
-                      <el-option v-for="(text, index) in leadChannel" :key="index" :label="text.label" :value="text.label"></el-option>
-                    </el-select>
+                  <el-form-item label="省会/地级/县级" prop="leadChannel">
+                    <el-cascader
+                      :v-model="pcaOptions"
+                      :options="options"
+                      change-on-select
+                    ></el-cascader>
                   </el-form-item>
                 </el-col>
               </el-row>

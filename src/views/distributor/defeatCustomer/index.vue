@@ -68,6 +68,13 @@
                 @change="handleRegionChange"
                 :cols="[1, 3]"
               />
+              <el-col :span="6">
+                <el-form-item label="线索渠道">
+                  <el-select :clearable="true" v-model="ruleForm.dealerleadChannel" placeholder="线索渠道" >
+                    <el-option v-for="(text, index) in dealerleadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row>
               <brand
@@ -76,13 +83,6 @@
               />
             </el-row>
             <el-row>
-              <el-col :span="6">
-                <el-form-item label="线索渠道">
-                  <el-select :clearable="true" v-model="ruleForm.dealerleadChannel" placeholder="线索渠道" >
-                    <el-option v-for="(text, index) in dealerleadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
               <el-col :span="6">
                 <el-form-item label="是否试驾">
                   <el-select :clearable="true" v-model="ruleForm.testDrive" placeholder="请选择是否试驾" >
@@ -102,13 +102,13 @@
                   <el-input v-model="ruleForm.numberOfStores" placeholder="请输入到店次数"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
-            <el-row>
               <el-col :span="6">
                 <el-form-item label="单据数：">
                   {{defeatCustomerList.pagination.total}}
                 </el-form-item>
               </el-col>
+            </el-row>
+            <el-row>
               <el-col :span="6" :offset="18">
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
