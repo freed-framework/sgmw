@@ -30,8 +30,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="单据数：" label-width="110px">
-                    123
+                  <el-form-item label="单据数：">
+                    {{defeatCustomerList.pagination.total}}
                   </el-form-item>
                 </el-col>
               </el-row>

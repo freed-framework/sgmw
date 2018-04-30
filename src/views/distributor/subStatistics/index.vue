@@ -155,8 +155,8 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="单据数：">
-                  123
-                </el-form-item>
+                    {{subStatisticsList.pagination.total}}
+                  </el-form-item>
               </el-col>
               <el-col :span="6" :offset="18">
                 <el-form-item>
