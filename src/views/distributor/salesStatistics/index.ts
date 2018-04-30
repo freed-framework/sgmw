@@ -38,7 +38,7 @@ const cache = {
   }
 })
 export default class Index extends mixins(TableColor) {
-  @Action('salesStatistics/getDefeatCustomerList') actionSalesStatisticsList: any
+  @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
   @Getter('salesStatistics/getList') salesStatisticsList: any
 
   form: any = { ...cache }
@@ -83,6 +83,7 @@ export default class Index extends mixins(TableColor) {
 
   data() {
     return {
+      value6: '',
       options: [{
         value: 'zhinan',
         label: '指南',
@@ -380,14 +381,17 @@ export default class Index extends mixins(TableColor) {
     // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
+    console.log(val)
+    _this.beginDate();
   }
 
   dateChangeEndTime(val) {
     // console.log(val);
     this.$refs.form.endDatePicker = val;
+    this.processDate()
   }
 
-  //提出开始时间必须小于今天
+  //提出开始时间必须大于今天
   beginDate(){
     return {
       disabledDate(time){
@@ -401,6 +405,7 @@ export default class Index extends mixins(TableColor) {
     return {
       disabledDate(time){
         if(self.form.startDatePicker){
+          console.log(self.form.startDatePicker)
           return new Date(self.form.startDatePicker).getTime() > time.getTime()
         } else {
           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天

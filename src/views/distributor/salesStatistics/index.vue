@@ -59,11 +59,9 @@
                     <el-input v-model="form.color" placeholder="请输入颜色"></el-input>
                   </el-form-item>
                 </el-col>
-
                 <el-col :span="6">
                   <el-form-item label="省会/地级/县级" prop="leadChannel">
                     <el-cascader
-                      :v-model="pcaOptions"
                       :options="options"
                       change-on-select
                     ></el-cascader>
