@@ -5,24 +5,49 @@ import {
   Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import { State, Getter, Action } from 'vuex-class'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType,
   provincialCapital, factoryCard, cityCapital, countyAreaCapital
 } from '../../../dictionary'
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
 
-@Component
+@Component({
+  components: {
+    Region
+  }
+})
 export default class Index extends mixins(TableColor) {
-  form: any = {
+  @Action('customerStatistics/getCustomerStatisticsList') getCustomerStatisticsList: any
+  @Getter('customerStatistics/getList') customerStatisticsList: any
+  cache = {
     dealerStatus: 0,
     customerLevel: 0,
     customerType: 0,
     provincialCapital: 0,
     cityCapital: 0,
-    brand: 0,
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
+    factoryCard: 0,
+    startDatePicker: this.beginDate() || '',
+    endDatePicker: this.processDate() ||'',
     name: ''
+  }
+  form: any = { ...this.cache }
+
+  cascade: any = {
+    province: null,
+    countyArea: null,
+    city: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
+
+  regionContext: any = {
+    clear() {}
   }
   
   activeName: string = '1'
@@ -92,24 +117,45 @@ export default class Index extends mixins(TableColor) {
     // console.log(val, '----------------------')
   }
 
-  submitForm(form, index) {
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+
+  submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
+      const { date, ...props } = this.form
+      if(!props.beginTime && !props.endTime) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
-        // console.log(this.form)
+        const submit: any = {}
+        Object.assign(submit, props)
+        Object.assign(submit, this.cascade)
+        console.log(submit)
+        this.getCustomerStatisticsList(submit)
       } else {
-        // console.log('error submit!!')
+        console.log('error submit!!')
         return false
       }
     })
   }
 
   resetForm(form) {
-    // const indexNum: any = Number(this.activeName)
-    const $form: any = this.$refs[form]
-    console.log($form)
-    // this.$refs[form].resetFields()
-    $form.resetFields()
+    this.form = { ...this.cache }
+    this.regionContext.clear()
   }
 
   dateChangeBeginTime(val) {

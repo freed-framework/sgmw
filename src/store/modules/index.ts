@@ -13,6 +13,7 @@ import finalInventStatist from './finalInventStatist'
 import defeatCustomer from './defeatCustomer'
 import subStatistics from './subStatistics'
 import salesStatistics from './salesStatistics'
+import customerStatistics from './customerStatistics'
 
 export default {
   auth,
@@ -23,5 +24,6 @@ export default {
   finalInventStatist,
   defeatCustomer,
   salesStatistics,
+  customerStatistics,
   subStatistics
 }

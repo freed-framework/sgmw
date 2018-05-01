@@ -11,9 +11,9 @@
           <div class="sg-header">
             <el-row>
               <el-col :span="12" class="time-group" style="display: flex;">
-                <el-form-item label="日期" prop="date1">
+                <el-form-item label="日期" prop="date">
                     <el-date-picker
-                      v-model="ruleForm.date1"
+                      v-model="ruleForm.date"
                       type="daterange"
                       range-separator="至"
                       start-placeholder="开始日期"
@@ -23,8 +23,8 @@
                   </el-form-item>
                 </el-col>
               <el-col :span="6">
-                <el-form-item label="经销商号" prop="name">
-                  <el-input v-model="ruleForm.name" placeholder="请输入经销商"></el-input>
+                <el-form-item label="经销商号" prop="distributorNum">
+                  <el-input v-model="ruleForm.distributorNum" placeholder="请输入经销商"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -42,27 +42,12 @@
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="省份" prop="region">
-                  <el-select v-model="ruleForm.region" placeholder="请选择省份">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="经销商" prop="name">
-                  <el-input v-model="ruleForm.name" placeholder="请输入经销商"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="客户级别" label-width="110px" prop="customerLevel">
+                <el-form-item label="客户级别" prop="customerLevel">
                   <el-select v-model="ruleForm.customerLevel" placeholder="请选择客户级别" >
                     <el-option v-for="(text, index) in customerLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
-            </el-row>
-            <el-row>
               <el-col :span="6">
                 <el-form-item label="潜客类型" prop="submersibleType">
                   <el-select v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
@@ -70,59 +55,14 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="6">
-                <el-form-item label="客户所在省会" prop="provincialCapital">
-                  <el-select v-model="ruleForm.provincialCapital" placeholder="请选择客户所在省会" >
-                    <el-option v-for="(text, index) in provincialCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="客户所在城市" prop="cityCapital">
-                  <el-select v-model="ruleForm.cityCapital" placeholder="请选择客户所在城市" >
-                    <el-option v-for="(text, index) in cityCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="客户所在县区" prop="countyAreaCapital">
-                  <el-select v-model="ruleForm.countyAreaCapital" placeholder="请选择客户所在县区" >
-                    <el-option v-for="(text, index) in countyAreaCapital" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="品牌" prop="brands">
-                  <el-select v-model="ruleForm.brands" placeholder="请选择品牌" >
-                    <el-option v-for="(text, index) in brands" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="品种" prop="varieties">
-                  <el-select v-model="ruleForm.varieties" placeholder="请选择品种" >
-                    <el-option v-for="(text, index) in varieties" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="车系" prop="carType">
-                  <el-select v-model="ruleForm.carType" placeholder="请选择车系" >
-                    <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="车型" prop="carKinds">
-                  <el-select v-model="ruleForm.carKinds" placeholder="请选择车型" >
-                    <el-option v-for="(text, index) in carKinds" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
+              <region
+                @change="handleRegionChange"
+                :cols="[1, 3]"
+              />
+              <brand
+                  @change="handleCacadeChange"
+                  :cols="[0, 3]"
+                />
               <el-col :span="6">
                 <el-form-item label="最后结果" prop="finalResult">
                   <el-select v-model="ruleForm.finalResult" placeholder="请选择最后结果" >
@@ -151,8 +91,6 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-            </el-row>
-            <el-row>
               <el-col :span="6">
                 <el-form-item label="单据数：">
                     {{subStatisticsList.pagination.total}}

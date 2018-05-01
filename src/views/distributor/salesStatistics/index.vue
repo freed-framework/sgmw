@@ -62,8 +62,9 @@
                 <el-col :span="6">
                   <el-form-item label="省会/地级/县级" prop="leadChannel">
                     <el-cascader
-                      :options="options"
+                      :options="form.pcaOptions"
                       change-on-select
+                      @change="handleOptionsChange"
                     ></el-cascader>
                   </el-form-item>
                 </el-col>
@@ -81,43 +82,15 @@
           <div class="sg-main">
             <pag-table>
               <el-table
-                :data="tableData"
+                :data="salesStatisticsList.list"
                 border
                 style="width: 100%"
-                :row-class-name="tableRowClassName">>
-                <el-table-column
-                  prop="cors"
-                  label="区域"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="pro"
-                  label="省份"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="code"
-                  label="车系">
-                </el-table-column>
-                <el-table-column
-                  prop="type"
-                  label="型号">
-                </el-table-column>
-                <el-table-column
-                  prop="color"
-                  label="颜色">
-                </el-table-column>
-                <el-table-column
-                  prop="ssx"
-                  label="省会/地级/县级">
-                </el-table-column>
-                <el-table-column
-                  prop="total"
-                  label="总计">
-                </el-table-column>
-                <el-table-column
-                  prop="2017"
-                  label="2017">
+                :row-class-name="tableRowClassName">
+                <el-table-column v-for="item in salesStatisticsList.title"
+                  :prop="item"
+                  :label="item"
+                  :key="item"
+                >
                 </el-table-column>
               </el-table>
             </pag-table>

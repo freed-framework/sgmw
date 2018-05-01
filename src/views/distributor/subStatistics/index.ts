@@ -5,32 +5,33 @@ import {
   Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import moment from 'moment'
 import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
 import {
   dealerStatus, submersibleType, provincialCapital,
   countyAreaCapital, cityCapital, varieties, carType, finalResult,
   dealerleadChannel, testDrive, createType, customerLevel, brands, carKinds
 } from '../../../dictionary'
-import { kpi } from './kpi' 
 
 const cache = {
-  dealerStatus: 0,
-  region: 0,
-  submersibleType: 0,
-  customerLevel: 0,
-  customerType: '',
-  leadChannel: 0,
-  finalResult: 0,
-  provincialCapital: 0,
+  dealerStatus: '',
+  submersibleType: '',
+  customerLevel: '',
+  finalResult: '',
   testDrive: '',
-  startDatePicker: '',
-  endDatePicker: '',
-  kpi: 0
+  date: '',
+  distributorNum: ''
 }
 
-@Component
-export default class Index extends mixins(TableColor) {
+@Component({
+  components: {
+    Brand,
+    Region
+  }
+})export default class Index extends mixins(TableColor) {
   @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
   @Getter('subStatistics/getList') subStatisticsList: any
   ruleForm: any = { ...cache }
@@ -49,6 +50,33 @@ export default class Index extends mixins(TableColor) {
   }]
   tabIndex: number = 2
 
+  rules: any = {
+    startDatePicker: [
+      { required: false, message: '请选择时间' }
+    ],
+    endDatePicker: [
+      { required: false, message: '请选择时间' }
+    ]
+  }
+
+  cascade: any = {
+    region: null,
+    province: null,
+    city: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
   submersibleType: Array<any> = submersibleType
@@ -63,7 +91,6 @@ export default class Index extends mixins(TableColor) {
   testDrive: Array<any> = testDrive
   createType: Array<any> = createType
   brands: Array<any> = brands
-  kpi: Array<any> = kpi
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -145,19 +172,54 @@ export default class Index extends mixins(TableColor) {
     // console.log(val, '----------------------')
   }
 
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        cityu: data[1] ? data[1].label : null,
+        countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+
   submitForm(ruleForm, index) {
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
+      const { date, ...props } = this.ruleForm
+      if(!date[0]) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
         const submit: any = {}
-        const { date, ...props } = this.ruleForm
-        Object.assign(submit, {
-          "province": "全部"
-        }, props)
-        // console.log(submit)
+        if (date) {
+          submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
+          submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
+        }    
+        Object.assign(submit, props)
+        Object.assign(submit, this.cascade)
+        console.log(submit)
         this.actionSubStatisticsListList(submit)
       } else {
-        // console.log('error submit!!')
+        console.log('error submit!!')
         return false
       }
     })
@@ -165,6 +227,8 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(ruleForm) {
     this.ruleForm = { ...cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
   }
 
   dateChangeBeginTime(val) {
