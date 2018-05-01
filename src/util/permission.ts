@@ -49,8 +49,9 @@ function getAuthRoutes(roles: string[], routes: Array<any>): Array<any> {
 /**
  * 创建 Menus
  * @param routes routes
+ * @param parent 父级
  */
-function getMenus(routes: Array<any> = []): Array<any> {
+function getMenus(routes: Array<any> = [], parent?: string): Array<any> {
   const menus = []
 
   routes.forEach((route) => {
@@ -69,6 +70,7 @@ function getMenus(routes: Array<any> = []): Array<any> {
     // 1. 把子路由的 text 覆盖到 $parent.text
     // 2. 合并路由 path
     if (route.children) {
+      // 如果只有一个子路由，则认为子路由为唯一展示
       if (route.children.length === 1) {
         const child = route.children[0]
         const childMeta = child.meta
@@ -80,7 +82,7 @@ function getMenus(routes: Array<any> = []): Array<any> {
           menu.path = `${menu.path}/${child.path}`
         }
       } else {
-        menu.children = getMenus(route.children)
+        menu.children = getMenus(route.children, menu.path)
       }
     }
 
@@ -93,5 +95,5 @@ function getMenus(routes: Array<any> = []): Array<any> {
 export {
   hasPermission,
   getAuthRoutes,
-  getMenus
+  getMenus,
 }

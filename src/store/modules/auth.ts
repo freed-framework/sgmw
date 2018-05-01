@@ -4,9 +4,6 @@ import { constantRoutes, asyncRoutes } from '@/router/routes'
 import { login, init } from '@/api'
 import { getAuthRoutes, getMenus } from '@/util/permission'
 
-// 获取所有路由列表
-const allRoutes = [].concat(constantRoutes).concat(asyncRoutes)
-
 // const TOKEN_KEY = 'TOKEN'
 
 const ActionType = {
@@ -45,9 +42,7 @@ const state: StateType = {
   // 权限列表
   roles: [],
   // 可用路由
-  routes: constantRoutes || [],
-  // 用于权限管理
-  roleArray: []
+  routes: constantRoutes || []
 }
 
 const mutations = {
@@ -154,9 +149,6 @@ const getters = {
   role: (state) => state.role,
   routes: (state) => state.routes,
   menus: (state) => getMenus(state.routes),
-  roleArray: (state) => {
-    return getMenus(allRoutes).filter(item => item.hidden !== true)
-  },
   roles: (state) => state.roles
 }
 
