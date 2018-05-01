@@ -4,6 +4,9 @@ import { constantRoutes, asyncRoutes } from '@/router/routes'
 import { login, init } from '@/api'
 import { getAuthRoutes, getMenus } from '@/util/permission'
 
+// 获取所有路由列表
+const allRoutes = [].concat(constantRoutes).concat(asyncRoutes)
+
 // const TOKEN_KEY = 'TOKEN'
 
 const ActionType = {
@@ -20,6 +23,8 @@ const ActionType = {
   ROLE_DONE: 'ROLE_DONE',
   // 设置用户信息
   SET_USER: 'SET_USER',
+  // 设置权限列表
+  SET_ROLES: 'SET_ROLES'
 }
 
 export interface StateType {
@@ -37,8 +42,12 @@ const state: StateType = {
   user: {},
   // 判断是否拉取了权限
   role: false,
+  // 权限列表
+  roles: [],
   // 可用路由
-  routes: constantRoutes || []
+  routes: constantRoutes || [],
+  // 用于权限管理
+  roleArray: []
 }
 
 const mutations = {
@@ -72,7 +81,10 @@ const mutations = {
     state.user = {
       ...payload
     }
-  }
+  },
+  [ActionType.SET_ROLES](state: StateType, payload: Array<string>) {
+    state.roles = payload
+  },
 }
 
 const actions = {
@@ -122,6 +134,7 @@ const actions = {
 
       // 创建用户信息
       commit(ActionType.SET_USER, res.data.user)
+      commit(ActionType.SET_ROLES, res.data.roles)
       // 创建权限信息
       const authRoutes = getAuthRoutes(res.data.roles, asyncRoutes)
       commit(ActionType.SET_ROUTERS, authRoutes)
@@ -137,9 +150,14 @@ const actions = {
 const getters = {
   // token: (state) => state.token || ls.get(TOKEN_KEY),
   isAuth: (state) => state.isAuth,
+  // is role
   role: (state) => state.role,
   routes: (state) => state.routes,
-  menus: (state) => getMenus(state.routes)
+  menus: (state) => getMenus(state.routes),
+  roleArray: (state) => {
+    return getMenus(allRoutes).filter(item => item.hidden !== true)
+  },
+  roles: (state) => state.roles
 }
 
 export default {

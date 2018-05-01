@@ -11,7 +11,9 @@
  */
 function hasPermission(roles: string[], route: any) {
   if (route.meta && route.meta.role) {
-    return roles.some(role => route.meta.role.indexOf(role) >= 0)
+    return roles.some(role => {
+      return route.meta.role.indexOf(role) >= 0
+    })
   } else {
     return true
   }
@@ -52,12 +54,15 @@ function getMenus(routes: Array<any> = []): Array<any> {
   const menus = []
 
   routes.forEach((route) => {
+    const meta = route.meta
+
     // 创建 menu 数据格式
     const menu: any = {
       path: route.path,
       ...(route.name && { name: route.name }),
-      ...(route.meta && { text: route.meta.text }),
+      ...((meta && meta.text) && { text: route.meta.text }),
       ...(route.hidden && { hidden: route.hidden }),
+      ...(route.meta && { meta: route.meta }),
     }
 
     // 如果子路由仅一项
