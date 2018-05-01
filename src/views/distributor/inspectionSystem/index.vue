@@ -28,7 +28,7 @@
                   </el-date-picker>
                   </el-form-item>
                 </el-col> -->
-                <!-- <el-col v-if="activeName === '3'" :span="10"> -->
+                <el-col :span="10">
                   <el-form-item label="日期">
                     <el-date-picker
                       v-model="ruleForm.date1"
@@ -39,7 +39,7 @@
                       style="width: 100%;">
                     </el-date-picker>
                   </el-form-item>
-                <!-- </el-col> -->
+                </el-col>
                 <el-col :span="6" :offset="2">
                   <el-form-item label="经销商号">
                     <el-input v-model="ruleForm.name" placeholder="请输入经销商号"></el-input>
@@ -47,7 +47,7 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="经销商状态">
-                    <el-select v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
+                    <el-select :clearable="true" v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
                       <el-option v-for="text in dealerStatus" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
@@ -61,21 +61,21 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="客户类型">
-                    <el-select v-model="ruleForm.customerType" placeholder="请选择客户类型">
+                    <el-select :clearable="true" v-model="ruleForm.customerType" placeholder="请选择客户类型">
                       <el-option v-for="text in customerType" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="线索渠道">
-                    <el-select v-model="ruleForm.leadChannel" placeholder="请选择线索渠道">
+                    <el-select :clearable="true" v-model="ruleForm.leadChannel" placeholder="请选择线索渠道">
                       <el-option v-for="text in leadChannel" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="线索状态">
-                    <el-select v-model="ruleForm.leadStatus" placeholder="请选择线索状态">
+                    <el-select :clearable="true" v-model="ruleForm.leadStatus" placeholder="请选择线索状态">
                       <el-option v-for="text in leadStatus" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
@@ -84,10 +84,10 @@
               <el-row>
                 <el-col :span="6">
                   <el-form-item label="单据数：">
-                    123
+                    {{ total_num || 0}}
                   </el-form-item>
                 </el-col>
-                <el-col :span="8" :offset="18">
+                <el-col :span="10" :offset="18">
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm', activeName)">检索</el-button>
                     <el-button type="success">导出</el-button>
@@ -106,13 +106,11 @@
                 :row-class-name="tableRowClassName">>
                 <el-table-column
                   prop="type"
-                  label="潜客类型"
-                  width="180">
+                  label="潜客类型">
                 </el-table-column>
                 <el-table-column
                   prop="way"
-                  label="线索渠道"
-                  width="180">
+                  label="线索渠道">
                 </el-table-column>
                 <el-table-column
                   prop="status"
@@ -128,6 +126,20 @@
                 </el-table-column>
               </el-table>
             </pag-table>
+            <!-- <pag-table>
+              <el-table
+                :data="kpiList.list"
+                border
+                style="width: 100%"
+                :row-class-name="tableRowClassName">
+                <el-table-column v-for="item in kpiList.title"
+                  :prop="item"
+                  :label="item"
+                  :key="item"
+                >
+                </el-table-column>
+              </el-table>
+            </pag-table> -->
           </div>
         </div>
       </el-tab-pane>

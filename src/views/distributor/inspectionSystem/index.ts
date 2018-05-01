@@ -1,30 +1,36 @@
 /* eslint-disable */
 import {
   Component,
-  // Vue,
-  // Watch
+  Vue,
+  Watch
 } from 'vue-property-decorator'
+import { State, Getter, Action } from 'vuex-class'
+import moment from 'moment'
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus
 } from '../../../dictionary'
-// import http from './../../../util/http';
+import Cascade from '../../../components/cascade/index.vue'
 
-@Component
-export default class Index extends mixins(TableColor) {
-  ruleForm: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
-    dealerleadChannel: '',
-    leadChannel: 0,
-    leadStatus: 0,
-    finalResult: 0,
-    testDrive: ''
+const cacheDate = [new Date(Number(new Date()) - 7 * 24 * 60 * 60 * 1000), new Date()]
+const cache = {
+  region: 0,
+  provinceCapital: 0,
+  carType: 0,
+  Brand: '',
+}
+@Component({
+  components: {
+    Cascade
   }
+})
+export default class Index extends mixins(TableColor) {
+  @Action('kpi/getKpiList') actionGetKpiList: any
+  @Getter('kpi/getList') kpiList: any
 
+  ruleForm: any = { ...cache }
   activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
@@ -38,6 +44,11 @@ export default class Index extends mixins(TableColor) {
     name: '3'
   }]
   tabIndex: number = 2
+
+  form: any = {
+    date: cacheDate,
+    province: '全部'
+  }
 
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
@@ -54,12 +65,7 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   created() {
-    // console.log(this.dealerStatus)
-    // post('api/report/dealersSelf', {})
-    //   .then(res => {
-    //     console.log(res)
-    //     this.tableData = res;
-    //   })
+  
   }
 
   handleClick(tab, event) {
@@ -86,9 +92,12 @@ export default class Index extends mixins(TableColor) {
     })
   }
 
-  resetForm(formName) {
-    const $ruleForm: any = this.$refs[formName]
-    // console.log($ruleForm);
-    $ruleForm.resetFields()
+  resetForm(ruleForm) {
+    this.ruleForm = { ...cache }
   }
+  // resetForm(formName) {
+  //   const $ruleForm: any = this.$refs[formName]
+  //   // console.log($ruleForm);
+  //   $ruleForm.resetFields()
+  // }
 }
