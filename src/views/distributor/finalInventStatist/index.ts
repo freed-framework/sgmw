@@ -8,25 +8,43 @@ import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import AreaData from '../../../dictionary/area'
 import {
-  provincialCapital, carType
+  carType
 } from '../../../dictionary'
+import Region from '../../../components/region/index.vue'
 
 const cache = {
-  region: 0,
-  provincialCapital: 0,
-  carType: 0,
-  brand: ''
+  carType: '全部',
+  factoryCard: '',
+  province: '全部'
 }
 
-@Component
+@Component({
+  components: {
+    Region
+  }
+})
 export default class Index extends mixins(TableColor) {
-  @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalVentList: any
-  @Getter('finallnventStatist/getList') finalInventStatistList: any
-
+  @Action('finalInventStatist/getFinalInVentStaList') actionFinalInventStatistList: any
+  @Getter('finalInventStatist/getList') finalInventStatistList: any
   ruleForm: any = { ...cache }
+
+  cascade: any = {
+    region: null,
+    province: null
+  }
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
   
   activeName: string = '1'
+  region: any = '0'
   editableTabs: any = [{
     title: '期末库存趋势统计-年',
     name: '1'
@@ -36,9 +54,9 @@ export default class Index extends mixins(TableColor) {
   }]
   tabIndex: number = 2
 
-
-  provincialCapital: Array<any> = provincialCapital
   carType: Array<any> = carType
+  regionList: any = AreaData.region_list
+  provinceList: any = AreaData.province_list
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -104,23 +122,26 @@ export default class Index extends mixins(TableColor) {
 
   $refs: any
   @Watch('ruleForm', {deep: true})
-  watchSelect(val) {
-    // console.log(val, '----------------------')
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : '全部'}
+    )
   }
 
-  submitForm(ruleForm, index) {
-    const $form: any = this.$refs[ruleForm]
+  submitForm(formName) {
+    const $form: any = this.$refs[formName]
     $form.validate((valid) => {
       if (valid) {
         const submit: any = {}
-        const { date, ...props } = this.ruleForm
-        Object.assign(submit, {
-          "province": "全部"
-        }, props)
-        // console.log(submit)
-        this.actionGetFinalVentList(submit)
+        const { ...props } = this.ruleForm     
+        Object.assign(submit, this.cascade)
+        Object.assign(submit, props)
+        console.log(submit)
+        this.actionFinalInventStatistList(submit)
       } else {
-        // console.log('error submit!!')
+        console.log('error submit!!')
         return false
       }
     })
@@ -128,25 +149,13 @@ export default class Index extends mixins(TableColor) {
 
   resetForm(ruleForm) {
     this.ruleForm = { ...cache }
+    this.region = '0'
+    this.cascadeContext.clear()
+    this.regionContext.clear()
   }
 
   handleClick(tab, event) {
     // console.log(tab, event);
-  }
-
-  created() {
-    // console.log(this.dealerStatus)
-  }
-
-  dateChangeBeginTime(val) {
-    // console.log(val);
-    const _this = this
-    _this.ruleForm.startDatePicker = val;
-  }
-
-  dateChangeEndTime(val) {
-    // console.log(val);
-    this.$refs.form.endDatePicker = val;
   }
 
 }

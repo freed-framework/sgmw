@@ -1,6 +1,6 @@
 /* eslint-disable */
 // 经销商状态
-export const dealerStatus = [{label: '非注销'}, {lable: '已注册'}]
+export const dealerStatus = [{label: '非注销'}, {label: '已注册'}]
 // 客户类型
 export const dealerCustomerType = [{label: '全部'}, {label: '自然到店（来电）'}, {label: '互联网营销'}, {label: '客户营销'}, {label: '营销活动'}]
 // 线索渠道
@@ -8,7 +8,7 @@ export const leadChannel = [{label: '全部'}, {label: '自然到店'}, {label: 
 // 线索状态
 export const leadStatus = [{label: '全部'}, {label: '未跟进'}, {label: '跟进中'}, {label: '已成交'}, {label: '已战败'}]
 // 厂牌
-export const brand = [{label: '空'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
+export const factoryCard = [{label: '空'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
 // 最后结果
 export const finalResult = [{label: '全部'}, {label: '待定'}, {label: '已成交'}, {label: '已战败'}]
 // 品牌
