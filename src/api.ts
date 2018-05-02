@@ -138,7 +138,7 @@ export const defeatCustomerList = (params) => http.post('/store-customer-defeat-
 /**
  * 潜客统计
  */
-export const subStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const subStatisticsList = (params) => http.post('/report/submersibleReport', params)
 /**
  * 销量统计
  */

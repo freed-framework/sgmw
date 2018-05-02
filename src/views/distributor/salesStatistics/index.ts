@@ -202,7 +202,6 @@ export default class Index extends mixins(TableColor) {
 
   submitForm(form) {
     const $form: any = this.$refs[form]
-    const endStatisDate = this.$refs.form.endStatisDate;
     $form.validate((valid) => {
       const { ...props } = this.form
       let queryType = '1'
@@ -216,7 +215,7 @@ export default class Index extends mixins(TableColor) {
         }
       }
       if(props.beginStatisDate) {
-        console.log(props.beginStatisDate < endStatisDate)
+        console.log(props.beginStatisDate < props.endStatisDate)
       }
       if(!props.beginTime && !props.endTime) {
         this.$message({
@@ -228,11 +227,12 @@ export default class Index extends mixins(TableColor) {
         return
       }
       if (valid) {
-        const submit: any = {}
+        // const submit: any = {}
+        const submit : any = {}
         Object.assign(submit, props)
+        submit.endStatisDate = props.endTime;
         Object.assign(submit, this.cascade)
         Object.assign(submit, queryType)
-        Object.assign(submit, this.$refs.form.endStatisDate)
         this.actionSalesStatisticsList(submit)
       } else {
         console.log('error submit!!')
