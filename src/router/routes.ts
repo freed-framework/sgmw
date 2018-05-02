@@ -84,7 +84,8 @@ const asyncRoutes = [
     name: '经销商管理',
     component: Layout,
     meta: {
-      role: ['distributor'],
+      // role: ['distributor'],
+      role: ['admin'],
       text: '经销商管理'
     },
     children: [{
@@ -92,7 +93,8 @@ const asyncRoutes = [
       name: '经销商自建线索',
       component: () => import('@/views/distributor/inspectionSystem/index.vue'),
       meta: {
-        role: ['distributor'],
+        // role: ['distributor'],
+        role: ['admin'],
         text: '经销商自建线索'
       },
     }, {
@@ -100,7 +102,8 @@ const asyncRoutes = [
       name: '销量统计',
       component: () => import('@/views/distributor/salesStatistics/index.vue'),
       meta: {
-        role: ['distributor'],
+        // role: ['distributor'],
+        role: ['admin'],
         text: '销量统计'
       },
     }, {
@@ -108,7 +111,8 @@ const asyncRoutes = [
       name: '潜客统计',
       component: () => import('@/views/distributor/subStatistics/index.vue'),
       meta: {
-        role: ['distributor'],
+        // role: ['distributor'],
+        role: ['admin'],
         text: '潜客统计'
       },
     }, {
@@ -124,7 +128,8 @@ const asyncRoutes = [
       name: '到店统计',
       component: () => import('@/views/distributor/shopCustomers/index.vue'),
       meta: {
-        role: ['distributor'],
+        // role: ['distributor'],
+        role: ['admin'],
         text: '到店统计'
       },
     }, {
@@ -132,7 +137,8 @@ const asyncRoutes = [
       name: '战败统计',
       component: () => import('@/views/distributor/defeatCustomer/index.vue'),
       meta: {
-        role: ['distributor'],
+        // role: ['distributor'],
+        role: ['admin'],
         text: '战败统计'
       },
     }, {
