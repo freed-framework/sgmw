@@ -7,7 +7,7 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel, carKinds, carType, brand
+  dealerStatus, customerLevel, customerType, leadChannel, carKinds, carType, factoryCard
 } from '../../../dictionary'
 
 @Component
@@ -45,7 +45,7 @@ export default class Index extends mixins(TableColor) {
   leadChannel: Array<any> = leadChannel
   carKinds: Array<any> = carKinds
   carType: Array<any> = carType
-  brand: Array<any> = brand
+  factoryCard: Array<any> = factoryCard
 
   tableData: Array<any> = [{
     cors: '2016-05-02',

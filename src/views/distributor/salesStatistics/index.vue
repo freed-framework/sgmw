@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="form" label-width="84px">
+  <el-form ref="form" :model="form" label-width="106px">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
           :key="index"
@@ -23,57 +23,33 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="厂牌" prop="brand">
-                    <el-select v-model="form.brand" placeholder="请选择厂牌">
-                      <el-option v-for="(text, index) in brand" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-form-item label="厂牌" prop="factoryCard">
+                    <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">
+                      <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="单据数：" label-width="110px">
-                    123
+                  <el-form-item label="单据数：">
+                    {{salesStatisticsList.pagination.total}}
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="6">
-                  <el-form-item label="区域" prop="region">
-                    <el-select v-model="form.region" placeholder="请选择区域">
-                      <el-option label="区域一" value="shanghai"></el-option>
-                      <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6" :pull="1">
-                  <el-form-item label="省份" prop="region">
-                    <el-select v-model="form.region" placeholder="请选择省份">
-                      <el-option label="区域一" value="shanghai"></el-option>
-                      <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                <region
+                  @change="handleRegionChange"
+                  :cols="[1, 2]"
+                />
                 <el-col :span="6">
                   <el-form-item label="经销商" prop="name">
                     <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
                   </el-form-item>
                 </el-col>
+                <brand
+                  @change="handleCacadeChange"
+                  :cols="[2, 3]"
+                />
                 <el-col :span="6">
-                  <el-form-item label="车系" label-width="110px" prop="carType">
-                    <el-select v-model="form.carType" placeholder="请选择经车系" >
-                      <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item label="型号" prop="kinds">
-                    <el-select v-model="form.kinds" placeholder="请选择型号" >
-                      <el-option v-for="(text, index) in kinds" :key="index" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6" :pull="1">
                   <el-form-item label="物料号" prop="goodsNum">
                     <el-input v-model="form.goodsNum" placeholder="请输入物料号"></el-input>
                   </el-form-item>
@@ -84,10 +60,12 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="省会/地级/县级" label-width="110px" prop="leadChannel">
-                    <el-select v-model="form.leadChannel" placeholder="请选择省会/地级/县级">
-                      <el-option v-for="(text, index) in leadChannel" :key="index" :label="text.label" :value="text.label"></el-option>
-                    </el-select>
+                  <el-form-item label="省会/地级/县级" prop="leadChannel">
+                    <el-cascader
+                      :options="form.pcaOptions"
+                      change-on-select
+                      @change="handleOptionsChange"
+                    ></el-cascader>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -104,43 +82,15 @@
           <div class="sg-main">
             <pag-table>
               <el-table
-                :data="tableData"
+                :data="salesStatisticsList.list"
                 border
                 style="width: 100%"
-                :row-class-name="tableRowClassName">>
-                <el-table-column
-                  prop="cors"
-                  label="区域"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="pro"
-                  label="省份"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="code"
-                  label="车系">
-                </el-table-column>
-                <el-table-column
-                  prop="type"
-                  label="型号">
-                </el-table-column>
-                <el-table-column
-                  prop="color"
-                  label="颜色">
-                </el-table-column>
-                <el-table-column
-                  prop="ssx"
-                  label="省会/地级/县级">
-                </el-table-column>
-                <el-table-column
-                  prop="total"
-                  label="总计">
-                </el-table-column>
-                <el-table-column
-                  prop="2017"
-                  label="2017">
+                :row-class-name="tableRowClassName">
+                <el-table-column v-for="item in salesStatisticsList.title"
+                  :prop="item"
+                  :label="item"
+                  :key="item"
+                >
                 </el-table-column>
               </el-table>
             </pag-table>

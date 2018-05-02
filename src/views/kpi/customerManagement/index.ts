@@ -108,7 +108,7 @@ export default class Index extends mixins(TableColor) {
         if (date) {
           submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
           submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
-        }        
+        }    
         Object.assign(submit, props, this.cascade)
         console.log(submit)
         this.loading = true

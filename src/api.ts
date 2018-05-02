@@ -107,7 +107,7 @@ export const init = () => {
         user: {
           name: 'den'
         },
-        roles: ['admin']
+        roles: ['admin', 'kpi', 'book', 'book_list']
       }
     })
   })
@@ -129,3 +129,19 @@ export const kpiList = (params) => http.post('/store-customer-defeat-rate/query'
  * 经销商相关
  */
 export const finalInventStatistList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 战败统计
+ */
+export const defeatCustomerList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 潜客统计
+ */
+export const subStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 销量统计
+ */
+export const salesStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 客户统计
+ */
+export const customerStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
