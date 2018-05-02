@@ -10,7 +10,7 @@
         <div class="sg-custom">
           <div class="sg-header">
               <el-row>
-                <el-col :span="12" class="time-group" style="display: flex;">
+                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '1'">
                   <el-form-item label="注册日期" prop="startDatePicker">
                     <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
                       :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
@@ -18,6 +18,30 @@
                   </el-form-item>
                   <el-form-item label="至" label-width="25px" prop="endDatePicker">
                       <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                      </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '2'">
+                  <el-form-item label="注册日期" prop="startDatePicker">
+                    <el-date-picker type="month" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                    </el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="至" label-width="25px" prop="endDatePicker">
+                      <el-date-picker type="month" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                      </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '3'">
+                  <el-form-item label="注册日期" prop="startDatePicker">
+                    <el-date-picker type="dates" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                    </el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="至" label-width="25px" prop="endDatePicker">
+                      <el-date-picker type="dates" placeholder="选择结束日期" v-model="form.endTime"
                         :picker-options="form.endDatePicker" @change="dateChangeEndTime">
                       </el-date-picker>
                   </el-form-item>

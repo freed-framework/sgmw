@@ -35,8 +35,8 @@ export default class Index extends mixins(TableColor) {
     name: '',
     goodsNum: '',
     color: '',
-    startDatePicker: this.beginDate() || '',
-    endDatePicker: this.processDate() ||'',
+    startDatePicker: '',
+    endDatePicker: this.processDate() || '',
     pcaOptions: [{
       value: 'zhinan',
       label: '指南',
@@ -345,7 +345,8 @@ export default class Index extends mixins(TableColor) {
   }
 
   handleClick(tab, event) {
-    // console.log(tab, event);
+    this.cache.endDatePicker = this.processDate()
+    console.log(this.cache.endDatePicker);
   }
 
   created() {
@@ -384,18 +385,34 @@ export default class Index extends mixins(TableColor) {
   }
 
   dateChangeBeginTime(val) {
-    // console.log(val);
+    console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    // console.log(val);
+    console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 
   //提出开始时间必须大于今天
   beginDate(){
+    const _this = this
+    const date = _this.form.startDatePicker;
+    if (_this.activeName === '1') {
+      return {
+        disabledDate(date){
+          return date.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+        }
+      }
+    } else if(_this.activeName === '2') {
+      return {
+        disabledDate(time){
+          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+        }
+      }
+    }
+
     return {
       disabledDate(time){
         return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
@@ -404,13 +421,38 @@ export default class Index extends mixins(TableColor) {
   }
   //提出结束时间必须大于提出开始时间
   processDate(){
+    console.log(11)
     let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+    if (self.activeName === '1') {
+      return {
+        disabledDate(time){
+          console.log(11111)
+          if(self.form.startDatePicker){
+            return new Date(self.form.startDatePicker).getTime() > time.getTime()
+          } else {
+            return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+          }
+        }
+      }
+    } else if(self.activeName === '2') {
+      console.log(222222)
+      return {
+        disabledDate(time){
+          if(self.form.startDatePicker){
+            return new Date(self.form.startDatePicker).getTime() > time.getTime()
+          } else {
+            return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+          }
+        }
+      }
+    } else {
+      return {
+        disabledDate(time){
+          if(self.form.startDatePicker){
+            return new Date(self.form.startDatePicker).getTime() > time.getTime()
+          } else {
+            return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+          }
         }
       }
     }

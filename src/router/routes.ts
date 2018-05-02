@@ -92,7 +92,7 @@ const asyncRoutes = [
       name: '经销商自建线索',
       component: () => import('@/views/distributor/inspectionSystem/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['inspectionSystem'],
         text: '经销商自建线索'
       },
     }, {
@@ -100,7 +100,7 @@ const asyncRoutes = [
       name: '销量统计',
       component: () => import('@/views/distributor/salesStatistics/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['salesStatistics'],
         text: '销量统计'
       },
     }, {
@@ -108,7 +108,7 @@ const asyncRoutes = [
       name: '潜客统计',
       component: () => import('@/views/distributor/subStatistics/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['subStatistics'],
         text: '潜客统计'
       },
     }, {
@@ -116,7 +116,7 @@ const asyncRoutes = [
       name: '发车统计',
       component: () => import('@/views/distributor/trafficStatistics/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['trafficStatistics'],
         text: '发车统计'
       },
     }, {
@@ -124,7 +124,7 @@ const asyncRoutes = [
       name: '到店统计',
       component: () => import('@/views/distributor/shopCustomers/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['shopCustomers'],
         text: '到店统计'
       },
     }, {
@@ -132,7 +132,7 @@ const asyncRoutes = [
       name: '战败统计',
       component: () => import('@/views/distributor/defeatCustomer/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['defeatCustomer'],
         text: '战败统计'
       },
     }, {
@@ -140,7 +140,7 @@ const asyncRoutes = [
       name: '客户统计',
       component: () => import('@/views/distributor/customerStatistics/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['customerStatistics'],
         text: '客户统计'
       },
     }, {
@@ -148,7 +148,7 @@ const asyncRoutes = [
       name: '期末库存统计',
       component: () => import('@/views/distributor/finalInventStatist/index.vue'),
       meta: {
-        role: ['distributor'],
+        role: ['finalInventStatist'],
         text: '期末库存统计'
       },
     }]
