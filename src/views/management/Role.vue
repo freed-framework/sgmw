@@ -3,8 +3,7 @@
     <el-tree
       ref="roleTree"
       :data="roles"
-      node-key="path"
-      :props="defaultProps"
+      node-key="id"
       show-checkbox
       @check-change="onCheckChange"
     >
@@ -20,18 +19,19 @@
 <script lang="ts">
 /* eslint-disable */
 import { State, Getter, Action } from 'vuex-class'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 
 @Component
 export default class Login extends Vue {
   $refs: any
 
-  @Getter('auth/roleArray') roles: any
+  @Getter('role/list') roles: any
+  @Getter('role/choosed') choosed: any
 
-  defaultProps: any = {
-    label: 'text',
-    children: 'children'
-  }
+  // defaultProps: any = {
+  //   label: 'label',
+  //   children: 'children'
+  // }
 
   form: any = {
   }
@@ -42,11 +42,24 @@ export default class Login extends Vue {
 
   onGetCheckedKeys() {
     const keys = this.$refs.roleTree.getCheckedKeys()
+    const nodes = this.$refs.roleTree.getCheckedNodes()
 
     console.log(keys)
+    console.log(nodes)
   }
 
-  mounted() {}
+  @Watch('choosed', { deep: true })
+  onChoosedChanged(value) {
+    console.log(value)
+    this.$refs.roleTree.setCheckedNodes(
+      value
+    )
+  }
+
+  mounted() {
+    console.log(this.choosed)
+    this.$refs.roleTree.setCheckedNodes(this.choosed)
+  }
 }
 </script>
 

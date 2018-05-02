@@ -107,7 +107,7 @@ export const init = () => {
         user: {
           name: 'den'
         },
-        roles: ['admin']
+        roles: ['admin', 'kpi', 'book', 'book_list']
       }
     })
   })

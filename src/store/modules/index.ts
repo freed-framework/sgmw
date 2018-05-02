@@ -5,6 +5,7 @@
  * modules 导出文件
  */
 import auth from './auth'
+import role from './role'
 import home from './home'
 import book from './book'
 import kpi from './kpi'
@@ -17,6 +18,7 @@ import customerStatistics from './customerStatistics'
 
 export default {
   auth,
+  role,
   home,
   book,
   kpi,
