@@ -147,6 +147,7 @@
       <pag-table>
         <el-table
           :data="kpiList.list"
+          :loading="loading"
           border
           style="width: 100%"
           :row-class-name="tableRowClassName">
