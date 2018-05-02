@@ -47,3 +47,5 @@ export const kinds = [{label: 'Q1'}, {label: 'Q2'}, {label: 'Q3'}, {label: 'Q4'}
 export const businessNature = [{label: '一级'}, {label: '二级'}]
 // 客户类型
 export const customerType = [{label: '直接来店'}, {label: '来电咨询'}, {label: '外展及其他'}, {label: '经销商互联网'}]
+// 省级/地级/县级
+export const pcaArea = [{label: '全部'}, {label: '省会'}, {label: '地级'}, {label: '县区'}, {label: '乡镇'}]

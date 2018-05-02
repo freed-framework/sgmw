@@ -11,38 +11,38 @@
           <div class="sg-header">
               <el-row>
                 <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '1'">
-                  <el-form-item label="注册日期" prop="startDatePicker">
+                  <el-form-item label="注册日期" prop="beginStatisDate">
                     <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                      :picker-options="form.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
                     </el-date-picker>
                   </el-form-item>
-                  <el-form-item label="至" label-width="25px" prop="endDatePicker">
+                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
                       <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                        :picker-options="form.endStatisDate" @change="dateChangeEndTime">
                       </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '2'">
-                  <el-form-item label="注册日期" prop="startDatePicker">
-                    <el-date-picker type="month" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                  <el-form-item label="注册日期" prop="beginStatisDate">
+                    <el-date-picker type="month" value-format="yyyy-MM" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="form.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
                     </el-date-picker>
                   </el-form-item>
-                  <el-form-item label="至" label-width="25px" prop="endDatePicker">
-                      <el-date-picker type="month" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
+                      <el-date-picker type="month" value-format="yyyy-MM" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="form.endStatisDate" @change="dateChangeEndTime">
                       </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '3'">
-                  <el-form-item label="注册日期" prop="startDatePicker">
-                    <el-date-picker type="dates" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                  <el-form-item label="注册日期" prop="beginStatisDate">
+                    <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="form.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
                     </el-date-picker>
                   </el-form-item>
-                  <el-form-item label="至" label-width="25px" prop="endDatePicker">
-                      <el-date-picker type="dates" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
+                      <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="form.endStatisDate" @change="dateChangeEndTime">
                       </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -65,8 +65,8 @@
                   :cols="[1, 2]"
                 />
                 <el-col :span="6">
-                  <el-form-item label="经销商" prop="name">
-                    <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
+                  <el-form-item label="经销商" prop="dealerId">
+                    <el-input v-model="form.dealerId" placeholder="请输入经销商"></el-input>
                   </el-form-item>
                 </el-col>
                 <brand
@@ -74,22 +74,20 @@
                   :cols="[2, 3]"
                 />
                 <el-col :span="6">
-                  <el-form-item label="物料号" prop="goodsNum">
-                    <el-input v-model="form.goodsNum" placeholder="请输入物料号"></el-input>
+                  <el-form-item label="物料号" prop="materialId">
+                    <el-input v-model="form.materialId" placeholder="请输入物料号"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="颜色" prop="color">
-                    <el-input v-model="form.color" placeholder="请输入颜色"></el-input>
+                  <el-form-item label="颜色" prop="vehColor">
+                    <el-input v-model="form.vehColor" placeholder="请输入颜色"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="省会/地级/县级" prop="leadChannel">
-                    <el-cascader
-                      :options="form.pcaOptions"
-                      change-on-select
-                      @change="handleOptionsChange"
-                    ></el-cascader>
+                    <el-select :clearable="true" v-model="form.pcaArea" placeholder="请选择省会/地级/县级">
+                      <el-option v-for="(text, index) in pcaArea" :key="index" :label="text.label" :value="text.label" ></el-option>
+                    </el-select>
                   </el-form-item>
                 </el-col>
               </el-row>

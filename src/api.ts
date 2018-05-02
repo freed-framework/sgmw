@@ -142,7 +142,7 @@ export const subStatisticsList = (params) => http.post('/store-customer-defeat-r
 /**
  * 销量统计
  */
-export const salesStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const salesStatisticsList = (params) => http.post('/report/salesReport', params)
 /**
  * 客户统计
  */
