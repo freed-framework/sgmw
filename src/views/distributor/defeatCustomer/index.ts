@@ -4,26 +4,52 @@ import {
   Vue,
   Watch
 } from 'vue-property-decorator'
+import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, submersibleType,
+  varieties, dealerleadChannel,
+  testDrive, createType, finalResult
 } from '../../../dictionary'
-import { kpi } from './kpi' 
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
 
-@Component
+const cache = {
+  dealerStatus: '',
+  createType: '',
+  dealerleadChannel: '',
+  customerLevel: '',
+  submersibleType: '',
+  testDrive: '',
+  varieties: '',
+  finalResult: '',
+  date: '',
+  name: '',
+  numberOfStores: '',
+  SalesConsultant: ''
+}
+
+@Component({
+  components: {
+    Brand,
+    Region
+  }
+})
 export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+  @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
+  @Getter('defeatCustomer/getList') defeatCustomerList: any
+  ruleForm: any = { ...cache }
+
+  cascade: any = {
+    province: null,
+    countyArea: null,
+    city: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
   }
   
   activeName: string = '1'
@@ -39,14 +65,29 @@ export default class Index extends mixins(TableColor) {
     name: '3'
   }]
   tabIndex: number = 2
+  dealer: any = 0
+  rules: any = {
+    date: [
+      { required: false, message: '请选择时间' }
+    ]
+  }
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
 
   dealerStatus: Array<any> = dealerStatus
-  customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
+  customerLevel: Array<any> = customerLevel
+  dealerleadChannel: Array<any> = dealerleadChannel
+  submersibleType: Array<any> = submersibleType
+  varieties: Array<any> = varieties
+  createType: Array<any> = createType
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -81,44 +122,107 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
-  dateChangeBeginTime(val) {
-    console.log(val);
-    const _this = this
-    _this.form.startDatePicker = val;
+  @Watch('ruleForm', {deep: true})
+  watchSelect(val) {
+    // console.log(val, '----------------------')
   }
 
-  dateChangeEndTime(val) {
-    console.log(val);
-    this.$refs.form.endDatePicker = val;
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
   }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+
+  submitForm(ruleForm) {
+    const $form: any = this.$refs[ruleForm]
+    $form.validate((valid) => {
+      const { date, ...props } = this.ruleForm
+      if(!date[0]) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
+      if (valid) {
+        const submit: any = {}
+        if (date) {
+          submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
+          submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
+        }    
+        Object.assign(submit, props)
+        Object.assign(submit, this.cascade)
+        console.log(submit)
+        this.actionGetDefeatCustomerList(submit)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(formName) {
+    this.ruleForm = { ...cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+  }
+
+  // dateChangeBeginTime(val) {
+  //   // console.log(val);
+  //   const _this = this
+  //   _this.ruleForm.startDatePicker = val;
+  // }
+
+  // dateChangeEndTime(val) {
+  //   // console.log(val);
+  //   this.$refs.form.endDatePicker = val;
+  // }
 
   //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-      }
-    }
-  }
+  // beginDate(){
+  //   return {
+  //     disabledDate(time){
+  //       return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+  //     }
+  //   }
+  // }
   //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
-      }
-    }
-  }
+  // processDate(){
+  //   let self = this
+  //   return {
+  //     disabledDate(time){
+  //       if(self.ruleForm.startDatePicker){
+  //         return new Date(self.ruleForm.startDatePicker).getTime() > time.getTime()
+  //       } else {
+  //         return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+  //       }
+  //     }
+  //   }
+  // }
 
 }

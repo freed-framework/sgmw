@@ -1,4 +1,4 @@
-import { kpiList } from '../../api'
+import { subStatisticsList } from '../../api'
 import { formatData, initList } from '../helpers'
 
 const ActionType = {
@@ -11,9 +11,10 @@ const state = {
 }
 
 const actions = {
-  async getKpiList({ commit }, param) {
-    const result = await kpiList(param)
+  async getSubStatisticsListList({ commit }, param) {
+    const result = await subStatisticsList(param)
     const payload: any = { ...result }
+
     commit(ActionType.FETCH_KPI_LIST, payload)
   },
 }

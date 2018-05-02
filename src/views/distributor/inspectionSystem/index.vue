@@ -1,160 +1,114 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-form ref="form" :model="form" label-width="106px">
+    <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
-        :key="index"
-        v-for="(item, index) in editableTabs"
-        :label="item.title"
-        :name="item.name"
-      >
-        <div class="sg-inspectionSystem">
+          :key="index"
+          v-for="(item, index) in editableTabs"
+          :label="item.title"
+          :name="item.name"
+        >
+        <div class="sg-custom">
           <div class="sg-header">
-            <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
               <el-row>
-                <!-- <el-col v-if="activeName === '1'" :span="10">
-                  <el-form-item label="年度">
-                    <el-date-picker
-                    v-model="ruleForm.date1"
-                    type="year"
-                    placeholder="选择年">
-                  </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col v-if="activeName === '2'" :span="10">
-                  <el-form-item label="月份">
-                    <el-date-picker
-                    v-model="ruleForm.date1"
-                    type="month"
-                    placeholder="选择月">
-                  </el-date-picker>
-                  </el-form-item>
-                </el-col> -->
-                <el-col :span="10">
-                  <el-form-item label="日期">
-                    <el-date-picker
-                      v-model="ruleForm.date1"
-                      type="daterange"
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      style="width: 100%;">
+                <el-col :span="12" class="time-group" style="display: flex;">
+                  <el-form-item label="日期" prop="startDatePicker">
+                    <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
                     </el-date-picker>
                   </el-form-item>
-                </el-col>
-                <el-col :span="6" :offset="2">
-                  <el-form-item label="经销商号">
-                    <el-input v-model="ruleForm.name" placeholder="请输入经销商号"></el-input>
+                  <el-form-item label="至" label-width="25px" prop="endDatePicker">
+                      <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
+                      </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="经销商状态">
-                    <el-select :clearable="true" v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
-                      <el-option v-for="text in dealerStatus" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
+                  <el-form-item label="" prop="factoryCard">
+                    <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">
+                      <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
+                <region
+                  @change="handleRegionChange"
+                  :cols="[1, 2]"
+                />
                 <el-col :span="6">
-                  <el-form-item label="销售顾问">
-                    <el-input v-model="ruleForm.guwen" placeholder="请输入销售顾问"></el-input>
+                  <el-form-item label="经销商" prop="name">
+                    <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
+                  </el-form-item>
+                </el-col>
+                <brand
+                  @change="handleCacadeChange"
+                  :cols="[2, 3]"
+                />
+                <el-col :span="6">
+                  <el-form-item label="物料号" prop="goodsNum">
+                    <el-input v-model="form.goodsNum" placeholder="请输入物料号"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="客户类型">
-                    <el-select :clearable="true" v-model="ruleForm.customerType" placeholder="请选择客户类型">
-                      <el-option v-for="text in customerType" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
+                  <el-form-item label="颜色" prop="color">
+                    <el-input v-model="form.color" placeholder="请输入颜色"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="线索渠道">
-                    <el-select :clearable="true" v-model="ruleForm.leadChannel" placeholder="请选择线索渠道">
-                      <el-option v-for="text in leadChannel" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item label="线索状态">
-                    <el-select :clearable="true" v-model="ruleForm.leadStatus" placeholder="请选择线索状态">
-                      <el-option v-for="text in leadStatus" :key="text.lable" :label="text.label" :value="text.label" ></el-option>
-                    </el-select>
+                  <el-form-item label="省会/地级/县级" prop="leadChannel">
+                    <el-cascader
+                      :options="form.pcaOptions"
+                      change-on-select
+                      @change="handleOptionsChange"
+                    ></el-cascader>
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="6">
+              <el-col :span="6">
                   <el-form-item label="单据数：">
-                    {{ total_num || 0}}
+                    {{salesStatisticsList.pagination.total}}
                   </el-form-item>
-                </el-col>
-                <el-col :span="10" :offset="18">
+              </el-col>
+              <el-row>
+                <el-col :span="6" :offset="18">
                   <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm', activeName)">检索</el-button>
+                    <el-button type="primary" @click="submitForm('form')">检索</el-button>
                     <el-button type="success">导出</el-button>
-                    <el-button @click="resetForm('ruleForm',activeName)">重置</el-button>
+                    <el-button @click="resetForm('form')">重置</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-form>
           </div>
           <div class="sg-main">
             <pag-table>
               <el-table
-                :data="tableData"
-                border
-                style="width: 100%"
-                :row-class-name="tableRowClassName">>
-                <el-table-column
-                  prop="type"
-                  label="潜客类型">
-                </el-table-column>
-                <el-table-column
-                  prop="way"
-                  label="线索渠道">
-                </el-table-column>
-                <el-table-column
-                  prop="status"
-                  label="线索状态">
-                </el-table-column>
-                <el-table-column
-                  prop="total"
-                  label="总计">
-                </el-table-column>
-                <el-table-column
-                  prop="zeroOne"
-                  label="01">
-                </el-table-column>
-              </el-table>
-            </pag-table>
-            <!-- <pag-table>
-              <el-table
-                :data="kpiList.list"
+                :data="salesStatisticsList.list"
                 border
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
-                <el-table-column v-for="item in kpiList.title"
+                <el-table-column v-for="item in salesStatisticsList.title"
                   :prop="item"
                   :label="item"
                   :key="item"
                 >
                 </el-table-column>
               </el-table>
-            </pag-table> -->
+            </pag-table>
           </div>
         </div>
       </el-tab-pane>
-  </el-tabs>
+    </el-tabs>
+  </el-form>
 </template>
 
 <script lang="ts">
 /* eslint-disable */
-import { Component, Vue } from 'vue-property-decorator'
-import Index from './index.ts'
-export default Index
+import Index from "./index.ts";
+export default Index;
 </script>
 
 <style lang="scss">
-@import './index.scss';
+@import "./index.scss";
 </style>
 
 

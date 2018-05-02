@@ -7,8 +7,10 @@ import {
 import { mixins } from 'vue-class-component'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, finalResult, testDrive,
+  submersibleType, provincialCapital, cityCapital,
+  countyAreaCapital, brands, createType, dealerleadChannel,
+  varieties, carType, carKinds
 } from '../../../dictionary'
 import { kpi } from './kpi' 
 
@@ -17,10 +19,16 @@ export default class Index extends mixins(TableColor) {
   form: any = {
     dealerStatus: 0,
     customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
+    submersibleType: 0,
+    countyAreaCapital: 0,
+    createType: 0,
+    brands: 0,
+    cityCapital: 0,
+    provincialCapital: 0,
+    customerType: 0,
     finalResult: 0,
-    testDrive: '',
+    testDrive: 0,
+    dealerleadChannel: 0,
     startDatePicker: this.beginDate(),
     endDatePicker: this.processDate(),
     kpi: 0
@@ -41,11 +49,19 @@ export default class Index extends mixins(TableColor) {
   tabIndex: number = 2
 
   dealerStatus: Array<any> = dealerStatus
+  varieties: Array<any> = varieties
+  carKinds: Array<any> = carKinds
+  carType: Array<any> = carType
   customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
+  dealerleadChannel: Array<any> = dealerleadChannel
+  submersibleType: Array<any> = submersibleType
+  provincialCapital: Array<any> = provincialCapital
+  cityCapital: Array<any> = cityCapital
+  countyAreaCapital: Array<any> = countyAreaCapital
+  brands: Array<any> = brands
+  createType: Array<any> = createType
   kpi: Array<any> = kpi
 
   tableData: Array<any> = [{
@@ -117,21 +133,40 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
+  }
+
+  submitForm(form, index) {
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      if (valid) {
+        // console.log(this.form)
+      } else {
+        // console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(form) {
+    // const indexNum: any = Number(this.activeName)
+    const $form: any = this.$refs[form]
+    // this.$refs[ruleForm].resetFields()
+    $form.resetFields()
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
+    // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
+    // console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 

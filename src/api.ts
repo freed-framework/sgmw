@@ -11,6 +11,11 @@ const http = new Http()
 
 http.axios.defaults.baseURL = process.env.API_HOST
 
+// 当构建环境为 test 的时候进行该配置
+if (process.env.CONTEXT === 'test') {
+  http.axios.defaults.withCredentials = true
+}
+
 http.request(
   config => {
     const token = store.getters['auth/token']
@@ -120,4 +125,23 @@ export const allRegionList = () => http.get('/regiProvcityCounty/allList')
  * kpi相关
  */
 export const kpiList = (params) => http.post('/store-customer-defeat-rate/query', params)
-
+/**
+ * 经销商相关
+ */
+export const finalInventStatistList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 战败统计
+ */
+export const defeatCustomerList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 潜客统计
+ */
+export const subStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 销量统计
+ */
+export const salesStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 客户统计
+ */
+export const customerStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)

@@ -1,8 +1,8 @@
-import { kpiList } from '../../api'
+import { finalInventStatistList } from '../../api'
 import { formatData, initList } from '../helpers'
 
 const ActionType = {
-  FETCH_KPI_LIST: 'FETCH_KPI_LIST',
+  FETCH_FINAL_STATIST_LIST: 'FETCH_FINAL_STATIST_LIST',
 }
 
 // initial state
@@ -11,15 +11,16 @@ const state = {
 }
 
 const actions = {
-  async getKpiList({ commit }, param) {
-    const result = await kpiList(param)
+  async getFinalInVentStaList({ commit }, param) {
+    const result = await finalInventStatistList(param)
     const payload: any = { ...result }
-    commit(ActionType.FETCH_KPI_LIST, payload)
+
+    commit(ActionType.FETCH_FINAL_STATIST_LIST, payload)
   },
 }
 
 const mutations = {
-  [ActionType.FETCH_KPI_LIST](state: any, payload: any) {
+  [ActionType.FETCH_FINAL_STATIST_LIST](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

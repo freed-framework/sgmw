@@ -5,25 +5,49 @@ import {
   Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import { State, Getter, Action } from 'vuex-class'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, customerType,
+  provincialCapital, factoryCard, cityCapital, countyAreaCapital
 } from '../../../dictionary'
-import { kpi } from './kpi' 
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
 
-@Component
+@Component({
+  components: {
+    Region
+  }
+})
 export default class Index extends mixins(TableColor) {
-  form: any = {
+  @Action('customerStatistics/getCustomerStatisticsList') getCustomerStatisticsList: any
+  @Getter('customerStatistics/getList') customerStatisticsList: any
+  cache = {
     dealerStatus: 0,
     customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+    customerType: 0,
+    provincialCapital: 0,
+    cityCapital: 0,
+    factoryCard: 0,
+    startDatePicker: this.beginDate() || '',
+    endDatePicker: this.processDate() ||'',
+    name: ''
+  }
+  form: any = { ...this.cache }
+
+  cascade: any = {
+    province: null,
+    countyArea: null,
+    city: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
+
+  regionContext: any = {
+    clear() {}
   }
   
   activeName: string = '1'
@@ -43,10 +67,10 @@ export default class Index extends mixins(TableColor) {
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
   customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
-  finalResult: Array<any> = finalResult
-  testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
+  cityCapital: Array<any> = cityCapital
+  countyAreaCapital: Array<any> = countyAreaCapital
+  provincialCapital: Array<any> = provincialCapital
+  factoryCard: Array<any> = factoryCard
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -81,21 +105,67 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
+  }
+
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+
+  submitForm(form) {
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      const { date, ...props } = this.form
+      if(!props.beginTime && !props.endTime) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
+      if (valid) {
+        const submit: any = {}
+        Object.assign(submit, props)
+        Object.assign(submit, this.cascade)
+        console.log(submit)
+        this.getCustomerStatisticsList(submit)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(form) {
+    this.form = { ...this.cache }
+    this.regionContext.clear()
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
+    // console.log(val);
     const _this = this
     _this.form.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
+    // console.log(val);
     this.$refs.form.endDatePicker = val;
   }
 
