@@ -10,16 +10,40 @@
         <div class="sg-def-statist">
           <div class="sg-header">
             <el-row>
-              <el-col :span="12" class="time-group" style="display: flex;">
-                <el-form-item label="日期">
-                    <el-date-picker
-                      v-model="ruleForm.date"
-                      type="daterange"
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      style="width: 100%;">
+              <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '1'">
+                  <el-form-item label="日期" prop="beginStatisDate">
+                    <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="ruleForm.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
                     </el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
+                      <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="ruleForm.endStatisDate" @change="dateChangeEndTime">
+                      </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '2'">
+                  <el-form-item label="日期" prop="beginStatisDate">
+                    <el-date-picker type="month" value-format="yyyy-MM" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="ruleForm.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                    </el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
+                      <el-date-picker type="month" value-format="yyyy-MM" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="ruleForm.endStatisDate" @change="dateChangeEndTime">
+                      </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '3'">
+                  <el-form-item label="日期" prop="beginStatisDate">
+                    <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择开始日期" v-model="form.beginTime"
+                      :picker-options="ruleForm.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
+                    </el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
+                      <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择结束日期" v-model="form.endTime"
+                        :picker-options="ruleForm.endStatisDate" @change="dateChangeEndTime">
+                      </el-date-picker>
                   </el-form-item>
                 </el-col>
               <el-col :span="6">

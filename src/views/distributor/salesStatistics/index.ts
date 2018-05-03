@@ -34,10 +34,10 @@ export default class Index extends mixins(TableColor) {
     testDrive: null,
     pcaArea: null,
     dealerId: null,
-    queryType: '1',
     materialId: null,
     vehColor: null,
     beginStatisDate: '',
+    queryType: '',
     endStatisDate: '',
     kpi: 0
   }
@@ -204,19 +204,9 @@ export default class Index extends mixins(TableColor) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.form
-      let queryType = '1'
-      if (this.activeName) {
-        if(this.activeName === '1') {
-          queryType = '1'
-        } else if (this.activeName === '2') {
-          queryType = '2'
-        } else {
-          queryType = '3'
-        }
-      }
-      if(props.beginStatisDate) {
-        console.log(props.beginStatisDate < props.endStatisDate)
-      }
+      // if(props.beginStatisDate) {
+      //   console.log(props.beginStatisDate < props.endStatisDate)
+      // }
       if(!props.beginTime && !props.endTime) {
         this.$message({
           center: true,
@@ -231,8 +221,8 @@ export default class Index extends mixins(TableColor) {
         const submit : any = {}
         Object.assign(submit, props)
         submit.endStatisDate = props.endTime;
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        Object.assign(submit, queryType)
         this.actionSalesStatisticsList(submit)
       } else {
         console.log('error submit!!')

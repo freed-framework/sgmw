@@ -25,10 +25,11 @@ const cache = {
   testDrive: '',
   varieties: '',
   finalResult: '',
-  date: '',
   name: '',
   numberOfStores: '',
-  SalesConsultant: ''
+  SalesConsultant: '',
+  beginStatisDate: '',
+  endStatisDate: '',
 }
 
 @Component({
@@ -159,8 +160,21 @@ export default class Index extends mixins(TableColor) {
   submitForm(ruleForm) {
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
-      const { date, ...props } = this.ruleForm
-      if(!date[0]) {
+      const { ...props } = this.ruleForm
+      let queryType = '1'
+      // if (this.activeName) {
+      //   if(this.activeName === '1') {
+      //     queryType = '1'
+      //   } else if (this.activeName === '2') {
+      //     queryType = '2'
+      //   } else {
+      //     queryType = '3'
+      //   }
+      // }
+      // if(props.beginStatisDate) {
+      //   console.log(props.beginStatisDate < props.endStatisDate)
+      // }
+      if(!props.beginTime && !props.endTime) {
         this.$message({
           center: true,
           showClose: true,
@@ -170,14 +184,13 @@ export default class Index extends mixins(TableColor) {
         return
       }
       if (valid) {
-        const submit: any = {}
-        if (date) {
-          submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
-          submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
-        }    
+        // const submit: any = {}
+        const submit : any = {}
         Object.assign(submit, props)
+        submit.endStatisDate = props.endTime;
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        console.log(submit)
+        Object.assign(submit, queryType)
         this.actionGetDefeatCustomerList(submit)
       } else {
         console.log('error submit!!')
