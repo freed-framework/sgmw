@@ -8,39 +8,40 @@ import { mixins } from 'vue-class-component'
 import moment from 'moment'
 import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
-import Brand from '../../../components/brand/index.vue'
-import Region from '../../../components/region/index.vue'
+import ActiveMixin from '../../../mixins/activeMixin'
 import {
   dealerStatus, submersibleType, provincialCapital,
   countyAreaCapital, cityCapital, varieties, carType, finalResult,
   dealerleadChannel, testDrive, createType, customerLevel, brands, carKinds
 } from '../../../dictionary'
-
-const cache = {
-  status: '',
-  custType: '',
-  custLevel: '',
-  saleResult: '',
-  ifDrive: '',
-  distributorNum: '',
-  channel: '',
-  queryType: '1',
-  dealerId: '',
-  beginStatisDate: '',
-  endStatisDate: ''
-}
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
+import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
   components: {
     Brand,
-    Region
+    Region,
+    TimeRange
   }
-})export default class Index extends mixins(TableColor) {
+})export default class Index extends mixins(TableColor, ActiveMixin) {
   @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
   @Getter('subStatistics/getList') subStatisticsList: any
-  ruleForm: any = { ...cache }
+  cache = {
+    status: '',
+    custType: '',
+    custLevel: '',
+    saleResult: '',
+    ifDrive: '',
+    distributorNum: '',
+    channel: '',
+    queryType: '',
+    dealerId: '',
+    beginStatisDate: '',
+    endStatisDate: ''
+  }
+  ruleForm: any = { ...this.cache }
   
-  activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '潜客统计-年',
@@ -78,6 +79,10 @@ const cache = {
   }
 
   regionContext: any = {
+    clear() {}
+  }
+
+  rangeVm: any = {
     clear() {}
   }
 
@@ -176,6 +181,13 @@ const cache = {
     // console.log(val, '----------------------')
   }
 
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    console.log(vm)
+    this.ruleForm.beginStatisDate = val.beginTime
+    this.ruleForm.endStatisDate = val.endTime
+  }
+
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
@@ -199,24 +211,14 @@ const cache = {
     )
   }
 
-  submitForm(ruleForm) {
-    const $form: any = this.$refs[ruleForm]
+  submitForm(form) {
+    const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.ruleForm
-      let queryType = '1'
-      if (this.activeName) {
-        if(this.activeName === '1') {
-          queryType = '1'
-        } else if (this.activeName === '2') {
-          queryType = '2'
-        } else {
-          queryType = '3'
-        }
-      }
-      if(props.beginStatisDate) {
-        console.log(props.beginStatisDate < props.endStatisDate)
-      }
-      if(!props.beginTime && !props.endTime) {
+      // if(props.beginStatisDate) {
+      //   console.log(props.beginStatisDate < props.endStatisDate)
+      // }
+      if(!this.ruleForm.beginStatisDate && !this.ruleForm.endStatisDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -229,10 +231,8 @@ const cache = {
         // const submit: any = {}
         const submit : any = {}
         Object.assign(submit, props)
-        submit.endStatisDate = props.endTime;
-        submit.beginStatisDate = props.beginTime;
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        Object.assign(submit, queryType)
         this.actionSubStatisticsListList(submit)
       } else {
         console.log('error submit!!')
@@ -242,19 +242,9 @@ const cache = {
   }
 
   resetForm(ruleForm) {
-    this.ruleForm = { ...cache }
+    this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
-  }
-
-  dateChangeBeginTime(val) {
-    // console.log(val);
-    this.ruleForm.startDatePicker = val;
-  }
-
-  dateChangeEndTime(val) {
-    // console.log(val);
-    this.$refs.ruleForm.endDatePicker = val;
   }
 
   //提出开始时间必须小于今天
