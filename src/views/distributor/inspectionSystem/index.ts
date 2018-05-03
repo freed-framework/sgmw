@@ -27,18 +27,27 @@ export default class Index extends mixins(TableColor) {
   @Getter('finalInventStatist/getList') finalInventStatistList: any
   
   cache = {
-    dealerStatus: '',
-    leadChannel: '',
-    factoryCard: '',
-    carType: '',
-    kinds: '',
-    testDrive: '',
-    name: '',
-    goodsNum: '',
-    color: '',
-    startDatePicker: this.beginDate() || '',
-    endDatePicker: this.processDate() ||'',
-    // kpi: 0
+    // dealerStatus: '',
+    // leadChannel: '',
+    // factoryCard: '',
+    // carType: '',
+    // kinds: '',
+    // testDrive: '',
+    // name: '',
+    // goodsNum: '',
+    // color: '',
+
+    // beginCreateTime: this.beginDate() || '',
+    beginCreateTime:  '',
+    // endCreateTime: this.processDate() ||'',
+    endCreateTime: '',
+    dealerId:'',
+    custType:'',
+    channel:'',
+    xszt:'',
+    salesMan:'',
+    jxszt:'',
+    queryType: 1,
   }
   form: any = { ...this.cache }
 
@@ -121,28 +130,12 @@ export default class Index extends mixins(TableColor) {
     // console.log(this.dealerStatus)
   }
 
-  // handleCacadeChange(vm, data = {}) {
-  //   this.cascadeContext = vm
-  //   Object.assign(this.cascade,
-  //     {
-  //       brand: data[0] ? data[0].label : null,
-  //       vehVariety: data[1] ? data[1].label : null,
-  //       vehSerices: data[2] ? data[2].label : null,
-  //       vehModel: data[3] ? data[3].label : null
-  //     }
-  //   )
-  // }
+  
   handleOptionsChange(value) {
     const { ...props } = this.form
     console.log(this.finalInventStatistList)
     console.log(value)
-    // Object.assign(this.cascade,
-    //   {
-    //     p: value[0] || null,
-    //     c: value[1] || null,
-    //     a: value[2] || null,
-    //   }
-    // )
+   
   }
 
   handleRegionChange(vm, data = {}) {
@@ -189,6 +182,7 @@ export default class Index extends mixins(TableColor) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { date, ...props } = this.form
+      console.log(props)
       if(!props.beginTime && !props.endTime) {
         this.$message({
           center: true,
@@ -201,9 +195,6 @@ export default class Index extends mixins(TableColor) {
       if (valid) {
         const submit: any = {}
         Object.assign(submit, props)
-        // Object.assign(submit, this.cascade)
-        // console.log(this.cascade)
-        // console.log(submit)
         this.actionGetFinalInVentStaList(submit)
       } else {
         console.log('error submit!!')
