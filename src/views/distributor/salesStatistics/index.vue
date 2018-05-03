@@ -10,42 +10,7 @@
         <div class="sg-custom">
           <div class="sg-header">
               <el-row>
-                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '1'">
-                  <el-form-item label="日期" prop="beginStatisDate">
-                    <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
-                    </el-date-picker>
-                  </el-form-item>
-                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
-                      <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endStatisDate" @change="dateChangeEndTime">
-                      </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '2'">
-                  <el-form-item label="日期" prop="beginStatisDate">
-                    <el-date-picker type="month" value-format="yyyy-MM" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
-                    </el-date-picker>
-                  </el-form-item>
-                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
-                      <el-date-picker type="month" value-format="yyyy-MM" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endStatisDate" @change="dateChangeEndTime">
-                      </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12" class="time-group" style="display: flex;" v-if="activeName === '3'">
-                  <el-form-item label="日期" prop="beginStatisDate">
-                    <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.beginStatisDate" @change="dateChangeBeginTime" style="margin-right: 12px;">
-                    </el-date-picker>
-                  </el-form-item>
-                  <el-form-item label="至" label-width="25px" prop="endStatisDate">
-                      <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endStatisDate" @change="dateChangeEndTime">
-                      </el-date-picker>
-                  </el-form-item>
-                </el-col>
+                <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
                 <el-col :span="6">
                   <el-form-item label="厂牌" prop="factoryCard">
                     <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">

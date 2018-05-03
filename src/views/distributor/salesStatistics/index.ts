@@ -14,12 +14,29 @@ import {
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
-import { kpi } from './kpi' 
+import { kpi } from './kpi'
+import TimeRange from '../../../components/timeRanage/index.vue'
+
+const conf = {
+  '1': {
+    type: 'year',
+    format: 'yyyy'
+  },
+  '2': {
+    type: 'month',
+    format: 'yyyy-MM'
+  },
+  '3': {
+    type: 'date',
+    format: 'yyyy-MM-dd'
+  }
+}
 
 @Component({
   components: {
     Brand,
-    Region
+    Region,
+    TimeRange
   }
 })
 export default class Index extends mixins(TableColor) {
@@ -65,6 +82,7 @@ export default class Index extends mixins(TableColor) {
   }
   
   activeName: string = '1'
+  timeRange: any = conf[this.activeName]
   editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '销量统计-年',
@@ -108,6 +126,10 @@ export default class Index extends mixins(TableColor) {
   kpi: Array<any> = kpi
 
   $refs: any
+
+  timeRangeChange(val) {
+    console.log(val)
+  }
 
   @Watch('select')
   watchSelect(val) {
@@ -235,5 +257,10 @@ export default class Index extends mixins(TableColor) {
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+  }
+
+  @Watch('activeName')
+  watchActiveChange(val) {
+    this.timeRange = conf[val]
   }
 }
