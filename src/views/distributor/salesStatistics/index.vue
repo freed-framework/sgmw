@@ -11,7 +11,6 @@
           <div class="sg-header">
               <el-row>
                 <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
-                
                 <el-col :span="6">
                   <el-form-item label="厂牌" prop="factoryCard">
                     <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">
