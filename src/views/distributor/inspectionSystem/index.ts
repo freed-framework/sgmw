@@ -23,8 +23,8 @@ import Region from '../../../components/region/index.vue'
   }
 })
 export default class Index extends mixins(TableColor) {
-  @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
-  @Getter('salesStatistics/getList') finalInventStatistList: any
+  @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalInVentStaList: any
+  @Getter('finalInventStatist/getList') finalInventStatistList: any
   
   cache = {
     dealerStatus: '',
@@ -42,17 +42,17 @@ export default class Index extends mixins(TableColor) {
   }
   form: any = { ...this.cache }
 
-  cascade: any = {
-    region: null,
-    province: null,
-    brand: null,
-    vehVariety: null,
-    vehSerices: null,
-    vehModel: null,
-    p: null,
-    c: null,
-    a: null
-  }
+  // cascade: any = {
+  //   region: null,
+  //   province: null,
+  //   brand: null,
+  //   vehVariety: null,
+  //   vehSerices: null,
+  //   vehModel: null,
+  //   p: null,
+  //   c: null,
+  //   a: null
+  // }
 
   rules: any = {
     startDatePicker: [
@@ -121,35 +121,35 @@ export default class Index extends mixins(TableColor) {
     // console.log(this.dealerStatus)
   }
 
-  handleCacadeChange(vm, data = {}) {
-    this.cascadeContext = vm
-    Object.assign(this.cascade,
-      {
-        brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
-      }
-    )
-  }
+  // handleCacadeChange(vm, data = {}) {
+  //   this.cascadeContext = vm
+  //   Object.assign(this.cascade,
+  //     {
+  //       brand: data[0] ? data[0].label : null,
+  //       vehVariety: data[1] ? data[1].label : null,
+  //       vehSerices: data[2] ? data[2].label : null,
+  //       vehModel: data[3] ? data[3].label : null
+  //     }
+  //   )
+  // }
   handleOptionsChange(value) {
     const { ...props } = this.form
     console.log(this.finalInventStatistList)
     console.log(value)
-    Object.assign(this.cascade,
-      {
-        p: value[0] || null,
-        c: value[1] || null,
-        a: value[2] || null,
-      }
-    )
+    // Object.assign(this.cascade,
+    //   {
+    //     p: value[0] || null,
+    //     c: value[1] || null,
+    //     a: value[2] || null,
+    //   }
+    // )
   }
 
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
-    Object.assign(this.cascade,
-      {province: data[0] ? data[0].label : null, city: data[1] ? data[1].label : null}
-    )
+    // Object.assign(this.cascade,
+    //   {province: data[0] ? data[0].label : null, city: data[1] ? data[1].label : null}
+    // )
   }
 
   dateChangeBeginTime(val) {
@@ -201,10 +201,10 @@ export default class Index extends mixins(TableColor) {
       if (valid) {
         const submit: any = {}
         Object.assign(submit, props)
-        Object.assign(submit, this.cascade)
-        console.log(this.cascade)
+        // Object.assign(submit, this.cascade)
+        // console.log(this.cascade)
         // console.log(submit)
-        this.actionSalesStatisticsList(submit)
+        this.actionGetFinalInVentStaList(submit)
       } else {
         console.log('error submit!!')
         return false

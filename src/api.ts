@@ -128,7 +128,7 @@ export const kpiList = (params) => http.post('/store-customer-defeat-rate/query'
 /**
  * 经销商相关
  */
-export const finalInventStatistList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const finalInventStatistList = (params) => http.post('/report/dealersSelf', params)
 /**
  * 战败统计
  */
