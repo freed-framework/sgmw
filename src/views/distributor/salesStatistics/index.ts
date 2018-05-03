@@ -8,6 +8,7 @@ import { mixins } from 'vue-class-component'
 import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import ActiveMixin from '../../../mixins/activeMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea
@@ -17,21 +18,6 @@ import Region from '../../../components/region/index.vue'
 import { kpi } from './kpi'
 import TimeRange from '../../../components/timeRanage/index.vue'
 
-const conf = {
-  '1': {
-    type: 'year',
-    format: 'yyyy'
-  },
-  '2': {
-    type: 'month',
-    format: 'yyyy-MM'
-  },
-  '3': {
-    type: 'date',
-    format: 'yyyy-MM-dd'
-  }
-}
-
 @Component({
   components: {
     Brand,
@@ -39,7 +25,7 @@ const conf = {
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor) {
+export default class Index extends mixins(TableColor, ActiveMixin) {
   @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
   @Getter('salesStatistics/getList') salesStatisticsList: any
   
@@ -81,8 +67,6 @@ export default class Index extends mixins(TableColor) {
     ]
   }
   
-  activeName: string = '1'
-  timeRange: any = conf[this.activeName]
   editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '销量统计-年',
@@ -257,10 +241,5 @@ export default class Index extends mixins(TableColor) {
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
-  }
-
-  @Watch('activeName')
-  watchActiveChange(val) {
-    this.timeRange = conf[val]
   }
 }
