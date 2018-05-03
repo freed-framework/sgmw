@@ -33,7 +33,7 @@ export default class Cascade extends Vue {
   beginTime: string = ''
   endTime: string = ''
 
-  reset() {
+  clear() {
     this.beginTime = ''
     this.endTime = ''
   }
