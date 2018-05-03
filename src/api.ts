@@ -107,7 +107,9 @@ export const init = () => {
         user: {
           name: 'den'
         },
-        roles: ['admin', 'kpi', 'book', 'book_list']
+        roles: ['admin', 'kpi', 'book', 'book_list', 'distributor',
+        'salesStatistics', 'subStatistics', 'defeatCustomer', 'customerStatistics'
+      , 'finalInventStatist']
       }
     })
   })
@@ -136,11 +138,11 @@ export const defeatCustomerList = (params) => http.post('/store-customer-defeat-
 /**
  * 潜客统计
  */
-export const subStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const subStatisticsList = (params) => http.post('/report/submersibleReport', params)
 /**
  * 销量统计
  */
-export const salesStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const salesStatisticsList = (params) => http.post('/report/salesReport', params)
 /**
  * 客户统计
  */

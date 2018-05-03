@@ -17,13 +17,17 @@ import {
 } from '../../../dictionary'
 
 const cache = {
-  dealerStatus: '',
-  submersibleType: '',
-  customerLevel: '',
-  finalResult: '',
-  testDrive: '',
-  date: '',
-  distributorNum: ''
+  status: '',
+  custType: '',
+  custLevel: '',
+  saleResult: '',
+  ifDrive: '',
+  distributorNum: '',
+  channel: '',
+  queryType: '1',
+  dealerId: '',
+  beginStatisDate: '',
+  endStatisDate: ''
 }
 
 @Component({
@@ -60,9 +64,9 @@ const cache = {
   }
 
   cascade: any = {
-    region: null,
-    province: null,
-    city: null,
+    khSzsf: null,
+    khSzcs: null,
+    khSzqy: null,
     brand: null,
     vehVariety: null,
     vehSerices: null,
@@ -176,9 +180,9 @@ const cache = {
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        province: data[0] ? data[0].label : null,
-        cityu: data[1] ? data[1].label : null,
-        countyArea: data[2] ? data[2].label : null
+        khSzsf: data[0] ? data[0].label : null,
+        khSzcs: data[1] ? data[1].label : null,
+        khSzqy: data[2] ? data[2].label : null
       }
     )
   }
@@ -195,11 +199,24 @@ const cache = {
     )
   }
 
-  submitForm(ruleForm, index) {
+  submitForm(ruleForm) {
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
-      const { date, ...props } = this.ruleForm
-      if(!date[0]) {
+      const { ...props } = this.ruleForm
+      let queryType = '1'
+      if (this.activeName) {
+        if(this.activeName === '1') {
+          queryType = '1'
+        } else if (this.activeName === '2') {
+          queryType = '2'
+        } else {
+          queryType = '3'
+        }
+      }
+      if(props.beginStatisDate) {
+        console.log(props.beginStatisDate < props.endStatisDate)
+      }
+      if(!props.beginTime && !props.endTime) {
         this.$message({
           center: true,
           showClose: true,
@@ -209,14 +226,13 @@ const cache = {
         return
       }
       if (valid) {
-        const submit: any = {}
-        if (date) {
-          submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
-          submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
-        }    
+        // const submit: any = {}
+        const submit : any = {}
         Object.assign(submit, props)
+        submit.endStatisDate = props.endTime;
+        submit.beginStatisDate = props.beginTime;
         Object.assign(submit, this.cascade)
-        console.log(submit)
+        Object.assign(submit, queryType)
         this.actionSubStatisticsListList(submit)
       } else {
         console.log('error submit!!')
@@ -233,13 +249,12 @@ const cache = {
 
   dateChangeBeginTime(val) {
     // console.log(val);
-    const _this = this
-    _this.ruleForm.startDatePicker = val;
+    this.ruleForm.startDatePicker = val;
   }
 
   dateChangeEndTime(val) {
     // console.log(val);
-    this.$refs.form.endDatePicker = val;
+    this.$refs.ruleForm.endDatePicker = val;
   }
 
   //提出开始时间必须小于今天
