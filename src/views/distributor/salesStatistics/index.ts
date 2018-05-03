@@ -55,6 +55,22 @@ export default class Index extends mixins(TableColor) {
     a: null
   }
 
+  endStatisDate: any = {
+    disabledDate: (time) => {
+      const { beginStatisDate } = this.form
+      if (!beginStatisDate) return false
+      const arr = beginStatisDate.split('-')
+      const newArr = arr.concat(['1', '1'].slice(0, 3 - arr.length)).join('-')
+      const beginDate: any = new Date(newArr)
+      if ((time * 1) <= (beginDate * 1)) {
+        return true
+      }
+      return false
+      
+
+    }
+  }
+
   rules: any = {
     beginStatisDate: [
       { required: false, message: '请选择时间' }
@@ -245,5 +261,11 @@ export default class Index extends mixins(TableColor) {
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+  }
+
+  @Watch('activeName')
+  watchActiveName(val) {
+    // this.form.beginTime = ''
+    // this.form.endTime = ''
   }
 }
