@@ -9,13 +9,15 @@ import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea
+  finalResult, testDrive, leadStatus, carType, kinds, cityLevel
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import { kpi } from './kpi'
+import { download } from '../../../api'
 import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
@@ -25,22 +27,22 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
   @Getter('salesStatistics/getList') salesStatisticsList: any
   
   cache = {
     leadChannel: null,
-    factoryCard: null,
+    // factoryCard: '',
     carType: null,
     kinds: null,
     testDrive: null,
-    pcaArea: null,
+    cityLevel: null,
     dealerId: null,
-    queryType: '1',
     materialId: null,
     vehColor: null,
     beginStatisDate: '',
+    queryType: '',
     endStatisDate: '',
     kpi: 0
   }
@@ -52,10 +54,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     brand: null,
     vehVariety: null,
     vehSerices: null,
-    vehModel: null,
-    p: null,
-    c: null,
-    a: null
+    vehModel: null
   }
 
   rules: any = {
@@ -94,6 +93,10 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     clear() {}
   }
 
+  rangeVm: any = {
+    clear() {}
+  }
+
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
@@ -101,18 +104,21 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   customerType: Array<any> = customerType
   dealerleadChannel: Array<any> = dealerleadChannel
   leadStatus: Array<any> = leadStatus
-  factoryCard: Array<any> = factoryCard
+  // factoryCard: Array<any> = factoryCard
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  pcaArea: Array<any> = pcaArea
+  cityLevel: Array<any> = cityLevel
 
   kpi: Array<any> = kpi
 
   $refs: any
 
-  timeRangeChange(val) {
-    console.log(val)
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginStatisDate = val.beginTime
+    this.form.endStatisDate = val.endTime
   }
 
   @Watch('select')
@@ -149,81 +155,18 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
     this.form.beginStatisDate = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
     this.$refs.form.endStatisDate = val;
   }
-
-  // //提出开始时间必须大于今天
-  // beginDate(){
-  //   const _this = this
-  //   return {
-  //     disabledDate(time){
-  //       return time.getTime() > Date.now()//开始时间不选时，结束时间最大值大于等于当天
-  //     }
-  //   }
-  // }
-  // //提出结束时间必须大于提出开始时间
-  // processDate(){
-  //   let self = this
-  //   if (self.activeName === '1') {
-  //     return {
-  //       disabledDate(time){
-  //         console.log(time)
-  //         if(self.form.beginStatisDate){
-  //           return new Date(self.form.beginStatisDate).getTime() > time.getTime()
-  //         } else {
-  //           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(self.activeName === '2') {
-  //     return {
-  //       disabledDate(time){
-  //         if(self.form.beginStatisDate){
-  //           return new Date(self.form.beginStatisDate).getTime() > time.getTime()
-  //         } else {
-  //           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(self.activeName === '2') {
-  //     return {
-  //       disabledDate(time){
-  //         if(self.form.beginStatisDate){
-  //           return new Date(self.form.beginStatisDate).getTime() > time.getTime()
-  //         } else {
-  //           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.form
-      let queryType = '1'
-      if (this.activeName) {
-        if(this.activeName === '1') {
-          queryType = '1'
-        } else if (this.activeName === '2') {
-          queryType = '2'
-        } else {
-          queryType = '3'
-        }
-      }
-      if(props.beginStatisDate) {
-        console.log(props.beginStatisDate < props.endStatisDate)
-      }
-      if(!props.beginTime && !props.endTime) {
+      if(!this.form.beginStatisDate && !this.form.endStatisDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -236,9 +179,8 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         // const submit: any = {}
         const submit : any = {}
         Object.assign(submit, props)
-        submit.endStatisDate = props.endTime;
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        Object.assign(submit, queryType)
         this.actionSalesStatisticsList(submit)
       } else {
         console.log('error submit!!')
@@ -247,9 +189,20 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     })
   }
 
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
+  }
+
   resetForm(form) {
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+    this.rangeVm.clear()
   }
 }

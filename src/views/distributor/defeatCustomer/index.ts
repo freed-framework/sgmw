@@ -13,34 +13,39 @@ import {
   varieties, dealerleadChannel,
   testDrive, createType, finalResult
 } from '../../../dictionary'
+import ActiveMixin from '../../../mixins/activeMixin'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
-
-const cache = {
-  dealerStatus: '',
-  createType: '',
-  dealerleadChannel: '',
-  customerLevel: '',
-  submersibleType: '',
-  testDrive: '',
-  varieties: '',
-  finalResult: '',
-  date: '',
-  name: '',
-  numberOfStores: '',
-  SalesConsultant: ''
-}
+import TimeRange from '../../../components/timeRanage/index.vue'
+import { download } from '../../../api'
+import DownloadMixin from '../../../mixins/downloadMixin'
 
 @Component({
   components: {
     Brand,
-    Region
+    Region,
+    TimeRange
   }
 })
-export default class Index extends mixins(TableColor) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
   @Getter('defeatCustomer/getList') defeatCustomerList: any
-  ruleForm: any = { ...cache }
+  cache = {
+    dealerStatus: '',
+    createType: '',
+    dealerleadChannel: '',
+    customerLevel: '',
+    submersibleType: '',
+    testDrive: '',
+    varieties: '',
+    finalResult: '',
+    name: '',
+    numberOfStores: '',
+    SalesConsultant: '',
+    beginStatisDate: '',
+    endStatisDate: '',
+  }
+  ruleForm: any = { ...this.cache }
 
   cascade: any = {
     province: null,
@@ -77,6 +82,10 @@ export default class Index extends mixins(TableColor) {
   }
 
   regionContext: any = {
+    clear() {}
+  }
+
+  rangeVm: any = {
     clear() {}
   }
 
@@ -134,6 +143,13 @@ export default class Index extends mixins(TableColor) {
     // console.log(val, '----------------------')
   }
 
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.ruleForm.beginStatisDate = val.beginTime
+    this.ruleForm.endStatisDate = val.endTime
+  }
+
   handleCacadeChange(vm, data = {}) {
     this.cascadeContext = vm
     Object.assign(this.cascade,
@@ -159,8 +175,8 @@ export default class Index extends mixins(TableColor) {
   submitForm(ruleForm) {
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
-      const { date, ...props } = this.ruleForm
-      if(!date[0]) {
+      const { ...props } = this.ruleForm
+      if(!this.ruleForm.beginStatisDate && !this.ruleForm.endStatisDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -170,14 +186,11 @@ export default class Index extends mixins(TableColor) {
         return
       }
       if (valid) {
-        const submit: any = {}
-        if (date) {
-          submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
-          submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
-        }    
+        // const submit: any = {}
+        const submit : any = {}
         Object.assign(submit, props)
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        console.log(submit)
         this.actionGetDefeatCustomerList(submit)
       } else {
         console.log('error submit!!')
@@ -187,42 +200,20 @@ export default class Index extends mixins(TableColor) {
   }
 
   resetForm(formName) {
-    this.ruleForm = { ...cache }
+    this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+    this.rangeVm.clear()
   }
 
-  // dateChangeBeginTime(val) {
-  //   // console.log(val);
-  //   const _this = this
-  //   _this.ruleForm.startDatePicker = val;
-  // }
-
-  // dateChangeEndTime(val) {
-  //   // console.log(val);
-  //   this.$refs.form.endDatePicker = val;
-  // }
-
-  //提出开始时间必须小于今天
-  // beginDate(){
-  //   return {
-  //     disabledDate(time){
-  //       return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //     }
-  //   }
-  // }
-  //提出结束时间必须大于提出开始时间
-  // processDate(){
-  //   let self = this
-  //   return {
-  //     disabledDate(time){
-  //       if(self.ruleForm.startDatePicker){
-  //         return new Date(self.ruleForm.startDatePicker).getTime() > time.getTime()
-  //       } else {
-  //         return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //       }
-  //     }
-  //   }
-  // }
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
+  }
 
 }

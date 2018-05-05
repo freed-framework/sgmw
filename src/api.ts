@@ -147,3 +147,12 @@ export const salesStatisticsList = (params) => http.post('/report/salesReport', 
  * 客户统计
  */
 export const customerStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+
+/**
+ * 导出相关
+ */
+export const download = {
+  sales: '/api/report/salesReportExport',
+  subStatis: 'api/report/submersibleReport',
+  defeat: 'api/report/dealersSelfExport'
+}

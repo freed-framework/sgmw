@@ -8,30 +8,33 @@ import { mixins } from 'vue-class-component'
 import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import ActiveMixin from '../../../mixins/activeMixin'
 import {
   dealerStatus, customerLevel, customerType,
   provincialCapital, factoryCard, cityCapital, countyAreaCapital
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
+import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
   components: {
-    Region
+    Region,
+    TimeRange
   }
 })
-export default class Index extends mixins(TableColor) {
+export default class Index extends mixins(TableColor, ActiveMixin) {
   @Action('customerStatistics/getCustomerStatisticsList') getCustomerStatisticsList: any
   @Getter('customerStatistics/getList') customerStatisticsList: any
   cache = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: 0,
-    provincialCapital: 0,
-    cityCapital: 0,
-    factoryCard: 0,
-    startDatePicker: this.beginDate() || '',
-    endDatePicker: this.processDate() ||'',
+    dealerStatus: '',
+    customerLevel: '',
+    customerType: '',
+    provincialCapital: '',
+    cityCapital: '',
+    factoryCard: '',
+    beginStatisDate: '',
+    endStatisDate: '',
     name: ''
   }
   form: any = { ...this.cache }
@@ -47,6 +50,10 @@ export default class Index extends mixins(TableColor) {
   }
 
   regionContext: any = {
+    clear() {}
+  }
+
+  rangeVm: any = {
     clear() {}
   }
   
@@ -117,6 +124,13 @@ export default class Index extends mixins(TableColor) {
     // console.log(val, '----------------------')
   }
 
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginStatisDate = val.beginTime
+    this.form.endStatisDate = val.endTime
+  }
+
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
@@ -130,8 +144,8 @@ export default class Index extends mixins(TableColor) {
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
-      const { date, ...props } = this.form
-      if(!props.beginTime && !props.endTime) {
+      const { ...props } = this.form
+      if(!this.form.beginStatisDate && !this.form.endStatisDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -141,10 +155,11 @@ export default class Index extends mixins(TableColor) {
         return
       }
       if (valid) {
-        const submit: any = {}
+        // const submit: any = {}
+        const submit : any = {}
         Object.assign(submit, props)
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        console.log(submit)
         this.getCustomerStatisticsList(submit)
       } else {
         console.log('error submit!!')
@@ -153,42 +168,11 @@ export default class Index extends mixins(TableColor) {
     })
   }
 
+
   resetForm(form) {
     this.form = { ...this.cache }
     this.regionContext.clear()
-  }
-
-  dateChangeBeginTime(val) {
-    // console.log(val);
-    const _this = this
-    _this.form.startDatePicker = val;
-  }
-
-  dateChangeEndTime(val) {
-    // console.log(val);
-    this.$refs.form.endDatePicker = val;
-  }
-
-  //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-      }
-    }
-  }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
-      }
-    }
+    this.rangeVm.clear()
   }
 
 }
