@@ -8,23 +8,25 @@ import {
   import { State, Getter, Action } from 'vuex-class'
   import moment from 'moment'
   import TableColor from '../../../mixins/table-color/index.vue'
-  import ActiveMixin from '../../../mixins/activeMixin'
   import {
-	dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-	finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea, leadType
+		dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
+		finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea, leadType
   } from '../../../dictionary'
+	import ActiveMixin from '../../../mixins/activeMixin'
   import Brand from '../../../components/brand/index.vue'
   import Region from '../../../components/region/index.vue'
+  import Channel from '../../../components/channel/index.vue'
   
   @Component({
 	components: {
 	  Brand,
-	  Region,
+		Region,
+		Channel,
 	}
   })
   export default class Index extends mixins(TableColor, ActiveMixin) {
-	@Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
-	@Getter('salesStatistics/getList') salesStatisticsList: any
+	@Action('diveCusClue/getDiveCusClueList') actionDiveCusClueList: any
+	@Getter('diveCusClue/getList') diveCusClueListList: any
 	
 	cache = {
 	  leadChannel: null,
@@ -34,25 +36,23 @@ import {
 	  testDrive: null,
 	  pcaArea: null,
 	  dealerId: null,
-	  queryType: '1',
 	  materialId: null,
 	  vehColor: null,
 	  beginStatisDate: '',
 	  endStatisDate: '',
-	  leadType: '',
+		leadType: '',
+		month: '',
 	}
 	form: any = { ...this.cache }
   
 	cascade: any = {
-	  region: null,
+		region: null,
+		channel: null,
 	  province: null,
 	  brand: null,
 	  vehVariety: null,
 	  vehSerices: null,
 	  vehModel: null,
-	  p: null,
-	  c: null,
-	  a: null
 	}
   
 	rules: any = {
@@ -64,9 +64,10 @@ import {
 	  ]
 	}
 	
-	editableTabsValue: string = '2'
 	value: string = ''
-	tabs: any = [{
+	activeName: string = '1'
+	editableTabsValue: string = '2'
+	editableTabs: any = [{
 	  title: '线索响应率',
 	  name: '1'
 	}, {
@@ -92,7 +93,9 @@ import {
 		name: '8'
 	}
 ]
+
 	tabIndex: number = 2
+	dealer: any = 0
 	select: any = {
 	  select1: '',
 	  select2: '',
@@ -101,12 +104,18 @@ import {
 	}
   
 	cascadeContext: any = {
-	  clear() {}
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+	channelContext: any = {
+		clear() {}
 	}
-  
-	regionContext: any = {
-	  clear() {}
-	}
+  rangeVm: any = {
+    clear() {}
+  }
   
 	leadChannel: Array<any> = leadChannel
 	testDrive: Array<any> = testDrive
@@ -124,38 +133,58 @@ import {
   
 	$refs: any
   
-	@Watch('select')
+	handleClick(tab, event) {
+		// this.cache.endStatisDate = this.processDate()
+		// console.log(this.processDate());
+	}
+
+	@Watch('form', {deep: true})
 	watchSelect(val) {
 	  // console.log(val, '----------------------')
 	}
   
-	handleClick(tab, event) {
-	  // this.cache.endStatisDate = this.processDate()
-	  // console.log(this.processDate());
-	}
   
 	created() {
 	  // console.log(this.dealerStatus)
 	}
   
-	handleCacadeChange(vm, data = {}) {
-	  this.cascadeContext = vm
-	  Object.assign(this.cascade,
-		{
-		  brand: data[0] ? data[0].label : null,
-		  vehVariety: data[1] ? data[1].label : null,
-		  vehSerices: data[2] ? data[2].label : null,
-		  vehModel: data[3] ? data[3].label : null
-		}
-	  )
-	}
+	timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginStatisDate = val.beginTime
+    this.form.endStatisDate = val.endTime
+  }
+
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
   
 	handleRegionChange(vm, data = {}) {
-	  this.regionContext = vm
-	  Object.assign(this.cascade,
-		{province: data[0] ? data[0].label : null, city: data[1] ? data[1].label : null}
-	  )
-	}
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+	handleChannelChange(vm, data = {}) {
+    this.channelContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
   
 	dateChangeBeginTime(val) {
 	  console.log(val);
@@ -168,50 +197,39 @@ import {
 	}
   
 	submitForm(form) {
-	  const $form: any = this.$refs[form]
-	  $form.validate((valid) => {
-		const { ...props } = this.form
-		let queryType = '1'
-		if (this.activeName) {
-		  if(this.activeName === '1') {
-			queryType = '1'
-		  } else if (this.activeName === '2') {
-			queryType = '2'
-		  } else {
-			queryType = '3'
-		  }
-		}
-		if(props.beginStatisDate) {
-		  console.log(props.beginStatisDate < props.endStatisDate)
-		}
-		// if(!props.beginTime && !props.endTime) {
-		//   this.$message({
-		// 	center: true,
-		// 	showClose: true,
-		// 	message: '请选择日期',
-		// 	type: 'warning'
-		//   });
-		//   return
-		// }
-		if (valid) {
-		  // const submit: any = {}
-		  const submit : any = {}
-		  Object.assign(submit, props)
-		  submit.endStatisDate = props.endTime;
-		  Object.assign(submit, this.cascade)
-		  Object.assign(submit, queryType)
-		  this.actionSalesStatisticsList(submit)
-		} else {
-		  console.log('error submit!!')
-		  return false
-		}
-	  })
-	}
-  
-	resetForm(form) {
-	  this.form = { ...this.cache }
-	  this.cascadeContext.clear()
-	  this.regionContext.clear()
-	}
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      const { ...props } = this.form
+      // if(!this.form.beginStatisDate && !this.form.endStatisDate) {
+      //   this.$message({
+      //     center: true,
+      //     showClose: true,
+      //     message: '请选择日期',
+      //     type: 'warning'
+      //   });
+      //   return
+      // }
+      if (valid) {
+        // const submit: any = {}
+        const submit : any = {}
+        Object.assign(submit, props)
+        submit.queryType = this.activeName
+				Object.assign(submit, this.cascade)
+				console.log(submit)
+        this.actionDiveCusClueList(submit)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
   }
+	resetForm(formName) {
+		this.form = { ...this.cache }
+		console.log(formName)
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.channelContext.clear()
+    this.rangeVm.clear()
+  }
+}
   

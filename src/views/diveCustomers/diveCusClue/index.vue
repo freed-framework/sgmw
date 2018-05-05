@@ -1,15 +1,19 @@
 <template>
 <div class="sg-divecustom">
+  <el-form ref="form" :model="form" label-width="84px">
   <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane v-for = "data in tabs" :label="data.text" :name="data.key" :key= "data.key">
+    <el-tab-pane
+      :key="index"
+      v-for="(item, index) in editableTabs"
+      :label="item.title"
+      :name="item.name"
+    >
       <div class="sg-header">
-        <el-form ref="form" :model="form" label-width="84px">
         <el-row>
           <el-col :span="6">
-            <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
-            <el-form-item label="月份">
+            <el-form-item label="月份" prop="month">
               <el-date-picker
-                v-model="value"
+                v-model="form.month"
                 type="month"
                 placeholder="选择月份">
               </el-date-picker>
@@ -30,36 +34,10 @@
               <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
             </el-form-item>
           </el-col>
-           <el-col :span="6">
-            <el-form-item label="平台">
-              <el-select v-model="form.customerLevel" placeholder="请选择平台">
-                <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="主渠道">
-              <el-select v-model="form.customerLevel" placeholder="请选择主渠道">
-                <el-option v-for="(text, index) in customerLevel" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="分渠道">
-              <el-select v-model="form.customerType" placeholder="请选择分渠道">
-                <el-option v-for="(text, index) in customerType" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="子渠道">
-              <el-select v-model="form.testDrive" placeholder="请选择子渠道">
-                <el-option v-for="(text, index) in testDrive" :key="index" :label="text" :value="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <channel
+              @change="handleChannelChange"
+              :cols="[0, 3]"
+            />
           <el-col :span="6">
             <el-form-item label="线索类型" prop="leadType">
               <el-select v-model="form.leadType" placeholder="请选择线索类型">
@@ -69,30 +47,30 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="单据数">
-              <!-- {{subStatisticsList.pagination.total}} -->
+              {{diveCusClueListList.pagination.total}}
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
+        </el-row>
+        <el-row>
           <el-col :span="8">
             <el-form-item>
-              <el-button type="primary" @click="submitForm('form',activeName)">检索</el-button>
-              <el-button type="success" @click="resetForm('form',activeName)">导出</el-button>
-              <el-button>重置</el-button>
+              <el-button type="primary" @click="submitForm('form')">检索</el-button>
+              <el-button type="success" >导出</el-button>
+              <el-button @click="resetForm('form')">重置</el-button>
             </el-form-item>
           </el-col>
         </el-row>
-      </el-form>
       </div>
-      <!-- <div class="sg-main">
+      <div class="sg-main">
         <pag-table>
         <el-table
-          :data="kpiList.list"
-          :loading="loading"
+          :data="diveCusClueListList.list"
           border
           style="width: 100%"
           :row-class-name="tableRowClassName">
-          <el-table-column v-for="item in kpiList.title"
+          <el-table-column v-for="item in diveCusClueListList.title"
             :prop="item"
             :label="item"
             :key="item"
@@ -100,9 +78,10 @@
           </el-table-column>
         </el-table>
       </pag-table>
-      </div> -->
+      </div>
     </el-tab-pane>
   </el-tabs>
+  </el-form>
 </div>
 </template>
 

@@ -10,21 +10,23 @@
         <div class="sg-custom">
           <div class="sg-header">
               <el-row>
-                <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
-              </el-row>
-              <el-row>
+                <el-col :span="12">
+                  <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
+                </el-col>
                 <el-col :span="6">
                   <el-form-item label="经销商号" prop="dealerId">
                     <el-input v-model="form.dealerId" placeholder="请输入经销商号"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="经销商状态" prop="jxszt">
-                    <el-select :clearable="true" v-model="form.jxszt" placeholder="请选择经销商状态" >
+                  <el-form-item label="经销商状态" prop="DealerStatus">
+                    <el-select :clearable="true" v-model="form.DealerStatus" placeholder="请选择经销商状态" >
                       <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="6">
                   <el-form-item label="销售顾问" prop="salesMan">
                     <el-input v-model="form.salesMan" placeholder="请输入销售顾问"></el-input>
@@ -37,8 +39,6 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="6">
                   <el-form-item label="线索渠道" prop="channel">
                     <el-select :clearable="true" v-model="form.channel" placeholder="线索渠道" >
@@ -47,18 +47,22 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="线索状态" prop="xszt">
-                    <el-select :clearable="true" v-model="form.xszt" placeholder="线索状态" >
+                  <el-form-item label="线索状态" prop="potentialCustSaleResult">
+                    <el-select :clearable="true" v-model="form.potentialCustSaleResult" placeholder="线索状态" >
                       <el-option v-for="(text, index) in leadStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="4">
                     <el-form-item label="单据数：">
                       {{finalInventStatistList.pagination.total}}
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+              </el-row>
+              <el-row>
+                <el-col :span="8" :offset="18">
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('form')">检索</el-button>
                     <el-button type="success">导出</el-button>

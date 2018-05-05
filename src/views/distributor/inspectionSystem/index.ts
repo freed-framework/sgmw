@@ -13,15 +13,10 @@ import {
   dealerStatus, customerLevel, dealerCustomerType, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus, carType, kinds, factoryCard
 } from '../../../dictionary'
-// import Brand from '../../../components/brand/index.vue'
-// import Region from '../../../components/region/index.vue'
-// import { kpi } from './kpi' 
 import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
   components: {
-    // Brand,
-    // Region,
     TimeRange,
   }
 })
@@ -30,27 +25,14 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   @Getter('finalInventStatist/getList') finalInventStatistList: any
   
   cache = {
-    // dealerStatus: '',
-    // leadChannel: '',
-    // factoryCard: '',
-    // carType: '',
-    // kinds: '',
-    // testDrive: '',
-    // name: '',
-    // goodsNum: '',
-    // color: '',
-
-    // beginCreateTime: this.beginDate() || '',
     beginCreateTime:  '',
-    // endCreateTime: this.processDate() ||'',
     endCreateTime: '',
     dealerId:'',
     custType:'',
     channel:'',
-    xszt:'',
+    potentialCustSaleResult:'',
     salesMan:'',
-    jxszt:'',
-    queryType: '1',
+    DealerStatus:'',
   }
   form: any = { ...this.cache }
 
@@ -67,15 +49,14 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   // }
 
   rules: any = {
-    startDatePicker: [
+    beginCreateTime: [
       { required: false, message: '请选择时间' }
     ],
-    endDatePicker: [
+    endCreateTime: [
       { required: false, message: '请选择时间' }
     ]
   }
   
-  // activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '线索统计-年',
@@ -103,6 +84,10 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     clear() {}
   }
 
+  rangeVm: any = {
+    clear() {}
+  }
+
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
@@ -116,9 +101,14 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   carType: Array<any> = carType
   kinds: Array<any> = kinds
 
-  // kpi: Array<any> = kpi
-
   $refs: any
+
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginCreateTime = val.beginTime
+    this.form.endCreateTime = val.endTime
+  }
 
   @Watch('select')
   watchSelect(val) {
@@ -132,65 +122,33 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   created() {
     // console.log(this.dealerStatus)
   }
-  timeRangeChange(value) {
-    console.log(value)
-  }
-  
 
-  //提出开始时间必须大于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-      }
-    }
+  dateChangeBeginTime(val) {
+    this.form.beginCreateTime = val;
   }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
-      }
-    }
+
+  dateChangeEndTime(val) {
+    this.$refs.form.endCreateTime = val;
   }
 
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.form
-      let queryType = '1'
-      if (this.activeName) {
-        if(this.activeName === '1') {
-          queryType = '1'
-        } else if (this.activeName === '2') {
-          queryType = '2'
-        } else {
-          queryType = '3'
-        }
+      if(!this.form.beginCreateTime && !this.form.endCreateTime) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
       }
-      if(props.beginStatisDate) {
-        console.log(props.beginStatisDate < props.endStatisDate)
-      }
-      // if(!props.beginTime && !props.endTime) {
-      //   this.$message({
-      //     center: true,
-      //     showClose: true,
-      //     message: '请选择日期',
-      //     type: 'warning'
-      //   });
-      //   return
-      // }
       if (valid) {
-        const submit: any = {}
+        const submit : any = {}
         Object.assign(submit, props)
-        submit.endStatisDate = props.endTime;
-        console.log(submit)
-        Object.assign(submit, queryType)
+        submit.queryType = this.activeName
+        // Object.assign(submit, this.cascade)
         console.log(submit)
         this.actionGetFinalInVentStaList(submit)
       } else {
@@ -204,5 +162,6 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+    this.rangeVm.clear()
   }
 }

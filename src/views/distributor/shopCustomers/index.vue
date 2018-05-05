@@ -7,21 +7,10 @@
           :label="item.title"
           :name="item.name"
         >
-        <div class="sg-def-statist">
+        <div class="sg-shop-customers">
           <div class="sg-header">
             <el-row>
-              <el-col :span="12" class="time-group" style="display: flex;">
-                <el-form-item label="日期">
-                    <el-date-picker
-                      v-model="ruleForm.date"
-                      type="daterange"
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      style="width: 100%;">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
+              <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
                 <el-form-item label="经销商号">
                   <el-input v-model="ruleForm.name" placeholder="请输入经销商"></el-input>
@@ -104,7 +93,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="单据数：">
-                  {{defeatCustomerList.pagination.total}}
+                  {{shopCustomersList.pagination.total}}
                 </el-form-item>
               </el-col>
             </el-row>
@@ -121,11 +110,11 @@
           <div class="sg-main">
             <pag-table>
               <el-table
-                :data="defeatCustomerList.list"
+                :data="shopCustomersList.list"
                 border
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
-                <el-table-column v-for="item in defeatCustomerList.title"
+                <el-table-column v-for="item in shopCustomersList.title"
                   :prop="item"
                   :label="item"
                   :key="item"
