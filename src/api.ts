@@ -128,7 +128,7 @@ export const allChannelList = () => http.get('/regiProvcityCounty/allList')
 /**
  * kpi相关
  */
-export const kpiList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const kpiList = (params) => http.post('api/customer-manage-key-kpi/query', params)
 /**
  * 经销商相关
  */
