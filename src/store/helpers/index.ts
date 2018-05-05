@@ -35,11 +35,12 @@ export function initList() {
     }
     参数res 是上面的data的值
  */
+
 export const formatData = (res: any = {}) => {
-  const { pageNum, pageSize, total, data = [] } = res;
+  const { pageNum, pageSize, total, fields, data = [] } = res;
   const firstItem = data[0] || [];
   return {
-    title: Object.keys(firstItem),
+    title: fields,
     list: data,
     pagination: {
       pageNum: total || 0,
