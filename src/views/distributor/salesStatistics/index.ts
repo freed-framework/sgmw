@@ -16,7 +16,6 @@ import {
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
-import { kpi } from './kpi'
 import { download } from '../../../api'
 import TimeRange from '../../../components/timeRanage/index.vue'
 
@@ -43,8 +42,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     vehColor: null,
     beginStatisDate: '',
     queryType: '',
-    endStatisDate: '',
-    kpi: 0
+    endStatisDate: ''
   }
   form: any = { ...this.cache }
 
@@ -110,8 +108,6 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   kinds: Array<any> = kinds
   cityLevel: Array<any> = cityLevel
 
-  kpi: Array<any> = kpi
-
   $refs: any
 
   timeRangeChange(vm, val) {
@@ -124,6 +120,12 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   @Watch('select')
   watchSelect(val) {
     // console.log(val, '----------------------')
+  }
+
+  handlePageChange(...props) {
+    console.log(props)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
   }
 
   handleClick(tab, event) {

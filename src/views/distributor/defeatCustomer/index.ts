@@ -31,30 +31,31 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
   @Getter('defeatCustomer/getList') defeatCustomerList: any
   cache = {
-    dealerStatus: '',
+    status: '',
     createType: '',
-    dealerleadChannel: '',
+    channel: '',
     customerLevel: '',
-    submersibleType: '',
-    testDrive: '',
+    customerType: '',
+    driving: '',
     varieties: '',
-    finalResult: '',
+    saleResult: '',
+    salesPerson: '',
     name: '',
-    numberOfStores: '',
+    arrivedTimes: '',
     SalesConsultant: '',
-    beginStatisDate: '',
-    endStatisDate: '',
+    startDate: '',
+    endDate: '',
   }
   ruleForm: any = { ...this.cache }
 
   cascade: any = {
-    province: null,
-    countyArea: null,
-    city: null,
+    customerProvince: null,
+    customerCounty: null,
+    customerCity: null,
     brand: null,
-    vehVariety: null,
-    vehSerices: null,
-    vehModel: null
+    variety: null,
+    carType: null,
+    carVersion: null
   }
   
   activeName: string = '1'
@@ -146,8 +147,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   timeRangeChange(vm, val) {
     this.rangeVm = vm
     // console.log(val)
-    this.ruleForm.beginStatisDate = val.beginTime
-    this.ruleForm.endStatisDate = val.endTime
+    this.ruleForm.startDate = val.beginTime
+    this.ruleForm.endDate = val.endTime
   }
 
   handleCacadeChange(vm, data = {}) {
@@ -155,9 +156,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     Object.assign(this.cascade,
       {
         brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
+        variety: data[1] ? data[1].label : null,
+        carType: data[2] ? data[2].label : null,
+        carVersion: data[3] ? data[3].label : null
       }
     )
   }
@@ -166,8 +167,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        province: data[0] ? data[0].label : null,
-        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+        customerProvince: data[0] ? data[0].label : null,
+        customerCity: data[1] ? data[1].label : null, customerCounty: data[2] ? data[2].label : null
       }
     )
   }
@@ -176,7 +177,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
       const { ...props } = this.ruleForm
-      if(!this.ruleForm.beginStatisDate && !this.ruleForm.endStatisDate) {
+      if(!this.ruleForm.startDate || !this.ruleForm.endDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -213,7 +214,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     Object.assign(submit, props)
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
-    this.download(download.sales, submit)
+    this.download(download.defeat, submit)
   }
 
 }

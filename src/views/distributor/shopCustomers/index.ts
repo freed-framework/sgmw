@@ -17,7 +17,7 @@ import ActiveMixin from '../../../mixins/activeMixin'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import TimeRange from '../../../components/timeRanage/index.vue'
-
+import { cutInvalidData } from '../../../store/helpers/index'
 
 @Component({
   components: {
@@ -32,19 +32,28 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   @Action('shopCustomers/getShopCustomersList') actionGetShopCustomersList: any
   @Getter('shopCustomers/getList') shopCustomersList: any
   cache = {
-    dealerStatus: '',
-    createType: '',
-    dealerleadChannel: '',
+    // dealerleadChannel: '',
+    // submersibleType: '',
+    // varieties: '',
+    // numberOfStores: '',
+    // SalesConsultant: '',
+
+    // beginStatisDate: '',
+    // endStatisDate: '',
+
+
+    startDate: '',
+    endDate: '',
+    dealer: '',
+    status: '',
+    salesPerson: '',
     customerLevel: '',
-    submersibleType: '',
-    testDrive: '',
-    varieties: '',
-    finalResult: '',
-    name: '',
-    numberOfStores: '',
-    SalesConsultant: '',
-    beginStatisDate: '',
-    endStatisDate: '',
+    saleResult: '',
+    customerType: '',
+    channel: '',
+    driving: '',
+    createType: '',
+    arrivedTimes: '',
   }
   ruleForm: any = { ...this.cache }
 
@@ -61,13 +70,13 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
-    title: '战败统计-年',
+    title: '到店统计-年',
     name: '1'
   }, {
-    title: '战败统计-月',
+    title: '到店统计-月',
     name: '2'
   }, {
-    title: '战败统计-日',
+    title: '到店统计-日',
     name: '3'
   }]
   tabIndex: number = 2
@@ -117,8 +126,8 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   timeRangeChange(vm, val) {
     this.rangeVm = vm
     // console.log(val)
-    this.ruleForm.beginStatisDate = val.beginTime
-    this.ruleForm.endStatisDate = val.endTime
+    this.ruleForm.startDate = val.beginTime
+    this.ruleForm.endDate = val.endTime
   }
 
   handleCacadeChange(vm, data = {}) {
@@ -147,7 +156,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
       const { ...props } = this.ruleForm
-      if(!this.ruleForm.beginStatisDate && !this.ruleForm.endStatisDate) {
+      if(!this.ruleForm.startDate && !this.ruleForm.endDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -162,8 +171,9 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         Object.assign(submit, props)
         submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        console.log('here submit', submit)
-        this.actionGetShopCustomersList(submit)
+        let param = cutInvalidData(submit)
+        console.log('here submit', param)
+        this.actionGetShopCustomersList(param)
       } else {
         console.log('error submit!!')
         return false

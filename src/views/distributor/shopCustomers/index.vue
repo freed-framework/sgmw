@@ -13,12 +13,12 @@
               <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
                 <el-form-item label="经销商号">
-                  <el-input v-model="ruleForm.name" placeholder="请输入经销商"></el-input>
+                  <el-input v-model="ruleForm.dealer" placeholder="请输入经销商"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="经销商状态">
-                  <el-select :clearable="true" v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
+                  <el-select :clearable="true" v-model="ruleForm.status" placeholder="请选择经销商状态" >
                     <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -27,7 +27,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="销售顾问">
-                  <el-input v-model="ruleForm.SalesConsultant" placeholder="请输入销售顾问"></el-input>
+                  <el-input v-model="ruleForm.salesPerson" placeholder="请输入销售顾问"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -39,14 +39,14 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="最后结果">
-                  <el-select :clearable="true" v-model="ruleForm.finalResult" placeholder="请选择最后结果">
+                  <el-select :clearable="true" v-model="ruleForm.saleResult" placeholder="请选择最后结果">
                     <el-option v-for="(item, index) in finalResult" :key="index" :label="item.label" :value="item.label"></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="潜客类型">
-                  <el-select :clearable="true" v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
+                  <el-select :clearable="true" v-model="ruleForm.customerType" placeholder="请选择潜客类型" >
                     <el-option v-for="(text, index) in submersibleType" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -59,7 +59,7 @@
               />
               <el-col :span="6">
                 <el-form-item label="线索渠道">
-                  <el-select :clearable="true" v-model="ruleForm.dealerleadChannel" placeholder="线索渠道" >
+                  <el-select :clearable="true" v-model="ruleForm.channel" placeholder="线索渠道" >
                     <el-option v-for="(text, index) in dealerleadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -74,7 +74,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="是否试驾">
-                  <el-select :clearable="true" v-model="ruleForm.testDrive" placeholder="请选择是否试驾" >
+                  <el-select :clearable="true" v-model="ruleForm.driving" placeholder="请选择是否试驾" >
                     <el-option v-for="(text, index) in testDrive" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -88,7 +88,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="到店次数">
-                  <el-input v-model="ruleForm.numberOfStores" placeholder="请输入到店次数"></el-input>
+                  <el-input v-model="ruleForm.arrivedTimes" placeholder="请输入到店次数"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">

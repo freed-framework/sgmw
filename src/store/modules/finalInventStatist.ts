@@ -1,5 +1,5 @@
 import { finalInventStatistList } from '../../api'
-import { formatData, initList } from '../helpers'
+import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
   FETCH_FINAL_STATIST_LIST: 'FETCH_FINAL_STATIST_LIST',
@@ -12,7 +12,7 @@ const state = {
 
 const actions = {
   async getFinalInVentStaList({ commit }, param) {
-    const result = await finalInventStatistList(param)
+    const result = await finalInventStatistList(cutInvalidData(param))
     const payload: any = { ...result }
 
     commit(ActionType.FETCH_FINAL_STATIST_LIST, payload)
