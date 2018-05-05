@@ -12,11 +12,12 @@ import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea
+  finalResult, testDrive, leadStatus, carType, kinds, cityLevel
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import { kpi } from './kpi'
+import { download } from '../../../api'
 import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
@@ -32,11 +33,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   
   cache = {
     leadChannel: null,
-    factoryCard: '',
+    // factoryCard: '',
     carType: null,
     kinds: null,
     testDrive: null,
-    pcaArea: null,
+    cityLevel: null,
     dealerId: null,
     materialId: null,
     vehColor: null,
@@ -96,7 +97,6 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     clear() {}
   }
 
-
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
@@ -104,11 +104,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   customerType: Array<any> = customerType
   dealerleadChannel: Array<any> = dealerleadChannel
   leadStatus: Array<any> = leadStatus
-  factoryCard: Array<any> = factoryCard
+  // factoryCard: Array<any> = factoryCard
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  pcaArea: Array<any> = pcaArea
+  cityLevel: Array<any> = cityLevel
 
   kpi: Array<any> = kpi
 
@@ -196,7 +196,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     Object.assign(submit, props)
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
-    this.download('', submit)
+    this.download(download.sales, submit)
   }
 
   resetForm(form) {

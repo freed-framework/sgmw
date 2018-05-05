@@ -12,19 +12,12 @@
               <el-row>
                 <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
                 <el-col :span="6">
-                  <el-form-item label="厂牌">
+                  <!-- <el-form-item label="厂牌">
                     <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">
                       <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
-                  </el-form-item>
+                  </el-form-item> -->
                 </el-col>
-                <el-col :span="6">
-                  <el-form-item label="单据数：">
-                    {{salesStatisticsList.pagination.total}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
                 <region
                   @change="handleRegionChange"
                   :cols="[1, 2]"
@@ -49,10 +42,15 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="省会/地级/县级" prop="leadChannel">
-                    <el-select :clearable="true" v-model="form.pcaArea" placeholder="请选择省会/地级/县级">
-                      <el-option v-for="(text, index) in pcaArea" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-form-item label="省会/地级/县级">
+                    <el-select :clearable="true" v-model="form.cityLevel" placeholder="请选择省会/地级/县级">
+                      <el-option v-for="(text, index) in cityLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label="单据数：">
+                    {{salesStatisticsList.pagination.total}}
                   </el-form-item>
                 </el-col>
               </el-row>

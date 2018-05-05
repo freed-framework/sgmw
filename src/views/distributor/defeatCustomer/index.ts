@@ -17,7 +17,8 @@ import ActiveMixin from '../../../mixins/activeMixin'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import TimeRange from '../../../components/timeRanage/index.vue'
-
+import { download } from '../../../api'
+import DownloadMixin from '../../../mixins/downloadMixin'
 
 @Component({
   components: {
@@ -26,7 +27,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
   @Getter('defeatCustomer/getList') defeatCustomerList: any
   cache = {
@@ -203,6 +204,16 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     this.cascadeContext.clear()
     this.regionContext.clear()
     this.rangeVm.clear()
+  }
+
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
   }
 
 }

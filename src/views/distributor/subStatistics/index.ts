@@ -15,6 +15,7 @@ import {
   countyAreaCapital, cityCapital, varieties, carType, finalResult,
   dealerleadChannel, testDrive, createType, customerLevel, brands, carKinds
 } from '../../../dictionary'
+import { download } from '../../../api'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import TimeRange from '../../../components/timeRanage/index.vue'
@@ -31,10 +32,11 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   cache = {
     status: '',
     custType: '',
-    custLevel: '',
+    custLeve: '',
     saleResult: '',
     ifDrive: '',
     distributorNum: '',
+    submersibleType: '',
     channel: '',
     queryType: '',
     dealerId: '',
@@ -255,7 +257,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     Object.assign(submit, props)
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
-    this.download('/report/dealersSelfExport', submit)
+    this.download(download.subStatis, submit)
   }
 
 }

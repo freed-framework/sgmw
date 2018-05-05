@@ -152,5 +152,7 @@ export const customerStatisticsList = (params) => http.post('/store-customer-def
  * 导出相关
  */
 export const download = {
-  sales: '/api/report/dealersSelfExport'
+  sales: '/api/report/salesReportExport',
+  subStatis: 'api/report/submersibleReport',
+  defeat: 'api/report/dealersSelfExport'
 }
