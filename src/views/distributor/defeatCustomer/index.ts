@@ -177,7 +177,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const $form: any = this.$refs[ruleForm]
     $form.validate((valid) => {
       const { ...props } = this.ruleForm
-      if(!this.ruleForm.startDate && !this.ruleForm.endDate) {
+      if(!this.ruleForm.startDate || !this.ruleForm.endDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -214,7 +214,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     Object.assign(submit, props)
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
-    this.download(download.sales, submit)
+    this.download(download.defeat, submit)
   }
 
 }
