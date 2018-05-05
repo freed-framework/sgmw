@@ -122,6 +122,8 @@ export const init = () => {
 export const allBrandList = () => http.get('/series/allList')
 // 回去省市区数据
 export const allRegionList = () => http.get('/regiProvcityCounty/allList')
+// 获取平台渠道数据
+export const allChannelList = () => http.get('/regiProvcityCounty/allList')
 
 /**
  * kpi相关
@@ -130,11 +132,15 @@ export const kpiList = (params) => http.post('api/customer-manage-key-kpi/query'
 /**
  * 经销商相关
  */
-export const finalInventStatistList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const finalInventStatistList = (params) => http.post('/report/dealersSelf', params)
 /**
  * 战败统计
  */
 export const defeatCustomerList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 到店统计
+ */
+export const shopCustomersList = (params) => http.post('/store-customer-defeat-rate/query', params)
 /**
  * 潜客统计
  */
@@ -147,6 +153,10 @@ export const salesStatisticsList = (params) => http.post('/report/salesReport', 
  * 客户统计
  */
 export const customerStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+/**
+ * 厂家潜客线索统计
+ */
+export const diveCusClueList = (params) => http.post('/store-customer-defeat-rate/query', params)
 
 /**
  * 导出相关
