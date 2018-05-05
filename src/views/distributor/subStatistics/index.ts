@@ -65,11 +65,11 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   }
 
   cascade: any = {
-    khSzsf: null,
-    khSzcs: null,
-    khSzqy: null,
+    province: null,
+    city: null,
+    county: null,
     brand: null,
-    vehVariety: null,
+    variety: null,
     vehSerices: null,
     vehModel: null
   }
@@ -192,9 +192,9 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        khSzsf: data[0] ? data[0].label : null,
-        khSzcs: data[1] ? data[1].label : null,
-        khSzqy: data[2] ? data[2].label : null
+        provinc: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null,
+        county: data[2] ? data[2].label : null
       }
     )
   }
@@ -204,7 +204,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     Object.assign(this.cascade,
       {
         brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
+        variety: data[1] ? data[1].label : null,
         vehSerices: data[2] ? data[2].label : null,
         vehModel: data[3] ? data[3].label : null
       }

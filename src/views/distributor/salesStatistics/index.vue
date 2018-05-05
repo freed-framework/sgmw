@@ -31,7 +31,7 @@
                 />
                 <el-col :span="6">
                   <el-form-item label="经销商" prop="dealerId">
-                    <el-input v-model="form.dealerId" placeholder="请输入经销商"></el-input>
+                    <el-input v-model="form.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>
                   </el-form-item>
                 </el-col>
                 <brand
@@ -40,12 +40,12 @@
                 />
                 <el-col :span="6">
                   <el-form-item label="物料号" prop="materialId">
-                    <el-input v-model="form.materialId" placeholder="请输入物料号"></el-input>
+                    <el-input v-model="form.materialId" placeholder="请输入物料号" style="width:193px"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="颜色" prop="vehColor">
-                    <el-input v-model="form.vehColor" placeholder="请输入颜色"></el-input>
+                    <el-input v-model="form.vehColor" placeholder="请输入颜色" style="width:193px"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
