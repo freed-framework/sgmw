@@ -1,5 +1,5 @@
 import { salesStatisticsList } from '../../api'
-import { formatData, initList } from '../helpers'
+import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
   FETCH_SALES_STATIS_LIST: 'FETCH_SALES_STATIS_LIST',
@@ -12,7 +12,7 @@ const state = {
 
 const actions = {
   async getSalesStatisticsList({ commit }, param) {
-    const result = await salesStatisticsList(param)
+    const result = await salesStatisticsList(cutInvalidData(param))
     const payload: any = { ...result }
 
     commit(ActionType.FETCH_SALES_STATIS_LIST, payload)
