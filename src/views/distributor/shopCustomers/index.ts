@@ -4,157 +4,188 @@ import {
   Vue,
   Watch
 } from 'vue-property-decorator'
+import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, submersibleType,
+  varieties, dealerleadChannel,
+  testDrive, createType, finalResult
 } from '../../../dictionary'
-import { kpi } from './kpi' 
+import ActiveMixin from '../../../mixins/activeMixin'
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
+import TimeRange from '../../../components/timeRanage/index.vue'
+import { cutInvalidData } from '../../../store/helpers/index'
 
-@Component
-export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
+@Component({
+  components: {
+    Brand,
+    Region,
+    TimeRange
+  }
+})
+export default class Index extends mixins(TableColor, ActiveMixin) {
+  // @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
+  // @Getter('defeatCustomer/getList') defeatCustomerList: any
+  @Action('shopCustomers/getShopCustomersList') actionGetShopCustomersList: any
+  @Getter('shopCustomers/getList') shopCustomersList: any
+  cache = {
+    // dealerleadChannel: '',
+    // submersibleType: '',
+    // varieties: '',
+    // numberOfStores: '',
+    // SalesConsultant: '',
+
+    // beginStatisDate: '',
+    // endStatisDate: '',
+
+
+    startDate: '',
+    endDate: '',
+    dealer: '',
+    status: '',
+    salesPerson: '',
+    customerLevel: '',
+    saleResult: '',
     customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+    channel: '',
+    driving: '',
+    createType: '',
+    arrivedTimes: '',
+  }
+  ruleForm: any = { ...this.cache }
+
+  cascade: any = {
+    province: null,
+    countyArea: null,
+    city: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
   }
   
   activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
-    title: '到店次数-年',
+    title: '到店统计-年',
     name: '1'
   }, {
-    title: '到店次数-月',
+    title: '到店统计-月',
     name: '2'
   }, {
-    title: '到店次数-日',
+    title: '到店统计-日',
     name: '3'
   }]
   tabIndex: number = 2
+  dealer: any = 0
+  rules: any = {
+    date: [
+      { required: false, message: '请选择时间' }
+    ]
+  }
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+
+  rangeVm: any = {
+    clear() {}
+  }
 
   dealerStatus: Array<any> = dealerStatus
-  customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
-
-  tableData: Array<any> = [{
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    shenf: '上海市普陀区金沙江路 1518 弄',
-    city: '上海市普陀区金沙江路 1518 弄',
-    xianf: '上海市普陀区金沙江路 1518 弄',
-    pinp: '上海市普陀区金沙江路 1518 弄',
-    pinz: '上海市普陀区金沙江路 1518 弄',
-    chex: '上海市普陀区金沙江路 1518 弄',
-    xingh: '上海市普陀区金沙江路 1518 弄',
-    creat: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '01': '上海市普陀区金沙江路 1518 弄'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    shenf: '上海市普陀区金沙江路 1518 弄',
-    city: '上海市普陀区金沙江路 1518 弄',
-    xianf: '上海市普陀区金沙江路 1518 弄',
-    pinp: '上海市普陀区金沙江路 1518 弄',
-    pinz: '上海市普陀区金沙江路 1518 弄',
-    chex: '上海市普陀区金沙江路 1518 弄',
-    xingh: '上海市普陀区金沙江路 1518 弄',
-    creat: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '01': '上海市普陀区金沙江路 1518 弄'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    shenf: '上海市普陀区金沙江路 1518 弄',
-    city: '上海市普陀区金沙江路 1518 弄',
-    xianf: '上海市普陀区金沙江路 1518 弄',
-    pinp: '上海市普陀区金沙江路 1518 弄',
-    pinz: '上海市普陀区金沙江路 1518 弄',
-    chex: '上海市普陀区金沙江路 1518 弄',
-    xingh: '上海市普陀区金沙江路 1518 弄',
-    creat: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '01': '上海市普陀区金沙江路 1518 弄'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    shenf: '上海市普陀区金沙江路 1518 弄',
-    city: '上海市普陀区金沙江路 1518 弄',
-    xianf: '上海市普陀区金沙江路 1518 弄',
-    pinp: '上海市普陀区金沙江路 1518 弄',
-    pinz: '上海市普陀区金沙江路 1518 弄',
-    chex: '上海市普陀区金沙江路 1518 弄',
-    xingh: '上海市普陀区金沙江路 1518 弄',
-    creat: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '01': '上海市普陀区金沙江路 1518 弄'
-  }]
+  customerLevel: Array<any> = customerLevel
+  dealerleadChannel: Array<any> = dealerleadChannel
+  submersibleType: Array<any> = submersibleType
+  varieties: Array<any> = varieties
+  createType: Array<any> = createType
 
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
-  dateChangeBeginTime(val) {
-    console.log(val);
-    const _this = this
-    _this.form.startDatePicker = val;
+  @Watch('ruleForm', {deep: true})
+  watchSelect(val) {
+    // console.log(val, '----------------------')
   }
 
-  dateChangeEndTime(val) {
-    console.log(val);
-    this.$refs.form.endDatePicker = val;
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.ruleForm.startDate = val.beginTime
+    this.ruleForm.endDate = val.endTime
   }
 
-  //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
       }
-    }
+    )
   }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
       }
-    }
+    )
+  }
+
+  submitForm(ruleForm) {
+    const $form: any = this.$refs[ruleForm]
+    $form.validate((valid) => {
+      const { ...props } = this.ruleForm
+      if(!this.ruleForm.startDate && !this.ruleForm.endDate) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
+      if (valid) {
+        // const submit: any = {}
+        const submit : any = {}
+        Object.assign(submit, props)
+        submit.queryType = this.activeName
+        Object.assign(submit, this.cascade)
+        let param = cutInvalidData(submit)
+        console.log('here submit', param)
+        this.actionGetShopCustomersList(param)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(formName) {
+    this.ruleForm = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
   }
 
 }

@@ -1,131 +1,98 @@
 <template>
-  <el-row>
-    <el-col :span="6">
-      <el-form-item label="品牌">
-        <el-select :clearable="true" v-model="form.brand" placeholder="请选择品牌">
-          <el-option v-for="(item, index) in showData.brand" :label="item" :key="index" :value="index" />
+  <span>
+    <el-col :span="6" v-for="i in 4" :key="i" v-if="(i-1) >= cols[0] && (i-1) <= cols[1]">
+      <el-form-item :label="colLabel[i-1]">
+        <el-select :clearable="true" v-model="form[keys[i-1]]" :placeholder="placeholders[i-1]">
+          <el-option v-for="item in showData[i-1]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
-    <el-col  :span="6">
-      <el-form-item label="品种">
-        <el-select :clearable="true" v-model="form.vehVariety" placeholder="请选择品种">
-          <el-option v-for="(item, index) of showData.series" :label="item" :key="index" :value="index" />
-        </el-select>
-      </el-form-item>
-    </el-col>
-    <el-col :span="6">
-      <el-form-item label="车系">
-        <el-select :clearable="true" v-model="form.vehSerices" placeholder="请选择车系">
-          <el-option v-for="(item, index) in showData.classes" :label="item" :key="index" :value="index" />
-        </el-select>
-      </el-form-item>
-    </el-col>
-    <el-col :span="6">
-      <el-form-item label="车型">
-        <el-select :clearable="true" v-model="form.vehModel" placeholder="请选择车型">
-          <el-option v-for="(item, index) in showData.model" :label="item" :key="index" :value="index" />
-        </el-select>
-      </el-form-item>
-    </el-col>
-  </el-row>
+  </span>
 </template>
 <script lang="ts">
 /* eslint-disable */
-import emitter from 'element-ui/src/mixins/emitter';
-import { State, Getter, Action } from 'vuex-class'
-import { mixins } from 'vue-class-component'
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
-import Emitter from '@/mixins/Emitter'
 
-let cache = {
-  // 品牌
-  brand: {},
-  // 品种
-  series: {},
-  // 车系
-  classes: {},
-  // 车型
-  model: {}
+const cache = {
+  a: null,
+  b: null,
+  c: null,
+  d: null
+}
+const cacheAll = {
+  a: '0',
+  b: '0',
+  c: '0',
+  d: '0'
+}
+const all = {
+  label: "全部",
+  key: '0',
+  value: '0'
 }
 
-@Component({
-  // mixins: [emitter]
-})
-export default class Cascade extends mixins(Emitter) {
-  @Action('common/getBrandList') actionGetBrandList: any
-  @Getter('common/brandList') brandList: any
-
+@Component
+export default class Cascade extends Vue {
   name: string = 'Cascade'
-  @Prop() value: any
 
-  form: any = {
-    brand: '全部', // 测试
-    vehVariety: '',
-    vehSerices: '',
-    vehModel: ''
-  }
+  @Prop({default: () => []}) data: Array<any>
+  // 是否包含“全部”选项发
+  @Prop({default: true}) hasAll: boolean
+  // 显示几项 1-4之间
+  @Prop({default: 4}) cols: number
+  // 是否强制联动,(必须前面选了后面才能选)， 默认false
+  @Prop({default: false}) force: boolean
+  // 默认选中(暂不支持)
+  @Prop() default: Array<any>
+  // 没项label
+  @Prop({default: () => ['1', '2', '3', '4']}) colLabel: Array<string>
+  // placeholders
+  @Prop({default: () => []}) placeholders: Array<string>
+  // 是否默认选中全部
+  @Prop({default: false}) defaultAll: boolean
 
-  showData: any = {
-    // 品牌
-    brand: {},
-    // 品种
-    series: {},
-    // 车系
-    classes: {},
-    // 车型
-    model: {}
-  }
+  showData: Array<any> = []
+  keys: Array<any> = ['a', 'b', 'c', 'd']
+  form: any = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
 
-  resetData(val, item) {
-    const { brand, series, classes, model } = cache
-    const keys = Object.keys(this.showData)
-    if (!val) {
-      if (item === 0) {
-        Object.assign(this.showData, { series, classes, model })
-        Object.assign(this.form, { vehVariety: '', vehSerices: '', vehModel: '' })
-      }
-      if (item === 1) {
-        Object.assign(this.showData, { classes, model })
-        Object.assign(this.form, { vehSerices: '', vehModel: '' })
-      }
-      if (item === 2) {
-        Object.assign(this.showData, { model })
-        Object.assign(this.form, { vehModel: '' })
-      }
-    } else {
-      if (item === 0 ) {
-        Object.assign(this.showData,
-        { 
-          series: this.getItem(series, val, 100000),
-          classes: this.getItem(classes, val, 100000),
-          model: this.getItem(model, val, 100000)
-        })
-        Object.assign(this.form, { vehVariety: '', vehSerices: '', vehModel: '' })
-      } 
-      if (item === 1) {
-        Object.assign(this.showData,
-        { 
-          classes: this.getItem(classes, val, 10000),
-          model: this.getItem(model, val, 10000)
-        })
-        Object.assign(this.form, { vehSerices: '', vehModel: '' })
-      }
-      if (item === 2) {
-        Object.assign(this.showData,
-        { 
-          model: this.getItem(model, val, 1000)
-        })
-        Object.assign(this.form, { vehModel: '' })
-      }
+  /**添加”全部“选型 */
+  addAll() {
+    for (let i = 0; i < this.data.length; i++) {
+      const newData = {
+        0: all
+      };
+      Object.assign(newData, this.data[i])
+      this.showData[i] = newData
     }
   }
 
-  getItem(data, val, index) {
+  addOneAll(data) {
+    if (!this.hasAll) {
+      return data
+    }
+
+    const newData = {
+      '0': all
+    };
+
+    Object.assign(newData, data)
+    return newData
+  }
+
+  init() {
+    if (this.hasAll) {
+      this.addAll()
+    } else {
+      this.showData = [...this.data]
+    }
+    this.$emit('change', this, this.getReult())
+  }
+
+  find(data, val, base) {
+    const re = new RegExp(`^${val}`,"gim");
     const result = {};
     for (let i in data) {
-      const value = Number(val)
-      if (i > val && i <  (value + index)) {
+      if (re.test(i)) {
         result[i] = data[i]
       }
     }
@@ -133,45 +100,97 @@ export default class Cascade extends mixins(Emitter) {
   }
 
   clear() {
-    Object.assign(this.form, {brand: '', vehVariety: '', vehSerices: '', vehModel: ''})
-    Object.assign(this.showData, cache)
+    const { hasAll, addAll } = this
+    if (hasAll) {
+      this.addAll()
+    } else {
+      this.showData = [...this.data]
+    }
+    this.form = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
   }
 
-  @Watch('brandList')
-  watchBrandListChange(val) {
-    Object.assign(cache, val)
-    Object.assign(this.showData, val)
+  getReult() {
+    const { cols } = this
+    const keys = Object.keys(this.form)
+    const result = []
+
+    for (let i = 0; i < keys.length; i++) {
+      const value = this.form[keys[i]]
+      if (value) {
+        result[i] = this.showData[i] ? this.showData[i][value] : null
+      } else {
+        result[i] = null
+      }
+    }
+
+    return result.slice(cols[0], cols[1] + 1)
+  }
+
+  created() {
+    this.init()
+  }
+
+  @Watch('data', {deep: true})
+  watchData(val) {
+    this.init()
+    this.$forceUpdate()
+    
   }
 
   @Watch('form', {deep: true})
   watchForm(val) {
-
-    this.$emit('change', this, {
-      brand: cache['brand'][val['brand']],
-      vehVariety: cache['series'][val['vehVariety']],
-      vehSerices: cache['classes'][val['vehSerices']],
-      vehModel: cache['model'][val['vehModel']]
-    })
+    this.$emit('change', this, this.getReult())
   }
 
-  @Watch('form.brand')
-  watchBrand(val) {
-    this.resetData(val, 0) 
+  @Watch('form.a', {deep: true})
+  watchA(val) {
+    const { showData, data, addOneAll, find, form } = this;
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
+    if (val === '0' || !val) {
+      this.showData = [showData[0], addOneAll(data[1]), addOneAll(data[2]), addOneAll(data[3])]
+      return;
+    }
+    this.showData = [
+      showData[0],
+      addOneAll(find(data[1], val, 100000)),
+      addOneAll(find(data[2], val, 10000)),
+      addOneAll(find(data[3], val, 1000))
+    ]
   }
 
-  @Watch('form.vehVariety')
-  watchSeries(val) {
-    this.resetData(val, 1) 
+  @Watch('form.b', {deep: true})
+  watchB(val) {
+    const { showData, data, addOneAll, find, form } = this;
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
+    if (val === '0' || !val) {
+      this.showData = [showData[0], showData[1], addOneAll(data[2]), (data[3])]
+      return;
+    }
+    this.showData = [
+      showData[0],
+      showData[1],
+      addOneAll(find(data[2], val, 10000)),
+      addOneAll(find(data[3], val, 1000))
+    ]
   }
 
-  @Watch('form.vehSerices')
-  watchClasses(val) {
-    this.resetData(val, 2) 
-  }
-
-  created() {
-    Object.assign(this.form, this.value);
-    this.actionGetBrandList()
+  @Watch('form.c', {deep: true})
+  watchC(val) {
+    const { showData, data, addOneAll, find, form } = this;
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {d: all ? '0' : null})
+    if (val === '0' || !val) {
+      this.showData = [showData[0], showData[1], showData[2], addOneAll(data[3])]
+      return;
+    }
+    this.showData = [
+      showData[0],
+      showData[1],
+      showData[2],
+      addOneAll(find(data[3], val, 1000))
+    ]
   }
 }
 </script>

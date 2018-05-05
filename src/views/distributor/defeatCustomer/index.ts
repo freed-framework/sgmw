@@ -4,26 +4,58 @@ import {
   Vue,
   Watch
 } from 'vue-property-decorator'
+import { State, Getter, Action } from 'vuex-class'
 import { mixins } from 'vue-class-component'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, submersibleType,
+  varieties, dealerleadChannel,
+  testDrive, createType, finalResult
 } from '../../../dictionary'
-import { kpi } from './kpi' 
+import ActiveMixin from '../../../mixins/activeMixin'
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
+import TimeRange from '../../../components/timeRanage/index.vue'
+import { download } from '../../../api'
+import DownloadMixin from '../../../mixins/downloadMixin'
 
-@Component
-export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
+@Component({
+  components: {
+    Brand,
+    Region,
+    TimeRange
+  }
+})
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
+  @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
+  @Getter('defeatCustomer/getList') defeatCustomerList: any
+  cache = {
+    status: '',
+    createType: '',
+    channel: '',
+    customerLevel: '',
     customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+    driving: '',
+    varieties: '',
+    saleResult: '',
+    salesPerson: '',
+    name: '',
+    arrivedTimes: '',
+    SalesConsultant: '',
+    startDate: '',
+    endDate: '',
+  }
+  ruleForm: any = { ...this.cache }
+
+  cascade: any = {
+    customerProvince: null,
+    customerCounty: null,
+    customerCity: null,
+    brand: null,
+    variety: null,
+    carType: null,
+    carVersion: null
   }
   
   activeName: string = '1'
@@ -39,14 +71,33 @@ export default class Index extends mixins(TableColor) {
     name: '3'
   }]
   tabIndex: number = 2
+  dealer: any = 0
+  rules: any = {
+    date: [
+      { required: false, message: '请选择时间' }
+    ]
+  }
+
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+
+  rangeVm: any = {
+    clear() {}
+  }
 
   dealerStatus: Array<any> = dealerStatus
-  customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
+  customerLevel: Array<any> = customerLevel
+  dealerleadChannel: Array<any> = dealerleadChannel
+  submersibleType: Array<any> = submersibleType
+  varieties: Array<any> = varieties
+  createType: Array<any> = createType
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -81,44 +132,89 @@ export default class Index extends mixins(TableColor) {
   $refs: any
 
   handleClick(tab, event) {
-    console.log(tab, event);
+    // console.log(tab, event);
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
   }
 
-  dateChangeBeginTime(val) {
-    console.log(val);
-    const _this = this
-    _this.form.startDatePicker = val;
+  @Watch('ruleForm', {deep: true})
+  watchSelect(val) {
+    // console.log(val, '----------------------')
   }
 
-  dateChangeEndTime(val) {
-    console.log(val);
-    this.$refs.form.endDatePicker = val;
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.ruleForm.startDate = val.beginTime
+    this.ruleForm.endDate = val.endTime
   }
 
-  //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        variety: data[1] ? data[1].label : null,
+        carType: data[2] ? data[2].label : null,
+        carVersion: data[3] ? data[3].label : null
       }
-    }
+    )
   }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        customerProvince: data[0] ? data[0].label : null,
+        customerCity: data[1] ? data[1].label : null, customerCounty: data[2] ? data[2].label : null
       }
-    }
+    )
+  }
+
+  submitForm(ruleForm) {
+    const $form: any = this.$refs[ruleForm]
+    $form.validate((valid) => {
+      const { ...props } = this.ruleForm
+      if(!this.ruleForm.startDate || !this.ruleForm.endDate) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
+      if (valid) {
+        // const submit: any = {}
+        const submit : any = {}
+        Object.assign(submit, props)
+        submit.queryType = this.activeName
+        Object.assign(submit, this.cascade)
+        this.actionGetDefeatCustomerList(submit)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+
+  resetForm(formName) {
+    this.ruleForm = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
+
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.defeat, submit)
   }
 
 }

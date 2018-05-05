@@ -1,7 +1,7 @@
 <template>
   <div class="sg-custom">
     <div class="sg-header">
-      <el-form ref="form" :model="form" label-width="84px">
+      <el-form ref="form" :rules="rules" :model="form" label-width="84px">
         <el-row>
           <el-col :span="12">
             <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
@@ -18,34 +18,24 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="KPI类型">
-              <el-select v-model="kpiType" placeholder="请选择KPI类型">
-                <el-option v-for="(item, index) in kpi" :key="index" :label="item.label" :value="index" ></el-option>
+              <el-select v-model="form.kpiType" placeholder="请选择KPI类型">
+                <el-option v-for="(item) in kpi" :key="item.value" :label="item.label" :value="item.value" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="经销商状态">
-              <el-select v-model="dealer" placeholder="请选择经销商状态" >
+              <el-select :clearable="true" v-model="dealer" placeholder="请选择经销商状态" >
                 <el-option v-for="(item, index) in dealerStatus" :key="index" :label="item.label" :value="index" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">
-            <el-form-item label="区域">
-              <el-select v-model="region" placeholder="请选择区域">
-                <el-option v-for="(key, id) in regionList" :label="key" :key="key" :value="id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="省份">
-              <el-select v-model="form.province" placeholder="请选择省份">
-                <el-option v-for="key in provinceList" :label="key" :key="key" :value="key"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <region
+            @change="handleRegionChange"
+            :cols="[0, 1]"
+          />
           <el-col :span="6">
             <el-form-item label="经销商号">
               <el-input v-model="form.dealerid" placeholder="请输入经销商号"></el-input>
@@ -60,28 +50,28 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="客户级别">
-              <el-select v-model="form.custLevel" placeholder="请选择客户级别">
+              <el-select :clearable="true" v-model="form.custLevel" placeholder="请选择客户级别">
                 <el-option v-for="(item, index) in customerLevel" :key="index" :label="item.label" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="潜客类型">
-              <el-select v-model="form.CustTyp" placeholder="请选择潜客类型">
+              <el-select :clearable="true" v-model="form.CustTyp" placeholder="请选择潜客类型">
                 <el-option v-for="(item, index) in customerType" :key="index" :label="item.lable" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="经销商渠道">
-              <el-select v-model="form.channel" placeholder="请选择经销商渠道">
+              <el-select :clearable="true" v-model="form.channel" placeholder="请选择经销商渠道">
                 <el-option v-for="(item, index) in leadChannel" :key="index" :label="item.label" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="最后结果">
-              <el-select v-model="form.saleResult" placeholder="请选择最后结果">
+              <el-select :clearable="true" v-model="form.saleResult" placeholder="请选择最后结果">
                 <el-option v-for="(item, index) in finalResult" :key="index" :label="item.label" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
@@ -121,14 +111,16 @@
             </el-form-item>
           </el-col>
         </el-row> -->
-        <cascade
-          v-model="form.select"
-          @change="handleCacadeChange"
-        />
+        <el-row>
+          <brand
+            @change="handleCacadeChange"
+            :cols="[0]"
+          />
+        </el-row>
         <el-row>
           <el-col :span="6">
             <el-form-item label="是否试驾">
-              <el-select v-model="form.ifDrive" placeholder="请选择是否试驾">
+              <el-select :clearable="true" v-model="form.ifDrive" placeholder="请选择是否试驾">
                 <el-option v-for="(item, index) in testDrive" :key="index" :label="item.label" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
@@ -155,6 +147,7 @@
       <pag-table>
         <el-table
           :data="kpiList.list"
+          :loading="loading"
           border
           style="width: 100%"
           :row-class-name="tableRowClassName">

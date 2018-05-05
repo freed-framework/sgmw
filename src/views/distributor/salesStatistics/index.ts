@@ -5,28 +5,65 @@ import {
   Watch
 } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import { State, Getter, Action } from 'vuex-class'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
+  finalResult, testDrive, leadStatus, carType, kinds, cityLevel
 } from '../../../dictionary'
-import { kpi } from './kpi' 
+import Brand from '../../../components/brand/index.vue'
+import Region from '../../../components/region/index.vue'
+import { download } from '../../../api'
+import TimeRange from '../../../components/timeRanage/index.vue'
 
-@Component
-export default class Index extends mixins(TableColor) {
-  form: any = {
-    dealerStatus: 0,
-    customerLevel: 0,
-    customerType: '',
-    leadChannel: 0,
-    finalResult: 0,
-    testDrive: '',
-    startDatePicker: this.beginDate(),
-    endDatePicker: this.processDate(),
-    kpi: 0
+@Component({
+  components: {
+    Brand,
+    Region,
+    TimeRange
+  }
+})
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
+  @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
+  @Getter('salesStatistics/getList') salesStatisticsList: any
+  
+  cache = {
+    leadChannel: null,
+    // factoryCard: '',
+    carType: null,
+    kinds: null,
+    testDrive: null,
+    cityLevel: null,
+    dealerId: null,
+    materialId: null,
+    vehColor: null,
+    beginStatisDate: '',
+    queryType: '',
+    endStatisDate: ''
+  }
+  form: any = { ...this.cache }
+
+  cascade: any = {
+    region: null,
+    province: null,
+    brand: null,
+    vehVariety: null,
+    vehSerices: null,
+    vehModel: null
+  }
+
+  rules: any = {
+    beginStatisDate: [
+      { required: false, message: '请选择时间' }
+    ],
+    endStatisDate: [
+      { required: false, message: '请选择时间' }
+    ]
   }
   
-  activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '销量统计-年',
@@ -39,94 +76,135 @@ export default class Index extends mixins(TableColor) {
     name: '3'
   }]
   tabIndex: number = 2
+  select: any = {
+    select1: '',
+    select2: '',
+    select3: '',
+    select4: ''
+  }
 
+  cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+
+  rangeVm: any = {
+    clear() {}
+  }
+
+  leadChannel: Array<any> = leadChannel
+  testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
   customerType: Array<any> = customerType
-  leadChannel: Array<any> = leadChannel
+  dealerleadChannel: Array<any> = dealerleadChannel
+  leadStatus: Array<any> = leadStatus
+  // factoryCard: Array<any> = factoryCard
   finalResult: Array<any> = finalResult
-  testDrive: Array<any> = testDrive
-  kpi: Array<any> = kpi
-
-  tableData: Array<any> = [{
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '2017': '2017'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '2017': '2017'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '2017': '2017'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄',
-    total: '上海市普陀区金沙江路 1518 弄',
-    '2017': '2017'
-  }]
+  carType: Array<any> = carType
+  kinds: Array<any> = kinds
+  cityLevel: Array<any> = cityLevel
 
   $refs: any
 
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginStatisDate = val.beginTime
+    this.form.endStatisDate = val.endTime
+  }
+
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  handlePageChange(...props) {
+    console.log(props)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+
   handleClick(tab, event) {
-    console.log(tab, event);
+    // this.cache.endStatisDate = this.processDate()
+    // console.log(this.processDate());
   }
 
   created() {
-    console.log(this.dealerStatus)
+    // console.log(this.dealerStatus)
+  }
+
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+
+  handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {province: data[0] ? data[0].label : null, city: data[1] ? data[1].label : null}
+    )
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
-    const _this = this
-    _this.form.startDatePicker = val;
+    this.form.beginStatisDate = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
-    this.$refs.form.endDatePicker = val;
+    this.$refs.form.endStatisDate = val;
   }
 
-  //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+  submitForm(form) {
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      const { ...props } = this.form
+      if(!this.form.beginStatisDate && !this.form.endStatisDate) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
       }
-    }
-  }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.form.startDatePicker){
-          return new Date(self.form.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
+      if (valid) {
+        // const submit: any = {}
+        const submit : any = {}
+        Object.assign(submit, props)
+        submit.queryType = this.activeName
+        Object.assign(submit, this.cascade)
+        this.actionSalesStatisticsList(submit)
+      } else {
+        console.log('error submit!!')
+        return false
       }
-    }
+    })
   }
 
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
+  }
+
+  resetForm(form) {
+    this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
 }

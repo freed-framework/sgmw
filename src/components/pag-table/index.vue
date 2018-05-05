@@ -20,7 +20,7 @@
           background
           :disabled="loading"
           layout="prev, pager, next"
-          :current-page="curpage"
+          :current-page.sync="curpage"
           @current-change="handlePageChange"
           :page-size="size"
           :total="total">

@@ -11,7 +11,9 @@
  */
 function hasPermission(roles: string[], route: any) {
   if (route.meta && route.meta.role) {
-    return roles.some(role => route.meta.role.indexOf(role) >= 0)
+    return roles.some(role => {
+      return route.meta.role.indexOf(role) >= 0
+    })
   } else {
     return true
   }
@@ -47,23 +49,28 @@ function getAuthRoutes(roles: string[], routes: Array<any>): Array<any> {
 /**
  * 创建 Menus
  * @param routes routes
+ * @param parent 父级
  */
-function getMenus(routes: Array<any> = []): Array<any> {
+function getMenus(routes: Array<any> = [], parent?: string): Array<any> {
   const menus = []
 
   routes.forEach((route) => {
+    const meta = route.meta
+
     // 创建 menu 数据格式
     const menu: any = {
       path: route.path,
       ...(route.name && { name: route.name }),
-      ...(route.meta && { text: route.meta.text }),
+      ...((meta && meta.text) && { text: route.meta.text }),
       ...(route.hidden && { hidden: route.hidden }),
+      ...(route.meta && { meta: route.meta }),
     }
 
     // 如果子路由仅一项
     // 1. 把子路由的 text 覆盖到 $parent.text
     // 2. 合并路由 path
     if (route.children) {
+      // 如果只有一个子路由，则认为子路由为唯一展示
       if (route.children.length === 1) {
         const child = route.children[0]
         const childMeta = child.meta
@@ -75,7 +82,7 @@ function getMenus(routes: Array<any> = []): Array<any> {
           menu.path = `${menu.path}/${child.path}`
         }
       } else {
-        menu.children = getMenus(route.children)
+        menu.children = getMenus(route.children, menu.path)
       }
     }
 
@@ -88,5 +95,5 @@ function getMenus(routes: Array<any> = []): Array<any> {
 export {
   hasPermission,
   getAuthRoutes,
-  getMenus
+  getMenus,
 }
