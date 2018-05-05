@@ -20,7 +20,7 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="经销商">
-                    <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
+                    <el-input v-model="form.name" placeholder="请输入经销商" style="width:193px"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

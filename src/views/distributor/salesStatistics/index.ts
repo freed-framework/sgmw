@@ -9,13 +9,15 @@ import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea
+  finalResult, testDrive, leadStatus, carType, kinds, cityLevel
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import { kpi } from './kpi'
+import { download } from '../../../api'
 import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
@@ -25,17 +27,17 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
   @Getter('salesStatistics/getList') salesStatisticsList: any
   
   cache = {
     leadChannel: null,
-    factoryCard: null,
+    // factoryCard: '',
     carType: null,
     kinds: null,
     testDrive: null,
-    pcaArea: null,
+    cityLevel: null,
     dealerId: null,
     materialId: null,
     vehColor: null,
@@ -52,10 +54,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     brand: null,
     vehVariety: null,
     vehSerices: null,
-    vehModel: null,
-    p: null,
-    c: null,
-    a: null
+    vehModel: null
   }
 
   rules: any = {
@@ -105,11 +104,11 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   customerType: Array<any> = customerType
   dealerleadChannel: Array<any> = dealerleadChannel
   leadStatus: Array<any> = leadStatus
-  factoryCard: Array<any> = factoryCard
+  // factoryCard: Array<any> = factoryCard
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  pcaArea: Array<any> = pcaArea
+  cityLevel: Array<any> = cityLevel
 
   kpi: Array<any> = kpi
 
@@ -188,6 +187,16 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         return false
       }
     })
+  }
+
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
   }
 
   resetForm(form) {

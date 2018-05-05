@@ -9,11 +9,13 @@ import moment from 'moment'
 import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
 import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, submersibleType, provincialCapital,
   countyAreaCapital, cityCapital, varieties, carType, finalResult,
   dealerleadChannel, testDrive, createType, customerLevel, brands, carKinds
 } from '../../../dictionary'
+import { download } from '../../../api'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import TimeRange from '../../../components/timeRanage/index.vue'
@@ -24,21 +26,22 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     Region,
     TimeRange
   }
-})export default class Index extends mixins(TableColor, ActiveMixin) {
+})export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
   @Getter('subStatistics/getList') subStatisticsList: any
   cache = {
     status: '',
     custType: '',
-    custLevel: '',
+    custLeve: '',
     saleResult: '',
     ifDrive: '',
     distributorNum: '',
+    submersibleType: '',
     channel: '',
     queryType: '',
     dealerId: '',
-    beginStatisDate: '',
-    endStatisDate: ''
+    creatBeginTime: '',
+    creaEndTime: ''
   }
   ruleForm: any = { ...this.cache }
   
@@ -65,11 +68,11 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   }
 
   cascade: any = {
-    khSzsf: null,
-    khSzcs: null,
-    khSzqy: null,
+    province: null,
+    city: null,
+    county: null,
     brand: null,
-    vehVariety: null,
+    variety: null,
     vehSerices: null,
     vehModel: null
   }
@@ -183,18 +186,18 @@ import TimeRange from '../../../components/timeRanage/index.vue'
 
   timeRangeChange(vm, val) {
     this.rangeVm = vm
-    console.log(vm)
-    this.ruleForm.beginStatisDate = val.beginTime
-    this.ruleForm.endStatisDate = val.endTime
+    // console.log(vm)
+    this.ruleForm.creatBeginTime = val.beginTime
+    this.ruleForm.creaEndTime = val.endTime
   }
 
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        khSzsf: data[0] ? data[0].label : null,
-        khSzcs: data[1] ? data[1].label : null,
-        khSzqy: data[2] ? data[2].label : null
+        provinc: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null,
+        county: data[2] ? data[2].label : null
       }
     )
   }
@@ -204,7 +207,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     Object.assign(this.cascade,
       {
         brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
+        variety: data[1] ? data[1].label : null,
         vehSerices: data[2] ? data[2].label : null,
         vehModel: data[3] ? data[3].label : null
       }
@@ -218,7 +221,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
       // if(props.beginStatisDate) {
       //   console.log(props.beginStatisDate < props.endStatisDate)
       // }
-      if(!this.ruleForm.beginStatisDate && !this.ruleForm.endStatisDate) {
+      if(!this.ruleForm.creatBeginTime && !this.ruleForm.creaEndTime) {
         this.$message({
           center: true,
           showClose: true,
@@ -247,26 +250,14 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     this.regionContext.clear()
   }
 
-  //提出开始时间必须小于今天
-  beginDate(){
-    return {
-      disabledDate(time){
-        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-      }
-    }
-  }
-  //提出结束时间必须大于提出开始时间
-  processDate(){
-    let self = this
-    return {
-      disabledDate(time){
-        if(self.ruleForm.startDatePicker){
-          return new Date(self.ruleForm.startDatePicker).getTime() > time.getTime()
-        } else {
-          return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-        }
-      }
-    }
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.subStatis, submit)
   }
 
 }

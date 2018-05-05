@@ -8,7 +8,7 @@ export const leadChannel = [{label: '全部'}, {label: '自然到店'}, {label: 
 // 线索状态
 export const leadStatus = [{label: '全部'}, {label: '未跟进'}, {label: '跟进中'}, {label: '已成交'}, {label: '已战败'}]
 // 厂牌
-export const brand = [{label: '全部'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
+export const factoryCard = [{label: '全部'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
 // 最后结果
 export const finalResult = [{label: '全部'}, {label: '待定'}, {label: '已成交'}, {label: '已战败'}]
 // 品牌
@@ -47,7 +47,6 @@ export const kinds = [{label: '全部'}, {label: 'Q1'}, {label: 'Q2'}, {label: '
 export const businessNature = [{label: '全部'}, {label: '一级'}, {label: '二级'}]
 // 客户类型
 export const customerType = [{label: '全部'}, {label: '直接来店'}, {label: '来电咨询'}, {label: '外展及其他'}, {label: '经销商互联网'}]
-export const factoryCard = []
 // 省级/地级/县级
 export const pcaArea = [{label: '全部'}, {label: '省会'}, {label: '地级'}, {label: '县区'}, {label: '乡镇'}]
 // 厂家潜客线索   平台
@@ -55,3 +54,4 @@ export const platform = [{label: '全部'}, {label: '广告投放'}, {label: '�
 // 厂家潜客线索   主渠道
 // export const platform = [{label: '全部'}, {label: '广告投放'}, {label: '自有平台'}, {label: '电商平台'}, {label: '集采平台'}]
 
+export const cityLevel = [{label: '全部'}, {label: '省会'}, {label: '地级'}, {label: '县区'}, {label: '乡镇'}]
