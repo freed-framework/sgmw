@@ -52,15 +52,24 @@ const asyncRoutes = [
     path: '/management',
     component: Layout,
     meta: {
-      role: ['admin']
+      role: ['admin'],
+      text: '管理'
     },
     children: [
       {
         path: 'role',
         component: () => import('@/views/management/Role.vue'),
         meta: {
-          role: ['admin'],
+          role: ['admin', 'role'],
           text: '权限管理'
+        }
+      },
+      {
+        path: 'level',
+        component: () => import('@/views/management/Level.vue'),
+        meta: {
+          role: ['admin', 'level'],
+          text: '角色管理'
         }
       }
     ]
@@ -196,11 +205,11 @@ const asyncRoutes = [
     hidden: true,
     component: NotFound
   },
-  {
-    path: '*',
-    hidden: true,
-    redirect: '/404'
-  }
+  // {
+  //   path: '*',
+  //   hidden: true,
+  //   redirect: '/404'
+  // }
 ]
 
 const sourceAsync = JSON.parse(JSON.stringify(asyncRoutes))

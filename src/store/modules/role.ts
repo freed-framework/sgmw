@@ -43,31 +43,45 @@ function createList(routes: Array<any>, parent: any = null) {
 }
 
 function findByRoutes(id, routes) {
-  return routes.find(route => {
-    if (route.children) {
-      return findByRoutes(id, route.children)
+  let match = null
+
+  routes.forEach(route => {
+    if (route.id === id) {
+      match = route
     }
-    return route.id === id
+
+    if (!match && route.children) {
+      match = findByRoutes(id, route.children)
+    }
   })
+
+  return match
 }
 
-function findChecked(roles, routes) {
-  console.log(roles, routes)
+const checkRoles = []
 
+function findChecked(roles, routes) {
   const map = {}
 
   roles.forEach(roleKey => {
-    console.log(roleKey)
     if (map[roleKey] === undefined) {
       const match = findByRoutes(roleKey, routes)
 
       if (match) {
-        map[roleKey] = match
+        if (checkRoles.indexOf(roleKey) >= 0) {
+          console.warn(`key: ${roleKey} 重复`)
+        }
+
+        checkRoles.push(roleKey)
+
+        map[match.id] = {
+          id: match.id,
+          label: match.label
+        }
       }
     }
   })
 
-  console.log(map)
   const obj: any = Object
   return obj.values(map)
 }
@@ -87,8 +101,7 @@ const getters = {
 
   choosed: (state, getters, rootSate, rootGetters) => {
     const roles = rootGetters['auth/roles']
-    const arr = findChecked(roles, getters.list)
-    return arr
+    return findChecked(roles, getters.list)
   },
 }
 
