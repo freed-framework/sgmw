@@ -10,13 +10,14 @@ import {
   import TableColor from '../../../mixins/table-color/index.vue'
   import {
 		dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel, carBrands,
-		finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea, leadType
+		finalResult, testDrive, leadStatus, carType, kinds, factoryCard, leadType
   } from '../../../dictionary'
 	import ActiveMixin from '../../../mixins/activeMixin'
   import Brand from '../../../components/brand/index.vue'
   import Region from '../../../components/region/index.vue'
   import Channel from '../../../components/channel/index.vue'
-  
+	import { cutInvalidData } from '../../../store/helpers/index'
+	
   @Component({
 	components: {
 	  Brand,
@@ -32,17 +33,21 @@ import {
 	  leadChannel: null,
 	  factoryCard: null,
 	  carType: null,
-	  kinds: null,
-	  testDrive: null,
-	  pcaArea: null,
-	  dealerId: null,
+	  // kinds: null,
+	  // testDrive: null,
+	  // pcaArea: null,
+	  // dealerId: null,
 	  materialId: null,
 	  vehColor: null,
-	  beginStatisDate: '',
-	  endStatisDate: '',
+	  // beginStatisDate: '',
+	  // endStatisDate: '',
 		leadType: '',
+
 		month: '',
-		carBrands: '',
+		brand: '',
+		dealer: '',
+		clueType: '',
+
 	}
 	form: any = { ...this.cache }
   
@@ -129,7 +134,6 @@ import {
 	finalResult: Array<any> = finalResult
 	carType: Array<any> = carType
 	kinds: Array<any> = kinds
-	pcaArea: Array<any> = pcaArea
 	leadType: Array<any> = leadType
 	carBrands: Array<any> = carBrands
   
@@ -196,20 +200,11 @@ import {
     )
   }
   
-	dateChangeBeginTime(val) {
-	  console.log(val);
-	  this.form.beginStatisDate = val;
-	}
-  
-	dateChangeEndTime(val) {
-	  console.log(val);
-	  this.$refs.form.endStatisDate = val;
-	}
   
 	submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
-      const { ...props } = this.form
+			const { ...props } = this.form
       // if(!this.form.beginStatisDate && !this.form.endStatisDate) {
       //   this.$message({
       //     center: true,
@@ -225,8 +220,10 @@ import {
         Object.assign(submit, props)
         submit.queryType = this.activeName
 				Object.assign(submit, this.cascade)
-				console.log('here submit',submit)
-        this.actionDiveCusClueList(submit)
+
+				let params = cutInvalidData(submit)
+				console.log('here submit',params)
+        this.actionDiveCusClueList(params)
       } else {
         console.log('error submit!!')
         return false
@@ -235,7 +232,6 @@ import {
   }
 	resetForm(formName) {
 		this.form = { ...this.cache }
-		console.log(formName)
     this.cascadeContext.clear()
     this.regionContext.clear()
     this.channelContext.clear()

@@ -16,6 +16,7 @@ import {
 import TimeRange from '../../../components/timeRanage/index.vue'
 import { download } from '../../../api'
 import DownloadMixin from '../../../mixins/downloadMixin'
+import { cutInvalidData } from '../../../store/helpers/index'
 
 @Component({
   components: {
@@ -112,8 +113,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.form.endCreateTime = val.endTime
   }
 
-  handlePageChange(...props) {
-    console.log(props)
+  handlePageChange(val) {
+    console.log(val)
     // this.submit.cu = 
     // this.actionGetFinalInVentStaList()
   }
@@ -157,8 +158,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         Object.assign(submit, props)
         submit.queryType = this.activeName
         // Object.assign(submit, this.cascade)
-        console.log('here submit',submit)
-        this.actionGetFinalInVentStaList(submit)
+        let param = cutInvalidData(submit)
+        console.log('here submit', param)
+        this.actionGetFinalInVentStaList(param)
       } else {
         console.log('error submit!!')
         return false

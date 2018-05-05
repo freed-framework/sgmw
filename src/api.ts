@@ -140,7 +140,7 @@ export const defeatCustomerList = (params) => http.post('/store-customer-defeat-
 /**
  * 到店统计
  */
-export const shopCustomersList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const shopCustomersList = (params) => http.post('/shop/statistics', params)
 /**
  * 潜客统计
  */
@@ -156,7 +156,7 @@ export const customerStatisticsList = (params) => http.post('/store-customer-def
 /**
  * 厂家潜客线索统计
  */
-export const diveCusClueList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const diveCusClueList = (params) => http.post('/p/clue/statistics', params)
 
 /**
  * 导出相关
