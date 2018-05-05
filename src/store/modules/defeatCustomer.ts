@@ -1,5 +1,5 @@
 import { defeatCustomerList } from '../../api'
-import { formatData, initList } from '../helpers'
+import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
   FETCH_DEFEAT_CUSTOME_LIST: 'FETCH_DEFEAT_CUSTOME_LIST',
@@ -12,7 +12,7 @@ const state = {
 
 const actions = {
   async getDefeatCustomerList({ commit }, param) {
-    const result = await defeatCustomerList(param)
+    const result = await defeatCustomerList(cutInvalidData(param))
     const payload: any = { ...result }
 
     commit(ActionType.FETCH_DEFEAT_CUSTOME_LIST, payload)

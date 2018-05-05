@@ -35,8 +35,8 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     custLeve: '',
     saleResult: '',
     ifDrive: '',
+    custLevel: '',
     distributorNum: '',
-    submersibleType: '',
     channel: '',
     queryType: '',
     dealerId: '',
@@ -218,9 +218,6 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.ruleForm
-      // if(props.beginStatisDate) {
-      //   console.log(props.beginStatisDate < props.endStatisDate)
-      // }
       if(!this.ruleForm.creatBeginTime && !this.ruleForm.creaEndTime) {
         this.$message({
           center: true,
@@ -231,7 +228,6 @@ import TimeRange from '../../../components/timeRanage/index.vue'
         return
       }
       if (valid) {
-        // const submit: any = {}
         const submit : any = {}
         Object.assign(submit, props)
         submit.queryType = this.activeName
