@@ -126,8 +126,11 @@ export default class Login extends Vue {
   border: 1px solid #ebebeb;
   background: #fff;
   box-shadow: 0px 4px 12px -4px #ccc;
-  padding: 10px 60px 30px 30px;
+  padding: 10px 30px 30px 30px;
   border-radius: 6px;
+}
+.login-inner {
+  padding-right: 30px;
 }
 .el-footer {
   position: absolute;
