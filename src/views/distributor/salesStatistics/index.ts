@@ -37,10 +37,10 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     testDrive: null,
     pcaArea: null,
     dealerId: null,
-    queryType: '1',
     materialId: null,
     vehColor: null,
     beginStatisDate: '',
+    queryType: '',
     endStatisDate: '',
     kpi: 0
   }
@@ -94,6 +94,10 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     clear() {}
   }
 
+  rangeVm: any = {
+    clear() {}
+  }
+
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
   dealerStatus: Array<any> = dealerStatus
@@ -111,8 +115,11 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
 
   $refs: any
 
-  timeRangeChange(val) {
-    console.log(val)
+  timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginStatisDate = val.beginTime
+    this.form.endStatisDate = val.endTime
   }
 
   @Watch('select')
@@ -149,81 +156,18 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   }
 
   dateChangeBeginTime(val) {
-    console.log(val);
     this.form.beginStatisDate = val;
   }
 
   dateChangeEndTime(val) {
-    console.log(val);
     this.$refs.form.endStatisDate = val;
   }
-
-  // //提出开始时间必须大于今天
-  // beginDate(){
-  //   const _this = this
-  //   return {
-  //     disabledDate(time){
-  //       return time.getTime() > Date.now()//开始时间不选时，结束时间最大值大于等于当天
-  //     }
-  //   }
-  // }
-  // //提出结束时间必须大于提出开始时间
-  // processDate(){
-  //   let self = this
-  //   if (self.activeName === '1') {
-  //     return {
-  //       disabledDate(time){
-  //         console.log(time)
-  //         if(self.form.beginStatisDate){
-  //           return new Date(self.form.beginStatisDate).getTime() > time.getTime()
-  //         } else {
-  //           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(self.activeName === '2') {
-  //     return {
-  //       disabledDate(time){
-  //         if(self.form.beginStatisDate){
-  //           return new Date(self.form.beginStatisDate).getTime() > time.getTime()
-  //         } else {
-  //           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(self.activeName === '2') {
-  //     return {
-  //       disabledDate(time){
-  //         if(self.form.beginStatisDate){
-  //           return new Date(self.form.beginStatisDate).getTime() > time.getTime()
-  //         } else {
-  //           return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.form
-      let queryType = '1'
-      if (this.activeName) {
-        if(this.activeName === '1') {
-          queryType = '1'
-        } else if (this.activeName === '2') {
-          queryType = '2'
-        } else {
-          queryType = '3'
-        }
-      }
-      if(props.beginStatisDate) {
-        console.log(props.beginStatisDate < props.endStatisDate)
-      }
-      if(!props.beginTime && !props.endTime) {
+      if(!this.form.beginStatisDate && !this.form.endStatisDate) {
         this.$message({
           center: true,
           showClose: true,
@@ -236,9 +180,8 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         // const submit: any = {}
         const submit : any = {}
         Object.assign(submit, props)
-        submit.endStatisDate = props.endTime;
+        submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        Object.assign(submit, queryType)
         this.actionSalesStatisticsList(submit)
       } else {
         console.log('error submit!!')
@@ -251,5 +194,6 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+    this.rangeVm.clear()
   }
 }

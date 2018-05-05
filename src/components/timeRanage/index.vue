@@ -33,6 +33,11 @@ export default class Cascade extends Vue {
   beginTime: string = ''
   endTime: string = ''
 
+  clear() {
+    this.beginTime = ''
+    this.endTime = ''
+  }
+
   beginStatisDate: any = {
     disabledDate: (date) => {
       return false
@@ -48,15 +53,13 @@ export default class Cascade extends Vue {
   @Watch('beginTime')
   watchStartChange(val) {
     const { beginTime, endTime } = this
-    console.log('222222')
-    this.$emit('change', {beginTime, endTime})
+    this.$emit('change', this, {beginTime, endTime})
   }
 
   @Watch('endTime')
   watchEndChange(val) {
     const { beginTime, endTime } = this
-    console.log(1231321)
-    this.$emit('change', {beginTime, endTime})
+    this.$emit('change', this, {beginTime, endTime})
   }
 
   @Watch('type')
