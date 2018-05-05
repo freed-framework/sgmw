@@ -183,7 +183,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
 
   timeRangeChange(vm, val) {
     this.rangeVm = vm
-    console.log(vm)
+    // console.log(vm)
     this.ruleForm.beginStatisDate = val.beginTime
     this.ruleForm.endStatisDate = val.endTime
   }
