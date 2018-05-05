@@ -102,7 +102,7 @@ export default class Login extends Vue {
       display: inline-block;
       height: 40px;
       line-height: 40px;
-      margin-top: 10px;
+      padding-top: 10px;
 
       img {
         width: 100%;
