@@ -10,21 +10,10 @@
         <div class="sg-def-statist">
           <div class="sg-header">
             <el-row>
-              <el-col :span="12" class="time-group" style="display: flex;">
-                <el-form-item label="日期">
-                    <el-date-picker
-                      v-model="ruleForm.date"
-                      type="daterange"
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      style="width: 100%;">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
+              <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
                 <el-form-item label="经销商号">
-                  <el-input v-model="ruleForm.name" placeholder="请输入经销商"></el-input>
+                  <el-input v-model="ruleForm.dealerId" placeholder="请输入经销商"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -112,7 +101,7 @@
               <el-col :span="6" :offset="18">
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
-                    <el-button type="success">导出</el-button>
+                    <el-button type="success" @click="exportList('form')">导出</el-button>
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
                   </el-form-item>
                 </el-col>

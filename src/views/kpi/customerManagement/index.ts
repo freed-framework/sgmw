@@ -29,7 +29,7 @@ export default class Index extends mixins(TableColor) {
   @Action('kpi/getKpiList') actionGetKpiList: any
   @Getter('kpi/getList') kpiList: any
 
-  kpiType: any = 0
+  // kpiType: any = 0
 
   dealer: any = 0
 
@@ -69,7 +69,7 @@ export default class Index extends mixins(TableColor) {
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
   kpi: Array<any> = kpi
-  
+  loading: boolean = false
 
   handleCacadeChange(vm, data = {}) {
     this.cascadeContext = vm
@@ -103,14 +103,24 @@ export default class Index extends mixins(TableColor) {
         });
         return
       }
+      if(!this.form.kpiType) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择kpi类型',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
         const submit: any = {}
+        const that: any = this
         if (date) {
           submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
           submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
         }    
         Object.assign(submit, props, this.cascade)
-        console.log(submit)
+        this.loading = true
         this.actionGetKpiList(submit)
       } else {
         console.log('error submit!!')
@@ -124,5 +134,10 @@ export default class Index extends mixins(TableColor) {
     this.cascadeContext.clear()
     this.regionContext.clear()
     $form.resetFields()
+  }
+
+  @Watch('kpiList', {deep: true})
+  watchListChange() {
+    this.loading = false
   }
 }

@@ -10,18 +10,7 @@
         <div class="sg-custom">
           <div class="sg-header">
               <el-row>
-                <el-col :span="12" class="time-group" style="display: flex;">
-                  <el-form-item label="注册日期">
-                    <el-date-picker type="year" value-format="yyyy" placeholder="选择开始日期" v-model="form.beginTime"
-                      :picker-options="form.startDatePicker" @change="dateChangeBeginTime" style="margin-right: 12px;">
-                    </el-date-picker>
-                  </el-form-item>
-                  <el-form-item label="至" label-width="25px">
-                      <el-date-picker type="year" value-format="yyyy" placeholder="选择结束日期" v-model="form.endTime"
-                        :picker-options="form.endDatePicker" @change="dateChangeEndTime">
-                      </el-date-picker>
-                  </el-form-item>
-                </el-col>
+                <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
                 <el-col :span="6">
                   <el-form-item label="厂牌">
                     <el-select v-model="form.factoryCard" placeholder="请选择厂牌">
@@ -31,7 +20,7 @@
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="经销商">
-                    <el-input v-model="form.name" placeholder="请输入经销商"></el-input>
+                    <el-input v-model="form.name" placeholder="请输入经销商" style="width:193px"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

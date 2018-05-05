@@ -18,8 +18,8 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="KPI类型">
-              <el-select v-model="kpiType" placeholder="请选择KPI类型">
-                <el-option v-for="(item, index) in kpi" :key="index" :label="item.label" :value="index" ></el-option>
+              <el-select v-model="form.kpiType" placeholder="请选择KPI类型">
+                <el-option v-for="(item) in kpi" :key="item.value" :label="item.label" :value="item.value" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -114,7 +114,7 @@
         <el-row>
           <brand
             @change="handleCacadeChange"
-            :cols="[0, 3]"
+            :cols="[0]"
           />
         </el-row>
         <el-row>
@@ -147,6 +147,7 @@
       <pag-table>
         <el-table
           :data="kpiList.list"
+          :loading="loading"
           border
           style="width: 100%"
           :row-class-name="tableRowClassName">

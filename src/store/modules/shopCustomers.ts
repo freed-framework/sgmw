@@ -1,8 +1,8 @@
-import { kpiList } from '../../api'
-import { formatData, initList, cutInvalidData } from '../helpers'
+import { shopCustomersList } from '../../api'
+import { formatData, initList } from '../helpers'
 
 const ActionType = {
-  FETCH_KPI_LIST: 'FETCH_KPI_LIST',
+  FETCH_SHOP_CUSTOME_LIST: 'FETCH_SHOP_CUSTOME_LIST',
 }
 
 // initial state
@@ -11,15 +11,16 @@ const state = {
 }
 
 const actions = {
-  async getKpiList({ commit }, param) {
-    const result = await kpiList(cutInvalidData(param))
+  async getShopCustomersList({ commit }, param) {
+    const result = await shopCustomersList(param)
     const payload: any = { ...result }
-    commit(ActionType.FETCH_KPI_LIST, payload)
+
+    commit(ActionType.FETCH_SHOP_CUSTOME_LIST, payload)
   },
 }
 
 const mutations = {
-  [ActionType.FETCH_KPI_LIST](state: any, payload: any) {
+  [ActionType.FETCH_SHOP_CUSTOME_LIST](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

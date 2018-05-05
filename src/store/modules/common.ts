@@ -1,16 +1,18 @@
 /* eslint-disable */
-import { allBrandList, allRegionList } from '../../api'
+import { allBrandList, allRegionList, allChannelList } from '../../api'
 import { formatBrandData, formatRegionData } from '../helpers'
 
 const ActionType = {
   FETCH_COMMON_BRAND_LIST: 'FETCH_COMMON_BRAND_LIST',
   FETCH_COMMON_REGION_LIST: 'FETCH_COMMON_REGION_LIST',
+  FETCH_COMMON_CHANNEL_LIST: 'FETCH_COMMON_CHANNEL_LIST',
 }
 
 // initial state
 const state = {
   brandList: [],
-  regionList: []
+  regionList: [],
+  channelList: []
 }
 
 // const mockData = {
@@ -3012,6 +3014,12 @@ const actions = {
 
     commit(ActionType.FETCH_COMMON_REGION_LIST, payload)
   },
+  async getChannelList({ commit }) {
+    const result = await allChannelList()
+    const payload: any = { ...result }
+
+    commit(ActionType.FETCH_COMMON_CHANNEL_LIST, payload)
+  },
 }
 
 const mutations = {
@@ -3023,6 +3031,10 @@ const mutations = {
     const { data = [] } = payload
     state.regionList = formatRegionData(data)
   },
+  [ActionType.FETCH_COMMON_CHANNEL_LIST](state: any, payload: any) {
+    const { data = [] } = payload
+    state.channelList = formatRegionData(data)
+  },
 }
 
 const getters = {
@@ -3033,6 +3045,10 @@ const getters = {
   regionList(state) {
     const { regionList = [] } = state
     return regionList
+  },
+  channelList(state) {
+    const { channelList = [] } = state
+    return channelList
   }
 }
 

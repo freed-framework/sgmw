@@ -1,145 +1,245 @@
+/* eslint-disable */
 import {
-    Component,
-    Vue,
-    Watch
+	Component,
+	Vue,
+	Watch
   } from 'vue-property-decorator'
-import { mixins } from 'vue-class-component'
-import TableColor from '../../../mixins/table-color/index.vue'
-import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
-} from '../../../dictionary'
-// import { kpi } from './kpi'
+  import { mixins } from 'vue-class-component'
+  import { State, Getter, Action } from 'vuex-class'
+  import moment from 'moment'
+  import TableColor from '../../../mixins/table-color/index.vue'
+  import {
+		dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel, carBrands,
+		finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea, leadType
+  } from '../../../dictionary'
+	import ActiveMixin from '../../../mixins/activeMixin'
+  import Brand from '../../../components/brand/index.vue'
+  import Region from '../../../components/region/index.vue'
+  import Channel from '../../../components/channel/index.vue'
+  
+  @Component({
+	components: {
+	  Brand,
+		Region,
+		Channel,
+	}
+  })
+  export default class Index extends mixins(TableColor, ActiveMixin) {
+	@Action('diveCusClue/getDiveCusClueList') actionDiveCusClueList: any
+	@Getter('diveCusClue/getList') diveCusClueListList: any
+	
+	cache = {
+	  leadChannel: null,
+	  factoryCard: null,
+	  carType: null,
+	  kinds: null,
+	  testDrive: null,
+	  pcaArea: null,
+	  dealerId: null,
+	  materialId: null,
+	  vehColor: null,
+	  beginStatisDate: '',
+	  endStatisDate: '',
+		leadType: '',
+		month: '',
+		carBrands: '',
+	}
+	form: any = { ...this.cache }
+  
+	cascade: any = {
+		region: null,
+		channel: null,
+	  province: null,
+	  brand: null,
+	  vehVariety: null,
+	  vehSerices: null,
+	  vehModel: null,
+	}
+  
+	rules: any = {
+	  beginStatisDate: [
+		{ required: false, message: '请选择时间' }
+	  ],
+	  endStatisDate: [
+		{ required: false, message: '请选择时间' }
+	  ]
+	}
+	
+	value: string = ''
+	activeName: string = '1'
+	editableTabsValue: string = '2'
+	editableTabs: any = [{
+	  title: '线索响应率',
+	  name: '1'
+	}, {
+	  title: '线索有效率',
+	  name: '2'
+	}, {
+	  title: '线索成交率',
+	  name: '3'
+	},{
+		title: '线索战败率',
+		name: '4'
+	},{
+		title: '线索试驾率',
+		name: '5'
+	},{
+		title: '线索响应时间',
+		name: '6'
+	},{
+		title: '渠道线索量',
+		name: '7'
+	},{
+		title: '战败原因',
+		name: '8'
+	}
+]
 
-  @Component
-  export default class Index extends mixins(TableColor) {
-    a: string = '9999'
-    activeName: number = 1
-    value4: string = ''
-    tabs: Object = [
-      {
-        key: 1,
-        text: '线索响应率'
-      },
-      {
-        key: 2,
-        text: '线索有效率'
-      },
-      {
-        key: 3,
-        text: '线索成交率'
-      },
-      {
-        key: 4,
-        text: '线索战败率'
-      },
-      {
-        key: 5,
-        text: '线索试驾率'
-      },
-      {
-        key: 6,
-        text: '线索响应时间'
-      },
-      {
-        key: 7,
-        text: '渠道线索量'
-      },
-      {
-        key: 8,
-        text: '战败原因'
-      },
-    ]
+	tabIndex: number = 2
+	dealer: any = 0
+	select: any = {
+	  select1: '',
+	  select2: '',
+	  select3: '',
+	  select4: ''
+	}
   
-    form: any = {
-      dealerStatus: 0,
-      customerLevel: 0,
-      customerType: '',
-      leadChannel: 0,
-      finalResult: 0,
-      testDrive: '',
-      // kpi: 0
-    }
-  
-    dealerStatus: Array<any> = dealerStatus
-    customerLevel: Array<any> = customerLevel
-    customerType: Array<any> = customerType
-    leadChannel: Array<any> = leadChannel
-    finalResult: Array<any> = finalResult
-    testDrive: Array<any> = testDrive
-    // kpi: Array<any> = kpi
-  
-    tableData: Array<any> = [{
-      area: '东北区域',
-      province: '黑龙江',
-      date: '2016-05-02',
-      response_num: '11',
-      sendnum: '11',
-      response_rate: '100.00'
-    }, {
-      area: '东北区域',
-      province: '黑龙江',
-      date: '2016-05-02',
-      response_num: '11',
-      sendnum: '11',
-      response_rate: '100.00'
-    }]
-  
-    submitForm(formName) {
-      const $form: any = this.$refs[formName]
-      $form.validate((valid) => {
-        if (valid) {
-          console.log(this.form)
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    }
-  
-    resetForm(formName) {
-      const $form: any = this.$refs[formName]
-      $form.resetFields()
-    }
+	cascadeContext: any = {
+    clear() {}
+  }
+
+  regionContext: any = {
+    clear() {}
+  }
+	channelContext: any = {
+		clear() {}
+	}
+  rangeVm: any = {
+    clear() {}
   }
   
-  // export default class Index extends Vue {
-  //   a: string = '9999'
-  //   activeName: number = 1
-  //   tabs: Object = [
-  //     {
-  //       key: 1,
-  //       text: '线索响应率'
-  //     },
-  //     {
-  //       key: 2,
-  //       text: '线索有效率'
-  //     },
-  //     {
-  //       key: 3,
-  //       text: '线索成交率'
-  //     },
-  //     {
-  //       key: 4,
-  //       text: '线索战败率'
-  //     },
-  //     {
-  //       key: 5,
-  //       text: '线索试驾率'
-  //     },
-  //     {
-  //       key: 6,
-  //       text: '线索响应时间'
-  //     },
-  //     {
-  //       key: 7,
-  //       text: '渠道线索量'
-  //     },
-  //     {
-  //       key: 8,
-  //       text: '战败原因'
-  //     },
-  //   ]
+	leadChannel: Array<any> = leadChannel
+	testDrive: Array<any> = testDrive
+	dealerStatus: Array<any> = dealerStatus
+	customerLevel: Array<any> = customerLevel
+	customerType: Array<any> = customerType
+	dealerleadChannel: Array<any> = dealerleadChannel
+	leadStatus: Array<any> = leadStatus
+	factoryCard: Array<any> = factoryCard
+	finalResult: Array<any> = finalResult
+	carType: Array<any> = carType
+	kinds: Array<any> = kinds
+	pcaArea: Array<any> = pcaArea
+	leadType: Array<any> = leadType
+	carBrands: Array<any> = carBrands
   
-  // }
+	$refs: any
+  
+	handleClick(tab, event) {
+		// this.cache.endStatisDate = this.processDate()
+		// console.log(this.processDate());
+	}
+
+	@Watch('form', {deep: true})
+	watchSelect(val) {
+	  // console.log(val, '----------------------')
+	}
+	
+	@Watch('activeName')
+  watchTypeChange(val) {
+    this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.channelContext.clear()
+    this.rangeVm.clear()
+  }
+  
+	created() {
+	  // console.log(this.dealerStatus)
+	}
+  
+	timeRangeChange(vm, val) {
+    this.rangeVm = vm
+    // console.log(val)
+    this.form.beginStatisDate = val.beginTime
+    this.form.endStatisDate = val.endTime
+  }
+
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+  
+	handleRegionChange(vm, data = {}) {
+    this.regionContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+	handleChannelChange(vm, data = {}) {
+    this.channelContext = vm
+    Object.assign(this.cascade,
+      {
+        province: data[0] ? data[0].label : null,
+        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+      }
+    )
+  }
+  
+	dateChangeBeginTime(val) {
+	  console.log(val);
+	  this.form.beginStatisDate = val;
+	}
+  
+	dateChangeEndTime(val) {
+	  console.log(val);
+	  this.$refs.form.endStatisDate = val;
+	}
+  
+	submitForm(form) {
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      const { ...props } = this.form
+      // if(!this.form.beginStatisDate && !this.form.endStatisDate) {
+      //   this.$message({
+      //     center: true,
+      //     showClose: true,
+      //     message: '请选择日期',
+      //     type: 'warning'
+      //   });
+      //   return
+      // }
+      if (valid) {
+        // const submit: any = {}
+        const submit : any = {}
+        Object.assign(submit, props)
+        submit.queryType = this.activeName
+				Object.assign(submit, this.cascade)
+				console.log('here submit',submit)
+        this.actionDiveCusClueList(submit)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+	resetForm(formName) {
+		this.form = { ...this.cache }
+		console.log(formName)
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.channelContext.clear()
+    this.rangeVm.clear()
+  }
+}
   

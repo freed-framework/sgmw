@@ -94,7 +94,7 @@ export default class http {
    * @param {string} url 请求链接
    * @param {Object} options post数据
    */
-  post(url, options) {
+  post(url, options = {}) {
     return this.fetchData('post', url, options)
   }
 
