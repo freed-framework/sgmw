@@ -9,6 +9,7 @@ import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea
@@ -25,13 +26,13 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
   @Getter('salesStatistics/getList') salesStatisticsList: any
   
   cache = {
     leadChannel: null,
-    factoryCard: null,
+    factoryCard: '',
     carType: null,
     kinds: null,
     testDrive: null,
@@ -52,10 +53,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     brand: null,
     vehVariety: null,
     vehSerices: null,
-    vehModel: null,
-    p: null,
-    c: null,
-    a: null
+    vehModel: null
   }
 
   rules: any = {
@@ -97,6 +95,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   rangeVm: any = {
     clear() {}
   }
+
 
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
@@ -188,6 +187,16 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         return false
       }
     })
+  }
+
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download('', submit)
   }
 
   resetForm(form) {

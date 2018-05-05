@@ -12,7 +12,7 @@
               <el-row>
                 <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
                 <el-col :span="6">
-                  <el-form-item label="厂牌" prop="factoryCard">
+                  <el-form-item label="厂牌">
                     <el-select :clearable="true" v-model="form.factoryCard" placeholder="请选择厂牌">
                       <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
@@ -36,7 +36,7 @@
                 </el-col>
                 <brand
                   @change="handleCacadeChange"
-                  :cols="[2, 3]"
+                  :cols="[1, 3]"
                 />
                 <el-col :span="6">
                   <el-form-item label="物料号" prop="materialId">
@@ -60,7 +60,7 @@
                 <el-col :span="6" :offset="18">
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('form')">检索</el-button>
-                    <el-button type="success">导出</el-button>
+                    <el-button type="success" @click="exportList('form')">导出</el-button>
                     <el-button @click="resetForm('form')">重置</el-button>
                   </el-form-item>
                 </el-col>
