@@ -114,7 +114,7 @@
         <el-row>
           <brand
             @change="handleCacadeChange"
-            :cols="[0, 3]"
+            :cols="[0]"
           />
         </el-row>
         <el-row>

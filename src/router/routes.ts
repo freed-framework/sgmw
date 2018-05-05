@@ -158,7 +158,8 @@ const asyncRoutes = [
     path: '/diveCustomers',
     component: Layout,
     meta: { 
-      role: [ 'dive' ],
+      // role: [ 'dive' ],
+      role: [ 'admin' ],
       text: '潜在客户管理'
     },
     children: [{
@@ -166,7 +167,7 @@ const asyncRoutes = [
       component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
       meta: {
         text: '厂家潜客线索',
-        role: [ 'diveCusClue' ]
+        role: [ 'admin' ]
       }
     },{
       path: 'salerWorkNum',

@@ -8,21 +8,24 @@ import { mixins } from 'vue-class-component'
 import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import ActiveMixin from '../../../mixins/activeMixin'
 import {
   dealerStatus, customerLevel, dealerCustomerType, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus, carType, kinds, factoryCard
 } from '../../../dictionary'
-import Brand from '../../../components/brand/index.vue'
-import Region from '../../../components/region/index.vue'
+// import Brand from '../../../components/brand/index.vue'
+// import Region from '../../../components/region/index.vue'
 // import { kpi } from './kpi' 
+import TimeRange from '../../../components/timeRanage/index.vue'
 
 @Component({
   components: {
-    Brand,
-    Region
+    // Brand,
+    // Region,
+    TimeRange,
   }
 })
-export default class Index extends mixins(TableColor) {
+export default class Index extends mixins(TableColor, ActiveMixin) {
   @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalInVentStaList: any
   @Getter('finalInventStatist/getList') finalInventStatistList: any
   
@@ -47,7 +50,7 @@ export default class Index extends mixins(TableColor) {
     xszt:'',
     salesMan:'',
     jxszt:'',
-    queryType: 1,
+    queryType: '1',
   }
   form: any = { ...this.cache }
 
@@ -72,7 +75,7 @@ export default class Index extends mixins(TableColor) {
     ]
   }
   
-  activeName: string = '1'
+  // activeName: string = '1'
   editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '线索统计-年',
@@ -129,32 +132,10 @@ export default class Index extends mixins(TableColor) {
   created() {
     // console.log(this.dealerStatus)
   }
-
-  
-  handleOptionsChange(value) {
-    const { ...props } = this.form
-    console.log(this.finalInventStatistList)
+  timeRangeChange(value) {
     console.log(value)
-   
   }
-
-  handleRegionChange(vm, data = {}) {
-    this.regionContext = vm
-    // Object.assign(this.cascade,
-    //   {province: data[0] ? data[0].label : null, city: data[1] ? data[1].label : null}
-    // )
-  }
-
-  dateChangeBeginTime(val) {
-    // console.log(val);
-    const _this = this
-    _this.form.startDatePicker = val;
-  }
-
-  dateChangeEndTime(val) {
-    // console.log(val);
-    this.$refs.form.endDatePicker = val;
-  }
+  
 
   //提出开始时间必须大于今天
   beginDate(){
@@ -181,20 +162,36 @@ export default class Index extends mixins(TableColor) {
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
-      const { date, ...props } = this.form
-      console.log(props)
-      if(!props.beginTime && !props.endTime) {
-        this.$message({
-          center: true,
-          showClose: true,
-          message: '请选择日期',
-          type: 'warning'
-        });
-        return
+      const { ...props } = this.form
+      let queryType = '1'
+      if (this.activeName) {
+        if(this.activeName === '1') {
+          queryType = '1'
+        } else if (this.activeName === '2') {
+          queryType = '2'
+        } else {
+          queryType = '3'
+        }
       }
+      if(props.beginStatisDate) {
+        console.log(props.beginStatisDate < props.endStatisDate)
+      }
+      // if(!props.beginTime && !props.endTime) {
+      //   this.$message({
+      //     center: true,
+      //     showClose: true,
+      //     message: '请选择日期',
+      //     type: 'warning'
+      //   });
+      //   return
+      // }
       if (valid) {
         const submit: any = {}
         Object.assign(submit, props)
+        submit.endStatisDate = props.endTime;
+        console.log(submit)
+        Object.assign(submit, queryType)
+        console.log(submit)
         this.actionGetFinalInVentStaList(submit)
       } else {
         console.log('error submit!!')
