@@ -1,5 +1,5 @@
 import { kpiList } from '../../api'
-import { formatData, initList } from '../helpers'
+import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
   FETCH_KPI_LIST: 'FETCH_KPI_LIST',
@@ -12,7 +12,7 @@ const state = {
 
 const actions = {
   async getKpiList({ commit }, param) {
-    const result = await kpiList(param)
+    const result = await kpiList(cutInvalidData(param))
     const payload: any = { ...result }
     commit(ActionType.FETCH_KPI_LIST, payload)
   },
