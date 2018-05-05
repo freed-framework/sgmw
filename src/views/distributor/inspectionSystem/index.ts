@@ -14,13 +14,15 @@ import {
   finalResult, testDrive, leadStatus, carType, kinds, factoryCard
 } from '../../../dictionary'
 import TimeRange from '../../../components/timeRanage/index.vue'
+import { download } from '../../../api'
+import DownloadMixin from '../../../mixins/downloadMixin'
 
 @Component({
   components: {
     TimeRange,
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalInVentStaList: any
   @Getter('finalInventStatist/getList') finalInventStatistList: any
   
@@ -32,7 +34,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     channel:'',
     potentialCustSaleResult:'',
     salesMan:'',
-    DealerStatus:'',
+    dealerStatus:'',
   }
   form: any = { ...this.cache }
 
@@ -110,6 +112,12 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     this.form.endCreateTime = val.endTime
   }
 
+  handlePageChange(...props) {
+    console.log(props)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+
   @Watch('select')
   watchSelect(val) {
     // console.log(val, '----------------------')
@@ -149,13 +157,22 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         Object.assign(submit, props)
         submit.queryType = this.activeName
         // Object.assign(submit, this.cascade)
-        console.log(submit)
+        console.log('here submit',submit)
         this.actionGetFinalInVentStaList(submit)
       } else {
         console.log('error submit!!')
         return false
       }
     })
+  }
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    // Object.assign(submit, this.cascade)
+    this.download(download.defeat, submit)
   }
 
   resetForm(form) {

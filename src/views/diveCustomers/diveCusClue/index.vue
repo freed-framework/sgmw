@@ -19,10 +19,13 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-            <brand
-              @change="handleCacadeChange"
-              :cols="[0, 0]"
-            />
+            <el-col :span="6">
+            <el-form-item label="品牌" prop="carBrands">
+              <el-select v-model="form.carBrands" placeholder="请选择品牌">
+                <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
             <region
               @change="handleRegionChange"
               :cols="[0, 1]"
@@ -54,7 +57,7 @@
         <el-row>
         </el-row>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="8" :offset="16">
             <el-form-item>
               <el-button type="primary" @click="submitForm('form')">检索</el-button>
               <el-button type="success" >导出</el-button>

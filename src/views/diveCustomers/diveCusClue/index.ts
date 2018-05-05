@@ -9,7 +9,7 @@ import {
   import moment from 'moment'
   import TableColor from '../../../mixins/table-color/index.vue'
   import {
-		dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
+		dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel, carBrands,
 		finalResult, testDrive, leadStatus, carType, kinds, factoryCard, pcaArea, leadType
   } from '../../../dictionary'
 	import ActiveMixin from '../../../mixins/activeMixin'
@@ -42,6 +42,7 @@ import {
 	  endStatisDate: '',
 		leadType: '',
 		month: '',
+		carBrands: '',
 	}
 	form: any = { ...this.cache }
   
@@ -130,6 +131,7 @@ import {
 	kinds: Array<any> = kinds
 	pcaArea: Array<any> = pcaArea
 	leadType: Array<any> = leadType
+	carBrands: Array<any> = carBrands
   
 	$refs: any
   
@@ -142,7 +144,15 @@ import {
 	watchSelect(val) {
 	  // console.log(val, '----------------------')
 	}
-  
+	
+	@Watch('activeName')
+  watchTypeChange(val) {
+    this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.channelContext.clear()
+    this.rangeVm.clear()
+  }
   
 	created() {
 	  // console.log(this.dealerStatus)
@@ -215,7 +225,7 @@ import {
         Object.assign(submit, props)
         submit.queryType = this.activeName
 				Object.assign(submit, this.cascade)
-				console.log(submit)
+				console.log('here submit',submit)
         this.actionDiveCusClueList(submit)
       } else {
         console.log('error submit!!')

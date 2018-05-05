@@ -99,36 +99,6 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   varieties: Array<any> = varieties
   createType: Array<any> = createType
 
-  tableData: Array<any> = [{
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄'
-  }, {
-    cors: '2016-05-02',
-    pro: '王小虎',
-    code: '上海市普陀区金沙江路 1518 弄',
-    type: '上海市普陀区金沙江路 1518 弄',
-    color: '上海市普陀区金沙江路 1518 弄',
-    ssx: '上海市普陀区金沙江路 1518 弄'
-  }]
-
   $refs: any
 
   handleClick(tab, event) {
@@ -192,6 +162,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         Object.assign(submit, props)
         submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
+        console.log('here submit', submit)
         this.actionGetShopCustomersList(submit)
       } else {
         console.log('error submit!!')

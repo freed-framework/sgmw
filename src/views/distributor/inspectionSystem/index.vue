@@ -19,8 +19,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label="经销商状态" prop="DealerStatus">
-                    <el-select :clearable="true" v-model="form.DealerStatus" placeholder="请选择经销商状态" >
+                  <el-form-item label="经销商状态" prop="dealerStatus">
+                    <el-select :clearable="true" v-model="form.dealerStatus" placeholder="请选择经销商状态" >
                       <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
@@ -62,17 +62,22 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8" :offset="18">
+                <el-col :span="8" :offset="16">
                   <el-form-item>
                     <el-button type="primary" @click="submitForm('form')">检索</el-button>
-                    <el-button type="success">导出</el-button>
+                    <el-button type="success" @click="exportList('form')">导出</el-button>
                     <el-button @click="resetForm('form')">重置</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
           </div>
           <div class="sg-main">
-            <pag-table>
+            <pag-table
+             :curpage="finalInventStatistList.pagination.pageNum"
+             :size="finalInventStatistList.pagination.pageSize"
+             :total="finalInventStatistList.pagination.total"
+             @handlePageChange="handlePageChange"
+            >
               <el-table
                 :data="finalInventStatistList.list"
                 border
