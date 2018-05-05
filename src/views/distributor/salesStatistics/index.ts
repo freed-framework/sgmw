@@ -162,6 +162,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.$refs.form.endStatisDate = val;
   }
 
+  removeProperty(object) {
+    for(let value in object){
+        if (object[value]==='') {
+            delete object[value]
+        }
+    }
+    console.log(object)
+}
+
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
@@ -181,6 +190,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         Object.assign(submit, props)
         submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
+        this.removeProperty(submit)
         this.actionSalesStatisticsList(submit)
       } else {
         console.log('error submit!!')
