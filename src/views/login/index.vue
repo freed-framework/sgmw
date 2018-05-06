@@ -21,7 +21,7 @@
               <el-input v-model="form.name" />
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input type="password" v-model="form.password"></el-input>
+              <el-input type="password" v-model="form.password" @keyup.native="handleQuickLogin"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -71,7 +71,6 @@ export default class Login extends Vue {
         this.loading = true
 
         this.login(this.form).then((res) => {
-          console.log(res)
           if (res.code === 200) {
             this.$message.success('登录成功')
 
@@ -87,7 +86,9 @@ export default class Login extends Vue {
   }
 
   handleQuickLogin(event) {
-    console.log(event.keyCode)
+    if (event.keyCode === 13) {
+      this.handleLogin()
+    }
   }
 
   mounted() {
