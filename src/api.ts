@@ -6,6 +6,7 @@
  */
 import Http from './util/http'
 import store from './store'
+import { Message } from 'element-ui'
 
 const http = new Http()
 
@@ -40,6 +41,13 @@ http.response(
     if (code === 401 || code === 403) {
       store.dispatch('auth/LOGIN_ACCESS')
       return Promise.reject(code)
+    } else if (code === 500) {
+      Message({
+        showClose: true,
+        message: res.data.displayMessage || '系统错误！',
+        type: 'error',
+        center: true
+      })
     }
 
     return Promise.resolve(res)
