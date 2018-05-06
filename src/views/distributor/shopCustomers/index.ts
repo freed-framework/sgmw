@@ -135,9 +135,9 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     Object.assign(this.cascade,
       {
         brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
+        variety: data[1] ? data[1].label : null,
+        carType: data[2] ? data[2].label : null,
+        carVersion: data[3] ? data[3].label : null
       }
     )
   }
@@ -146,13 +146,14 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     // this.submit.cu = 
     // this.actionGetFinalInVentStaList()
   }
-  
+
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        province: data[0] ? data[0].label : null,
-        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+        customerProvince: data[0] ? data[0].label : null,
+        customerCity: data[1] ? data[1].label : null,
+        customerCounty: data[2] ? data[2].label : null
       }
     )
   }
