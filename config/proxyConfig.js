@@ -6,9 +6,10 @@ module.exports = {
   dev: {
     proxyTable: {
       '/api': {
-        target: 'http://39.104.126.26:8090',
+        target: 'http://39.104.126.26',
         // zhangjian
         // target: 'http://210.41.121.166:8091',
+        // target: 'http://39.104.126.26:8086',
         // yuwei
         // target: 'http://210.41.121.130:8092',
         // target: 'http://192.168.137.166:8091/api',

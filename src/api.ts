@@ -93,27 +93,26 @@ export const getHelloPage = () =>
 //   })
 // }
 
-export const login = (params) => http.post('/login', params)
-// export const init = () => http.get('/init')
+export const init = () => http.get('/profile/current')
 
 /* eslint-disable */
 // for 4.28
-export const init = () => {
-  return new Promise((resolve) => {
+// export const init = () => {
+//   return new Promise((resolve) => {
     
-    resolve({
-      code: 200,
-      data: {
-        user: {
-          name: 'den'
-        },
-        roles: ['admin', 'kpi', 'book', 'book_list', 'distributor',
-        'salesStatistics', 'subStatistics', 'defeatCustomer', 'customerStatistics'
-      , 'finalInventStatist']
-      }
-    })
-  })
-}
+//     resolve({
+//       code: 200,
+//       data: {
+//         user: {
+//           name: 'den'
+//         },
+//         roles: ['admin', 'kpi', 'book', 'book_list', 'distributor',
+//         'salesStatistics', 'subStatistics', 'defeatCustomer', 'customerStatistics'
+//       , 'finalInventStatist']
+//       }
+//     })
+//   })
+// }
 
 /**
  * common相关
@@ -125,10 +124,13 @@ export const allRegionList = () => http.get('/regiProvcityCounty/allList')
 // 获取平台渠道数据
 export const allChannelList = () => http.get('/regiProvcityCounty/allList')
 
+export const login = (params) => http.post('/profile/login', params)
+export const logout = () => http.post('/profile/logout')
+
 /**
  * kpi相关
  */
-export const kpiList = (params) => http.post('api/customer-manage-key-kpi/query', params)
+export const kpiList = (params) => http.post('/customer-manage-key-kpi/query', params)
 /**
  * 经销商相关
  */

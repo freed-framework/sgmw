@@ -1,7 +1,7 @@
 export const map = {
   'book_list': [
-    { id: '131', label: '1313ssss' },
-    { id: 'dda1', label: 'jkkx' },
+    { id: '131', label: '131 text' },
+    { id: 'dda1', label: 'dda1 text ' },
   ]
 }
 
