@@ -25,8 +25,8 @@ module.exports = {
   test: {
     proxyTable: {
       '/api': {
-        target: 'http://39.104.126.26',
-        // target: 'http://210.41.121.130:8092',
+        // target: 'http://39.104.126.26:8090',
+        target: 'http://210.41.121.130:8092',
         changeOrigin: true,
         pathRewrite: {
           // '^/manage': ''
