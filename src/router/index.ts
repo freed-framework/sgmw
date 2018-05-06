@@ -50,6 +50,12 @@ function beforeRole(to, next) {
   if (!role) {
     const action = store.dispatch('auth/init')
 
+    store.dispatch('common/getRegionList')
+    store.dispatch('common/getBrandList')
+
+    // @Action('common/getRegionList') actionGetRegionList: any
+    // @Action('common/getBrandList') actionGetBrandList: any
+
     // 如果在静态路由中 则直接进入
     if (isConstantRoute(to.path)) {
       // 添加到所有路由

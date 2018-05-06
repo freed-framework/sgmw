@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import { Action, Getter } from 'vuex-class'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import authview from '@/mixins/authview'
@@ -13,8 +14,8 @@ import authview from '@/mixins/authview'
 
 @Component
 export default class App extends Vue {
-  @Action('common/getRegionList') actionGetRegionList: any
-  @Action('common/getBrandList') actionGetBrandList: any
+  // @Action('common/getRegionList') actionGetRegionList: any
+  // @Action('common/getBrandList') actionGetBrandList: any
 
   @Getter('auth/roles') roles: any
 
@@ -24,8 +25,8 @@ export default class App extends Vue {
   }
 
   created() {
-    this.actionGetRegionList()
-    this.actionGetBrandList()
+    // this.actionGetRegionList()
+    // this.actionGetBrandList()
   }
 }
 </script>
