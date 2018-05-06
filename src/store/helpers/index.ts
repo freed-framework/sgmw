@@ -1,5 +1,6 @@
 import formatBrandData from './formatBrand'
 import formatRegionData from './formatRegion'
+import formatChannelData from './formatChannel'
 
 /* eslint-disable */
 export function initList() {
@@ -71,4 +72,4 @@ export const cutInvalidData = (params) => {
   return params
 }
 
-export { formatBrandData, formatRegionData }
+export { formatBrandData, formatRegionData, formatChannelData }

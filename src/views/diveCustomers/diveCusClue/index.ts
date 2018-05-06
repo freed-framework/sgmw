@@ -27,6 +27,8 @@ import {
   })
   export default class Index extends mixins(TableColor, ActiveMixin) {
 	@Action('diveCusClue/getDiveCusClueList') actionDiveCusClueList: any
+	@Action('common/getChannelList') actionGetChannelList: any
+
 	@Getter('diveCusClue/getList') diveCusClueListList: any
 	
 	cache = {
@@ -43,14 +45,14 @@ import {
 	  // endStatisDate: '',
 		leadType: '',
 
-		month: '',
+		date: '',
 		brand: '',
 		dealer: '',
 		clueType: '',
 
 	}
 	form: any = { ...this.cache }
-  
+  submit: any
 	cascade: any = {
 		region: null,
 		channel: null,
@@ -159,7 +161,8 @@ import {
   }
   
 	created() {
-	  // console.log(this.dealerStatus)
+		// console.log(this.dealerStatus)
+		this.actionGetChannelList()
 	}
   
 	timeRangeChange(vm, val) {
@@ -180,7 +183,11 @@ import {
       }
     )
   }
-  
+  handlePageChange(val) {
+    console.log(val)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
 	handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
@@ -205,15 +212,15 @@ import {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
 			const { ...props } = this.form
-      // if(!this.form.beginStatisDate && !this.form.endStatisDate) {
-      //   this.$message({
-      //     center: true,
-      //     showClose: true,
-      //     message: '请选择日期',
-      //     type: 'warning'
-      //   });
-      //   return
-      // }
+      if(!this.form.date) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
         // const submit: any = {}
         const submit : any = {}
@@ -221,9 +228,9 @@ import {
         submit.queryType = this.activeName
 				Object.assign(submit, this.cascade)
 
-				let params = cutInvalidData(submit)
-				console.log('here submit',params)
-        this.actionDiveCusClueList(params)
+				this.submit = cutInvalidData(submit)
+				console.log('here submit',this.submit)
+        this.actionDiveCusClueList(this.submit)
       } else {
         console.log('error submit!!')
         return false

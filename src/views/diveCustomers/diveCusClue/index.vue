@@ -13,7 +13,7 @@
           <el-col :span="6">
             <el-form-item label="月份">
               <el-date-picker
-                v-model="form.month"
+                v-model="form.date"
                 type="month"
                 value-format="yyyy-MM"
                 placeholder="选择月份">
@@ -68,7 +68,12 @@
         </el-row>
       </div>
       <div class="sg-main">
-        <pag-table>
+        <pag-table
+          :curpage="diveCusClueListList.pagination.pageNum"
+          :size="diveCusClueListList.pagination.pageSize"
+          :total="diveCusClueListList.pagination.total"
+          @handlePageChange="handlePageChange"
+        >
         <el-table
           :data="diveCusClueListList.list"
           border

@@ -141,7 +141,12 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
       }
     )
   }
-
+  handlePageChange(val) {
+    console.log(val)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+  
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,

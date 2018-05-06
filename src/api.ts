@@ -122,7 +122,7 @@ export const allBrandList = () => http.get('/basedata/seriesList')
 // 回去省市区数据
 export const allRegionList = () => http.get('/basedata/proCityList')
 // 获取平台渠道数据
-export const allChannelList = () => http.get('/regiProvcityCounty/allList')
+export const allChannelList = () => http.get('/basedata/platformChannelList')
 
 export const login = (params) => http.post('/profile/login', params)
 export const logout = () => http.post('/profile/logout')
