@@ -1,6 +1,6 @@
 <template>
   <cascade
-    :data="brandList"
+    :data="channelList"
     :hasAll="hasAll"
     :cols="cols"
     :force="force"
@@ -21,8 +21,8 @@ import Cascade from '../cascade/index.vue'
   components: { Cascade }
 })
 export default class Channel extends Vue {
-  name: string = 'Brand'
-  @Getter('common/brandList') brandList: any
+  name: string = 'Channel'
+  @Getter('common/channelList') channelList: any
 
   // 是否包含“全部”选项发
   @Prop({default: true}) hasAll: boolean

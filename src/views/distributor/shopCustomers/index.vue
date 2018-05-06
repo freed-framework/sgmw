@@ -108,7 +108,12 @@
             </el-row>
           </div>
           <div class="sg-main">
-            <pag-table>
+            <pag-table
+              :curpage="shopCustomersList.pagination.pageNum"
+              :size="shopCustomersList.pagination.pageSize"
+              :total="shopCustomersList.pagination.total"
+              @handlePageChange="handlePageChange"
+            >
               <el-table
                 :data="shopCustomersList.list"
                 border
