@@ -8,7 +8,7 @@ const constantRoutes = [
     path: '/',
     // component: Layout,
     hidden: true,
-    redirect: '/diveCustomers/diveCusClue',
+    redirect: '/distributor/inspectionSystem',
     // children: [{
     //   path: '',
     //   meta: { text: '首页' },
