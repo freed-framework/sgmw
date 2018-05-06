@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { allBrandList, allRegionList, allChannelList } from '../../api'
-import { formatBrandData, formatRegionData } from '../helpers'
+import { formatBrandData, formatRegionData, formatChannelData } from '../helpers'
 
 const ActionType = {
   FETCH_COMMON_BRAND_LIST: 'FETCH_COMMON_BRAND_LIST',
@@ -3033,7 +3033,7 @@ const mutations = {
   },
   [ActionType.FETCH_COMMON_CHANNEL_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.channelList = formatRegionData(data)
+    state.channelList = formatChannelData(data)
   },
 }
 
