@@ -234,17 +234,17 @@ import TimeRange from '../../../components/timeRanage/index.vue'
         Object.assign(submit, props)
         submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        switch(props.dealerStatus) {
-          case '全部':
-            submit.dealerStatus = '全部'
-            break;
-          case '已注销':
-            submit.dealerStatus = '0'
-            break
-          default:
-            submit.dealerStatus = ''
-            break
-        }
+        // switch(props.dealerStatus) {
+        //   case '全部':
+        //     submit.dealerStatus = '全部'
+        //     break;
+        //   case '已注销':
+        //     submit.dealerStatus = '0'
+        //     break
+        //   default:
+        //     submit.dealerStatus = ''
+        //     break
+        // }
         this.actionSubStatisticsListList(submit)
       } else {
         console.log('error submit!!')
