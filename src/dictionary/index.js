@@ -1,6 +1,22 @@
 /* eslint-disable */
 // 经销商状态
 export const dealerStatus = [{label: '全部'}, {label: '非注销'}, {label: '已注册'}]
+// 经销商自建线索  经销商状态
+export const dealerStatusList = [
+    {
+        label: '已注销',
+        key: '0'
+    },{
+        label: '已启用',
+        key: '1'
+    },{
+        label: '申请中',
+        key: '2'
+    },{
+        label: '已退出',
+        key: '3'
+    }
+]
 // 客户类型
 export const dealerCustomerType = [{label: '全部'}, {label: '自然到店（来电）'}, {label: '互联网营销'}, {label: '客户营销'}, {label: '营销活动'}]
 // 线索渠道

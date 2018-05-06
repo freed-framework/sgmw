@@ -10,7 +10,7 @@ import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import ActiveMixin from '../../../mixins/activeMixin'
 import {
-  dealerStatus, customerLevel, dealerCustomerType, customerType, leadChannel, dealerleadChannel,
+  dealerStatusList, customerLevel, dealerCustomerType, customerType, leadChannel, dealerleadChannel,
   finalResult, testDrive, leadStatus, carType, kinds, factoryCard
 } from '../../../dictionary'
 import TimeRange from '../../../components/timeRanage/index.vue'
@@ -93,7 +93,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
   leadChannel: Array<any> = leadChannel
   testDrive: Array<any> = testDrive
-  dealerStatus: Array<any> = dealerStatus
+  dealerStatus: Array<any> = dealerStatusList
   customerLevel: Array<any> = customerLevel
   customerType: Array<any> = customerType
   dealerCustomerType: Array<any> = dealerCustomerType
