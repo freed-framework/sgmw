@@ -6,14 +6,14 @@ import NotFound from '@/components/layout/NotFound.vue'
 const constantRoutes = [
   {
     path: '/',
-    component: Layout,
-    // hidden: true,
-    // redirect: '/customerManagement',
-    children: [{
-      path: '',
-      meta: { text: '首页' },
-      component: () => import('@/views/home/index.vue')
-    }]
+    // component: Layout,
+    hidden: true,
+    redirect: '/customerManagement',
+    // children: [{
+    //   path: '',
+    //   meta: { text: '首页' },
+    //   component: () => import('@/views/home/index.vue')
+    // }]
   },
   {
     path: '/login',
@@ -25,29 +25,29 @@ const constantRoutes = [
 export default constantRoutes
 
 const asyncRoutes = [
-  {
-    path: '/book',
-    component: Layout,
-    meta: {
-      role: ['book'],
-      text: 'Book'
-    },
-    children: [{
-      path: 'list',
-      component: () => import('@/views/book/index.vue'),
-      meta: {
-        role: ['book_list'],
-        text: 'Book List'
-      },
-    }, {
-      path: 'detail',
-      component: () => import('@/views/book/index.vue'),
-      meta: {
-        role: ['book_detail'],
-        text: 'Book Detail'
-      },
-    }]
-  },
+  // {
+  //   path: '/book',
+  //   component: Layout,
+  //   meta: {
+  //     role: ['book'],
+  //     text: 'Book'
+  //   },
+  //   children: [{
+  //     path: 'list',
+  //     component: () => import('@/views/book/index.vue'),
+  //     meta: {
+  //       role: ['book_list'],
+  //       text: 'Book List'
+  //     },
+  //   }, {
+  //     path: 'detail',
+  //     component: () => import('@/views/book/index.vue'),
+  //     meta: {
+  //       role: ['book_detail'],
+  //       text: 'Book Detail'
+  //     },
+  //   }]
+  // },
   {
     path: '/management',
     component: Layout,
