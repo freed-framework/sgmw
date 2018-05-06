@@ -33,6 +33,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     status: '',
     custType: '',
     custLeve: '',
+    dealerStatus: '',
     saleResult: '',
     salesMan: '',
     ifDrive: '',
