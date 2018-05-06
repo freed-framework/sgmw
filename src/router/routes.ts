@@ -139,11 +139,11 @@ const asyncRoutes = [
       },
     }, {
       path: 'defeatCustomer',
-      name: '战败统计',
+      name: '战败客户统计',
       component: () => import('@/views/distributor/defeatCustomer/index.vue'),
       meta: {
         role: ['defeatCustomer'],
-        text: '战败统计'
+        text: '战败客户统计'
       },
     }, {
       path: 'customerStatistics',
