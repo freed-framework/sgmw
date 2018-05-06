@@ -7,7 +7,7 @@ import axios from 'axios'
 import * as util from './util'
 
 // axios 配置
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 1000000
 
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=UTF-8'

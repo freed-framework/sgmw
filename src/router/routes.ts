@@ -8,7 +8,7 @@ const constantRoutes = [
     path: '/',
     // component: Layout,
     hidden: true,
-    redirect: '/customerManagement',
+    redirect: '/diveCustomers/diveCusClue',
     // children: [{
     //   path: '',
     //   meta: { text: '首页' },
@@ -48,32 +48,32 @@ const asyncRoutes = [
   //     },
   //   }]
   // },
-  {
-    path: '/management',
-    component: Layout,
-    meta: {
-      role: ['admin'],
-      text: '管理'
-    },
-    children: [
-      {
-        path: 'role',
-        component: () => import('@/views/management/Role.vue'),
-        meta: {
-          role: ['admin', 'role'],
-          text: '权限管理'
-        }
-      },
-      {
-        path: 'level',
-        component: () => import('@/views/management/Level.vue'),
-        meta: {
-          role: ['admin', 'level'],
-          text: '角色管理'
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/management',
+  //   component: Layout,
+  //   meta: {
+  //     role: ['admin'],
+  //     text: '管理'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'role',
+  //       component: () => import('@/views/management/Role.vue'),
+  //       meta: {
+  //         role: ['admin', 'role'],
+  //         text: '权限管理'
+  //       }
+  //     },
+  //     {
+  //       path: 'level',
+  //       component: () => import('@/views/management/Level.vue'),
+  //       meta: {
+  //         role: ['admin', 'level'],
+  //         text: '角色管理'
+  //       }
+  //     }
+  //   ]
+  // },
   {
     path: '/customerManagement',
     component: Layout,
