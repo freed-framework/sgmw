@@ -61,8 +61,8 @@ export default class Login extends Vue {
   loading: boolean = false
 
   form: any = {
-    name: 'super@admin.com',
-    password: '12345678',
+    name: '',
+    password: '',
   }
 
   handleLogin() {
@@ -70,12 +70,14 @@ export default class Login extends Vue {
       if (valid) {
         this.loading = true
 
-        this.login(this.form).then(() => {
-          this.$message.success('登录成功')
+        this.login(this.form).then((res) => {
+          if (res.data === 200) {
+            this.$message.success('登录成功')
 
-          setTimeout(() => {
-            this.$router.replace('/')
-          }, 1000)
+            setTimeout(() => {
+              this.$router.replace('/')
+            }, 1000)
+          }
         }).catch(() => {
           this.loading = false
         })
