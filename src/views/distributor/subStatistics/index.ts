@@ -257,6 +257,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
+    this.rangeVm.clear()
   }
 
   exportList(form) {
