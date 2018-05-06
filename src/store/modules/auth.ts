@@ -145,30 +145,30 @@ const actions = {
       const res: any = await init()
 
       // 处理异常
-      if (!res || !res.data) {
-        dispatch('logout')
-        return
-      }
+      // if (!res || !res.data) {
+      //   dispatch('logout')
+      //   return
+      // }
 
       // 创建用户信息
       commit(ActionType.SET_USER, res.data)
 
       let roles = res.data && res.data.privileges ? res.data.privileges : []
 
-      if (res.data && res.data.privileges) { // Mock
-        roles = [
-          'admin',
-          'kpi',
-          'book',
-          'book_list',
-          'distributor',
-          'salesStatistics',
-          'subStatistics',
-          'defeatCustomer',
-          'customerStatistics',
-          'finalInventStatist'
-        ]
-      }
+      // if (res.data && res.data.privileges) { // Mock
+      roles = [
+        'admin',
+        'kpi',
+        'book',
+        'book_list',
+        'distributor',
+        'salesStatistics',
+        'subStatistics',
+        'defeatCustomer',
+        'customerStatistics',
+        'finalInventStatist'
+      ]
+      // }
       commit(ActionType.SET_ROLES, roles)
       // 创建权限信息
       const authRoutes = getAuthRoutes(roles, asyncRoutes)

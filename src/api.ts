@@ -118,9 +118,9 @@ export const init = () => http.get('/profile/current')
  * common相关
  */
 // 获取品牌车系车型
-export const allBrandList = () => http.get('/series/allList')
+export const allBrandList = () => http.get('/basedata/seriesList')
 // 回去省市区数据
-export const allRegionList = () => http.get('/regiProvcityCounty/allList')
+export const allRegionList = () => http.get('/basedata/proCityList')
 // 获取平台渠道数据
 export const allChannelList = () => http.get('/regiProvcityCounty/allList')
 
@@ -130,7 +130,7 @@ export const logout = () => http.post('/profile/logout')
 /**
  * kpi相关
  */
-export const kpiList = (params) => http.post('api/customer-manage-key-kpi/query', params)
+export const kpiList = (params) => http.post('/customer-manage-key-kpi/query', params)
 /**
  * 经销商相关
  */

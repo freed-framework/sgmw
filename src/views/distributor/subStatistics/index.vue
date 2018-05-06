@@ -27,7 +27,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="销售顾问">
-                  <el-input v-model="ruleForm.name" placeholder="请输入销售顾问" style="width:193px"></el-input>
+                  <el-input v-model="ruleForm.salesMan" placeholder="请输入销售顾问" style="width:193px"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">

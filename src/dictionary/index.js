@@ -1,6 +1,6 @@
 /* eslint-disable */
 // 经销商状态
-export const dealerStatus = [{label: '全部'}, {label: '非注销'}, {label: '已注册'}]
+export const dealerStatus = [{label: '全部'}, {label: '已注销'}, {label: '申请中'}, {label: '已退出'}]
 // 经销商自建线索  经销商状态
 export const dealerStatusList = [
     {
