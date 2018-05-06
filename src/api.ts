@@ -130,7 +130,7 @@ export const logout = () => http.post('/profile/logout')
 /**
  * kpi相关
  */
-export const kpiList = (params) => http.post('api/customer-manage-key-kpi/query', params)
+export const kpiList = (params) => http.post('/customer-manage-key-kpi/query', params)
 /**
  * 经销商相关
  */
