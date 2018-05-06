@@ -221,15 +221,15 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     $form.validate((valid) => {
       const submit : any = {}
       const { ...props } = this.ruleForm
-      // if(!this.ruleForm.creatBeginTime || !this.ruleForm.creaEndTime) {
-      //   this.$message({
-      //     center: true,
-      //     showClose: true,
-      //     message: '请选择日期',
-      //     type: 'warning'
-      //   });
-      //   return
-      // }
+      if(!this.ruleForm.creatBeginTime || !this.ruleForm.creaEndTime) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
       if (valid) {
         Object.assign(submit, props)
         submit.queryType = this.activeName
@@ -241,20 +241,10 @@ import TimeRange from '../../../components/timeRanage/index.vue'
           case '已注销':
             submit.dealerStatus = '0'
             break
-          case '已启用':
-            submit.dealerStatus = '1'
-            break
-          case '申请中':
-            submit.dealerStatus = '2'
-            break
-          case '已退出':
-            submit.dealerStatus = '3'
-            break
           default:
             submit.dealerStatus = ''
             break
         }
-        console.log(submit)
         this.actionSubStatisticsListList(submit)
       } else {
         console.log('error submit!!')
