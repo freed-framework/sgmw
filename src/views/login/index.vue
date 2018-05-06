@@ -86,6 +86,10 @@ export default class Login extends Vue {
     })
   }
 
+  handleQuickLogin(event) {
+    console.log(event.keyCode)
+  }
+
   mounted() {
   }
 }

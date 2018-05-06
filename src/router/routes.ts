@@ -90,12 +90,12 @@ const asyncRoutes = [
     }]
   }, {
     path: '/distributor',
-    name: '经销商管理',
+    name: '查询统计',
     component: Layout,
     meta: {
       // role: ['distributor'],
       role: ['admin'],
-      text: '经销商管理'
+      text: '查询统计'
     },
     children: [{
       path: 'inspectionSystem',
@@ -161,24 +161,35 @@ const asyncRoutes = [
         role: ['finalInventStatist'],
         text: '期末库存统计'
       },
-    }]
+    },
+      {
+        path: 'diveCusClue',
+        component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+        meta: {
+          text: '厂家潜客线索',
+          role: [ 'admin' ]
+        }
+      },
+    ]
   },
   {
     path: '/diveCustomers',
     component: Layout,
     meta: { 
       // role: [ 'dive' ],
-      role: [ 'admin' ],
+      role: [ 'admin1' ],
       text: '潜在客户管理'
     },
-    children: [{
-      path: 'diveCusClue',
-      component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
-      meta: {
-        text: '厂家潜客线索',
-        role: [ 'admin' ]
-      }
-    },{
+    children: [
+      // {
+      //   path: 'diveCusClue',
+      //   component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+      //   meta: {
+      //     text: '厂家潜客线索',
+      //     role: [ 'admin' ]
+      //   }
+      // },
+    {
       path: 'salerWorkNum',
       component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
       meta: {
