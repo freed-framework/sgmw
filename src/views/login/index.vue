@@ -71,7 +71,8 @@ export default class Login extends Vue {
         this.loading = true
 
         this.login(this.form).then((res) => {
-          if (res.data === 200) {
+          console.log(res)
+          if (res.code === 200) {
             this.$message.success('登录成功')
 
             setTimeout(() => {
