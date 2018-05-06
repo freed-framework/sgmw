@@ -192,8 +192,8 @@ import {
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        province: data[0] ? data[0].label : null,
-        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+        region: data[0] ? data[0].label : null,
+				province: data[1] ? data[1].label : null,
       }
     )
   }
@@ -201,8 +201,10 @@ import {
     this.channelContext = vm
     Object.assign(this.cascade,
       {
-        province: data[0] ? data[0].label : null,
-        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+        platform: data[0] ? data[0].label : null,
+				mainChannel: data[1] ? data[1].label : null,
+				partChannel: data[2] ? data[2].label : null,
+				subChannel: data[3] ? data[3].label : null
       }
     )
   }
