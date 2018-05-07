@@ -85,12 +85,10 @@
                     {{subStatisticsList.pagination.total}}
                   </el-form-item>
               </el-col>
-              <el-col :span="6" :offset="18">
-                <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
-                  <el-button type="success" @click="exportList('form')">导出</el-button>
-                  <el-button @click="resetForm('ruleForm')">重置</el-button>
-                </el-form-item>
+              <el-col :span="6">
+                <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
+                <el-button type="success" @click="exportList('form')">导出</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-col>
             </el-row>
           </div>

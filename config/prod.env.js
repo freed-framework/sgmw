@@ -1,6 +1,6 @@
 'use strict'
 module.exports = {
-  NODE_ENV: 'production',
-  API_HOST: '/api',
-  PASSPORT: '/'
+  NODE_ENV: '"production"',
+  API_HOST: '"/api"',
+  PASSPORT: '"/"'
 }
