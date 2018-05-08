@@ -9,30 +9,30 @@ import { mixins } from 'vue-class-component'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import AreaData from '../../../dictionary/area'
+import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   carType
 } from '../../../dictionary'
+import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
-
-const cache = {
-  carType: '全部',
-  factoryCard: '',
-  province: '全部'
-}
+import { download } from '../../../api'
 
 @Component({
   components: {
+    Brand,
     Region
   }
 })
-export default class Index extends mixins(TableColor) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('finalInventStatist/getFinalInVentStaList') actionFinalInventStatistList: any
   @Getter('finalInventStatist/getList') finalInventStatistList: any
-  ruleForm: any = { ...cache }
 
   cascade: any = {
     region: null,
-    province: null
+    province: null,
+    brand: null,
+    vehVariety: null
   }
 
   cascadeContext: any = {
@@ -123,10 +123,22 @@ export default class Index extends mixins(TableColor) {
   $refs: any
   @Watch('ruleForm', {deep: true})
 
+  handleCacadeChange(vm, data = {}) {
+    this.cascadeContext = vm
+    Object.assign(this.cascade,
+      {
+        brand: data[0] ? data[0].label : null,
+        vehVariety: data[1] ? data[1].label : null,
+        vehSerices: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
+      }
+    )
+  }
+
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
-      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : '全部'}
+      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
     )
   }
 
@@ -134,11 +146,8 @@ export default class Index extends mixins(TableColor) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {
       if (valid) {
-        const submit: any = {}
-        const { ...props } = this.ruleForm     
+        const submit: any = {}   
         Object.assign(submit, this.cascade)
-        Object.assign(submit, props)
-        console.log(submit)
         this.actionFinalInventStatistList(submit)
       } else {
         console.log('error submit!!')
@@ -147,9 +156,16 @@ export default class Index extends mixins(TableColor) {
     })
   }
 
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const submit : any = {}
+    Object.assign(submit, this.cascade)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
+  }
+
   resetForm(ruleForm) {
-    this.ruleForm = { ...cache }
-    this.region = '0'
     this.cascadeContext.clear()
     this.regionContext.clear()
   }
