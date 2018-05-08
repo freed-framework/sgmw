@@ -44,14 +44,6 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <region
-                @change="handleRegionChange"
-                :cols="[1, 3]"
-              />
-              <brand
-                  @change="handleCacadeChange"
-                  :cols="[0, 3]"
-                />
               <el-col :span="6">
                 <el-form-item label="最后结果" prop="saleResult">
                   <el-select v-model="ruleForm.saleResult" placeholder="请选择最后结果" >
@@ -59,17 +51,31 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="6">
-                <el-form-item label="线索渠道" prop="channel">
-                  <el-select v-model="ruleForm.channel" placeholder="线索渠道" >
-                    <el-option v-for="(text, index) in dealerleadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
+            </el-row>
+            <el-row>
+              <region
+                @change="handleRegionChange"
+                :cols="[1, 3]"
+              />
               <el-col :span="6">
                 <el-form-item label="是否试驾" prop="ifDrive">
                   <el-select v-model="ruleForm.ifDrive" placeholder="请选择是否试驾" >
                     <el-option v-for="(text, index) in testDrive" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <brand
+                  @change="handleCacadeChange"
+                  :cols="[0, 3]"
+                />
+            </el-row>
+            <el-row>
+              <el-col :span="6">
+                <el-form-item label="线索渠道" prop="channel">
+                  <el-select v-model="ruleForm.channel" placeholder="线索渠道" >
+                    <el-option v-for="(text, index) in dealerleadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
