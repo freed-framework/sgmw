@@ -49,7 +49,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     ]
   }
   
-  editableTabsValue: string = '2'
+  // editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '线索统计-年',
     name: '1'
@@ -92,6 +92,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
+  submit: any = {}
 
   $refs: any
 
@@ -104,8 +105,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
   handlePageChange(val) {
     console.log(val)
-    // this.submit.cu = 
-    // this.actionGetFinalInVentStaList()
+    let param = this.submit;
+    param.pageNum = val;
+    this.actionGetFinalInVentStaList(param)
   }
 
   @Watch('select')
@@ -146,8 +148,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         const submit : any = {}
         Object.assign(submit, props)
         submit.queryType = this.activeName
-        let param = cutInvalidData(submit)
-        this.actionGetFinalInVentStaList(param)
+        submit.pageNum = 1
+        this.submit = cutInvalidData(submit)
+        this.actionGetFinalInVentStaList(this.submit)
       } else {
         console.log('error submit!!')
         return false
@@ -160,8 +163,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const submit : any = {}
     Object.assign(submit, props)
     submit.queryType = this.activeName
-    console.log(submit)
-    this.download(download.defeat, submit)
+
+    this.submit = cutInvalidData(submit)
+    this.download(download.defeat, this.submit)
   }
 
   resetForm(form) {
