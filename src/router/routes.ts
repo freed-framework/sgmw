@@ -6,14 +6,14 @@ import NotFound from '@/components/layout/NotFound.vue'
 const constantRoutes = [
   {
     path: '/',
-    component: Layout,
-    // hidden: true,
-    // redirect: '/customerManagement',
-    children: [{
-      path: '',
-      meta: { text: '首页' },
-      component: () => import('@/views/home/index.vue')
-    }]
+    // component: Layout,
+    hidden: true,
+    redirect: '/distributor/inspectionSystem',
+    // children: [{
+    //   path: '',
+    //   meta: { text: '首页' },
+    //   component: () => import('@/views/home/index.vue')
+    // }]
   },
   {
     path: '/login',
@@ -25,55 +25,55 @@ const constantRoutes = [
 export default constantRoutes
 
 const asyncRoutes = [
-  {
-    path: '/book',
-    component: Layout,
-    meta: {
-      role: ['book'],
-      text: 'Book'
-    },
-    children: [{
-      path: 'list',
-      component: () => import('@/views/book/index.vue'),
-      meta: {
-        role: ['book_list'],
-        text: 'Book List'
-      },
-    }, {
-      path: 'detail',
-      component: () => import('@/views/book/index.vue'),
-      meta: {
-        role: ['book_detail'],
-        text: 'Book Detail'
-      },
-    }]
-  },
-  {
-    path: '/management',
-    component: Layout,
-    meta: {
-      role: ['admin'],
-      text: '管理'
-    },
-    children: [
-      {
-        path: 'role',
-        component: () => import('@/views/management/Role.vue'),
-        meta: {
-          role: ['admin', 'role'],
-          text: '权限管理'
-        }
-      },
-      {
-        path: 'level',
-        component: () => import('@/views/management/Level.vue'),
-        meta: {
-          role: ['admin', 'level'],
-          text: '角色管理'
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/book',
+  //   component: Layout,
+  //   meta: {
+  //     role: ['book'],
+  //     text: 'Book'
+  //   },
+  //   children: [{
+  //     path: 'list',
+  //     component: () => import('@/views/book/index.vue'),
+  //     meta: {
+  //       role: ['book_list'],
+  //       text: 'Book List'
+  //     },
+  //   }, {
+  //     path: 'detail',
+  //     component: () => import('@/views/book/index.vue'),
+  //     meta: {
+  //       role: ['book_detail'],
+  //       text: 'Book Detail'
+  //     },
+  //   }]
+  // },
+  // {
+  //   path: '/management',
+  //   component: Layout,
+  //   meta: {
+  //     role: ['admin'],
+  //     text: '管理'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'role',
+  //       component: () => import('@/views/management/Role.vue'),
+  //       meta: {
+  //         role: ['admin', 'role'],
+  //         text: '权限管理'
+  //       }
+  //     },
+  //     {
+  //       path: 'level',
+  //       component: () => import('@/views/management/Level.vue'),
+  //       meta: {
+  //         role: ['admin', 'level'],
+  //         text: '角色管理'
+  //       }
+  //     }
+  //   ]
+  // },
   {
     path: '/customerManagement',
     component: Layout,
@@ -90,12 +90,12 @@ const asyncRoutes = [
     }]
   }, {
     path: '/distributor',
-    name: '经销商管理',
+    name: '查询统计',
     component: Layout,
     meta: {
       // role: ['distributor'],
       role: ['admin'],
-      text: '经销商管理'
+      text: '查询统计'
     },
     children: [{
       path: 'inspectionSystem',
@@ -161,24 +161,35 @@ const asyncRoutes = [
         role: ['finalInventStatist'],
         text: '期末库存统计'
       },
-    }]
+    },
+      {
+        path: 'diveCusClue',
+        component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+        meta: {
+          text: '厂家潜客线索',
+          role: [ 'admin' ]
+        }
+      },
+    ]
   },
   {
     path: '/diveCustomers',
     component: Layout,
     meta: { 
       // role: [ 'dive' ],
-      role: [ 'admin' ],
+      role: [ 'admin1' ],
       text: '潜在客户管理'
     },
-    children: [{
-      path: 'diveCusClue',
-      component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
-      meta: {
-        text: '厂家潜客线索',
-        role: [ 'admin' ]
-      }
-    },{
+    children: [
+      // {
+      //   path: 'diveCusClue',
+      //   component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+      //   meta: {
+      //     text: '厂家潜客线索',
+      //     role: [ 'admin' ]
+      //   }
+      // },
+    {
       path: 'salerWorkNum',
       component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
       meta: {

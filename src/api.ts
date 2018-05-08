@@ -48,6 +48,8 @@ http.response(
         type: 'error',
         center: true
       })
+
+      return Promise.reject(res)
     }
 
     return Promise.resolve(res)
