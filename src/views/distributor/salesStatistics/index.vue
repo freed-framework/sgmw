@@ -67,7 +67,7 @@
               :curpage="salesStatisticsList.pagination.pageNum"
               :size="salesStatisticsList.pagination.pageSize"
               :total="salesStatisticsList.pagination.total"
-              @handlePageChange="handlePageChange"
+              :handlePageChange="handlePageChange"
             >
               <el-table
                 :data="salesStatisticsList.list"

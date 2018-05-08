@@ -186,6 +186,12 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     // console.log(val, '----------------------')
   }
 
+  handlePageChange(...props) {
+    // console.log(props)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+
   timeRangeChange(vm, val) {
     this.rangeVm = vm
     // console.log(vm)
