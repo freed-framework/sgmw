@@ -41,7 +41,7 @@ export default class PagTable extends Vue {
 
   @Prop({ default: false }) hasTitle: boolean
   @Prop({ default: '' }) title: string
-  @Prop({ default: true }) loading: boolean
+  @Prop({ default: false }) loading: boolean
   @Prop({ default: noop }) handlePageChange: void
   @Prop({ default: 0 }) total: number
   @Prop({ default: 1 }) curpage: number

@@ -35,14 +35,9 @@ import {
 	  leadChannel: null,
 	  factoryCard: null,
 	  carType: null,
-	  // kinds: null,
-	  // testDrive: null,
-	  // pcaArea: null,
-	  // dealerId: null,
+	  
 	  materialId: null,
 	  vehColor: null,
-	  // beginStatisDate: '',
-	  // endStatisDate: '',
 		leadType: '',
 
 		date: '',
@@ -185,8 +180,9 @@ import {
   }
   handlePageChange(val) {
     console.log(val)
-    // this.submit.cu = 
-    // this.actionGetFinalInVentStaList()
+    let param = this.submit;
+    param.pageNum = val;
+    this.actionDiveCusClueList(param)
   }
 	handleRegionChange(vm, data = {}) {
     this.regionContext = vm

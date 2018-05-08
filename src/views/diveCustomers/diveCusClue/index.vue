@@ -58,12 +58,10 @@
         <el-row>
         </el-row>
         <el-row>
-          <el-col :span="8" :offset="16">
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('form')">检索</el-button>
-              <el-button type="success" >导出</el-button>
-              <el-button @click="resetForm('form')">重置</el-button>
-            </el-form-item>
+          <el-col :span="6" :offset="18">
+            <el-button type="primary" @click="submitForm('form')">检索</el-button>
+            <el-button type="success" >导出</el-button>
+            <el-button @click="resetForm('form')">重置</el-button>
           </el-col>
         </el-row>
       </div>
@@ -72,7 +70,7 @@
           :curpage="diveCusClueListList.pagination.pageNum"
           :size="diveCusClueListList.pagination.pageSize"
           :total="diveCusClueListList.pagination.total"
-          @handlePageChange="handlePageChange"
+          :handlePageChange="handlePageChange"
         >
         <el-table
           :data="diveCusClueListList.list"

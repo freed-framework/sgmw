@@ -144,6 +144,12 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     // console.log(val, '----------------------')
   }
 
+  handlePageChange(...props) {
+    // console.log(props)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+
   timeRangeChange(vm, val) {
     this.rangeVm = vm
     // console.log(val)

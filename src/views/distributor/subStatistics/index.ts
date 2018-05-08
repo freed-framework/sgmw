@@ -186,6 +186,12 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     // console.log(val, '----------------------')
   }
 
+  handlePageChange(...props) {
+    // console.log(props)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+
   timeRangeChange(vm, val) {
     this.rangeVm = vm
     // console.log(vm)
@@ -197,7 +203,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     this.regionContext = vm
     Object.assign(this.cascade,
       {
-        provinc: data[0] ? data[0].label : null,
+        province: data[0] ? data[0].label : null,
         city: data[1] ? data[1].label : null,
         county: data[2] ? data[2].label : null
       }

@@ -107,7 +107,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   submersibleType: Array<any> = submersibleType
   varieties: Array<any> = varieties
   createType: Array<any> = createType
-
+  submit: any = {}
   $refs: any
 
   handleClick(tab, event) {
@@ -143,8 +143,10 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   }
   handlePageChange(val) {
     console.log(val)
-    // this.submit.cu = 
-    // this.actionGetFinalInVentStaList()
+    console.log(val)
+    let param = this.submit;
+    param.pageNum = val;
+    this.actionGetShopCustomersList(param)
   }
 
   handleRegionChange(vm, data = {}) {
@@ -177,9 +179,9 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         Object.assign(submit, props)
         submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
-        let param = cutInvalidData(submit)
-        console.log('here submit', param)
-        this.actionGetShopCustomersList(param)
+        this.submit = cutInvalidData(submit)
+        console.log('here submit', this.submit)
+        this.actionGetShopCustomersList(this.submit)
       } else {
         console.log('error submit!!')
         return false
