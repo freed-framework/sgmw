@@ -76,7 +76,7 @@
              :curpage="finalInventStatistList.pagination.pageNum"
              :size="finalInventStatistList.pagination.pageSize"
              :total="finalInventStatistList.pagination.total"
-             @handlePageChange="handlePageChange"
+             :handlePageChange="handlePageChange"
             >
               <el-table
                 :data="finalInventStatistList.list"

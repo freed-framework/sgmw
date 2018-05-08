@@ -113,8 +113,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.form.endCreateTime = val.endTime
   }
 
-  handlePageChange(val) {
-    console.log(val)
+  handlePageChange(...props) {
+    // console.log(props)
     // this.submit.cu = 
     // this.actionGetFinalInVentStaList()
   }
