@@ -70,7 +70,7 @@
           :curpage="diveCusClueListList.pagination.pageNum"
           :size="diveCusClueListList.pagination.pageSize"
           :total="diveCusClueListList.pagination.total"
-          @handlePageChange="handlePageChange"
+          :handlePageChange="handlePageChange"
         >
         <el-table
           :data="diveCusClueListList.list"
