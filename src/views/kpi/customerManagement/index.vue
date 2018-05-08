@@ -69,7 +69,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item label="最后结果">
               <el-select :clearable="true" v-model="form.saleResult" placeholder="请选择最后结果">
                 <el-option v-for="(item, index) in finalResult" :key="index" :label="item.label" :value="item.label"></el-option>
@@ -78,45 +78,10 @@
           </el-col>
         </el-row>
         <!-- <el-row>
-          <el-col :span="6">
-            <el-form-item label="品牌">
-              <el-select v-model="form.region11" placeholder="请选择品牌">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="品种">
-              <el-select :disabled="!form.region11" v-model="form.region12" placeholder="请选择品种">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="车系">
-              <el-select v-model="form.region13" placeholder="请选择车系">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="车型">
-              <el-select v-model="form.region14" placeholder="请选择车型">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row> -->
-        <el-row>
           <brand
             @change="handleCacadeChange"
-            :cols="[0]"
           />
-        </el-row>
+        </el-row> -->
         <el-row>
           <el-col :span="6">
             <el-form-item label="是否试驾">

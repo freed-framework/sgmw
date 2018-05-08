@@ -38,6 +38,12 @@
 // transferPotentialCustomerDefeatRate 结转潜客战败率
 // transferPotentialCustomerOrderContractConversionRate 结转潜客订单合同转化率
 // transferPotentialCustomerTurnoverRate 结转潜客成交率
+
+// newClueInviteConversionPotentialCustomerRate 新增线索邀约转化潜客成交率
+// inviteStoreRate 邀约到店率
+// exhibitionCustomerTurnoverRate 展厅客户成交率
+// exhibitionCustomerTryDriveRate 展厅试乘试驾率
+
 // kip类型
 export const kpi = [{
   label: '线索潜客转化率',
@@ -90,4 +96,16 @@ export const kpi = [{
 }, {
   label: '结转潜客成交率',
   value: 'transferPotentialCustomerTurnoverRate'
+}, {
+  label: '新增线索邀约转化潜客成交率',
+  value: 'newClueInviteConversionPotentialCustomerRate'
+}, {
+  label: '邀约到店率',
+  value: 'inviteStoreRate'
+}, {
+  label: '展厅客户成交率',
+  value: 'exhibitionCustomerTurnoverRate'
+}, {
+  label: '展厅试乘试驾率',
+  value: 'exhibitionCustomerTryDriveRate'
 }]
