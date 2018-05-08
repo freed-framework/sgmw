@@ -3,7 +3,7 @@
 export const dealerStatus = [
     {label: '全部', key: '全部'},
     {label: '非注销', key: '非注销'},
-    {label: '空', key: ''}]
+    {label: '空', key: null}]
 // export const dealerStatus = [{label: '全部'}, {label: '已注销'}, {lable: '已启用'}, {label: '申请中'}, {label: '已退出'}]
 // 客户类型
 export const dealerCustomerType = [
@@ -12,7 +12,7 @@ export const dealerCustomerType = [
     {label: '互联网营销', value: '互联网营销'},
     {label: '客户营销', value: '客户营销'},
     {label: '营销活动', value: '营销活动'},
-    {label: '空', value: ''}]
+    {label: '空', value: null}]
 // 线索渠道
 export const leadChannel = [
     {label: '全部', value: '全部'},
@@ -27,7 +27,7 @@ export const leadChannel = [
     {label: '商圈展示', value: '商圈展示'},
     {label: '车展', value: '车展'},
     {label: '客户拦截', value: '客户拦截'},
-    {label: '空', value: ''}]
+    {label: '空', value: null}]
 // 线索状态
 export const leadStatus = [
     {label: '全部', value: '全部'},
@@ -35,7 +35,7 @@ export const leadStatus = [
     {label: '跟进中', value: '跟进中'},
     {label: '已成交', value: '已成交'},
     {label: '已战败', value: '已战败'},
-    {label: '空', value: ''}]
+    {label: '空', value: null}]
 // 厂牌
 export const factoryCard = [{label: '全部'}, {label: '五菱'}, {label: '宝骏'}, {label: '专用车'}]
 // 最后结果
