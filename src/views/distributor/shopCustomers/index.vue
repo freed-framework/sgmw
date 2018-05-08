@@ -110,7 +110,7 @@
               :curpage="shopCustomersList.pagination.pageNum"
               :size="shopCustomersList.pagination.pageSize"
               :total="shopCustomersList.pagination.total"
-              @handlePageChange="handlePageChange"
+              :handlePageChange="handlePageChange"
             >
               <el-table
                 :data="shopCustomersList.list"

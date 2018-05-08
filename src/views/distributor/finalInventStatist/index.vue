@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" label-width="84px">
+  <el-form ref="ruleForm" label-width="84px">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
           :key="index"
@@ -15,18 +15,10 @@
                 :cols="[0, 1]"
                 :hasAll="true"
               />
-              <el-col :span="6">
-                <el-form-item label="车系">
-                  <el-select :clearable="true" v-model="ruleForm.carType" placeholder="请选择车系">
-                    <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="厂牌">
-                  <el-input v-model="ruleForm.factoryCard" placeholder="请输入厂牌" style="width:193px"></el-input>
-                </el-form-item>
-              </el-col>
+              <brand
+                  @change="handleCacadeChange"
+                  :cols="[1, 2]"
+                />
             </el-row>
             <el-row>
               <el-col :span="6">
@@ -42,7 +34,12 @@
             </el-row>
           </div>
           <div class="sg-main">
-            <pag-table>
+            <pag-table
+              :curpage="finalInventStatistList.pagination.pageNum"
+              :size="finalInventStatistList.pagination.pageSize"
+              :total="finalInventStatistList.pagination.total"
+              :handlePageChange="handlePageChange"
+            >
               <el-table
                 :data="finalInventStatistList.list"
                 border

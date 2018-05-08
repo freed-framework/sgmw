@@ -93,7 +93,12 @@
             </el-row>
           </div>
           <div class="sg-main">
-            <pag-table>
+            <pag-table
+              :curpage="subStatisticsList.pagination.pageNum"
+              :size="subStatisticsList.pagination.pageSize"
+              :total="subStatisticsList.pagination.total"
+              :handlePageChange="handlePageChange"
+            >
               <el-table
                 :data="subStatisticsList.list"
                 border
