@@ -17,6 +17,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
 import { download } from '../../../api'
 import DownloadMixin from '../../../mixins/downloadMixin'
 import { cutInvalidData } from '../../../store/helpers/index'
+import { config } from '@fortawesome/fontawesome';
 
 @Component({
   components: {
@@ -38,18 +39,6 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     dealerStatus:'',
   }
   form: any = { ...this.cache }
-
-  // cascade: any = {
-  //   region: null,
-  //   province: null,
-  //   brand: null,
-  //   vehVariety: null,
-  //   vehSerices: null,
-  //   vehModel: null,
-  //   p: null,
-  //   c: null,
-  //   a: null
-  // }
 
   rules: any = {
     beginCreateTime: [
@@ -157,9 +146,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         const submit : any = {}
         Object.assign(submit, props)
         submit.queryType = this.activeName
-        // Object.assign(submit, this.cascade)
         let param = cutInvalidData(submit)
-        console.log('here submit', param)
         this.actionGetFinalInVentStaList(param)
       } else {
         console.log('error submit!!')
@@ -173,7 +160,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const submit : any = {}
     Object.assign(submit, props)
     submit.queryType = this.activeName
-    // Object.assign(submit, this.cascade)
+    console.log(submit)
     this.download(download.defeat, submit)
   }
 

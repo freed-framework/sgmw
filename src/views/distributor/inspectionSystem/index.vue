@@ -35,21 +35,21 @@
                 <el-col :span="6">
                   <el-form-item label="客户类型" prop="custType">
                     <el-select :clearable="true" v-model="form.custType" placeholder="请选择客户类型" >
-                      <el-option v-for="(text, index) in dealerCustomerType" :key="index" :label="text.label" :value="text.label" ></el-option>
+                      <el-option v-for="(text, index) in dealerCustomerType" :key="index" :label="text.label" :value="text.value" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="线索渠道" prop="channel">
                     <el-select :clearable="true" v-model="form.channel" placeholder="线索渠道" >
-                      <el-option v-for="(text, index) in leadChannel" :key="index" :label="text.label" :value="text.label" ></el-option>
+                      <el-option v-for="(text, index) in leadChannel" :key="index" :label="text.label" :value="text.value" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label="线索状态" prop="potentialCustSaleResult">
                     <el-select :clearable="true" v-model="form.potentialCustSaleResult" placeholder="线索状态" >
-                      <el-option v-for="(text, index) in leadStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
+                      <el-option v-for="(text, index) in leadStatus" :key="index" :label="text.label" :value="text.value" ></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
