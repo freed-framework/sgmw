@@ -1,153 +1,155 @@
+/* eslint-disable */
 import {
-    Component,
-    Vue,
-    Watch
-  } from 'vue-property-decorator'
+  Component,
+  Vue,
+  Watch
+} from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+import { State, Getter, Action } from 'vuex-class'
+import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
+import ActiveMixin from '../../../mixins/activeMixin'
 import {
-  dealerStatus, customerLevel, customerType, leadChannel,
-  finalResult, testDrive
+  customerType,
 } from '../../../dictionary'
-// import { kpi } from './kpi'
+import { download } from '../../../api'
+import DownloadMixin from '../../../mixins/downloadMixin'
+import { cutInvalidData } from '../../../store/helpers/index'
 
-  @Component
-  export default class Index extends mixins(TableColor) {
-    a: string = '9999'
-    activeName: number = 1
-    value4: string = ''
-    tabs: Object = [
-      {
-        key: 1,
-        text: '个人月收入'
-      },
-      {
-        key: 2,
-        text: '家庭月收入'
-      },
-      {
-        key: 3,
-        text: '文化水平'
-      },
-      {
-        key: 4,
-        text: '从事行业'
-      },
-      {
-        key: 5,
-        text: '从事职业'
-      },
-      {
-        key: 6,
-        text: '车辆使用地市'
-      },
-      {
-        key: 7,
-        text: '车辆使用区县'
-      },
-      {
-        key: 8,
-        text: '进店次数'
-      },
-      {
-        key: 9,
-        text: '进店次数与成交'
-      },
-      {
-        key: 10,
-        text: '年龄段'
-      },
-    ]
+@Component({
+})
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
+  @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalInVentStaList: any
+  @Getter('finalInventStatist/getList') finalInventStatistList: any
   
-    form: any = {
-      dealerStatus: 0,
-      customerLevel: 0,
-      customerType: '',
-      leadChannel: 0,
-      finalResult: 0,
-      testDrive: '',
-      // kpi: 0
-    }
-  
-    dealerStatus: Array<any> = dealerStatus
-    customerLevel: Array<any> = customerLevel
-    customerType: Array<any> = customerType
-    leadChannel: Array<any> = leadChannel
-    finalResult: Array<any> = finalResult
-    testDrive: Array<any> = testDrive
-    // kpi: Array<any> = kpi
-  
-    tableData: Array<any> = [{
-      area: '东北区域',
-      province: '黑龙江',
-      date: '2016-05-02',
-      response_num: '11',
-      sendnum: '11',
-      response_rate: '100.00'
-    }, {
-      area: '东北区域',
-      province: '黑龙江',
-      date: '2016-05-02',
-      response_num: '11',
-      sendnum: '11',
-      response_rate: '100.00'
-    }]
-  
-    submitForm(formName) {
-      const $form: any = this.$refs[formName]
-      $form.validate((valid) => {
-        if (valid) {
-          console.log(this.form)
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    }
-  
-    resetForm(formName) {
-      const $form: any = this.$refs[formName]
-      $form.resetFields()
-    }
+  cache = {
+    date: '',
+    customerType: '',
+  }
+
+  form: any = { ...this.cache }
+
+  rules: any = {
+    date: [
+      { required: false, message: '请选择时间' }
+    ],
   }
   
-  // export default class Index extends Vue {
-  //   a: string = '9999'
-  //   activeName: number = 1
-  //   tabs: Object = [
-  //     {
-  //       key: 1,
-  //       text: '线索响应率'
-  //     },
-  //     {
-  //       key: 2,
-  //       text: '线索有效率'
-  //     },
-  //     {
-  //       key: 3,
-  //       text: '线索成交率'
-  //     },
-  //     {
-  //       key: 4,
-  //       text: '线索战败率'
-  //     },
-  //     {
-  //       key: 5,
-  //       text: '线索试驾率'
-  //     },
-  //     {
-  //       key: 6,
-  //       text: '线索响应时间'
-  //     },
-  //     {
-  //       key: 7,
-  //       text: '渠道线索量'
-  //     },
-  //     {
-  //       key: 8,
-  //       text: '战败原因'
-  //     },
-  //   ]
-  
+  editableTabsValue: string = '2'
+  editableTabs: any = [{
+    title: '个人收入',
+    name: '1'
+  }, {
+    title: '家庭月收入',
+    name: '2'
+  }, {
+    title: '文化水平',
+    name: '3'
+  }, {
+    title: '从事行业',
+    name: '4'
+  }, {
+    title: '从事职业',
+    name: '5'
+  }, {
+    title: '车辆使用地市',
+    name: '6'
+  }, {
+    title: '车辆使用区县',
+    name: '7'
+  }, {
+    title: '进店次数',
+    name: '8'
+  }, {
+    title: '进店次数与成交',
+    name: '9'
+  }, {
+    title: '年龄段',
+    name: '10'
+  }
+]
+  tabIndex: number = 2
+  // select: any = {
+  //   select1: '',
+  //   select2: '',
+  //   select3: '',
+  //   select4: ''
   // }
-  
+
+
+  customerType: Array<any> = customerType
+
+  $refs: any
+
+
+  handlePageChange(val) {
+    console.log(val)
+    // this.submit.cu = 
+    // this.actionGetFinalInVentStaList()
+  }
+
+  @Watch('select')
+  watchSelect(val) {
+    // console.log(val, '----------------------')
+  }
+
+  handleClick(tab, event) {
+    // console.log(tab, event);
+  }
+
+  created() {
+    // console.log(this.dealerStatus)
+  }
+
+  dateChangeBeginTime(val) {
+    this.form.beginCreateTime = val;
+  }
+
+  dateChangeEndTime(val) {
+    this.$refs.form.endCreateTime = val;
+  }
+
+  submitForm(form) {
+    const $form: any = this.$refs[form]
+    $form.validate((valid) => {
+      const { ...props } = this.form
+      if(!this.form.date) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
+      if (valid) {
+        const submit : any = {}
+        Object.assign(submit, props)
+        submit.queryType = this.activeName
+        // Object.assign(submit, this.cascade)
+        let param = cutInvalidData(submit)
+        console.log('here submit', param)
+        this.actionGetFinalInVentStaList(param)
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    // Object.assign(submit, this.cascade)
+    this.download(download.defeat, submit)
+  }
+
+  resetForm(form) {
+    this.form = { ...this.cache }
+    // this.cascadeContext.clear()
+    // this.regionContext.clear()
+    // this.rangeVm.clear()
+  }
+}

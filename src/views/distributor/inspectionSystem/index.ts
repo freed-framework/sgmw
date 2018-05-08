@@ -17,6 +17,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
 import { download } from '../../../api'
 import DownloadMixin from '../../../mixins/downloadMixin'
 import { cutInvalidData } from '../../../store/helpers/index'
+import { config } from '@fortawesome/fontawesome';
 
 @Component({
   components: {
@@ -39,18 +40,6 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
   form: any = { ...this.cache }
 
-  // cascade: any = {
-  //   region: null,
-  //   province: null,
-  //   brand: null,
-  //   vehVariety: null,
-  //   vehSerices: null,
-  //   vehModel: null,
-  //   p: null,
-  //   c: null,
-  //   a: null
-  // }
-
   rules: any = {
     beginCreateTime: [
       { required: false, message: '请选择时间' }
@@ -60,7 +49,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     ]
   }
   
-  editableTabsValue: string = '2'
+  // editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '线索统计-年',
     name: '1'
@@ -103,6 +92,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
+  submit: any = {}
 
   $refs: any
 
@@ -113,10 +103,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.form.endCreateTime = val.endTime
   }
 
-  handlePageChange(...props) {
-    // console.log(props)
-    // this.submit.cu = 
-    // this.actionGetFinalInVentStaList()
+  handlePageChange(val) {
+    console.log(val)
+    let param = this.submit;
+    param.pageNum = val;
+    this.actionGetFinalInVentStaList(param)
   }
 
   @Watch('select')
@@ -157,10 +148,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         const submit : any = {}
         Object.assign(submit, props)
         submit.queryType = this.activeName
-        // Object.assign(submit, this.cascade)
-        let param = cutInvalidData(submit)
-        console.log('here submit', param)
-        this.actionGetFinalInVentStaList(param)
+        submit.pageNum = 1
+        this.submit = cutInvalidData(submit)
+        this.actionGetFinalInVentStaList(this.submit)
       } else {
         console.log('error submit!!')
         return false
@@ -173,8 +163,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const submit : any = {}
     Object.assign(submit, props)
     submit.queryType = this.activeName
-    // Object.assign(submit, this.cascade)
-    this.download(download.defeat, submit)
+
+    this.submit = cutInvalidData(submit)
+    this.download(download.defeat, this.submit)
   }
 
   resetForm(form) {
