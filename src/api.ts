@@ -58,6 +58,8 @@ http.response(
     if (err.response) {
       const status = err.response.status
       if (status === 401) {
+        store.dispatch('auth/LOGIN_ACCESS')
+        return Promise.reject(err)
       }
     }
     return Promise.reject(err)
