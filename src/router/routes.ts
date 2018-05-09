@@ -158,7 +158,7 @@ const asyncRoutes = [
       name: '期末库存统计',
       component: () => import('@/views/distributor/finalInventStatist/index.vue'),
       meta: {
-        role: ['finalInventStatist'],
+        role: ['kpi'],
         text: '期末库存统计'
       },
     },

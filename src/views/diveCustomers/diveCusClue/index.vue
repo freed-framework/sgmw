@@ -20,7 +20,7 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-            <el-col :span="6">
+          <el-col :span="6">
             <el-form-item label="品牌" prop="carBrands">
               <el-select v-model="form.brand" placeholder="请选择品牌">
                 <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label"></el-option>
@@ -39,9 +39,9 @@
             </el-form-item>
           </el-col>
           <channel
-              @change="handleChannelChange"
-              :cols="[0, 3]"
-            />
+            @change="handleChannelChange"
+            :cols="[0, 3]"
+          />
           <el-col :span="6">
             <el-form-item label="线索类型">
               <el-select v-model="form.clueType" placeholder="请选择线索类型">
@@ -58,12 +58,10 @@
         <el-row>
         </el-row>
         <el-row>
-          <el-col :span="8" :offset="16">
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('form')">检索</el-button>
-              <el-button type="success" >导出</el-button>
-              <el-button @click="resetForm('form')">重置</el-button>
-            </el-form-item>
+          <el-col :span="6" :offset="18">
+            <el-button type="primary" @click="submitForm('form')">检索</el-button>
+            <el-button type="success" >导出</el-button>
+            <el-button @click="resetForm('form')">重置</el-button>
           </el-col>
         </el-row>
       </div>
@@ -72,7 +70,7 @@
           :curpage="diveCusClueListList.pagination.pageNum"
           :size="diveCusClueListList.pagination.pageSize"
           :total="diveCusClueListList.pagination.total"
-          @handlePageChange="handlePageChange"
+          :handlePageChange="handlePageChange"
         >
         <el-table
           :data="diveCusClueListList.list"
