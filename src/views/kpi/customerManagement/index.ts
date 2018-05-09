@@ -15,6 +15,8 @@ import {
 import { kpi } from './kpi'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
+import DownloadMixin from '../../../mixins/downloadMixin'
+import { download } from '../../../api'
 
 // const cacheDate = [new Date(Number(new Date()) - 700 * 24 * 60 * 60 * 1000), new Date()]
 
@@ -24,7 +26,7 @@ import Region from '../../../components/region/index.vue'
     Region
   }
 })
-export default class Index extends mixins(TableColor) {
+export default class Index extends mixins(TableColor, DownloadMixin) {
 
   @Action('kpi/getKpiList') actionGetKpiList: any
   @Getter('kpi/getList') kpiList: any
@@ -138,6 +140,17 @@ export default class Index extends mixins(TableColor) {
     this.cascadeContext.clear()
     this.regionContext.clear()
     $form.resetFields()
+  }
+
+  exportList(form) {
+    const { date, ...props } = this.form
+    const submit: any = {}
+    if (date) {
+      submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
+      submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
+    }    
+    Object.assign(submit, props, this.cascade)
+    this.download(download.kpi, submit)
   }
 
   @Watch('kpiList', {deep: true})
