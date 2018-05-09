@@ -78,14 +78,14 @@ const asyncRoutes = [
     path: '/customerManagement',
     component: Layout,
     meta: {
-      role: ['admin']
+      role: ['kpi']
     },
     children: [{
       path: '',
       component: () => import('@/views/kpi/customerManagement/index.vue'),
       meta: {
         text: '客户管理关键KPI',
-        role: ['admin']
+        role: ['kpi']
       }
     }]
   }, {
@@ -158,7 +158,7 @@ const asyncRoutes = [
       name: '期末库存统计',
       component: () => import('@/views/distributor/finalInventStatist/index.vue'),
       meta: {
-        role: ['finalInventStatist'],
+        role: ['kpi'],
         text: '期末库存统计'
       },
     },
