@@ -98,7 +98,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="6" :offset="18" style="margin-bottom: 20px;">
+              <el-col :span="24" style="text-align: right;margin-bottom: 20px;">
                 <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
                 <el-button type="success">导出</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
