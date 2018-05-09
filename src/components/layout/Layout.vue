@@ -24,9 +24,9 @@
           </el-col>
         </el-row>
       </el-header>
-      <el-main>
+      <div id="container-main">
         <router-view />
-      </el-main>
+      </div>
     </div>
   </div>
 </template>
@@ -95,8 +95,9 @@ export default class Layout extends Vue {
   bottom: 0;
 }
 
-.el-main {
+#container-main {
   color: #333;
+  padding: 20px;
 }
 
 .el-dropdown-link {
