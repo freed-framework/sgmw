@@ -24,8 +24,10 @@
           </el-col>
         </el-row>
       </el-header>
-      <div id="container-main">
-        <router-view />
+      <div id="container-outer">
+        <div id="container-inner">
+          <router-view />
+        </div>
       </div>
     </div>
   </div>
@@ -68,7 +70,6 @@ export default class Layout extends Vue {
   }
 }
 
-
 .container-main {
   position: absolute;
   width: 100%;
@@ -95,8 +96,16 @@ export default class Layout extends Vue {
   bottom: 0;
 }
 
-#container-main {
+#container-outer {
   color: #333;
+  overflow-y: auto;
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  width: 100%;
+}
+
+#container-inner {
   padding: 20px;
 }
 
