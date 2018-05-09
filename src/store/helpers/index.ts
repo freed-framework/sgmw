@@ -44,8 +44,8 @@ export const formatData = (res: any = {}) => {
     title: fields,
     list: data,
     pagination: {
-      pageNum: total || 0,
-      pageSize: pageSize || 0,
+      pageNum: total || 1,
+      pageSize: pageSize || 10,
       total: total || 0
     }
   }

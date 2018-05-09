@@ -176,8 +176,8 @@ export const diveCusClueList = (params) => http.post('/p/clue/statistics', param
  * 导出相关
  */
 export const download = {
-  sales: '/report/salesReportExport',
-  subStatis: '/report/submersibleReport',
-  defeat: '/report/dealersSelfExport '
-  
+  sales: '/api/report/salesReportExport',
+  subStatis: '/api/report/submersibleReportExport',
+  defeat: '/api/report/dealersSelfExport',
+  kpi: '/api/customer-manage-key-kpi/export'
 }
