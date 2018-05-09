@@ -26,7 +26,7 @@ const cacheAll = {
   d: '0'
 }
 const all = {
-  label: "全部",
+  label: '全部',
   key: '0',
   value: '0'
 }
@@ -197,4 +197,3 @@ export default class Cascade extends Vue {
 <style lang="scss">
 @import './index.scss';
 </style>
-
