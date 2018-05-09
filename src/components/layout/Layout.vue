@@ -1,12 +1,12 @@
 <template>
-  <el-container
+  <div
     class="container-main"
   >
-    <el-aside width="200px">
+    <div id="side">
       <side />
-    </el-aside>
+    </div>
 
-    <el-container>
+    <div id="container">
       <el-header>
         <el-row>
           <el-col :span="14">
@@ -24,11 +24,13 @@
           </el-col>
         </el-row>
       </el-header>
-      <el-main>
-        <router-view />
-      </el-main>
-      </el-container>
-  </el-container>
+      <div id="container-outer">
+        <div id="container-inner">
+          <router-view />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -67,21 +69,44 @@ export default class Layout extends Vue {
     line-height: 60px;
   }
 }
-.el-aside {
-  color: #333;
 
-  .el-menu {
-    height: 100%;
-  }
-}
-.el-main {
-  color: #333;
-}
 .container-main {
   position: absolute;
   width: 100%;
   top: 0;
   bottom: 0;
+}
+#side {
+  color: #333;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  .el-menu {
+    height: 100%;
+  }
+}
+
+#container {
+  position: absolute;
+  left: 200px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#container-outer {
+  color: #333;
+  overflow-y: auto;
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  width: 100%;
+}
+
+#container-inner {
+  padding: 20px;
 }
 
 .el-dropdown-link {
