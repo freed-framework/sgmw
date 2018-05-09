@@ -90,6 +90,10 @@ export default class Index extends mixins(TableColor) {
     )
   }
 
+  handlePageChange(current) {
+    console.log(current)
+  }
+
   submitForm(formName) {
     const $form: any = this.$refs[formName]
     $form.validate((valid) => {

@@ -77,11 +77,11 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!-- <el-row>
+        <el-row>
           <brand
             @change="handleCacadeChange"
           />
-        </el-row> -->
+        </el-row>
         <el-row>
           <el-col :span="6">
             <el-form-item label="是否试驾">
@@ -109,7 +109,12 @@
       </el-form>
     </div>
     <div class="sg-main">
-      <pag-table>
+      <pag-table
+        :curpage="kpiList.pagination.pageNum"
+        :size="kpiList.pagination.pageSize"
+        :total="kpiList.pagination.total"
+        :handlePageChange="handlePageChange"
+      >
         <el-table
           :data="kpiList.list"
           :loading="loading"
