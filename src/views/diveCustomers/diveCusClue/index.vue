@@ -66,12 +66,7 @@
         </el-row>
       </div>
       <div class="sg-main">
-        <pag-table
-          :curpage="diveCusClueListList.pagination.pageNum"
-          :size="diveCusClueListList.pagination.pageSize"
-          :total="diveCusClueListList.pagination.total"
-          :handlePageChange="handlePageChange"
-        >
+        <pag-table>
         <el-table
           :data="diveCusClueListList.list"
           border

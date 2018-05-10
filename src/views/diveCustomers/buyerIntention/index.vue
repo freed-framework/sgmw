@@ -1,84 +1,65 @@
 <template>
-<div class="sg-intention">
+<div class="sg-buyer-intention">
+  <el-form ref="form" :model="form" label-width="84px">
   <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane v-for = "data in tabs" :label="data.text" :name="data.key" :key= "data.key">
+    <el-tab-pane
+      :key="index"
+      v-for="(item, index) in editableTabs"
+      :label="item.title"
+      :name="item.name"
+    >
       <div class="sg-header">
-        <el-form ref="form" :model="form" label-width="84px">
         <el-row>
-          <el-col :span="8">
-            <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
+          <el-col :span="6">
             <el-form-item label="月份">
               <el-date-picker
-                v-model="value4"
+                v-model="form.date"
                 type="month"
-                placeholder="选择月">
+                value-format="yyyy-MM"
+                placeholder="选择月份">
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="客户类型">
-              <el-select v-model="form.customerType" placeholder="请选择">
-                <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="index" ></el-option>
+          <el-col :span="6">
+            <el-form-item label="客户类型" prop="carBrands">
+              <el-select v-model="form.brand" placeholder="请选择客户类型">
+                <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="单据数">
-              123
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item>
-              <el-button type="serch" @click="submitForm('form',activeName)">检索</el-button>
-              <el-button type="" @click="exportForm('form', activeName)">导出</el-button>
-              <el-button type="reset" @click="resetForm('form', activeName)">重置</el-button>
+              {{diveCusClueListList.pagination.total}}
             </el-form-item>
           </el-col>
         </el-row>
-      </el-form>
+        <el-row>
+          <el-col :span="24" style="text-align: right;margin-bottom: 20px;">
+            <el-button type="primary" @click="submitForm('form')">检索</el-button>
+            <el-button type="success" >导出</el-button>
+            <el-button @click="resetForm('form')">重置</el-button>
+          </el-col>
+        </el-row>
       </div>
-      <div class="sg-mian">
-        <pag-table v-if="activeName === 1">
-          <el-table
-            :data="tableData"
-            border
-            style="width: 100%"
-            :row-class-name="tableRowClassName">>
-            <el-table-column
-              prop="area"
-              label="区域"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="province"
-              label="省份"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="date"
-              label="日期"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="response_num"
-              label="响应数"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="sendnum"
-              label="发送线索数"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="response_rate"
-              label="响应率"
-            >
-            </el-table-column>
-          </el-table>
-        </pag-table>
+      <div class="sg-main">
+        <pag-table>
+        <el-table
+          :data="diveCusClueListList.list"
+          border
+          style="width: 100%"
+          :row-class-name="tableRowClassName">
+          <el-table-column v-for="item in diveCusClueListList.title"
+            :prop="item"
+            :label="item"
+            :key="item"
+          >
+          </el-table-column>
+        </el-table>
+      </pag-table>
       </div>
     </el-tab-pane>
   </el-tabs>
+  </el-form>
 </div>
 </template>
 
