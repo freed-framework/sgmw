@@ -10,7 +10,7 @@
     >
       <div class="sg-header">
         <el-row>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="月份">
               <el-date-picker
                 v-model="form.date"
@@ -20,16 +20,16 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="客户类型" prop="carBrands">
-              <el-select v-model="form.brand" placeholder="请选择客户类型">
-                <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label"></el-option>
+          <el-col :span="8">
+            <el-form-item label="客户类型" prop="customerType">
+              <el-select v-model="form.customerType" placeholder="请选择客户类型">
+                <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="text.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="单据数">
-              {{diveCusClueListList.pagination.total}}
+              {{buyerIntentionList.pagination.total}}
             </el-form-item>
           </el-col>
         </el-row>
@@ -44,11 +44,11 @@
       <div class="sg-main">
         <pag-table>
         <el-table
-          :data="diveCusClueListList.list"
+          :data="buyerIntentionList.list"
           border
           style="width: 100%"
           :row-class-name="tableRowClassName">
-          <el-table-column v-for="item in diveCusClueListList.title"
+          <el-table-column v-for="item in buyerIntentionList.title"
             :prop="item"
             :label="item"
             :key="item"

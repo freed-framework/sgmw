@@ -17,6 +17,7 @@ import salesStatistics from './salesStatistics'
 import customerStatistics from './customerStatistics'
 import shopCustomers from './shopCustomers'
 import diveCusClue from './diveCusClue'
+import buyerIntention from './buyerIntention'
 
 export default {
   auth,
@@ -31,5 +32,6 @@ export default {
   customerStatistics,
   subStatistics,
   shopCustomers,
-  diveCusClue
+  diveCusClue,
+  buyerIntention,
 }
