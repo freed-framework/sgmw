@@ -15,6 +15,7 @@
 <script lang="ts">
 /* eslint-disable */
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+import moment from 'moment'
 
 type formatType = 'yyyy' | 'yyyy-MM' | 'yyyy-MM-dd'
 type typeType = 'year' | 'month' | 'date'
@@ -46,6 +47,19 @@ export default class Cascade extends Vue {
 
   endStatisDate: any = {
     disabledDate: (date) => {
+      Vue.nextTick(() => {
+        console.log(this.beginTime, '123213123')
+      })
+      const { beginTime, type }  = this
+      console.log(this)
+      const year = moment(date).format('YYYY')
+      console.log(this.beginTime, '123')
+      if (this.type === 'year') {
+        if (Number(beginTime) > Number(year)) {
+          return true
+        }
+      }
+
       return false
     }
   }
@@ -53,6 +67,7 @@ export default class Cascade extends Vue {
   @Watch('beginTime')
   watchStartChange(val) {
     const { beginTime, endTime } = this
+    console.log(beginTime)
     this.$emit('change', this, {beginTime, endTime})
   }
 

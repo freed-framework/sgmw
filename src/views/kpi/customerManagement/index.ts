@@ -137,8 +137,10 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
 
   resetForm(formName) {
     const $form: any = this.$refs[formName]
+    console.log(this.$refs)
     this.cascadeContext.clear()
     this.regionContext.clear()
+    console.log($form)
     $form.resetFields()
   }
 
