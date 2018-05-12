@@ -15,10 +15,14 @@
 <script lang="ts">
 /* eslint-disable */
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
-import moment from 'moment'
+import moment,{ months } from 'moment'
 
 type formatType = 'yyyy' | 'yyyy-MM' | 'yyyy-MM-dd'
 type typeType = 'year' | 'month' | 'date'
+
+window.globalConfig = {
+  beginTime: ''
+}
 
 @Component
 export default class Cascade extends Vue {
@@ -47,15 +51,23 @@ export default class Cascade extends Vue {
 
   endStatisDate: any = {
     disabledDate: (date) => {
-      Vue.nextTick(() => {
-        console.log(this.beginTime, '123213123')
-      })
-      const { beginTime, type }  = this
-      console.log(this)
+      const { beginTime } = window.globalConfig
+      const { type }  = this
       const year = moment(date).format('YYYY')
-      console.log(this.beginTime, '123')
-      if (this.type === 'year') {
+      const month = moment(date).format('M')
+      if (!beginTime) return false
+      if (type === 'year') {
         if (Number(beginTime) > Number(year)) {
+          return true
+        }
+      } else if (type === 'month') {
+        const arr = beginTime.split('-')
+        if (Number(arr[0]) !== Number(year)) {
+          return true
+        }
+      } else if (type === 'date') {
+        const arr = beginTime.split('-')
+        if (Number(arr[0]) !== Number(year) || Number(arr[1]) !== Number(month)) {
           return true
         }
       }
@@ -67,7 +79,10 @@ export default class Cascade extends Vue {
   @Watch('beginTime')
   watchStartChange(val) {
     const { beginTime, endTime } = this
-    console.log(beginTime)
+    window.globalConfig = {
+      beginTime
+    }
+    this.endTime = ''
     this.$emit('change', this, {beginTime, endTime})
   }
 
@@ -79,6 +94,9 @@ export default class Cascade extends Vue {
 
   @Watch('type')
   watchTypeChange(val) {
+    window.globalConfig = {
+      beginTime: ''
+    }
     this.beginTime = ''
     this.endTime = ''
   }
