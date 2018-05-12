@@ -25,8 +25,9 @@ import { config } from '@fortawesome/fontawesome';
   }
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
-  @Action('finalInventStatist/getFinalInVentStaList') actionGetFinalInVentStaList: any
-  @Getter('finalInventStatist/getList') finalInventStatistList: any
+  @Action('inspectionSystem/getInspectionSystemList') actionGetInspectionSystemList: any
+  @Action('inspectionSystem/resetInspectionSystemList') actionResetInspectionSystemList: any
+  @Getter('inspectionSystem/getList') inspectionSystemList: any
   
   cache = {
     beginCreateTime:  '',
@@ -49,7 +50,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     ]
   }
   
-  // editableTabsValue: string = '2'
+  editableTabsValue: string = '2'
   editableTabs: any = [{
     title: '线索统计-年',
     name: '1'
@@ -103,16 +104,19 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.form.endCreateTime = val.endTime
   }
 
-  handlePageChange(val) {
-    console.log(val)
-    let param = this.submit;
-    param.pageNum = val;
-    this.actionGetFinalInVentStaList(param)
-  }
 
   @Watch('select')
   watchSelect(val) {
     // console.log(val, '----------------------')
+  }
+
+  @Watch('activeName')
+  watchTypeChange(val) {
+    this.actionResetInspectionSystemList()
+    this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
   }
 
   handleClick(tab, event) {
@@ -150,7 +154,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         submit.queryType = this.activeName
         submit.pageNum = 1
         this.submit = cutInvalidData(submit)
-        this.actionGetFinalInVentStaList(this.submit)
+        this.actionGetInspectionSystemList(this.submit)
       } else {
         console.log('error submit!!')
         return false

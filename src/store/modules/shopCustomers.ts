@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_SHOP_CUSTOME_LIST, payload)
   },
+  async resetShopCustomersList({ commit }) {
+    commit(ActionType.FETCH_SHOP_CUSTOME_LIST, initList())
+  }
 }
 
 const mutations = {

@@ -10,6 +10,7 @@ import home from './home'
 import book from './book'
 import kpi from './kpi'
 import common from './common'
+import inspectionSystem from './inspectionSystem'
 import finalInventStatist from './finalInventStatist'
 import defeatCustomer from './defeatCustomer'
 import subStatistics from './subStatistics'
@@ -18,6 +19,7 @@ import customerStatistics from './customerStatistics'
 import shopCustomers from './shopCustomers'
 import diveCusClue from './diveCusClue'
 import buyerIntention from './buyerIntention'
+import diveFeature from './diveFeature'
 
 export default {
   auth,
@@ -26,6 +28,7 @@ export default {
   book,
   kpi,
   common,
+  inspectionSystem,
   finalInventStatist,
   defeatCustomer,
   salesStatistics,
@@ -34,4 +37,5 @@ export default {
   shopCustomers,
   diveCusClue,
   buyerIntention,
+  diveFeature,
 }

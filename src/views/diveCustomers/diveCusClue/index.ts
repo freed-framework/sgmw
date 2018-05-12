@@ -17,6 +17,8 @@ import {
   import Region from '../../../components/region/index.vue'
   import Channel from '../../../components/channel/index.vue'
 	import { cutInvalidData } from '../../../store/helpers/index'
+	import { download } from '../../../api'
+  import DownloadMixin from '../../../mixins/downloadMixin'
 	
   @Component({
 	components: {
@@ -25,8 +27,9 @@ import {
 		Channel,
 	}
   })
-  export default class Index extends mixins(TableColor, ActiveMixin) {
+  export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
 	@Action('diveCusClue/getDiveCusClueList') actionDiveCusClueList: any
+	@Action('diveCusClue/resetDiveCusClueList') actionResetDiveCusClueList: any
 	@Action('common/getChannelList') actionGetChannelList: any
 
 	@Getter('diveCusClue/getList') diveCusClueListList: any
@@ -148,6 +151,7 @@ import {
 	
 	@Watch('activeName')
   watchTypeChange(val) {
+		this.actionResetDiveCusClueList()
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
@@ -234,7 +238,18 @@ import {
         return false
       }
     })
-  }
+	}
+	exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+
+    this.submit = cutInvalidData(submit)
+    this.download(download.diveCusClue, this.submit)
+	}
+	
 	resetForm(formName) {
 		this.form = { ...this.cache }
     this.cascadeContext.clear()

@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_DIVE_FEATURE, payload)
   },
+  async resetDiveFeatureList({ commit }) {
+    commit(ActionType.FETCH_DIVE_FEATURE, initList())
+  }
 }
 
 const mutations = {

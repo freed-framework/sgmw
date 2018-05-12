@@ -18,6 +18,9 @@ import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import TimeRange from '../../../components/timeRanage/index.vue'
 import { cutInvalidData } from '../../../store/helpers/index'
+import { download } from '../../../api'
+import DownloadMixin from '../../../mixins/downloadMixin'
+
 
 @Component({
   components: {
@@ -26,22 +29,11 @@ import { cutInvalidData } from '../../../store/helpers/index'
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
-  // @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
-  // @Getter('defeatCustomer/getList') defeatCustomerList: any
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('shopCustomers/getShopCustomersList') actionGetShopCustomersList: any
+  @Action('shopCustomers/resetShopCustomersList') actionResetShopCustomersList: any
   @Getter('shopCustomers/getList') shopCustomersList: any
   cache = {
-    // dealerleadChannel: '',
-    // submersibleType: '',
-    // varieties: '',
-    // numberOfStores: '',
-    // SalesConsultant: '',
-
-    // beginStatisDate: '',
-    // endStatisDate: '',
-
-
     startDate: '',
     endDate: '',
     dealer: '',
@@ -123,6 +115,15 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     // console.log(val, '----------------------')
   }
 
+  @Watch('activeName')
+  watchTypeChange(val) {
+    this.actionResetShopCustomersList()
+    this.ruleForm = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
+
   timeRangeChange(vm, val) {
     this.rangeVm = vm
     // console.log(val)
@@ -187,6 +188,18 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         return false
       }
     })
+  }
+
+  exportList(form) {
+    console.log(111)
+    const $form: any = this.$refs[form]
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+
+    this.submit = cutInvalidData(submit)
+    this.download(download.shop, this.submit)
   }
 
   resetForm(formName) {

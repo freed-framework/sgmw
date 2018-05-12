@@ -144,7 +144,11 @@ export const logout = () => http.post('/profile/logout')
  */
 export const kpiList = (params) => http.post('/customer-manage-key-kpi/query', params)
 /**
- * 经销商相关
+ * 经销商自建线索
+ */
+export const InspectionSystemList = (params) => http.post('/report/dealersSelf', params)
+/**
+ * 期末库存统计
  */
 export const finalInventStatistList = (params) => http.post('/report/dealersSelf', params)
 /**
@@ -152,7 +156,7 @@ export const finalInventStatistList = (params) => http.post('/report/dealersSelf
  */
 export const defeatCustomerList = (params) => http.post('/defeat/statistics', params)
 /**
- * 到店统计
+ * 到店客户统计
  */
 export const shopCustomersList = (params) => http.post('/shop/statistics', params)
 /**
@@ -174,7 +178,7 @@ export const diveCusClueList = (params) => http.post('/p/clue/statistics', param
 /**
  * 潜在客户购买意向分析
  */
-export const buyerIntention = (params) => http.post('/p/clue/statistics', params)
+export const buyerIntention = (params) => http.post('/p/p/intent/analysis', params)
 /**
  * 潜在客户特征分析
  */
@@ -186,6 +190,15 @@ export const feature = (params) => http.post('/p/clue/statistics', params)
 export const download = {
   sales: '/api/report/salesReportExport',
   subStatis: '/api/report/submersibleReportExport',
+  kpi: '/api/customer-manage-key-kpi/export',
+  // 经销商自建
   defeat: '/api/report/dealersSelfExport',
-  kpi: '/api/customer-manage-key-kpi/export'
+  // 到店
+  shop: '/api/shop/export',
+  // 厂家潜客线索
+  diveCusClue: '/api/p/clue/export',
+  // 潜在客户购买意向分析
+  buyerIntention: '/api/p/p/intent/export',
+  // 潜在客户特征分析
+  feature: '/api/p/p/intent/export',
 }

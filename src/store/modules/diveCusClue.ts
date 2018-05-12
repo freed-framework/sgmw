@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_DIVE_CUS_CLUE_LIST, payload)
   },
+  async resetDiveCusClueList({ commit }) {
+    commit(ActionType.FETCH_DIVE_CUS_CLUE_LIST, initList())
+  }
 }
 
 const mutations = {

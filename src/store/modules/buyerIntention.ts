@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_BUYER_INTENTION, payload)
   },
+  async resetBuyerIntention({ commit }) {
+    commit(ActionType.FETCH_BUYER_INTENTION, initList())
+  }
 }
 
 const mutations = {

@@ -9,12 +9,15 @@ import {
   import moment from 'moment'
   import TableColor from '../../../mixins/table-color/index.vue'
   import { customerType } from '../../../dictionary'
-  
 	import { cutInvalidData } from '../../../store/helpers/index'
-	
+	import { download } from '../../../api'
+  import DownloadMixin from '../../../mixins/downloadMixin'
+  import ActiveMixin from '../../../mixins/activeMixin'
+
   @Component({})
-  export default class Index extends mixins(TableColor) {
+  export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
 	@Action('diveFeature/getDiveFeature') actionDiveFeature: any
+	@Action('diveFeature/resetDiveFeatureList') actionResetDiveFeatureList: any
 	@Getter('diveFeature/getList') diveFeatureList: any
 	
 	cache = {
@@ -88,6 +91,7 @@ import {
 	
 	@Watch('activeName')
   watchTypeChange(val) {
+    this.actionResetDiveFeatureList()
     this.form = { ...this.cache }
   }
   
@@ -124,6 +128,17 @@ import {
         return false
       }
     })
+  }
+
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+
+    this.submit = cutInvalidData(submit)
+    this.download(download.feature, this.submit)
   }
 
 	resetForm(formName) {

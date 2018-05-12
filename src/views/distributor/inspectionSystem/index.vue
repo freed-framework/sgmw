@@ -57,7 +57,7 @@
               <el-row>
                 <el-col :span="6">
                     <el-form-item label="单据数：">
-                      {{finalInventStatistList.pagination.total}}
+                      {{inspectionSystemList.pagination.total}}
                     </el-form-item>
                 </el-col>
               </el-row>
@@ -72,11 +72,11 @@
           <div class="sg-main">
             <pag-table>
               <el-table
-                :data="finalInventStatistList.list"
+                :data="inspectionSystemList.list"
                 border
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
-                <el-table-column v-for="item in finalInventStatistList.title"
+                <el-table-column v-for="item in inspectionSystemList.title"
                   :prop="item"
                   :label="item"
                   :key="item"
