@@ -203,6 +203,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   resetForm(formName) {
+    this.actionResetShopCustomersList()
     this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()

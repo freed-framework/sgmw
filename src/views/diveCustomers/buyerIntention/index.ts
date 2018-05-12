@@ -134,6 +134,7 @@ import {
   }
 
 	resetForm(formName) {
+    this.actionResetBuyerIntention()
 		this.form = { ...this.cache }
   }
 }

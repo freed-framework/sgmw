@@ -251,6 +251,7 @@ import {
 	}
 	
 	resetForm(formName) {
+		this.actionResetDiveCusClueList()
 		this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()

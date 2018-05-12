@@ -142,6 +142,7 @@ import {
   }
 
 	resetForm(formName) {
+    this.actionResetDiveFeatureList()
 		this.form = { ...this.cache }
   }
 }
