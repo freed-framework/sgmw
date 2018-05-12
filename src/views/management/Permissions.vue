@@ -2,7 +2,7 @@
   <div>
     <el-tree
       ref="roleTree"
-      :data="roles"
+      :data="allPermissions"
       :default-expanded-keys="expandedKeys"
       check-strictly
       auto-expand-parent
@@ -22,16 +22,20 @@
 <script lang="ts">
 /* eslint-disable */
 import { State, Getter, Action } from 'vuex-class'
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch, Prop, Model } from 'vue-property-decorator'
 
 @Component
 export default class Login extends Vue {
   $refs: any
   expandedKeys: string[] = []
   form: any = {}
+  choosed: any = []
 
-  @Getter('role/list') roles: any
-  @Getter('role/choosed') choosed: any
+  @Getter('role/permissions') allPermissions: any
+  // @Getter('role/choosedPermissions') choosed: any
+  @Action('role/getCheckedPermissions') getCheckedPermissions: any
+  @Prop({ default: () => ([]) }) current: any
+  @Model('input') value: any
 
   onGetChecked() {
     const keys = this.$refs.roleTree.getCheckedKeys()
@@ -50,16 +54,42 @@ export default class Login extends Vue {
     // )
   }
 
+  @Watch('value')
+  onValueChanged(val) {
+    console.log('value: ', val)
+  }
+
+  @Watch('current')
+  onCurrentChanged(val) {
+    console.log('current: ', val)
+    this.getCheckedPermissions(this.current).then((res) => {
+      this.choosed = res
+      console.log('getCheckedPermissions: ', res)
+      // 设置展开
+      this.choosed.forEach((item) => {
+        this.expandedKeys.push(item.id)
+      })
+
+      // 设置选中
+      this.$refs.roleTree.setCheckedNodes(this.choosed)
+    })
+  }
+
+  change(cur) {
+    console.log(cur)
+  }
+
   onCheckChange() {
     
   }
 
   mounted() {
-    this.choosed.forEach((item) => {
-      this.expandedKeys.push(item.id)
-    })
+console.log('mounted per')
+    // this.choosed.forEach((item) => {
+    //   this.expandedKeys.push(item.id)
+    // })
   
-    this.$refs.roleTree.setCheckedNodes(this.choosed)
+    // this.$refs.roleTree.setCheckedNodes(this.choosed)
   }
 }
 </script>
