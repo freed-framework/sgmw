@@ -78,14 +78,14 @@ const asyncRoutes = [
     path: '/customerManagement',
     component: Layout,
     meta: {
-      role: ['kpi']
+      role: ['admin']
     },
     children: [{
       path: '',
       component: () => import('@/views/kpi/customerManagement/index.vue'),
       meta: {
         text: '客户管理关键KPI',
-        role: ['kpi']
+        role: ['admin']
       }
     }]
   }, {
