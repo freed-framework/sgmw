@@ -58,7 +58,7 @@
         <el-row>
         </el-row>
         <el-row>
-          <el-col :span="6" :offset="18">
+          <el-col :span="24" style="text-align: right;margin-bottom: 20px;">
             <el-button type="primary" @click="submitForm('form')">检索</el-button>
             <el-button type="success" >导出</el-button>
             <el-button @click="resetForm('form')">重置</el-button>
@@ -66,12 +66,7 @@
         </el-row>
       </div>
       <div class="sg-main">
-        <pag-table
-          :curpage="diveCusClueListList.pagination.pageNum"
-          :size="diveCusClueListList.pagination.pageSize"
-          :total="diveCusClueListList.pagination.total"
-          :handlePageChange="handlePageChange"
-        >
+        <pag-table>
         <el-table
           :data="diveCusClueListList.list"
           border

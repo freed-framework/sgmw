@@ -199,6 +199,14 @@ export const customerStatisticsList = (params) => http.post('/store-customer-def
  * 厂家潜客线索统计
  */
 export const diveCusClueList = (params) => http.post('/p/clue/statistics', params)
+/**
+ * 潜在客户购买意向分析
+ */
+export const buyerIntention = (params) => http.post('/p/clue/statistics', params)
+/**
+ * 潜在客户特征分析
+ */
+export const feature = (params) => http.post('/p/clue/statistics', params)
 
 /**
  * 导出相关

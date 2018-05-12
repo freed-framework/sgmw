@@ -110,7 +110,7 @@
     </div>
     <div class="sg-main">
       <pag-table
-        :curpage="kpiList.pagination.pageNum"
+        :currpage="kpiList.pagination.pageNum"
         :size="kpiList.pagination.pageSize"
         :total="kpiList.pagination.total"
         :handlePageChange="handlePageChange"

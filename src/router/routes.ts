@@ -182,8 +182,8 @@ const asyncRoutes = [
       //   path: 'diveCusClue',
       //   component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
       //   meta: {
-      //     text: '厂家潜客线索',
-      //     role: [ 'admin' ]
+      //     role: [ 'admin' ],
+      //     text: '厂家潜客线索'
       //   }
       // },
       {

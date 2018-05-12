@@ -15,7 +15,7 @@
       </div>
 
       <!-- 分页 -->
-      <div v-if="total" class="pag-data-pagination">
+      <div v-if="false" class="pag-data-pagination">
         <el-pagination
           background
           :disabled="loading"

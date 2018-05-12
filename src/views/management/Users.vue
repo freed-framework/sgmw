@@ -81,6 +81,7 @@
 /* eslint-disable */
 import { State, Getter, Action } from 'vuex-class'
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import { tabelHeader } from './helper'
 
 @Component
 export default class Login extends Vue {
@@ -97,6 +98,8 @@ export default class Login extends Vue {
   form: any = {
     ...this.detail
   }
+
+  tabelHeader: any = tabelHeader['1']
 
   currentPermissions: any = []
 

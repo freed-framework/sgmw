@@ -4,6 +4,10 @@
  */
 interface ExtendsWindow extends Window {
   // session(token: string): void;
+  globalConfig: any = {
+    startTime: '',
+    endTime: ''
+  }
 }
 
 declare var window: ExtendsWindow;

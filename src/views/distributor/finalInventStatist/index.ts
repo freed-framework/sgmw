@@ -150,16 +150,16 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
   submitForm(formName) {
     const $form: any = this.$refs[formName]
-    $form.validate((valid) => {
-      if (valid) {
+    // $form.validate((valid) => {
+      // if (valid) {
         const submit: any = {}   
         Object.assign(submit, this.cascade)
         this.actionFinalInventStatistList(submit)
-      } else {
-        console.log('error submit!!')
-        return false
-      }
-    })
+    //   } else {
+    //     console.log('error submit!!')
+    //     return false
+    //   }
+    // })
   }
 
   exportList(form) {
