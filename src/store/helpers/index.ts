@@ -63,7 +63,10 @@ export const cutInvalidData = (params) => {
       const key = keys[i];
       const value = params[key]
 
-      if ((typeof value === 'boolean') || value) {
+      // 0 咋办，，，@花花
+      // if ((typeof value === 'boolean') || value) {
+      // why not ???? value != null  ||  value !== trim('')
+      if ((typeof value === 'boolean') || value || value === 0) {
         result[key] = value
       }
     }

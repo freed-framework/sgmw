@@ -4,15 +4,13 @@
       ref="roleTree"
       :data="allPermissions"
       :default-expanded-keys="expandedKeys"
-      check-strictly
       auto-expand-parent
       node-key="id"
       show-checkbox
-      @check-change="onCheckChange"
     >
     </el-tree>
 
-    <el-button @click="onGetChecked">保存</el-button>
+    <!-- <el-button @click="onGetChecked">保存</el-button> -->
 
     <!-- <el-button v-authview="'save_kpi'" @click="onGetCheckedKeys">保存 kpi</el-button>
     <el-button v-authview="['save_kpi', 'kpi_del', 'admin']" @click="onGetCheckedKeys">删除</el-button>     -->
@@ -32,64 +30,35 @@ export default class Login extends Vue {
   choosed: any = []
 
   @Getter('role/permissions') allPermissions: any
-  // @Getter('role/choosedPermissions') choosed: any
+  // 需要过滤的一级菜单
+  @Getter('role/filters') filters: any
   @Action('role/getCheckedPermissions') getCheckedPermissions: any
   @Prop({ default: () => ([]) }) current: any
   @Model('input') value: any
 
-  onGetChecked() {
+  getChecked() {
     const keys = this.$refs.roleTree.getCheckedKeys()
-    const nodes = this.$refs.roleTree.getCheckedNodes()
-    const half =  this.$refs.roleTree.getHalfCheckedNodes()
 
-    console.log(keys)
-    console.log(nodes)
-    console.log(half)
-  }
-
-  @Watch('choosed', { deep: true })
-  onChoosedChanged(value) {
-    // this.$refs.roleTree.setCheckedNodes(
-    //   value
-    // )
+    // 过滤一级勾选
+    return keys.filter(k => this.filters.indexOf(k) === -1)
   }
 
   @Watch('value')
   onValueChanged(val) {
-    console.log('value: ', val)
+    // console.log('value: ', val)
   }
 
   @Watch('current')
   onCurrentChanged(val) {
-    console.log('current: ', val)
-    this.getCheckedPermissions(this.current).then((res) => {
-      this.choosed = res
-      console.log('getCheckedPermissions: ', res)
+    this.getCheckedPermissions(this.current).then(choosed => {
       // 设置展开
-      this.choosed.forEach((item) => {
+      choosed.forEach((item) => {
         this.expandedKeys.push(item.id)
       })
 
       // 设置选中
-      this.$refs.roleTree.setCheckedNodes(this.choosed)
+      this.$refs.roleTree.setCheckedNodes(choosed)
     })
-  }
-
-  change(cur) {
-    console.log(cur)
-  }
-
-  onCheckChange() {
-    
-  }
-
-  mounted() {
-console.log('mounted per')
-    // this.choosed.forEach((item) => {
-    //   this.expandedKeys.push(item.id)
-    // })
-  
-    // this.$refs.roleTree.setCheckedNodes(this.choosed)
   }
 }
 </script>

@@ -1,8 +1,10 @@
 /* eslint-disable */
 import authviewCreator from '@/router/authviewCreator'
 import { sourceAsync } from '@/router/routes'
-import { getRoleList, getRoleDetail } from '@/api'
+import { getRoleList, getRoleDetail, roleUpdate, roleAdd } from '@/api'
 import { formatData, initList, cutInvalidData } from '../helpers'
+
+const filtersMenus = []
 
 function createList(routes: Array<any>, parent: any = null) {
   const list = []
@@ -11,7 +13,7 @@ function createList(routes: Array<any>, parent: any = null) {
     const meta = route.meta
 
     const id = route.key || (meta.key || (meta.role && meta.role[0]))
-console.log(id)
+
     // 创建 menu 数据格式
     const item: any = {
       // 主菜单才有 key
@@ -21,12 +23,18 @@ console.log(id)
       parent,
     }
 
+    // 存储第一级 menu key， 用于勾选的过滤
+    if (route.key) {
+      filtersMenus.push(route.key)
+    }
+
     const children = route.children
 
     if (children) {
       // 只有一个节点的时候不添加 children，同时把 children 的 text 赋值给 parent
       if (children.length === 1) {
         item.label = children[0].meta.text
+        item.id = children[0].meta.role[0]
       } else {
         item.children = createList(children, {
           id: item.id,
@@ -132,13 +140,28 @@ const actions = {
   },
 
   /**
-   * 
+   * 获取勾选选的权限
    * @param param0 
    * @param currentPermissions ['key', '', ...]
    */
   getCheckedPermissions({ commit, getters }, currentPermissions) {
-    console.log(currentPermissions, getters.permissions)
     return findChecked(currentPermissions, getters.permissions)
+  },
+
+  async update({ commit }, params) {
+    try {
+      return roleUpdate(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  },
+
+  async add({ commit }, params) {
+    try {
+      return roleAdd(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
   }
 }
 
@@ -152,22 +175,23 @@ const getters = {
 
   choosedPermissions: (state, getters, rootSate, rootGetters) => {
     const roles = rootGetters['auth/roles']
-  console.log(roles)
-    const allChecked = findChecked(roles, getters.permissions)
-    return allChecked
+    return findChecked(roles, getters.permissions)
   },
 
   list: (state) => {
     const data = { ...state.list }
     data.list = data.list.map(item => ({
       ...item,
-      activeText: item.active === 1 ? '是' : '否'
+      activeText: item.active === 1 ? '是' : '否',
+      typeName: item.type === 1 ? '菜单类型' : '数据类型'
     }))
 
     return data
   },
 
-  detail: (state) => state.detail
+  detail: (state) => state.detail,
+
+  filters: () => filtersMenus
 }
 
 export default {

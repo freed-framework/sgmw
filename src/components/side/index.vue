@@ -25,7 +25,7 @@
 
         <!-- 多级导航 -->
         <el-submenu
-          v-else
+          v-if="!isRootRoute(item) && hasChildren(item)"
           :index="item.path"
           :key="item.path"
         >
@@ -93,6 +93,10 @@ export default class Side extends Vue {
     }
 
     return false
+  }
+
+  hasChildren(item) {
+    return item.children && item.children.length > 0
   }
 
   handleOpen() {}

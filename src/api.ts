@@ -137,6 +137,9 @@ export const getRoleDetail = (id) => {
   // return new Promise((resolve) => { resolve(roleDetail) })
 }
 
+export const roleUpdate = (params) => http.post('/role/update', params)
+export const roleAdd = (params) => http.post('/role/add', params)
+
 
 import userList from './mockData/userList'
 import userDetail from './mockData/userDetail'
