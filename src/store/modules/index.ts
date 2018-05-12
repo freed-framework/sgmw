@@ -20,6 +20,7 @@ import shopCustomers from './shopCustomers'
 import diveCusClue from './diveCusClue'
 import buyerIntention from './buyerIntention'
 import diveFeature from './diveFeature'
+import user from './user'
 
 export default {
   auth,
@@ -38,4 +39,5 @@ export default {
   diveCusClue,
   buyerIntention,
   diveFeature,
+  user,
 }

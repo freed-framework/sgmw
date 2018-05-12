@@ -111,20 +111,52 @@ export const init = () => http.get('/profile/current')
 // for 4.28
 // export const init = () => {
 //   return new Promise((resolve) => {
-    
 //     resolve({
 //       code: 200,
 //       data: {
 //         user: {
 //           name: 'den'
 //         },
-//         roles: ['admin', 'kpi', 'book', 'book_list', 'distributor',
+//         roles: ['admin', 'kpi', 'book', 'book_list', 'distributor', 'roles',
 //         'salesStatistics', 'subStatistics', 'defeatCustomer', 'customerStatistics'
 //       , 'finalInventStatist']
 //       }
 //     })
 //   })
 // }
+
+import roleList from './mockData/roleList'
+import roleDetail from './mockData/roleDetail'
+export const getRoleList = (params) => {
+  return http.get('/role/query', params)
+  // return new Promise((resolve) => { resolve(roleList) })
+}
+
+export const getRoleAll = () => http.get('/role/getAll')
+
+export const getRoleDetail = (id) => {
+  return http.get('/role/detail', { id })
+  // return new Promise((resolve) => { resolve(roleDetail) })
+}
+
+export const roleUpdate = (params) => http.post('/role/update', params)
+export const roleAdd = (params) => http.post('/role/add', params)
+
+
+import userList from './mockData/userList'
+import userDetail from './mockData/userDetail'
+export const getUserList = (params) => {
+  return http.get('/user/query', params)
+  // return new Promise((resolve) => { resolve(userList) })
+}
+
+export const getUserDetail = (id) => {
+  return http.get('/user/detail', { id })
+  // return new Promise((resolve) => { resolve(userDetail) })
+}
+
+export const userUpdate = (params) => http.post('/user/update', params)
+
 
 /**
  * common相关
