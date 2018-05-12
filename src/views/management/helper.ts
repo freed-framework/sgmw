@@ -1,6 +1,6 @@
 export const tabelHeader = {
   // 厂家角色管理
-  '1': [
+  '3': [
     {
       title: '角色代码',
       key: 'id'
@@ -15,7 +15,7 @@ export const tabelHeader = {
     },
     {
       title: '状态',
-      key: 'active'
+      key: 'activeText'
     },
     {
       title: '角色类型',
@@ -46,11 +46,11 @@ export const tabelHeader = {
     },
     {
       title: '状态',
-      key: 'active'
+      key: 'activeText'
     }
   ],
   // 厂家操作员管理
-  '3': [
+  '1': [
     {
       title: '部门编号',
       key: 'deptNo'
@@ -65,7 +65,7 @@ export const tabelHeader = {
     },
     {
       title: '状态',
-      key: 'active'
+      key: 'activeText'
     },
     {
       title: '职务',

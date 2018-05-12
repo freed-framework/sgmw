@@ -210,18 +210,19 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   // 编辑情况下，角色类型不能编辑
   isUpdateAction = false
 
-  @Watch('detail', { deep: true })
-  onDetailChanged(data)  {
-    // this.form = { ...data }
-    console.log(this.form, data)
-  }
+  // @Watch('detail', { deep: true })
+  // onDetailChanged(data)  {
+  //   // this.form = { ...data }
+  //   console.log(this.form, data)
+  // }
 
   handleEdit(row) {
     const { id } = row
     this.isUpdateAction = true
-    this.dialogFormVisible = true
 
     this.getDetail(id).then(res => {
+      this.dialogFormVisible = true
+
       const { data = {} } = res
       this.form = { ...data }
       this.currentPermissions = data.privileges || []
@@ -314,18 +315,3 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   }
 }
 </script>
-
-<style style="scss">
-.table-pagination {
-  margin-top: 10px;
-  text-align: right;
-}
-.query-buttons {
-  /* padding-bottom: 10px; */
-  text-align: right;
-}
-.sg-top-button {
-  margin-bottom: 10px;
-  text-align: right;
-}
-</style>

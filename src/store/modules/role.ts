@@ -113,7 +113,6 @@ const mutations = {
   },
   'ROLE_DETAIL'(state: any, payload: any) {
     const { data = {} } = payload
-    console.log(data)
     state.detail = data
   },
 }
@@ -129,6 +128,7 @@ const actions = {
       throw new Error(ex)
     }
   },
+
   async getDetail({ commit }, id) {
     try {
       const result = await getRoleDetail(id)

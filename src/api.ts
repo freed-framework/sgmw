@@ -132,6 +132,8 @@ export const getRoleList = (params) => {
   // return new Promise((resolve) => { resolve(roleList) })
 }
 
+export const getRoleAll = () => http.get('/role/getAll')
+
 export const getRoleDetail = (id) => {
   return http.get('/role/detail', { id })
   // return new Promise((resolve) => { resolve(roleDetail) })
@@ -152,6 +154,8 @@ export const getUserDetail = (id) => {
   return http.get('/user/detail', { id })
   // return new Promise((resolve) => { resolve(userDetail) })
 }
+
+export const userUpdate = (params) => http.post('/user/update', params)
 
 
 /**

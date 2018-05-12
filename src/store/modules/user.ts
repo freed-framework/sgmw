@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getUserList, getUserDetail } from '@/api'
+import { getUserList, getUserDetail, userUpdate } from '@/api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 import moment from 'moment'
 
@@ -15,7 +15,6 @@ const mutations = {
   },
   'USER_DETAIL'(state: any, payload: any) {
     const { data = {} } = payload
-    console.log(data)
     state.detail = data
   },
 }
@@ -40,6 +39,14 @@ const actions = {
       throw new Error(ex)
     }
   },
+
+  async update({ commit }, params) {
+    try {
+      return await userUpdate(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  }
 }
 
 const getters = {
@@ -47,7 +54,7 @@ const getters = {
     const data = { ...state.list }
     data.list = data.list.map(item => ({
       ...item,
-      activeText: item.active === 1 ? '激活' : '禁用',
+      activeText: item.active === 1 ? '已启用' : '已禁用',
       registDate: moment(new Date()).format('YYYY-MM-DD HH:mm') 
     }))
 
