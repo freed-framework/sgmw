@@ -157,10 +157,13 @@ const actions = {
 
       // if (res.data && res.data.privileges) { // Mock
       roles = [
-        'admin',
-        // 'kpi',
-        'book',
-        'book_list',
+        'users',
+        'management',
+        'permissions',
+        'roles',
+        'kpi_menu',
+        'kpi',
+        'inspectionSystem',
         'distributor',
         'salesStatistics',
         'subStatistics',
