@@ -159,14 +159,14 @@ const asyncRoutes = [
           text: '期末库存统计'
         },
       },
-      {
-        path: 'diveCusClue',
-        component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
-        meta: {
-          text: '厂家潜客线索',
-          role: [ 'diveCusClue' ]
-        }
-      },
+      // {
+      //   path: 'diveCusClue',
+      //   component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+      //   meta: {
+      //     text: '厂家潜客线索',
+      //     role: [ 'diveCusClue' ]
+      //   }
+      // },
     ]
   },
   {
@@ -179,36 +179,36 @@ const asyncRoutes = [
       text: '潜在客户管理'
     },
     children: [
-      // {
-      //   path: 'diveCusClue',
-      //   component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
-      //   meta: {
-      //     role: [ 'admin' ],
-      //     text: '厂家潜客线索'
-      //   }
-      // },
+      {
+        path: 'diveCusClue',
+        component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+        meta: {
+          role: [ 'diveCusClue' ],
+          text: '厂家潜客线索'
+        }
+      },
       {
         path: 'salerWorkNum',
         component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
         meta: {
-          text: '销售顾问工作量',
-          role: [ 'salerWorkNum' ]
+          role: [ 'salerWorkNum' ],
+          text: '销售顾问工作量'
         }
       },
       {
         path: 'buyerIntention',
         component: () => import('@/views/diveCustomers/buyerIntention/index.vue'),
         meta: {
-          text: '潜在客户购买意向分析',
-          role: [ 'buyerIntention' ]
+          role: [ 'buyerIntention' ],
+          text: '潜在客户购买意向分析'
         }
       },
       {
         path: 'feature',
         component: () => import('@/views/diveCustomers/feature/index.vue'),
         meta: {
-          text: '潜在客户特征分析',
-          role: [ 'feature' ]
+          role: [ 'feature' ],
+          text: '潜在客户特征分析'
         }
       }
     ]
