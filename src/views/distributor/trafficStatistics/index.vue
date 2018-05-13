@@ -23,9 +23,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="厂牌" prop="brand">
-                  <el-select v-model="form.brand" placeholder="请选择厂牌">
-                    <el-option v-for="(text, index) in brand" :key="index" :label="text.label" :value="text.label" ></el-option>
+                <el-form-item label="厂牌">
+                  <el-select v-model="form.factoryCard" placeholder="请选择厂牌">
+                    <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>

@@ -114,15 +114,15 @@ const asyncRoutes = [
           text: '潜客统计'
         },
       },
-      {
-        path: 'trafficStatistics',
-        name: '发车统计',
-        component: () => import('@/views/distributor/trafficStatistics/index.vue'),
-        meta: {
-          role: ['trafficStatistics'],
-          text: '发车统计'
-        },
-      },
+      // {
+      //   path: 'trafficStatistics',
+      //   name: '发车统计',
+      //   component: () => import('@/views/distributor/trafficStatistics/index.vue'),
+      //   meta: {
+      //     role: ['trafficStatistics'],
+      //     text: '发车统计'
+      //   },
+      // },
       {
         path: 'shopCustomers',
         name: '到店统计',
@@ -150,15 +150,15 @@ const asyncRoutes = [
           text: '客户统计'
         },
       },
-      {
-        path: 'finalInventStatist',
-        name: '期末库存统计',
-        component: () => import('@/views/distributor/finalInventStatist/index.vue'),
-        meta: {
-          role: ['finalInventStatist'],
-          text: '期末库存统计'
-        },
-      },
+      // {
+      //   path: 'finalInventStatist',
+      //   name: '期末库存统计',
+      //   component: () => import('@/views/distributor/finalInventStatist/index.vue'),
+      //   meta: {
+      //     role: ['finalInventStatist'],
+      //     text: '期末库存统计'
+      //   },
+      // },
       {
         path: 'diveCusClue',
         component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
