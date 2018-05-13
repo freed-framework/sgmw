@@ -114,15 +114,15 @@ const asyncRoutes = [
           text: '潜客统计'
         },
       },
-      {
-        path: 'trafficStatistics',
-        name: '发车统计',
-        component: () => import('@/views/distributor/trafficStatistics/index.vue'),
-        meta: {
-          role: ['trafficStatistics'],
-          text: '发车统计'
-        },
-      },
+      // {
+      //   path: 'trafficStatistics',
+      //   name: '发车统计',
+      //   component: () => import('@/views/distributor/trafficStatistics/index.vue'),
+      //   meta: {
+      //     role: ['trafficStatistics'],
+      //     text: '发车统计'
+      //   },
+      // },
       {
         path: 'shopCustomers',
         name: '到店统计',
@@ -150,23 +150,23 @@ const asyncRoutes = [
           text: '客户统计'
         },
       },
-      {
-        path: 'finalInventStatist',
-        name: '期末库存统计',
-        component: () => import('@/views/distributor/finalInventStatist/index.vue'),
-        meta: {
-          role: ['finalInventStatist'],
-          text: '期末库存统计'
-        },
-      },
       // {
-      //   path: 'diveCusClue',
-      //   component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+      //   path: 'finalInventStatist',
+      //   name: '期末库存统计',
+      //   component: () => import('@/views/distributor/finalInventStatist/index.vue'),
       //   meta: {
-      //     text: '厂家潜客线索',
-      //     role: [ 'diveCusClue' ]
-      //   }
+      //     role: ['finalInventStatist'],
+      //     text: '期末库存统计'
+      //   },
       // },
+      {
+        path: 'diveCusClue',
+        component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
+        meta: {
+          text: '厂家潜客线索',
+          role: [ 'diveCusClue' ]
+        }
+      },
     ]
   },
   {
@@ -179,14 +179,6 @@ const asyncRoutes = [
       text: '潜在客户管理'
     },
     children: [
-      {
-        path: 'diveCusClue',
-        component: () => import('@/views/diveCustomers/diveCusClue/index.vue'),
-        meta: {
-          role: [ 'diveCusClue' ],
-          text: '厂家潜客线索'
-        }
-      },
       {
         path: 'salerWorkNum',
         component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
@@ -203,14 +195,14 @@ const asyncRoutes = [
           text: '潜在客户购买意向分析'
         }
       },
-      {
-        path: 'feature',
-        component: () => import('@/views/diveCustomers/feature/index.vue'),
-        meta: {
-          role: [ 'feature' ],
-          text: '潜在客户特征分析'
-        }
-      }
+      // {
+      //   path: 'feature',
+      //   component: () => import('@/views/diveCustomers/feature/index.vue'),
+      //   meta: {
+      //     role: [ 'feature' ],
+      //     text: '潜在客户特征分析'
+      //   }
+      // }
     ]
   },
   {

@@ -18,7 +18,7 @@ export default class Index extends mixins(TableColor) {
     goodsNum: '',
     color: '',
     carKinds: 0,
-    brand: 0,
+    factoryCard: '',
     carType: 0,
     region: 0,
     startDatePicker: this.beginDate(),
