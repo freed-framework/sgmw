@@ -1,7 +1,7 @@
 import ls from '@/util/localStorage'
 import { ssoLogin, ssoLogout } from '@/util/auth'
 import { constantRoutes, asyncRoutes } from '@/router/routes'
-import { login, init, logout } from '@/api'
+import { login, init, logout, getRoleAll } from '@/api'
 import { getAuthRoutes, getMenus } from '@/util/permission'
 
 const TOKEN_KEY = 'SGMW_TOKEN'
@@ -40,9 +40,13 @@ const state: StateType = {
   // 判断是否拉取了权限
   role: false,
   // 权限列表
+  // roles 其实是 permission ....
   roles: [],
   // 可用路由
-  routes: constantRoutes || []
+  routes: constantRoutes || [],
+
+  // 所有的角色信息
+  roleAll: []
 }
 
 const mutations = {
@@ -84,6 +88,10 @@ const mutations = {
   },
   [ActionType.SET_ROLES](state: StateType, payload: Array<string>) {
     state.roles = payload
+  },
+
+  'ROLE_ALL'(state: StateType, payload: Array<string>) {
+    state.roleAll = payload
   }
 }
 
@@ -135,6 +143,16 @@ const actions = {
   //   commit(ActionType.ROLE_DONE, true)
   // },
 
+  async roleAll({ commit }) {
+    try {
+      const result = await getRoleAll()
+      commit('ROLE_ALL', result.data)
+      return result
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  },
+
   /**
    * 初始化所有数据
    * 1. user
@@ -156,24 +174,28 @@ const actions = {
       let roles = res.data && res.data.privileges ? res.data.privileges : []
 
       // if (res.data && res.data.privileges) { // Mock
-      roles = [
-        'admin',
-        // 'kpi',
-        'book',
-        'book_list',
-        'distributor',
-        'salesStatistics',
-        'subStatistics',
-        'defeatCustomer',
-        // 'customerStatistics',
-        'finalInventStatist'
-      ]
+      // roles = [
+      //   'users',
+      //   // 'permissions',
+      //   'roles',
+      //   // 'kpi',
+      //   'inspectionSystem',
+      //   'distributor',
+      //   'salesStatistics',
+      //   'subStatistics',
+      //   'defeatCustomer',
+      //   // 'customerStatistics',
+      //   'finalInventStatist'
+      // ]
       // }
       commit(ActionType.SET_ROLES, roles)
       // 创建权限信息
       const authRoutes = getAuthRoutes(roles, asyncRoutes)
       commit(ActionType.SET_ROUTERS, authRoutes)
       commit(ActionType.ROLE_DONE, true)
+
+      // 获取所有角色数据
+      dispatch('roleAll')
 
       return res
     } catch (ex) {
@@ -190,7 +212,15 @@ const getters = {
   role: state => state.role,
   routes: state => state.routes,
   menus: state => getMenus(state.routes),
-  roles: state => state.roles
+  roles: state => state.roles,
+
+  // 用于角色下拉框
+  roleSelect: (state) => {
+    return state.roleAll.map(item => ({
+      id: item.id,
+      value: item.name
+    }))
+  }
 }
 
 export default {

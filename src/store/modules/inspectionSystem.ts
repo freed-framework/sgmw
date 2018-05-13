@@ -1,8 +1,8 @@
-import { finalInventStatistList } from '../../api'
+import { InspectionSystemList } from '../../api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
-  FETCH_FINAL_STATIST_LIST: 'FETCH_FINAL_STATIST_LIST',
+  FETCH_INSPEC_SYSTEM: 'FETCH_INSPEC_SYSTEM',
 }
 
 // initial state
@@ -11,19 +11,19 @@ const state = {
 }
 
 const actions = {
-  async getFinalInVentStaList({ commit }, param) {
-    const result = await finalInventStatistList(cutInvalidData(param))
+  async getInspectionSystemList({ commit }, param) {
+    const result = await InspectionSystemList(cutInvalidData(param))
     const payload: any = { ...result }
 
-    commit(ActionType.FETCH_FINAL_STATIST_LIST, payload)
+    commit(ActionType.FETCH_INSPEC_SYSTEM, payload)
   },
-  async resetFinalInVentStaList({ commit }) {
-    commit(ActionType.FETCH_FINAL_STATIST_LIST, initList())
+  async resetInspectionSystemList({ commit }) {
+    commit(ActionType.FETCH_INSPEC_SYSTEM, initList())
   }
 }
 
 const mutations = {
-  [ActionType.FETCH_FINAL_STATIST_LIST](state: any, payload: any) {
+  [ActionType.FETCH_INSPEC_SYSTEM](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

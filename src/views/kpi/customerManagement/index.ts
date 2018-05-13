@@ -60,8 +60,6 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
 
   form: any = {
     date: [],
-    channel: '全部',
-    custLevel: '全部',
   }
 
   dealerStatus: Array<any> = dealerStatus
@@ -135,11 +133,12 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
     })
   }
 
-  resetForm(formName) {
-    const $form: any = this.$refs[formName]
+  resetForm() {
     this.cascadeContext.clear()
     this.regionContext.clear()
-    $form.resetFields()
+    this.form = {
+      date: []
+    }
   }
 
   exportList(form) {

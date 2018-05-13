@@ -1,8 +1,8 @@
-import { diveCusClueList } from '../../api'
+import { feature } from '../../api'
 import { formatData, initList } from '../helpers'
 
 const ActionType = {
-  FETCH_DIVE_CUS_CLUE_LIST: 'FETCH_DIVE_CUS_CLUE_LIST',
+  FETCH_DIVE_FEATURE: 'FETCH_DIVE_FEATURE',
 }
 
 // initial state
@@ -11,19 +11,19 @@ const state = {
 }
 
 const actions = {
-  async getDiveCusClueList({ commit }, param) {
-    const result = await diveCusClueList(param)
+  async getDiveFeature({ commit }, param) {
+    const result = await feature(param)
     const payload: any = { ...result }
 
-    commit(ActionType.FETCH_DIVE_CUS_CLUE_LIST, payload)
+    commit(ActionType.FETCH_DIVE_FEATURE, payload)
   },
-  async resetDiveCusClueList({ commit }) {
-    commit(ActionType.FETCH_DIVE_CUS_CLUE_LIST, initList())
+  async resetDiveFeatureList({ commit }) {
+    commit(ActionType.FETCH_DIVE_FEATURE, initList())
   }
 }
 
 const mutations = {
-  [ActionType.FETCH_DIVE_CUS_CLUE_LIST](state: any, payload: any) {
+  [ActionType.FETCH_DIVE_FEATURE](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

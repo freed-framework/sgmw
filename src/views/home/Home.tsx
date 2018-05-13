@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Route } from 'vue-router'
 import {
   State,
@@ -76,15 +77,7 @@ export default class Home extends Vue {
 
     return (
       <div class="home">
-        <div class="home-section home-title">{this.message} - {this.name}</div>
-        <div class="home-section home-count">Vuex count: {count}</div>
-        <div class="home-section home-buttons">
-          <button onClick={this.handlerCount}>Vuex Count</button>
-          <button onClick={this.onClick}>Go Book Page</button>
-          <el-button>默认按钮</el-button>
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
-          <el-radio v-model="radio" label="1">我是一个 radio</el-radio> - [注意，此处没有全局注册，raido 组件在 book/index.vue 中局部注册]
-        </div>
+
       </div>
     )
   }
@@ -92,7 +85,9 @@ export default class Home extends Vue {
   render(h) {
     return (
       <div class="home-outer">
-        {!this.initData ? <Skeleton /> : this.renderRealLayout(h)}
+        <div class="home-inner">
+          <fontAwesomeIcon name="home" /> 欢迎进入系统
+        </div>
       </div>
     )
   }

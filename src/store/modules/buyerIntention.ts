@@ -1,8 +1,8 @@
-import { diveCusClueList } from '../../api'
+import { buyerIntention } from '../../api'
 import { formatData, initList } from '../helpers'
 
 const ActionType = {
-  FETCH_DIVE_CUS_CLUE_LIST: 'FETCH_DIVE_CUS_CLUE_LIST',
+  FETCH_BUYER_INTENTION: 'FETCH_BUYER_INTENTION',
 }
 
 // initial state
@@ -11,19 +11,19 @@ const state = {
 }
 
 const actions = {
-  async getDiveCusClueList({ commit }, param) {
-    const result = await diveCusClueList(param)
+  async getBuyerIntention({ commit }, param) {
+    const result = await buyerIntention(param)
     const payload: any = { ...result }
 
-    commit(ActionType.FETCH_DIVE_CUS_CLUE_LIST, payload)
+    commit(ActionType.FETCH_BUYER_INTENTION, payload)
   },
-  async resetDiveCusClueList({ commit }) {
-    commit(ActionType.FETCH_DIVE_CUS_CLUE_LIST, initList())
+  async resetBuyerIntention({ commit }) {
+    commit(ActionType.FETCH_BUYER_INTENTION, initList())
   }
 }
 
 const mutations = {
-  [ActionType.FETCH_DIVE_CUS_CLUE_LIST](state: any, payload: any) {
+  [ActionType.FETCH_BUYER_INTENTION](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

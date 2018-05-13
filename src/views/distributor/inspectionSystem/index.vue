@@ -57,12 +57,12 @@
               <el-row>
                 <el-col :span="6">
                     <el-form-item label="单据数：">
-                      {{finalInventStatistList.pagination.total}}
+                      {{inspectionSystemList.pagination.total}}
                     </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="6" :offset="18" style="margin-bottom: 20px;">
+                <el-col :span="24" style="text-align: right;margin-bottom: 20px;">
                   <el-button type="primary" @click="submitForm('form')">检索</el-button>
                   <el-button type="success" @click="exportList('form')">导出</el-button>
                   <el-button @click="resetForm('form')">重置</el-button>
@@ -70,18 +70,13 @@
               </el-row>
           </div>
           <div class="sg-main">
-            <pag-table
-             :curpage="finalInventStatistList.pagination.pageNum"
-             :size="finalInventStatistList.pagination.pageSize"
-             :total="finalInventStatistList.pagination.total"
-             :handlePageChange="handlePageChange"
-            >
+            <pag-table>
               <el-table
-                :data="finalInventStatistList.list"
+                :data="inspectionSystemList.list"
                 border
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
-                <el-table-column v-for="item in finalInventStatistList.title"
+                <el-table-column v-for="item in inspectionSystemList.title"
                   :prop="item"
                   :label="item"
                   :key="item"

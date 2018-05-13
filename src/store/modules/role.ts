@@ -1,6 +1,10 @@
 /* eslint-disable */
 import authviewCreator from '@/router/authviewCreator'
 import { sourceAsync } from '@/router/routes'
+import { getRoleList, getRoleDetail, roleUpdate, roleAdd } from '@/api'
+import { formatData, initList, cutInvalidData } from '../helpers'
+
+const filtersMenus = []
 
 function createList(routes: Array<any>, parent: any = null) {
   const list = []
@@ -8,11 +12,20 @@ function createList(routes: Array<any>, parent: any = null) {
   routes.forEach((route) => {
     const meta = route.meta
 
+    const id = route.key || (meta.key || (meta.role && meta.role[0]))
+
     // 创建 menu 数据格式
     const item: any = {
-      id: meta.key || meta.role[0],
+      // 主菜单才有 key
+      // 子菜单才使用 meta.key or role.key
+      id,
       label: meta.text,
       parent,
+    }
+
+    // 存储第一级 menu key， 用于勾选的过滤
+    if (route.key) {
+      filtersMenus.push(route.key)
     }
 
     const children = route.children
@@ -21,6 +34,7 @@ function createList(routes: Array<any>, parent: any = null) {
       // 只有一个节点的时候不添加 children，同时把 children 的 text 赋值给 parent
       if (children.length === 1) {
         item.label = children[0].meta.text
+        item.id = children[0].meta.role[0]
       } else {
         item.children = createList(children, {
           id: item.id,
@@ -86,23 +100,98 @@ function findChecked(roles, routes) {
   return obj.values(map)
 }
 
-const state = {}
+const state = {
+  permissions: [],
+  list: initList(),
+  detail: {},
+}
 
-const mutations = {}
+const mutations = {
+  'ROLE_LIST'(state: any, payload: any) {
+    const { data = [] } = payload
+    state.list = formatData(data)
+  },
+  'ROLE_DETAIL'(state: any, payload: any) {
+    const { data = {} } = payload
+    state.detail = data
+  },
+}
 
-const actions = {}
+const actions = {
+  async getList({ commit }, params) {
+    try {
+      const result = await getRoleList(cutInvalidData(params))
+      const payload: any = { ...result }
+      commit('ROLE_LIST', payload)
+      return result
+    } catch(ex) {
+      throw new Error(ex)
+    }
+  },
+
+  async getDetail({ commit }, id) {
+    try {
+      const result = await getRoleDetail(id)
+      commit('ROLE_DETAIL', result)
+      return result
+    } catch(ex) {
+      throw new Error(ex)
+    }
+  },
+
+  /**
+   * 获取勾选选的权限
+   * @param param0 
+   * @param currentPermissions ['key', '', ...]
+   */
+  getCheckedPermissions({ commit, getters }, currentPermissions) {
+    return findChecked(currentPermissions, getters.permissions)
+  },
+
+  async update({ commit }, params) {
+    try {
+      return roleUpdate(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  },
+
+  async add({ commit }, params) {
+    try {
+      return roleAdd(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  }
+}
 
 const getters = {
   // 静态路由不进行选择操作
-  list: (state) => {
+  // Permissions
+  permissions: (state) => {
     const filterRoutes = sourceAsync.filter(item => item.hidden !== true)
     return createList(filterRoutes)
   },
 
-  choosed: (state, getters, rootSate, rootGetters) => {
+  choosedPermissions: (state, getters, rootSate, rootGetters) => {
     const roles = rootGetters['auth/roles']
-    return findChecked(roles, getters.list)
+    return findChecked(roles, getters.permissions)
   },
+
+  list: (state) => {
+    const data = { ...state.list }
+    data.list = data.list.map(item => ({
+      ...item,
+      activeText: item.active === 1 ? '是' : '否',
+      typeName: item.type === 1 ? '菜单类型' : '数据类型'
+    }))
+
+    return data
+  },
+
+  detail: (state) => state.detail,
+
+  filters: () => filtersMenus
 }
 
 export default {

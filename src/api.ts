@@ -111,20 +111,29 @@ export const init = () => http.get('/profile/current')
 // for 4.28
 // export const init = () => {
 //   return new Promise((resolve) => {
-    
 //     resolve({
 //       code: 200,
 //       data: {
 //         user: {
 //           name: 'den'
 //         },
-//         roles: ['admin', 'kpi', 'book', 'book_list', 'distributor',
+//         roles: ['admin', 'kpi', 'book', 'book_list', 'distributor', 'roles',
 //         'salesStatistics', 'subStatistics', 'defeatCustomer', 'customerStatistics'
 //       , 'finalInventStatist']
 //       }
 //     })
 //   })
 // }
+
+export const getRoleList = (params) => http.get('/role/query', params)
+export const getRoleAll = () => http.get('/role/getAll')
+export const getRoleDetail = (id) => http.get('/role/detail', { id })
+export const roleUpdate = (params) => http.post('/role/update', params)
+export const roleAdd = (params) => http.post('/role/add', params)
+
+export const getUserList = (params) => http.get('/user/query', params)
+export const getUserDetail = (id) => http.get('/user/detail', { id })
+export const userUpdate = (params) => http.post('/user/update', params)
 
 /**
  * common相关
@@ -144,7 +153,11 @@ export const logout = () => http.post('/profile/logout')
  */
 export const kpiList = (params) => http.post('/customer-manage-key-kpi/query', params)
 /**
- * 经销商相关
+ * 经销商自建线索
+ */
+export const InspectionSystemList = (params) => http.post('/report/dealersSelf', params)
+/**
+ * 期末库存统计
  */
 export const finalInventStatistList = (params) => http.post('/report/dealersSelf', params)
 /**
@@ -152,7 +165,7 @@ export const finalInventStatistList = (params) => http.post('/report/dealersSelf
  */
 export const defeatCustomerList = (params) => http.post('/defeat/statistics', params)
 /**
- * 到店统计
+ * 到店客户统计
  */
 export const shopCustomersList = (params) => http.post('/shop/statistics', params)
 /**
@@ -171,6 +184,14 @@ export const customerStatisticsList = (params) => http.post('/store-customer-def
  * 厂家潜客线索统计
  */
 export const diveCusClueList = (params) => http.post('/p/clue/statistics', params)
+/**
+ * 潜在客户购买意向分析
+ */
+export const buyerIntention = (params) => http.post('/p/p/intent/analysis', params)
+/**
+ * 潜在客户特征分析
+ */
+export const feature = (params) => http.post('/p/clue/statistics', params)
 
 /**
  * 导出相关
@@ -178,6 +199,15 @@ export const diveCusClueList = (params) => http.post('/p/clue/statistics', param
 export const download = {
   sales: '/api/report/salesReportExport',
   subStatis: '/api/report/submersibleReportExport',
+  kpi: '/api/customer-manage-key-kpi/export',
+  // 经销商自建
   defeat: '/api/report/dealersSelfExport',
-  kpi: '/api/customer-manage-key-kpi/export'
+  // 到店
+  shop: '/api/shop/export',
+  // 厂家潜客线索
+  diveCusClue: '/api/p/clue/export',
+  // 潜在客户购买意向分析
+  buyerIntention: '/api/p/p/intent/export',
+  // 潜在客户特征分析
+  feature: '/api/p/p/intent/export',
 }
