@@ -11,16 +11,21 @@
           <div class="sg-header">
               <el-row>
                 <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
-                <el-col :span="6">
+                <!-- <el-col :span="6">
                   <el-form-item label="厂牌">
                     <el-select v-model="form.factoryCard" placeholder="请选择厂牌">
                       <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
                     </el-select>
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="6">
                   <el-form-item label="经销商">
-                    <el-input v-model="form.name" placeholder="请输入经销商" style="width:193px"></el-input>
+                    <el-input v-model="form.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label="单据数：" label-width="110px">
+                    {{customerStatisticsList.pagination.total}}
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -29,11 +34,6 @@
                   @change="handleRegionChange"
                   :cols="[1, 3]"
                 />
-                <el-col :span="6">
-                  <el-form-item label="单据数：" label-width="110px">
-                    {{customerStatisticsList.pagination.total}}
-                  </el-form-item>
-                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="24" style="text-align: right;padding: 0 10px 10px 0;">

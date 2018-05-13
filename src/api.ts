@@ -179,7 +179,7 @@ export const salesStatisticsList = (params) => http.post('/report/salesReport', 
 /**
  * 客户统计
  */
-export const customerStatisticsList = (params) => http.post('/store-customer-defeat-rate/query', params)
+export const customerStatisticsList = (params) => http.post('/report/customerReport', params)
 /**
  * 厂家潜客线索统计
  */
@@ -192,6 +192,10 @@ export const buyerIntention = (params) => http.post('/p/p/intent/analysis', para
  * 潜在客户特征分析
  */
 export const feature = (params) => http.post('/p/clue/statistics', params)
+/**
+ * 销售顾问工作量
+ */
+export const salerWorkNumList = (params) => http.post('/report/salesReport', params)
 
 /**
  * 导出相关
@@ -210,4 +214,8 @@ export const download = {
   buyerIntention: '/api/p/p/intent/export',
   // 潜在客户特征分析
   feature: '/api/p/p/intent/export',
+  // 客户统计
+  customerStatic: '/api/report/customerReportExport',
+  // 销售顾问工作量
+  salerWorkNum: '/api/report/salesReportExport',
 }

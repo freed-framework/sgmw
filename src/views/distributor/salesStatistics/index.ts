@@ -129,6 +129,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   handleClick(tab, event) {
+    this.resetForm(this.form)
     // this.cache.endStatisDate = this.processDate()
     // console.log(this.processDate());
   }

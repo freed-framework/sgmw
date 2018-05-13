@@ -132,6 +132,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   $refs: any
 
   handleClick(tab, event) {
+    this.resetForm(this.ruleForm)
     // console.log(tab, event);
   }
 

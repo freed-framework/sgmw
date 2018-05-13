@@ -34,17 +34,17 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     // customerType: '',
     // provincialCapital: '',
     // cityCapital: '',
-    factoryCard: '',
+    // factoryCard: '',
     beginStatisDate: '',
     endStatisDate: '',
-    // dealerId: ''
+    dealerId: ''
   }
   form: any = { ...this.cache }
 
   cascade: any = {
     province: null,
-    countyArea: null,
     city: null,
+    region: null,
     // brand: null,
     // vehVariety: null,
     // vehSerices: null,
@@ -79,7 +79,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   // cityCapital: Array<any> = cityCapital
   // countyAreaCapital: Array<any> = countyAreaCapital
   // provincialCapital: Array<any> = provincialCapital
-  factoryCard: Array<any> = factoryCard
+  // factoryCard: Array<any> = factoryCard
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -114,6 +114,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   $refs: any
 
   handleClick(tab, event) {
+    this.resetForm(this.form)
     // console.log(tab, event);
   }
 
@@ -144,7 +145,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     Object.assign(this.cascade,
       {
         province: data[0] ? data[0].label : null,
-        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+        city: data[1] ? data[1].label : null, region: data[2] ? data[2].label : null
       }
     )
   }

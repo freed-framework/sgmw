@@ -175,6 +175,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   $refs: any
 
   handleClick(tab, event) {
+    this.resetForm(this.ruleForm)
     // console.log(tab, event);
   }
 
