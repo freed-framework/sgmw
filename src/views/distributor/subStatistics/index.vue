@@ -13,7 +13,7 @@
               <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
                 <el-form-item label="经销商号">
-                  <el-input v-model="ruleForm.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>
+                  <el-input v-model="ruleForm.dealerId" placeholder="请输入经销商" style="width:180px"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
