@@ -7,7 +7,9 @@
           :label="item.title"
           :name="item.name"
         >
-        <div class="sg-sub-stati">
+      </el-tab-pane>
+    </el-tabs>
+    <div class="sg-sub-stati">
           <div class="sg-header">
             <el-row>
               <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
@@ -120,8 +122,6 @@
             </pag-table>
           </div>
         </div>
-      </el-tab-pane>
-    </el-tabs>
   </el-form>
 </template>
 
