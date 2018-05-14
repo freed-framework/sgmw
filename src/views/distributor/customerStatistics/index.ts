@@ -9,13 +9,15 @@ import { State, Getter, Action } from 'vuex-class'
 import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import ActiveMixin from '../../../mixins/activeMixin'
+import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType,
   provincialCapital, factoryCard, cityCapital, countyAreaCapital
 } from '../../../dictionary'
-import Brand from '../../../components/brand/index.vue'
+// import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import TimeRange from '../../../components/timeRanage/index.vue'
+import { download } from '../../../api'
 
 @Component({
   components: {
@@ -23,30 +25,30 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     TimeRange
   }
 })
-export default class Index extends mixins(TableColor, ActiveMixin) {
+export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('customerStatistics/getCustomerStatisticsList') getCustomerStatisticsList: any
   @Getter('customerStatistics/getList') customerStatisticsList: any
   cache = {
-    dealerStatus: '',
-    customerLevel: '',
-    customerType: '',
-    provincialCapital: '',
-    cityCapital: '',
-    factoryCard: '',
+    // dealerStatus: '',
+    // customerLevel: '',
+    // customerType: '',
+    // provincialCapital: '',
+    // cityCapital: '',
+    // factoryCard: '',
     beginStatisDate: '',
     endStatisDate: '',
-    name: ''
+    dealerId: ''
   }
   form: any = { ...this.cache }
 
   cascade: any = {
     province: null,
-    countyArea: null,
     city: null,
-    brand: null,
-    vehVariety: null,
-    vehSerices: null,
-    vehModel: null
+    region: null,
+    // brand: null,
+    // vehVariety: null,
+    // vehSerices: null,
+    // vehModel: null
   }
 
   regionContext: any = {
@@ -72,12 +74,12 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   tabIndex: number = 2
 
   dealerStatus: Array<any> = dealerStatus
-  customerLevel: Array<any> = customerLevel
-  customerType: Array<any> = customerType
-  cityCapital: Array<any> = cityCapital
-  countyAreaCapital: Array<any> = countyAreaCapital
-  provincialCapital: Array<any> = provincialCapital
-  factoryCard: Array<any> = factoryCard
+  // customerLevel: Array<any> = customerLevel
+  // customerType: Array<any> = customerType
+  // cityCapital: Array<any> = cityCapital
+  // countyAreaCapital: Array<any> = countyAreaCapital
+  // provincialCapital: Array<any> = provincialCapital
+  // factoryCard: Array<any> = factoryCard
 
   tableData: Array<any> = [{
     cors: '2016-05-02',
@@ -112,6 +114,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
   $refs: any
 
   handleClick(tab, event) {
+    this.resetForm(this.form)
     // console.log(tab, event);
   }
 
@@ -142,7 +145,7 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
     Object.assign(this.cascade,
       {
         province: data[0] ? data[0].label : null,
-        city: data[1] ? data[1].label : null, countyArea: data[2] ? data[2].label : null
+        city: data[1] ? data[1].label : null, region: data[2] ? data[2].label : null
       }
     )
   }
@@ -166,12 +169,23 @@ export default class Index extends mixins(TableColor, ActiveMixin) {
         Object.assign(submit, props)
         submit.queryType = this.activeName
         Object.assign(submit, this.cascade)
+        console.log(submit)
         this.getCustomerStatisticsList(submit)
       } else {
         console.log('error submit!!')
         return false
       }
     })
+  }
+
+  exportList(form) {
+    const $form: any = this.$refs[form]
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.download(download.sales, submit)
   }
 
 
