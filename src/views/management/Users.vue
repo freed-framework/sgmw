@@ -2,14 +2,19 @@
   <div>
     <!-- Header -->
     <div class="sg-header">
-      <el-form ref="query" :model="query" label-width="84px">
+      <el-form ref="query" :model="query" label-width="50px">
         <el-row>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="姓名" :label-width="formLabelWidth">
               <el-input v-model="query.userName" auto-complete="off"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="6">
+            <el-form-item label="登录名" :label-width="formLabelWidth">
+              <el-input v-model="query.loginName" auto-complete="off"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
             <el-form-item label="状态" :label-width="formLabelWidth">
               <el-select :clearable="true" v-model="query.active" placeholder="全部">
                 <el-option label="全部" value="" />
@@ -18,7 +23,16 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col class="query-buttons" :span="4">
+          <el-col :span="5">
+            <el-form-item label="用户类型" :label-width="formLabelWidth">
+              <el-select :clearable="true" v-model="query.userType" placeholder="全部">
+                <el-option label="全部" value="" />
+                <el-option label="菜单权限" :value="1" />
+                <el-option label="数据权限" :value="2" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col class="query-buttons" :span="2">
             <el-button type="primary" @click="submitQuery">检索</el-button>
           </el-col>
         </el-row>
