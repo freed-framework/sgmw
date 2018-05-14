@@ -8,6 +8,7 @@
       :label="item.title"
       :name="item.name"
     >
+    </el-tab-pane>
       <div class="sg-header">
         <el-row>
           <el-col :span="8">
@@ -55,9 +56,8 @@
           >
           </el-table-column>
         </el-table>
-      </pag-table>
+        </pag-table>
       </div>
-    </el-tab-pane>
   </el-tabs>
   </el-form>
 </div>

@@ -1,13 +1,14 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" label-width="96px">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane
+  <div class="sg-shop-customers">
+    <el-form ref="ruleForm" :model="ruleForm" label-width="96px">
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane
           :key="index"
           v-for="(item, index) in editableTabs"
           :label="item.title"
           :name="item.name"
         >
-        <div class="sg-shop-customers">
+        </el-tab-pane>
           <div class="sg-header">
             <el-row>
               <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
@@ -121,10 +122,9 @@
               </el-table>
             </pag-table>
           </div>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
-  </el-form>
+      </el-tabs>
+    </el-form>
+  </div>
 </template>
 
 <script lang="ts">
