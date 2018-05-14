@@ -57,7 +57,7 @@
           >
           </el-table-column>
         </el-table>
-      </pag-table>
+        </pag-table>
       </div>
   </el-form>
 </div>

@@ -1,15 +1,15 @@
 <template>
-  <el-form ref="form" :model="form" label-width="106px">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane
+  <div class="sg-custom">
+    <el-form ref="form" :model="form" label-width="106px">
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane
           :key="index"
           v-for="(item, index) in editableTabs"
           :label="item.title"
           :name="item.name"
         >
-      </el-tab-pane>
-    </el-tabs>
-    <div class="sg-custom">
+        </el-tab-pane>
+      </el-tabs>
       <div class="sg-header">
           <el-row>
             <el-col :span="12">
@@ -87,8 +87,8 @@
           </el-table>
         </pag-table>
       </div>
-    </div>
-  </el-form>
+    </el-form>
+  </div>
 </template>
 
 <script lang="ts">
