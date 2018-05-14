@@ -48,21 +48,6 @@
 //   label: '线索潜客转化率',
 //   value: 'cluePotentialCustomerConversionRate'
 // },
-// {
-//   label: '展厅客户成交率',
-//   value: 'exhibitionCustomerTurnoverRate'
-// },
-// , {
-//   label: '邀约到店率',
-//   value: 'inviteStoreRate'
-// }, {
-//   label: '展厅试乘试驾率',
-//   value: 'exhibitionCustomerTryDriveRate'
-// }
-// {
-//   label: '到店客户战败率',
-//   value: 'storeCustomerDefeatRate'
-// },
 
 // kip类型
 export const kpi = [{
@@ -99,6 +84,9 @@ export const kpi = [{
   label: '潜客成交率',
   value: 'potentialCustomerTurnoverRate'
 }, {
+  label: '到店客户战败率',
+  value: 'storeCustomerDefeatRate'
+}, {
   label: '结转订单合同交付率',
   value: 'transferOrderContractDeliveryRate'
 }, {
@@ -113,4 +101,13 @@ export const kpi = [{
 }, {
   label: '新增线索邀约转化潜客成交率',
   value: 'newClueInviteConversionPotentialCustomerRate'
+}, {
+  label: '邀约到店率',
+  value: 'inviteStoreRate'
+}, {
+  label: '展厅客户成交率',
+  value: 'exhibitionCustomerTurnoverRate'
+}, {
+  label: '展厅试乘试驾率',
+  value: 'exhibitionCustomerTryDriveRate'
 }]
