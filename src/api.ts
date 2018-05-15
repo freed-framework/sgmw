@@ -195,7 +195,7 @@ export const feature = (params) => http.post('/p/clue/statistics', params)
 /**
  * 销售顾问工作量
  */
-export const salerWorkNumList = (params) => http.post('/report/salesReport', params)
+export const salerWorkNumList = (params) => http.post('/workload/statistcs', params)
 
 /**
  * 导出相关
@@ -217,5 +217,5 @@ export const download = {
   // 客户统计
   customerStatic: '/api/report/customerReportExport',
   // 销售顾问工作量
-  salerWorkNum: '/api/report/salesReportExport',
+  salerWorkNum: '/api/workload/export',
 }

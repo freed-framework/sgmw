@@ -7,7 +7,7 @@
             <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
             <el-form-item label="日期">
               <el-date-picker
-                v-model="form.value4"
+                v-model="form.date"
                 type="year"
                  value-format="yyyy"
                 placeholder="选择年度">
@@ -21,33 +21,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <region
-            @change="handleRegionChange"
-            :cols="[0, 0]"
-          />
-          <el-col :span="6">
-            <el-form-item label="经销商号">
-              <el-input v-model="form.dealerId" placeholder="请输入经销商号" style="width:193px"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="经销商名称">
-              <el-input v-model="form.dealerName" placeholder="请输入经销商名称" style="width:193px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="省会/地级/县级">
-              <el-select :clearable="true" v-model="form.cityLevel" placeholder="请选择省会/地级/县级">
-                <el-option v-for="(text, index) in cityLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <el-col :span="6">
             <el-form-item label="经营性质">
-              <el-select v-model="form.businessNature" placeholder="请选择" >
-                <el-option v-for="(text, index) in businessNature" :key="index" :label="text.label" :value="text.label" ></el-option>
+              <el-select v-model="form.customerType" placeholder="请选择" >
+                <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -68,17 +45,17 @@
     </div>
     <div class="sg-main">
       <pag-table
-        :curpage="salesStatisticsList.pagination.pageNum"
-        :size="salesStatisticsList.pagination.pageSize"
-        :total="salesStatisticsList.pagination.total"
+        :curpage="salerWorkNumList.pagination.pageNum"
+        :size="salerWorkNumList.pagination.pageSize"
+        :total="salerWorkNumList.pagination.total"
         :handlePageChange="handlePageChange"
       >
         <el-table
-          :data="salesStatisticsList.list"
+          :data="salerWorkNumList.list"
           border
           style="width: 100%"
           :row-class-name="tableRowClassName">
-          <el-table-column v-for="item in salesStatisticsList.title"
+          <el-table-column v-for="item in salerWorkNumList.title"
             :prop="item"
             :label="item"
             :key="item"

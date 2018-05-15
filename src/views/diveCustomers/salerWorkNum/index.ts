@@ -8,7 +8,7 @@ import { mixins } from 'vue-class-component'
 import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  businessNature, quarterly, cityLevel
+  customerType
 } from '../../../dictionary'
 import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
@@ -22,22 +22,18 @@ import moment from 'moment'
   }
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
-  @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
-  @Getter('salesStatistics/getList') salesStatisticsList: any
+  @Action('salerWorkNum/getSalerWorkNumListt') actionSalerWorkNumList: any
+  @Getter('salerWorkNum/getList') salerWorkNumList: any
 
-  form: any = {
-    quarterly: '',
-    value4: '',
-    dealerId: '',
-    dealerName: '',
-    cityLevel: '',
-    businessNature: ''
+  cache = {
+    date: '',
+    customerType: ''
   }
 
-  value4: string = ''
-  quarterly: Array<any> = quarterly
-  businessNature: Array<any> = businessNature
-  cityLevel: Array<any> = cityLevel
+  form: any = { ...this.cache }
+
+  date: string = ''
+  customerType: Array<any> = customerType
 
   tableData: Array<any> = [{
     date: '2016-05-02',
@@ -57,19 +53,20 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     address: '上海市普陀区金沙江路 1516 弄'
   }]
 
-  cascade: any = {
-    region: null
-  }
+  // cascade: any = {
+  //   region: null
+  // }
 
   rules: any = {
-    value4: [
+    date: [
       { required: true, message: '请选择时间' }
     ]
   }
+  $refs: any
 
-  regionContext: any = {
-    clear() {}
-  }
+  // regionContext: any = {
+  //   clear() {}
+  // }
 
   handlePageChange(...props) {
     // console.log(props)
@@ -77,18 +74,18 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     // this.actionGetFinalInVentStaList()
   }
 
-  handleRegionChange(vm, data = {}) {
-    this.regionContext = vm
-    Object.assign(this.cascade,
-      {region: data[0] ? data[0].label : null}
-    )
-  }
+  // handleRegionChange(vm, data = {}) {
+  //   this.regionContext = vm
+  //   Object.assign(this.cascade,
+  //     {region: data[0] ? data[0].label : null}
+  //   )
+  // }
 
   submitForm(form) {
     const $form: any = this.$refs[form]
     $form.validate((valid) => {
       const { ...props } = this.form
-      if(!this.form.value4) {
+      if(!this.form.date) {
         this.$message({
           center: true,
           showClose: true,
@@ -101,8 +98,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         // const submit: any = {}
         const submit : any = {}
         Object.assign(submit, props)
-        Object.assign(submit, this.cascade)
-        this.actionSalesStatisticsList(submit)
+        // Object.assign(submit, this.cascade)
+        this.actionSalerWorkNumList(submit)
       } else {
         console.log('error submit!!')
         return false
@@ -115,12 +112,10 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const { ...props } = this.form
     const submit : any = {}
     Object.assign(submit, props)
-    submit.queryType = this.activeName
-    Object.assign(submit, this.cascade)
     this.download(download.sales, submit)
   }
 
   resetForm(form) {
-    this.regionContext.clear()
+    this.form = { ...this.cache }
   }
 }
