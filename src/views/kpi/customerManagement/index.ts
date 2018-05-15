@@ -76,8 +76,8 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
     Object.assign(this.cascade,
       {
         brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
+        variety: data[1] ? data[1].label : null,
+        vehSeries: data[2] ? data[2].label : null,
         vehModel: data[3] ? data[3].label : null
       }
     )
@@ -86,7 +86,10 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
-      {region: data[0] ? data[0].label : null, province: data[1] ? data[1].label : null}
+      {
+        dealerRegion: data[0] ? data[0].label : null,
+        dealerProvince: data[1] ? data[1].label : null
+      }
     )
   }
 
