@@ -86,7 +86,7 @@ export default class Home extends Vue {
     return (
       <div class="home-outer">
         <div class="home-inner">
-          <fontAwesomeIcon name="home" /> 欢迎进入系统
+          <font-awesome-icon name="home" /> 欢迎进入系统
         </div>
       </div>
     )

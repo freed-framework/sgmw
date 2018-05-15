@@ -19,7 +19,7 @@ export const tabelHeader = {
     },
     {
       title: '角色类型',
-      key: 'type'
+      key: 'userTypeName'
     }
   ],
   // 经销商操作员
@@ -37,12 +37,20 @@ export const tabelHeader = {
       key: 'name'
     },
     {
+      title: '登录名',
+      key: 'loginName'
+    },
+    {
       title: '职务',
       key: 'position'
     },
     {
       title: '注册时间',
       key: 'registDate'
+    },
+    {
+      title: '角色类型',
+      key: 'userTypeName'
     },
     {
       title: '状态',
@@ -62,6 +70,14 @@ export const tabelHeader = {
     {
       title: '操作员名称',
       key: 'name'
+    },
+    {
+      title: '登录名',
+      key: 'loginName'
+    },
+    {
+      title: '角色类型',
+      key: 'userTypeName'
     },
     {
       title: '状态',

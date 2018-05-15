@@ -52,11 +52,23 @@ const actions = {
 const getters = {
   list: (state) => {
     const data = { ...state.list }
-    data.list = data.list.map(item => ({
-      ...item,
-      activeText: item.active === 1 ? '已启用' : '已禁用',
-      registDate: moment(new Date()).format('YYYY-MM-DD HH:mm') 
-    }))
+    data.list = data.list.map(item => {
+      let userTypeName = ''
+
+      if (item.userType === 1) {
+        userTypeName = '菜单权限'
+      }
+      if (item.userType === 2) {
+        userTypeName = '数据权限'
+      }
+
+      return {
+        ...item,
+        activeText: item.active === 1 ? '已启用' : '已禁用',
+        userTypeName,
+        registDate: moment(new Date()).format('YYYY-MM-DD HH:mm') 
+      }
+    })
 
     return data
   },
