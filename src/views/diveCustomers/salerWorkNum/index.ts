@@ -8,7 +8,7 @@ import { mixins } from 'vue-class-component'
 import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  customerType
+  customerType, quarterly
 } from '../../../dictionary'
 import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
@@ -27,13 +27,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
   cache = {
     date: '',
-    customerType: ''
+    customerType: '',
+    quarterly: ''
   }
 
   form: any = { ...this.cache }
 
   date: string = ''
   customerType: Array<any> = customerType
+  quarterly: Array<any> = quarterly
 
   tableData: Array<any> = [{
     date: '2016-05-02',
