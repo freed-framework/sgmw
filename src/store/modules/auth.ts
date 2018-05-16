@@ -174,19 +174,19 @@ const actions = {
       let roles = res.data && res.data.privileges ? res.data.privileges : []
 
       // if (res.data && res.data.privileges) { // Mock
-      roles = [
-        'users',
-        // 'permissions',
-        'roles',
-        // 'kpi',
-        'inspectionSystem',
-        'distributor',
-        'salesStatistics',
-        'subStatistics',
-        'defeatCustomer',
-        // 'customerStatistics',
-        'finalInventStatist'
-      ]
+      // roles = [
+      //   'users',
+      //   // 'permissions',
+      //   'roles',
+      //   // 'kpi',
+      //   'inspectionSystem',
+      //   'distributor',
+      //   'salesStatistics',
+      //   'subStatistics',
+      //   'defeatCustomer',
+      //   // 'customerStatistics',
+      //   'finalInventStatist'
+      // ]
       // }
       commit(ActionType.SET_ROLES, roles)
       // 创建权限信息
