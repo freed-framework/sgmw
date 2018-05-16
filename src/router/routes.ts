@@ -30,7 +30,7 @@ const asyncRoutes = [
     component: Layout,
     meta: {
       // role: ['management'],
-      text: '管理'
+      text: '系统管理'
     },
     children: [
       // {

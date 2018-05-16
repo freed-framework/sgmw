@@ -18,7 +18,7 @@ export const tabelHeader = {
       key: 'activeText'
     },
     {
-      title: '角色类型',
+      title: '用户类型',
       key: 'userTypeName'
     }
   ],
@@ -49,7 +49,7 @@ export const tabelHeader = {
       key: 'registDate'
     },
     {
-      title: '角色类型',
+      title: '用户类型',
       key: 'userTypeName'
     },
     {
@@ -76,7 +76,7 @@ export const tabelHeader = {
       key: 'loginName'
     },
     {
-      title: '角色类型',
+      title: '用户类型',
       key: 'userTypeName'
     },
     {
