@@ -17,7 +17,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="经销商号" prop="dealerId">
-                <el-input v-model="form.dealerId" placeholder="请输入经销商号"></el-input>
+                <el-input :clearable="true" v-model="form.dealerId" placeholder="请输入经销商号"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -31,7 +31,7 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="销售顾问" prop="salesMan">
-                <el-input v-model="form.salesMan" placeholder="请输入销售顾问"></el-input>
+                <el-input :clearable="true" v-model="form.salesMan" placeholder="请输入销售顾问"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="6">

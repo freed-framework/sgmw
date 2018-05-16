@@ -24,7 +24,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="品牌" prop="carBrands">
-              <el-select v-model="form.brand" placeholder="请选择品牌">
+              <el-select :clearable="true" v-model="form.brand" placeholder="请选择品牌">
                 <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label"></el-option>
               </el-select>
             </el-form-item>
@@ -37,7 +37,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="经销商">
-              <el-input v-model="form.dealer" placeholder="请输入经销商"></el-input>
+              <el-input :clearable="true" v-model="form.dealer" placeholder="请输入经销商"></el-input>
             </el-form-item>
           </el-col>
           <channel
@@ -46,7 +46,7 @@
           />
           <el-col :span="6">
             <el-form-item label="线索类型">
-              <el-select v-model="form.clueType" placeholder="请选择线索类型">
+              <el-select :clearable="true" v-model="form.clueType" placeholder="请选择线索类型">
                 <el-option v-for="(text, index) in leadType" :key="index" :label="text.label" :value="text.label"></el-option>
               </el-select>
             </el-form-item>
