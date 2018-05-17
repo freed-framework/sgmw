@@ -47,7 +47,7 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="潜客类型">
-            <el-select :clearable="true" v-model="ruleForm.customerType" placeholder="请选择潜客类型" >
+            <el-select :clearable="true" v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
               <el-option v-for="(text, index) in submersibleType" :key="index" :label="text.label" :value="text.label" ></el-option>
             </el-select>
           </el-form-item>

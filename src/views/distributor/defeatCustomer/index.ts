@@ -36,7 +36,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     createType: '',
     channel: '',
     customerLevel: '',
-    customerType: '',
+    submersibleType: '',
     driving: '',
     varieties: '',
     saleResult: '',
