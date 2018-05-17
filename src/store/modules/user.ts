@@ -56,10 +56,13 @@ const getters = {
       let userTypeName = ''
 
       if (item.userType === 1) {
-        userTypeName = '菜单权限'
+        userTypeName = '厂家用户'
       }
       if (item.userType === 2) {
-        userTypeName = '数据权限'
+        userTypeName = '经销商'
+      }
+      if (item.userType === 3) {
+        userTypeName = '物流商'
       }
 
       return {

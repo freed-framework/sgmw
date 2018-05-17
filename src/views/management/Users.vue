@@ -27,8 +27,9 @@
             <el-form-item label="用户类型" :label-width="formLabelWidth">
               <el-select :clearable="true" v-model="query.userType" placeholder="全部">
                 <el-option label="全部" value="" />
-                <el-option label="菜单权限" :value="1" />
-                <el-option label="数据权限" :value="2" />
+                <el-option label="厂家用户" :value="1" />
+                <el-option label="经销商" :value="2" />
+                <el-option label="物流商" :value="3" />
               </el-select>
             </el-form-item>
           </el-col>

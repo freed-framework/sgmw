@@ -26,7 +26,7 @@
               <el-select :clearable="true" v-model="query.type" placeholder="全部">
                 <el-option label="全部" value="" />
                 <el-option label="菜单权限" :value="1" />
-                <el-option label="数据权限" :value="2" />
+                <el-option label="经销商编码" :value="2" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -128,11 +128,14 @@
           >
             <el-radio-group v-model="form.type">
               <el-radio :label="1">菜单权限</el-radio>
-              <el-radio :label="2">数据权限</el-radio>
+              <el-radio :label="2">经销商编码</el-radio>
             </el-radio-group>
           </el-form-item>
 
-          <el-form-item label="菜单权限" :label-width="formLabelWidth">
+          <el-form-item
+            :label="`${form.type === 1 ? '菜单权限' : '经销商编码'}`"
+            :label-width="formLabelWidth"
+          >
             <!-- 菜单权限列表 -->
             <div v-show="form.type === 1">
               <permissions
@@ -140,9 +143,9 @@
                 :current="currentPermissions"
               />
             </div>
-            <!-- 数据权限 -->
+            <!-- 经销商编码 -->
             <div v-show="form.type === 2">
-              <el-input v-model="form.includeNo" auto-complete="off"></el-input>
+              <el-input v-model="form.includeNo" placeholder="请使用逗号分隔多个编码" auto-complete="off"></el-input>
             </div>
           </el-form-item>
         </el-form>
