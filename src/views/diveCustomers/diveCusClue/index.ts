@@ -244,6 +244,15 @@ import {
     this.regionContext.clear()
     this.channelContext.clear()
     this.rangeVm.clear()
+	}
+	
+	beforeDestroy() {
+    this.actionResetDiveCusClueList()
+		this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.channelContext.clear()
+    this.rangeVm.clear()
   }
 }
   

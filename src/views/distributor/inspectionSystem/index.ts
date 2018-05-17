@@ -179,4 +179,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.regionContext.clear()
     this.rangeVm.clear()
   }
+  beforeDestroy() {
+    this.actionResetInspectionSystemList()
+    this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
 }
