@@ -95,7 +95,7 @@ export default class Cascade extends Vue {
     for (var i = 0; i < keys.length; i++) {        
       const key = keys[i]
 
-      if (key.indexOf(val) === 0) {
+      if (key.indexOf(`${val}-`) === 0) {
         result[key] = data[key]
       }
     }

@@ -9,6 +9,7 @@ import store from './store'
 import { Message } from 'element-ui'
 
 let reqCount = 0
+let message = null
 
 const http = new Http()
 
@@ -21,12 +22,22 @@ if (process.env.CONTEXT === 'test') {
 
 function reqLoading() {
   ++reqCount
+
+  if (!message) {
+    message = Message({
+      message: '页面加载中...',
+      center: true
+    })
+  }
+
   store.dispatch('common/loading', true)
 }
 
 function resLoading() {
   --reqCount
   if (reqCount === 0) {
+    message.close()
+    message = null
     store.dispatch('common/loading', false)
   }
 }
