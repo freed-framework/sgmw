@@ -24,7 +24,7 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="客户类型" prop="customerType">
-            <el-select v-model="form.customerType" placeholder="请选择客户类型">
+            <el-select :clearable="true" v-model="form.customerType" placeholder="请选择客户类型">
               <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="text.label"></el-option>
             </el-select>
           </el-form-item>

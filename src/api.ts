@@ -8,6 +8,8 @@ import Http from './util/http'
 import store from './store'
 import { Message } from 'element-ui'
 
+let reqCount = 0
+
 const http = new Http()
 
 http.axios.defaults.baseURL = process.env.API_HOST
@@ -15,6 +17,18 @@ http.axios.defaults.baseURL = process.env.API_HOST
 // 当构建环境为 test 的时候进行该配置
 if (process.env.CONTEXT === 'test') {
   http.axios.defaults.withCredentials = true
+}
+
+function reqLoading() {
+  ++reqCount
+  store.dispatch('common/loading', true)
+}
+
+function resLoading() {
+  --reqCount
+  if (reqCount === 0) {
+    store.dispatch('common/loading', false)
+  }
 }
 
 http.request(
@@ -31,11 +45,22 @@ http.request(
   }
 )
 
+http.request(
+  req => {
+    reqLoading()
+    return req
+  },
+  err => {
+    return err
+  }
+)
+
 /**
  * http response 拦截器
  */
 http.response(
   res => {
+    resLoading()
     const code = parseInt(res.data.code, 10)
 
     if (code === 401 || code === 403) {
@@ -55,6 +80,7 @@ http.response(
     return Promise.resolve(res)
   },
   err => {
+    resLoading()
     if (err.response) {
       const status = err.response.status
       if (status === 401) {
@@ -195,7 +221,7 @@ export const feature = (params) => http.post('/p/clue/statistics', params)
 /**
  * 销售顾问工作量
  */
-export const salerWorkNumList = (params) => http.post('/report/salesReport', params)
+export const salerWorkNumList = (params) => http.post('/workload/statistcs', params)
 
 /**
  * 导出相关
@@ -217,5 +243,5 @@ export const download = {
   // 客户统计
   customerStatic: '/api/report/customerReportExport',
   // 销售顾问工作量
-  salerWorkNum: '/api/report/salesReportExport',
+  salerWorkNum: '/api/workload/export',
 }

@@ -44,13 +44,11 @@
 // exhibitionCustomerTurnoverRate 展厅客户成交率
 // exhibitionCustomerTryDriveRate 展厅试乘试驾率
 
-// {
-//   label: '线索潜客转化率',
-//   value: 'cluePotentialCustomerConversionRate'
-// },
-
 // kip类型
 export const kpi = [{
+  label: '线索潜客转化率',
+  value: 'cluePotentialCustomerConversionRate'
+}, {
   label: '新增订单合同交付率',
   value: 'newOrderContractDeliveryRate'
 }, {
