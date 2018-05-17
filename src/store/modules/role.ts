@@ -180,8 +180,17 @@ const getters = {
 
   list: (state) => {
     const data = { ...state.list }
-    data.list = data.list.map(item => ({
+    
+    let start = 1
+    if (data.pagination && data.pagination.pageNum && data.pagination.pageSize) {
+      if (data.pagination.pageNum > 1) {
+        start = (data.pagination.pageNum - 1) * data.pagination.pageSize + 1
+      }
+    }
+
+    data.list = data.list.map((item, index) => ({
       ...item,
+      index: index + start,
       activeText: item.active === 1 ? '是' : '否',
       typeName: item.type === 1 ? '菜单类型' : '数据类型'
     }))
