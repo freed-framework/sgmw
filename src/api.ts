@@ -25,7 +25,7 @@ function reqLoading() {
 
   if (!message) {
     message = Message({
-      message: '页面加载中...',
+      message: '数据请求中...',
       center: true
     })
   }

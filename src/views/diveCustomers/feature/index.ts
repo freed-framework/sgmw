@@ -8,7 +8,7 @@ import {
   import { State, Getter, Action } from 'vuex-class'
   import moment from 'moment'
   import TableColor from '../../../mixins/table-color/index.vue'
-  import { customerType } from '../../../dictionary'
+  import { customerType1 } from '../../../dictionary'
 	import { cutInvalidData } from '../../../store/helpers/index'
 	import { download } from '../../../api'
   import DownloadMixin from '../../../mixins/downloadMixin'
@@ -75,7 +75,7 @@ import {
   ]
 
 	tabIndex: number = 2
-	custLevel: Array<any> = customerType
+	custLevel: Array<any> = customerType1
   
 	$refs: any
   
@@ -84,10 +84,10 @@ import {
 		// console.log(this.processDate());
 	}
 
-	@Watch('form', {deep: true})
-	watchSelect(val) {
-	  // console.log(val, '----------------------')
-	}
+	// @Watch('form', {deep: true})
+	// watchSelect(val) {
+	//   // console.log(val, '----------------------')
+	// }
 	
 	@Watch('activeName')
   watchTypeChange(val) {

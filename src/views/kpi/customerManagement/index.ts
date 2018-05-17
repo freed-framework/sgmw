@@ -29,6 +29,7 @@ import { download } from '../../../api'
 export default class Index extends mixins(TableColor, DownloadMixin) {
 
   @Action('kpi/getKpiList') actionGetKpiList: any
+  @Action('kpi/resetList') actionResetKpiList: any
   @Getter('kpi/getList') kpiList: any
 
   // kpiType: any = 0
@@ -158,5 +159,9 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
   @Watch('kpiList', {deep: true})
   watchListChange() {
     this.loading = false
+  }
+
+  beforeDestroy() {
+    this.actionResetKpiList()
   }
 }
