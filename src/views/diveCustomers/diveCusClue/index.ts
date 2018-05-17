@@ -13,7 +13,6 @@ import {
 		finalResult, testDrive, leadStatus, carType, kinds, factoryCard, leadType
   } from '../../../dictionary'
 	import ActiveMixin from '../../../mixins/activeMixin'
-  import Brand from '../../../components/brand/index.vue'
   import Region from '../../../components/region/index.vue'
   import Channel from '../../../components/channel/index.vue'
 	import { cutInvalidData } from '../../../store/helpers/index'
@@ -22,7 +21,6 @@ import {
 	
   @Component({
 	components: {
-	  Brand,
 		Region,
 		Channel,
 	}
@@ -55,7 +53,7 @@ import {
 		region: null,
 		channel: null,
 	  province: null,
-	  brand: null,
+	  // brand: null,
 	  vehVariety: null,
 	  vehSerices: null,
 	  vehModel: null,
@@ -171,17 +169,6 @@ import {
     this.form.endStatisDate = val.endTime
   }
 
-  handleCacadeChange(vm, data = {}) {
-    this.cascadeContext = vm
-    Object.assign(this.cascade,
-      {
-        brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
-      }
-    )
-  }
   handlePageChange(val) {
     console.log(val)
     let param = this.submit;

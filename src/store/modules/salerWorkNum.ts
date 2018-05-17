@@ -2,7 +2,7 @@ import { salerWorkNumList } from '../../api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
-  FETCH_SALES_STATIS_LIST: 'FETCH_SALES_STATIS_LIST',
+  FETCH_SALER_WORK_LIST: 'FETCH_SALER_WORK_LIST',
 }
 
 // initial state
@@ -15,12 +15,12 @@ const actions = {
     const result = await salerWorkNumList(cutInvalidData(param))
     const payload: any = { ...result }
 
-    commit(ActionType.FETCH_SALES_STATIS_LIST, payload)
+    commit(ActionType.FETCH_SALER_WORK_LIST, payload)
   },
 }
 
 const mutations = {
-  [ActionType.FETCH_SALES_STATIS_LIST](state: any, payload: any) {
+  [ActionType.FETCH_SALER_WORK_LIST](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },
