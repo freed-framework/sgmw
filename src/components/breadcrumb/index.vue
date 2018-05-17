@@ -67,6 +67,9 @@ export default class BreadcrumbLayer extends Vue {
       cursor: text;
     }
   }
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20px;
 }
 </style>
 

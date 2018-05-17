@@ -11,6 +11,7 @@
         <el-row>
           <el-col :span="14">
             <breadcrumb-layer />
+            <i class="el-icon-loading" v-show="isLoading" />
           </el-col>
           <el-col :span="10" style="text-align: right">
             <el-dropdown trigger="click">
@@ -54,6 +55,7 @@ const getter = namespace('auth', Getter)
 export default class Layout extends Vue {
   @action('logout') handleLogout: void
   @getter('user') user: any
+  @Getter('common/loading') isLoading: any
 
   created() {}
 }
@@ -115,5 +117,9 @@ export default class Layout extends Vue {
 }
 .el-icon-arrow-down {
   font-size: 12px;
+}
+.el-icon-loading {
+  font-size: 17px;
+  vertical-align: middle;
 }
 </style>
