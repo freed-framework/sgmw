@@ -99,7 +99,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="6" :offset="18">
+        <el-col :span="24"  style="text-align: right;padding: 0 10px 10px 0;">
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
               <el-button type="success" @click="exportList('form')">导出</el-button>

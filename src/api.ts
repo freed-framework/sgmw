@@ -228,11 +228,11 @@ export const buyerIntention = (params) => http.post('/p/p/intent/analysis', para
 /**
  * 潜在客户特征分析
  */
-export const feature = (params) => http.post('/p/clue/statistics', params)
+export const feature = (params) => http.post('/report/salesSubmersibleReport', params)
 /**
  * 销售顾问工作量
  */
-export const salerWorkNumList = (params) => http.post('/workload/statistcs', params)
+export const salerWorkNumList = (params) => http.post('/workload/statistics', params)
 
 /**
  * 导出相关
@@ -250,7 +250,8 @@ export const download = {
   // 潜在客户购买意向分析
   buyerIntention: '/api/p/p/intent/export',
   // 潜在客户特征分析
-  feature: '/api/p/p/intent/export',
+  // feature: '/api/p/p/intent/export',
+  feature: '/api/report/salesSubmersibleReportExport',
   // 客户统计
   customerStatic: '/api/report/customerReportExport',
   // 销售顾问工作量

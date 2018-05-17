@@ -15,7 +15,7 @@
           <el-col :span="8">
             <el-form-item label="月份">
               <el-date-picker
-                v-model="form.date"
+                v-model="form.visitTime"
                 type="month"
                 value-format="yyyy-MM"
                 placeholder="选择月份">
@@ -23,9 +23,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="客户类型" prop="customerType">
-              <el-select :clearable="true" v-model="form.customerType" placeholder="请选择客户类型">
-                <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="text.label"></el-option>
+            <el-form-item label="客户类型">
+              <el-select :clearable="true" v-model="form.custLevel" placeholder="请选择客户类型">
+                <el-option v-for="(text, index) in custLevel" :key="index" :label="text.label" :value="text.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>

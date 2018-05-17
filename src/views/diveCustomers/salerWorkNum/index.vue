@@ -8,17 +8,10 @@
             <el-form-item label="日期">
               <el-date-picker
                 v-model="form.date"
-                type="year"
-                 value-format="yyyy"
+                type="month"
+                 value-format="yyyy-MM"
                 placeholder="选择年度">
               </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="季度">
-              <el-select :clearable="true" v-model="form.quarterly" placeholder="请选择季度">
-                <el-option v-for="(text, index) in quarterly" :key="index" :label="text.label" :value="text.label" ></el-option>
-              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -30,7 +23,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="单据数：">
-              {{salesStatisticsList.pagination.total}}
+              {{salerWorkNumList.pagination.total}}
             </el-form-item>
           </el-col>
         </el-row>

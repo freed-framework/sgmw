@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_SALER_WORK_LIST, payload)
   },
+  async resetSalerWorkNumList({ commit }) {
+    commit(ActionType.FETCH_SALER_WORK_LIST, initList())
+  }
 }
 
 const mutations = {

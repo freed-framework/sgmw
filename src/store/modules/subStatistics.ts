@@ -2,7 +2,7 @@ import { subStatisticsList } from '../../api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 
 const ActionType = {
-  FETCH_KPI_LIST: 'FETCH_KPI_LIST',
+  FETCH_SUBSTATIST_LIST: 'FETCH_SUBSTATIST_LIST',
 }
 
 // initial state
@@ -15,12 +15,15 @@ const actions = {
     const result = await subStatisticsList(cutInvalidData(param))
     const payload: any = { ...result }
 
-    commit(ActionType.FETCH_KPI_LIST, payload)
+    commit(ActionType.FETCH_SUBSTATIST_LIST, payload)
   },
+  async resetSubStatisticsListList({ commit }) {
+    commit(ActionType.FETCH_SUBSTATIST_LIST, initList())
+  }
 }
 
 const mutations = {
-  [ActionType.FETCH_KPI_LIST](state: any, payload: any) {
+  [ActionType.FETCH_SUBSTATIST_LIST](state: any, payload: any) {
     const { data = [] } = payload
     state.list = formatData(data)
   },

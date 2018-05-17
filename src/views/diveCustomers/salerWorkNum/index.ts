@@ -22,7 +22,8 @@ import moment from 'moment'
   }
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
-  @Action('salerWorkNum/getSalerWorkNumListt') actionSalerWorkNumList: any
+  @Action('salerWorkNum/getSalerWorkNumList') actionSalerWorkNumList: any
+  @Action('salerWorkNum/resetSalerWorkNumList') actionResetSalerWorkNumList: any
   @Getter('salerWorkNum/getList') salerWorkNumList: any
 
   cache = {
@@ -114,10 +115,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const { ...props } = this.form
     const submit : any = {}
     Object.assign(submit, props)
-    this.download(download.sales, submit)
+    this.download(download.salerWorkNum, submit)
   }
 
   resetForm(form) {
+    this.actionResetSalerWorkNumList()
+    this.form = { ...this.cache }
+  }
+  beforeDestroy() {
+    this.actionResetSalerWorkNumList()
     this.form = { ...this.cache }
   }
 }

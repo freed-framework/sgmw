@@ -28,6 +28,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('salesStatistics/getSalesStatisticsList') actionSalesStatisticsList: any
+  @Action('salesStatistics/resetSalesStatisticsList') actionResetSalesStatisticsList: any
   @Getter('salesStatistics/getList') salesStatisticsList: any
   
   cache = {
@@ -49,8 +50,6 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   cascade: any = {
     region: null,
     province: null,
-    brand: null,
-    vehVariety: null,
     vehSerices: null,
     vehModel: null
   }
@@ -142,10 +141,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.cascadeContext = vm
     Object.assign(this.cascade,
       {
-        brand: data[0] ? data[0].label : null,
-        vehVariety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
+        VehModel: data[0] ? data[0].label : null,
+        vehSerices: data[1] ? data[1].label : null
       }
     )
   }
@@ -153,7 +150,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   handleRegionChange(vm, data = {}) {
     this.regionContext = vm
     Object.assign(this.cascade,
-      {province: data[0] ? data[0].label : null, city: data[1] ? data[1].label : null}
+      {region: data[0] ? data[0].label : null,province: data[1] ? data[1].label : null}
     )
   }
 
@@ -203,6 +200,14 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   resetForm(form) {
+    this.actionResetSalesStatisticsList()
+    this.form = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
+  beforeDestroy() {
+    this.actionResetSalesStatisticsList()
     this.form = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
