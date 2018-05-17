@@ -39,7 +39,7 @@ export function initList() {
 
 export const formatData = (res: any = {}) => {
   const { pageNum, pageSize, total, fields, data = [] } = res;
-  const firstItem = data[0] || [];
+
   return {
     title: fields,
     list: data,

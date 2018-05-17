@@ -34,7 +34,7 @@ export default class Brand extends Vue {
   // 默认选中(暂不支持)
   @Prop() default: Array<any>
   // 没项label
-  @Prop({default: () => ['品牌', '品种', '车系', '车型']}) colLabel: Array<string>
+  @Prop({default: () => ['品牌', '品种', '车型', '车系']}) colLabel: Array<string>
   // placeholders
   @Prop({default: () => []}) placeholders: Array<string>
     // 是否默认选中全部

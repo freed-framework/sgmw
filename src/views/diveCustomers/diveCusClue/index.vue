@@ -29,10 +29,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-            <region
-              @change="handleRegionChange"
-              :cols="[0, 1]"
-            />
+          <region
+            @change="handleRegionChange"
+            :cols="[0, 1]"
+          />
         </el-row>
         <el-row>
           <el-col :span="6">
