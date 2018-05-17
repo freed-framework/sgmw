@@ -75,7 +75,7 @@ import {
   ]
 
 	tabIndex: number = 2
-	custLevel: Array<any> = customerType
+	customerType: Array<any> = customerType
   
 	$refs: any
   
