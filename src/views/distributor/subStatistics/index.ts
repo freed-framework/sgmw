@@ -30,9 +30,6 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
   @Getter('subStatistics/getList') subStatisticsList: any
   cache = {
-    status: '',
-    custType: '',
-    custLeve: '',
     dealerStatus: '',
     saleResult: '',
     salesMan: '',
@@ -42,7 +39,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     channel: '',
     queryType: '',
     dealerId: '',
-    creatBeginTime: '',
+    submersibleType: '',
     creaEndTime: ''
   }
   ruleForm: any = { ...this.cache }
