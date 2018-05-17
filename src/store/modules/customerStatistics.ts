@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_CUSTOM_STATIST_LIST, payload)
   },
+  async resetCustomerStatisticsList({ commit }) {
+    commit(ActionType.FETCH_CUSTOM_STATIST_LIST, initList())
+  }
 }
 
 const mutations = {

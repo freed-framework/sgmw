@@ -23,6 +23,7 @@ import moment from 'moment'
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('salerWorkNum/getSalerWorkNumList') actionSalerWorkNumList: any
+  @Action('salerWorkNum/resetSalerWorkNumList') actionResetSalerWorkNumList: any
   @Getter('salerWorkNum/getList') salerWorkNumList: any
 
   cache = {
@@ -118,6 +119,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   resetForm(form) {
+    this.actionResetSalerWorkNumList()
+    this.form = { ...this.cache }
+  }
+  beforeDestroy() {
+    this.actionResetSalerWorkNumList()
     this.form = { ...this.cache }
   }
 }

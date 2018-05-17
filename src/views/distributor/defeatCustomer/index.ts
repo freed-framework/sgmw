@@ -29,6 +29,7 @@ import DownloadMixin from '../../../mixins/downloadMixin'
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('defeatCustomer/getDefeatCustomerList') actionGetDefeatCustomerList: any
+  @Action('defeatCustomer/resetDefeatCustomerList') actionResetDefeatCustomerList: any
   @Getter('defeatCustomer/getList') defeatCustomerList: any
   cache = {
     status: '',
@@ -208,6 +209,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   resetForm(formName) {
+    this.actionResetDefeatCustomerList()
     this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
@@ -224,4 +226,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.download(download.defeat, submit)
   }
 
+  beforeDestroy() {
+    this.actionResetDefeatCustomerList()
+    this.ruleForm = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
 }

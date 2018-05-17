@@ -28,6 +28,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   }
 })export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
+  @Action('subStatistics/resetSubStatisticsListList') actionResetSubStatisticsListList: any
   @Getter('subStatistics/getList') subStatisticsList: any
   cache = {
     dealerStatus: '',
@@ -258,6 +259,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   }
 
   resetForm(ruleForm) {
+    this.actionResetSubStatisticsListList()
     this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
@@ -274,4 +276,11 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     this.download(download.subStatis, submit)
   }
 
+  beforeDestroy() {
+    this.actionResetSubStatisticsListList()
+    this.ruleForm = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
 }

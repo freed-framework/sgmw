@@ -17,6 +17,9 @@ const actions = {
 
     commit(ActionType.FETCH_DEFEAT_CUSTOME_LIST, payload)
   },
+  async resetDefeatCustomerList({ commit }) {
+    commit(ActionType.FETCH_DEFEAT_CUSTOME_LIST, initList())
+  }
 }
 
 const mutations = {

@@ -27,6 +27,7 @@ import { download } from '../../../api'
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('customerStatistics/getCustomerStatisticsList') getCustomerStatisticsList: any
+  @Action('customerStatistics/resetCustomerStatisticsList') actionResetCustomerStatisticsList: any
   @Getter('customerStatistics/getList') customerStatisticsList: any
   cache = {
     // dealerStatus: '',
@@ -189,6 +190,14 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
 
   resetForm(form) {
+    this.actionResetCustomerStatisticsList()
+    this.form = { ...this.cache }
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
+
+  beforeDestroy() {
+    this.actionResetCustomerStatisticsList()
     this.form = { ...this.cache }
     this.regionContext.clear()
     this.rangeVm.clear()
