@@ -46,7 +46,8 @@
           style="width: 100%"
         >
           <el-table-column
-            prop="id"
+            prop="index"
+            width="50px"
             label="序号"
           />
           <el-table-column

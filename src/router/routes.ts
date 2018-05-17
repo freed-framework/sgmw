@@ -175,6 +175,26 @@ const asyncRoutes = [
           role: [ 'diveCusClue' ]
         }
       },
+    ]
+  },
+  {
+    path: '/diveCustomers',
+    key: 'diveCustomers',
+    component: Layout,
+    meta: { 
+      // role: [ 'dive' ],
+      // role: [ 'diveCustomers' ],
+      text: '潜在客户管理'
+    },
+    children: [
+      {
+        path: 'salerWorkNum',
+        component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
+        meta: {
+          role: [ 'salerWorkNum' ],
+          text: '销售顾问工作量'
+        }
+      },
       {
         path: 'buyerIntention',
         component: () => import('@/views/diveCustomers/buyerIntention/index.vue'),
