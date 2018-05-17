@@ -25,7 +25,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="经销商状态">
-              <el-select :clearable="true" v-model="dealer" placeholder="请选择经销商状态" >
+              <el-select :clearable="true" v-model="form.dealerStatus" placeholder="请选择经销商状态" >
                 <el-option v-for="(item, index) in dealerStatus" :key="index" :label="item.label" :value="index" ></el-option>
               </el-select>
             </el-form-item>
@@ -38,7 +38,7 @@
           />
           <el-col :span="6">
             <el-form-item label="经销商号">
-              <el-input v-model="form.dealerid" placeholder="请输入经销商号"></el-input>
+              <el-input v-model="form.dealerId" placeholder="请输入经销商号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -57,7 +57,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="潜客类型">
-              <el-select :clearable="true" v-model="form.CustTyp" placeholder="请选择潜客类型">
+              <el-select :clearable="true" v-model="form.custType" placeholder="请选择潜客类型">
                 <el-option v-for="(item, index) in customerType" :key="index" :label="item.lable" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
@@ -92,7 +92,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="到店次数">
-              <el-input-number v-model="form.ddcs" :min="0" label="到店次数"></el-input-number>
+              <el-input-number v-model="form.visitCount" :min="0" label="到店次数"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -114,6 +114,7 @@
         :size="kpiList.pagination.pageSize"
         :total="kpiList.pagination.total"
         :handlePageChange="handlePageChange"
+        :loading="true"
       >
         <el-table
           :data="kpiList.list"
