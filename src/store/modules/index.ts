@@ -14,6 +14,7 @@ import inspectionSystem from './inspectionSystem'
 import finalInventStatist from './finalInventStatist'
 import defeatCustomer from './defeatCustomer'
 import subStatistics from './subStatistics'
+import salerWorkNum from './salerWorkNum'
 import salesStatistics from './salesStatistics'
 import customerStatistics from './customerStatistics'
 import shopCustomers from './shopCustomers'
@@ -39,5 +40,6 @@ export default {
   diveCusClue,
   buyerIntention,
   diveFeature,
+  salerWorkNum,
   user,
 }

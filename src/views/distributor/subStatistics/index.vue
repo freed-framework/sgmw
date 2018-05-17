@@ -20,7 +20,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="经销商状态">
-                  <el-select v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
+                  <el-select :clearable="true" v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
                     <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -34,21 +34,21 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="客户级别">
-                  <el-select v-model="ruleForm.custLevel" placeholder="请选择客户级别" >
+                  <el-select :clearable="true" v-model="ruleForm.custLevel" placeholder="请选择客户级别" >
                     <el-option v-for="(text, index) in customerLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="潜客类型">
-                  <el-select v-model="ruleForm.custType" placeholder="请选择潜客类型" >
+                  <el-select :clearable="true" v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
                     <el-option v-for="(text, index) in submersibleType" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
                 <el-form-item label="最后结果" prop="saleResult">
-                  <el-select v-model="ruleForm.saleResult" placeholder="请选择最后结果" >
+                  <el-select :clearable="true" v-model="ruleForm.saleResult" placeholder="请选择最后结果" >
                     <el-option v-for="(text, index) in finalResult" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -61,7 +61,7 @@
               />
               <el-col :span="6">
                 <el-form-item label="是否试驾" prop="ifDrive">
-                  <el-select v-model="ruleForm.ifDrive" placeholder="请选择是否试驾" >
+                  <el-select :clearable="true" v-model="ruleForm.ifDrive" placeholder="请选择是否试驾" >
                     <el-option v-for="(text, index) in testDrive" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
@@ -83,7 +83,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="创建方式" prop="createType">
-                  <el-select v-model="ruleForm.createType" placeholder="请选择创建方式" >
+                  <el-select :clearable="true" v-model="ruleForm.createType" placeholder="请选择创建方式" >
                     <el-option v-for="(text, index) in createType" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>

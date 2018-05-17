@@ -30,9 +30,6 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   @Action('subStatistics/getSubStatisticsListList') actionSubStatisticsListList: any
   @Getter('subStatistics/getList') subStatisticsList: any
   cache = {
-    status: '',
-    custType: '',
-    custLeve: '',
     dealerStatus: '',
     saleResult: '',
     salesMan: '',
@@ -42,7 +39,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     channel: '',
     queryType: '',
     dealerId: '',
-    creatBeginTime: '',
+    submersibleType: '',
     creaEndTime: ''
   }
   ruleForm: any = { ...this.cache }
@@ -75,7 +72,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     county: null,
     brand: null,
     variety: null,
-    vehSerices: null,
+    vehSeries: null,
     vehModel: null
   }
 
@@ -217,7 +214,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
       {
         brand: data[0] ? data[0].label : null,
         variety: data[1] ? data[1].label : null,
-        vehSerices: data[2] ? data[2].label : null,
+        vehSeries: data[2] ? data[2].label : null,
         vehModel: data[3] ? data[3].label : null
       }
     )

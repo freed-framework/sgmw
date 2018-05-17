@@ -86,7 +86,7 @@ export const countyAreaCapital = [{label: '全部'}, {label: '网站'}, {label: 
 // 厂家潜客线索
 export const leadType = [{label: '全部'}, {label: '促销车订购'}, {label: '预约试乘试驾'}, {label: '在线询价'}, {label: '促销活动'}, {label: '常规车预定'}, {label: '来电咨询'}, {label: '在线留言咨询'}, {label: 'GMAC贷款购车'}, {label: '其他贷款购车'}, {label: '活动报名'}, {label: '其他'}]
 // 潜客类型
-export const submersibleType = [{label: '全部'}, {label: '促销车订购'}, {label: '预约试乘试驾'}, {label: '在线询价'}, {label: '促销活动'}, {label: '常规车预定'}, {label: '来电咨询'}, {label: '在线留言咨询'}, {label: 'GMAC贷款购车'}, {label: '其他贷款购车'}, {label: '活动报名'}, {label: '其他'}]
+export const submersibleType = [{label: '全部'}, {label: '客户营销'}, {label: '互联网营销'}, {label: '自然到店（来电）'}, {label: '行销活动'}, {label: '其他'}]
 // 季度
 export const quarterly = [{label: '全部'}, {label: 'Q1'}, {label: 'Q2'}, {label: 'Q3'}, {label: 'Q4'}]
 // 型号

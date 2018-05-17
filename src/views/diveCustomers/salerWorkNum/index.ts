@@ -22,7 +22,7 @@ import moment from 'moment'
   }
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
-  @Action('salerWorkNum/getSalerWorkNumListt') actionSalerWorkNumList: any
+  @Action('salerWorkNum/getSalerWorkNumList') actionSalerWorkNumList: any
   @Getter('salerWorkNum/getList') salerWorkNumList: any
 
   cache = {
