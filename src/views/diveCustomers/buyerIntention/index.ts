@@ -137,5 +137,10 @@ import {
     this.actionResetBuyerIntention()
 		this.form = { ...this.cache }
   }
+
+  beforeDestroy() {
+    this.actionResetBuyerIntention()
+		this.form = { ...this.cache }
+  }
 }
   

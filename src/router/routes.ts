@@ -203,6 +203,14 @@ const asyncRoutes = [
           text: '潜在客户购买意向分析'
         }
       },
+      {
+        path: 'feature',
+        component: () => import('@/views/diveCustomers/feature/index.vue'),
+        meta: {
+          role: [ 'feature' ],
+          text: '潜在客户特征分析'
+        }
+      }
     ]
   },
   // {

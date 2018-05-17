@@ -21,61 +21,61 @@ import {
 	@Getter('diveFeature/getList') diveFeatureList: any
 	
 	cache = {
-		date: '',
-		customerType: '',
+		visitTime: '',
+		custLevel: '',
   }
   
 	form: any = { ...this.cache }
   submit: any
 
 	value: string = ''
-	activeName: string = '1'
+	activeName: string = '个人月收入'
 	editableTabsValue: string = '2'
 	editableTabs: any = [
     {
-      name: '1',
+      name: '个人月收入',
       title: '个人月收入'
     },
     {
-      name: '2',
+      name: '家庭月收入',
       title: '家庭月收入'
     },
     {
-      name: '3',
+      name: '文化水平',
       title: '文化水平'
     },
     {
-      name: '4',
+      name: '从事行业',
       title: '从事行业'
     },
     {
-      name: '5',
+      name: '从事职业',
       title: '从事职业'
     },
     {
-      name: '6',
+      name: '车辆使用地市',
       title: '车辆使用地市'
     },
     {
-      name: '7',
+      name: '车辆使用区县',
       title: '车辆使用区县'
     },
     {
-      name: '8',
+      name: '进店次数',
       title: '进店次数'
     },
     {
-      name: '9',
+      name: '进店次数与成交',
       title: '进店次数与成交'
     },
     {
-      name: '10',
+      name: '年龄段',
       title: '年龄段'
     },
   ]
 
 	tabIndex: number = 2
-	customerType: Array<any> = customerType
+	custLevel: Array<any> = customerType
   
 	$refs: any
   
@@ -105,7 +105,7 @@ import {
     $form.validate((valid) => {
       const { ...props } = this.form
       
-      if(!this.form.date) {
+      if(!this.form.visitTime) {
         this.$message({
           center: true,
           showClose: true,
@@ -118,7 +118,8 @@ import {
       if (valid) {
         const submit : any = {}
         Object.assign(submit, props)
-        submit.queryType = this.activeName
+        submit.lb = this.activeName
+        submit.queryType = '2'
 
 				this.submit = cutInvalidData(submit)
 				console.log('here submit',this.submit)
@@ -142,6 +143,11 @@ import {
   }
 
 	resetForm(formName) {
+    this.actionResetDiveFeatureList()
+		this.form = { ...this.cache }
+  }
+
+  beforeDestroy() {
     this.actionResetDiveFeatureList()
 		this.form = { ...this.cache }
   }

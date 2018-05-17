@@ -10,7 +10,7 @@ import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, submersibleType,
-  varieties, dealerleadChannel,
+  varieties, leadChannel2,
   testDrive, createType, finalResult
 } from '../../../dictionary'
 import ActiveMixin from '../../../mixins/activeMixin'
@@ -95,7 +95,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   finalResult: Array<any> = finalResult
   testDrive: Array<any> = testDrive
   customerLevel: Array<any> = customerLevel
-  dealerleadChannel: Array<any> = dealerleadChannel
+  leadChannel2: Array<any> = leadChannel2
   submersibleType: Array<any> = submersibleType
   varieties: Array<any> = varieties
   createType: Array<any> = createType
@@ -210,4 +210,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.rangeVm.clear()
   }
 
+  beforeDestroy() {
+    this.actionResetShopCustomersList()
+    this.ruleForm = { ...this.cache }
+    this.cascadeContext.clear()
+    this.regionContext.clear()
+    this.rangeVm.clear()
+  }
 }
