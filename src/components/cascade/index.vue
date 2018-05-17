@@ -88,14 +88,18 @@ export default class Cascade extends Vue {
     this.$emit('change', this, this.getReult())
   }
 
-  find(data, val, base) {
-    const re = new RegExp(`^${val}`,"gim");
+  find(data, val) {
     const result = {};
-    for (let i in data) {
-      if (re.test(i)) {
-        result[i] = data[i]
+    const keys = Object.keys(data);
+
+    for (var i = 0; i < keys.length; i++) {        
+      const key = keys[i]
+
+      if (key.indexOf(val) === 0) {
+        result[key] = data[key]
       }
     }
+
     return result
   }
 
@@ -153,9 +157,9 @@ export default class Cascade extends Vue {
     }
     this.showData = [
       showData[0],
-      addOneAll(find(data[1], val, 100000)),
-      addOneAll(find(data[2], val, 10000)),
-      addOneAll(find(data[3], val, 1000))
+      addOneAll(find(data[1], val)),
+      addOneAll(find(data[2], val)),
+      addOneAll(find(data[3], val))
     ]
   }
 
@@ -171,8 +175,8 @@ export default class Cascade extends Vue {
     this.showData = [
       showData[0],
       showData[1],
-      addOneAll(find(data[2], val, 10000)),
-      addOneAll(find(data[3], val, 1000))
+      addOneAll(find(data[2], val)),
+      addOneAll(find(data[3], val))
     ]
   }
 
@@ -189,7 +193,7 @@ export default class Cascade extends Vue {
       showData[0],
       showData[1],
       showData[2],
-      addOneAll(find(data[3], val, 1000))
+      addOneAll(find(data[3], val))
     ]
   }
 }
