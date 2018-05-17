@@ -114,7 +114,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     const { ...props } = this.form
     const submit : any = {}
     Object.assign(submit, props)
-    this.download(download.sales, submit)
+    this.download(download.salerWorkNum, submit)
   }
 
   resetForm(form) {

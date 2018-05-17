@@ -12,33 +12,33 @@
     <div class="sg-header">
         <el-row>
           <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
-          <region
-            @change="handleRegionChange"
-            :cols="[1, 2]"
-          />
-        </el-row>
-        <el-row>
           <el-col :span="6">
             <el-form-item label="经销商" prop="dealerId">
               <el-input v-model="form.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>
             </el-form-item>
           </el-col>
-          <brand
-            @change="handleCacadeChange"
-            :cols="[1, 3]"
-          />
-        </el-row>
-        <el-row>
           <el-col :span="6">
             <el-form-item label="物料号" prop="materialId">
               <el-input v-model="form.materialId" placeholder="请输入物料号" style="width:193px"></el-input>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <region
+            @change="handleRegionChange"
+            :cols="[0, 2]"
+          />
           <el-col :span="6">
             <el-form-item label="颜色" prop="vehColor">
               <el-input v-model="form.vehColor" placeholder="请输入颜色" style="width:160px"></el-input>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <brand
+            @change="handleCacadeChange"
+            :cols="[2, 3]"
+          />
           <el-col :span="6">
             <el-form-item label="省会/地级/县级">
               <el-select :clearable="true" v-model="form.cityLevel" placeholder="请选择省会/地级/县级">

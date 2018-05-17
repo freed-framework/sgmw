@@ -221,7 +221,7 @@ export const feature = (params) => http.post('/p/clue/statistics', params)
 /**
  * 销售顾问工作量
  */
-export const salerWorkNumList = (params) => http.post('/workload/statistcs', params)
+export const salerWorkNumList = (params) => http.post('/workload/statistics', params)
 
 /**
  * 导出相关
