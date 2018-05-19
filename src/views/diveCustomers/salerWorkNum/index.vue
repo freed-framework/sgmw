@@ -16,7 +16,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="经营性质">
-              <el-select v-model="form.customerType1" placeholder="请选择" >
+              <el-select :clearable="true" v-model="form.customerType1" placeholder="请选择" >
                 <el-option v-for="(text, index) in businessNature" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>

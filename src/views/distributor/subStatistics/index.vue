@@ -76,7 +76,7 @@
             <el-row>
               <el-col :span="6">
                 <el-form-item label="线索渠道" prop="channel">
-                  <el-select v-model="ruleForm.channel" placeholder="线索渠道" >
+                  <el-select :clearable="true" v-model="ruleForm.channel" placeholder="线索渠道" >
                     <el-option v-for="(text, index) in dealerleadChannel1" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
