@@ -3,7 +3,7 @@
     <div class="sg-header">
       <el-form ref="form" :model="form" label-width="106px">
         <el-row>
-          <el-col :span="6">
+          <el-col :span="8">
             <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
             <el-form-item label="时间">
               <el-date-picker
@@ -14,14 +14,14 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="经营性质">
               <el-select :clearable="true" v-model="form.customerType1" placeholder="请选择" >
                 <el-option v-for="(text, index) in businessNature" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="单据数：">
               {{salerWorkNumList.pagination.total}}
             </el-form-item>

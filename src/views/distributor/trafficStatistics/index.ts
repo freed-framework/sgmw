@@ -87,10 +87,10 @@ export default class Index extends mixins(TableColor) {
     // console.log(this.dealerStatus)
   }
 
-  @Watch('select')
-  watchSelect(val) {
-    // console.log(val, '----------------------')
-  }
+  // @Watch('select')
+  // watchSelect(val) {
+  //   // console.log(val, '----------------------')
+  // }
 
   submitForm(ruleForm, index) {
     const $form: any = this.$refs[ruleForm]

@@ -105,10 +105,10 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
 
-  @Watch('select')
-  watchSelect(val) {
-    // console.log(val, '----------------------')
-  }
+  // @Watch('select')
+  // watchSelect(val) {
+  //   // console.log(val, '----------------------')
+  // }
 
   @Watch('activeName')
   watchTypeChange(val) {

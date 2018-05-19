@@ -121,13 +121,13 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }]
 
   $refs: any
-  @Watch('ruleForm', {deep: true})
 
-  handlePageChange(...props) {
-    // console.log(props)
-    // this.submit.cu = 
-    // this.actionGetFinalInVentStaList()
-  }
+  // @Watch('ruleForm', {deep: true})
+  // handlePageChange(...props) {
+  //   // console.log(props)
+  //   // this.submit.cu = 
+  //   // this.actionGetFinalInVentStaList()
+  // }
 
   handleCacadeChange(vm, data = {}) {
     this.cascadeContext = vm

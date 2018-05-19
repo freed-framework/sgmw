@@ -116,10 +116,10 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.form.endStatisDate = val.endTime
   }
 
-  @Watch('select')
-  watchSelect(val) {
-    // console.log(val, '----------------------')
-  }
+  // @Watch('select')
+  // watchSelect(val) {
+  //   // console.log(val, '----------------------')
+  // }
 
   handlePageChange(...props) {
     // console.log(props)
