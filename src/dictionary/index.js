@@ -65,8 +65,6 @@ export const brands = [{label: '全部'}, {label: '待定'}, {label: '已成交'
 export const varieties = [{label: '全部'}, {label: '待定'}, {label: '已成交'}, {label: '已战败'}]
 // 客户级别
 export const customerLevel = [{label: '全部'}, {label: 'O级'}, {label: 'H级'}, {label: 'A级'}, {label: 'B级'}, {label: 'C级'}, {label: 'N级'}, {label: 'F级'}]
-// 客户级别（潜客统计/战败客户统计/到店统计）
-export const customerLevel1 = [{label: '全部'}, {label: 'O级'}, {label: 'H级'}, {label: 'A级'}, {label: 'B级'}, {label: 'C级'}, {label: 'N级'}, {label: 'F级'}]
 // 线索渠道
 export const dealerleadChannel = [{label: '全部'}, {label: '经销商自建线索“线索渠道”'}, {label: '厂家互联网投放-广告投放'}, {label: '厂家互联网投放-自有平台'}, {label: '厂家互联网投放-采集平台'}, {label: '厂家互联网投放-电商平台'}]
 // 线索渠道（潜客统计/战败客户统计/到店统计）

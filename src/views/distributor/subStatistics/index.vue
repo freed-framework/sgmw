@@ -35,7 +35,7 @@
               <el-col :span="6">
                 <el-form-item label="客户级别">
                   <el-select :clearable="true" v-model="ruleForm.custLevel" placeholder="请选择客户级别" >
-                    <el-option v-for="(text, index) in customerLevel1" :key="index" :label="text.label" :value="text.label" ></el-option>
+                    <el-option v-for="(text, index) in customerLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>

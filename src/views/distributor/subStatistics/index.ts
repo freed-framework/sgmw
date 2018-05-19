@@ -12,7 +12,7 @@ import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, submersibleType, provincialCapital,
-  countyAreaCapital, cityCapital, varieties, carType, finalResult, customerLevel1,
+  countyAreaCapital, cityCapital, varieties, carType, finalResult,
   dealerleadChannel1, testDrive, createType, customerLevel, brands, carKinds
 } from '../../../dictionary'
 import { download } from '../../../api'
@@ -91,7 +91,6 @@ import TimeRange from '../../../components/timeRanage/index.vue'
 
   dealerStatus: Array<any> = dealerStatus
   customerLevel: Array<any> = customerLevel
-  customerLevel1: Array<any> = customerLevel1
   submersibleType: Array<any> = submersibleType
   provincialCapital: Array<any> = provincialCapital
   countyAreaCapital: Array<any> = countyAreaCapital
