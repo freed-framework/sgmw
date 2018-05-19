@@ -26,7 +26,9 @@ function reqLoading() {
   if (!message) {
     message = Message({
       message: '数据请求中...',
-      center: true
+      center: true,
+      duration: 0,
+      iconClass: 'el-icon-loading'
     })
   }
 

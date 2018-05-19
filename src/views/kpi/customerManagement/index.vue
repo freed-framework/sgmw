@@ -63,7 +63,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="经销商渠道">
+            <el-form-item label="线索渠道">
               <el-select :clearable="true" v-model="form.channel" placeholder="请选择经销商渠道">
                 <el-option v-for="(item, index) in leadChannel" :key="index" :label="item.label" :value="item.label"></el-option>
               </el-select>
