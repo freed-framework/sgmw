@@ -110,10 +110,10 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     // console.log(this.dealerStatus)
   }
 
-  @Watch('ruleForm', {deep: true})
-  watchSelect(val) {
-    // console.log(val, '----------------------')
-  }
+  // @Watch('ruleForm', {deep: true})
+  // watchSelect(val) {
+  //   // console.log(val, '----------------------')
+  // }
 
   @Watch('activeName')
   watchTypeChange(val) {

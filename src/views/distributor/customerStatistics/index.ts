@@ -123,10 +123,10 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     // console.log(this.dealerStatus)
   }
 
-  @Watch('select')
-  watchSelect(val) {
-    // console.log(val, '----------------------')
-  }
+  // @Watch('select')
+  // watchSelect(val) {
+  //   // console.log(val, '----------------------')
+  // }
 
   handlePageChange(...props) {
     // console.log(props)

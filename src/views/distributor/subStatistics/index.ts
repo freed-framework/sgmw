@@ -180,10 +180,10 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   created() {
     // console.log(this.dealerStatus)
   }
-  @Watch('select')
-  watchSelect(val) {
-    // console.log(val, '----------------------')
-  }
+  // @Watch('select')
+  // watchSelect(val) {
+  //   // console.log(val, '----------------------')
+  // }
 
   handlePageChange(...props) {
     // console.log(props)

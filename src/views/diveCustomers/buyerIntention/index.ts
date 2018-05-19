@@ -76,10 +76,10 @@ import {
 		// console.log(this.processDate());
 	}
 
-	@Watch('form', {deep: true})
-	watchSelect(val) {
-	  // console.log(val, '----------------------')
-	}
+	// @Watch('form', {deep: true})
+	// watchSelect(val) {
+	//   // console.log(val, '----------------------')
+	// }
 	
 	@Watch('activeName')
   watchTypeChange(val) {
