@@ -141,7 +141,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.cascadeContext = vm
     Object.assign(this.cascade,
       {
-        VehModel: data[0] ? data[0].label : null,
+        vehModel: data[0] ? data[0].label : null,
         vehSerices: data[1] ? data[1].label : null
       }
     )

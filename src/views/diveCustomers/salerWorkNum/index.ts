@@ -8,7 +8,7 @@ import { mixins } from 'vue-class-component'
 import { State, Getter, Action } from 'vuex-class'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
-  customerType, quarterly
+  businessNature, quarterly
 } from '../../../dictionary'
 import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
@@ -28,14 +28,13 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
   cache = {
     date: '',
-    customerType: '',
-    quarterly: ''
+    customerType: ''
   }
 
   form: any = { ...this.cache }
 
   date: string = ''
-  customerType: Array<any> = customerType
+  businessNature: Array<any> = businessNature
   quarterly: Array<any> = quarterly
 
   tableData: Array<any> = [{
@@ -93,6 +92,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
           center: true,
           showClose: true,
           message: '请选择日期',
+          type: 'warning'
+        });
+        return
+      }
+      if(!this.form.customerType) {
+        this.$message({
+          center: true,
+          showClose: true,
+          message: '请选择经营性质',
           type: 'warning'
         });
         return

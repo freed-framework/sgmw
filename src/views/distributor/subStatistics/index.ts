@@ -13,7 +13,7 @@ import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, submersibleType, provincialCapital,
   countyAreaCapital, cityCapital, varieties, carType, finalResult,
-  dealerleadChannel, testDrive, createType, customerLevel, brands, carKinds
+  dealerleadChannel1, testDrive, createType, customerLevel, brands, carKinds
 } from '../../../dictionary'
 import { download } from '../../../api'
 import Brand from '../../../components/brand/index.vue'
@@ -73,7 +73,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     county: null,
     brand: null,
     variety: null,
-    vehSeries: null,
+    vehSerices: null,
     vehModel: null
   }
 
@@ -98,7 +98,7 @@ import TimeRange from '../../../components/timeRanage/index.vue'
   varieties: Array<any> = varieties
   carType: Array<any> = carType
   finalResult: Array<any> = finalResult
-  dealerleadChannel: Array<any> = dealerleadChannel
+  dealerleadChannel1: Array<any> = dealerleadChannel1
   carKinds: Array<any> = carKinds
   testDrive: Array<any> = testDrive
   createType: Array<any> = createType
@@ -215,8 +215,8 @@ import TimeRange from '../../../components/timeRanage/index.vue'
       {
         brand: data[0] ? data[0].label : null,
         variety: data[1] ? data[1].label : null,
-        vehSeries: data[2] ? data[2].label : null,
-        vehModel: data[3] ? data[3].label : null
+        vehModel: data[2] ? data[2].label : null,
+        vehSeries: data[3] ? data[3].label : null
       }
     )
   }
