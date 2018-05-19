@@ -29,7 +29,7 @@
             :cols="[0, 1]"
           />
           <el-col :span="6">
-            <el-form-item label="颜色" prop="vehColor">
+            <el-form-item label="颜色">
               <el-input v-model="form.vehColor" placeholder="请输入颜色" style="width:160px"></el-input>
             </el-form-item>
           </el-col>
