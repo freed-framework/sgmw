@@ -5,19 +5,19 @@
         <el-row>
           <el-col :span="6">
             <!-- year/month/date/dates/ week/datetime/datetimerange/daterange -->
-            <el-form-item label="日期">
+            <el-form-item label="时间">
               <el-date-picker
                 v-model="form.date"
                 type="month"
                  value-format="yyyy-MM"
-                placeholder="选择年度">
+                placeholder="选择时间">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="经营性质">
               <el-select v-model="form.customerType1" placeholder="请选择" >
-                <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="text.label" ></el-option>
+                <el-option v-for="(text, index) in businessNature" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
