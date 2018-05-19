@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { format } from './helper'
-const nameKeys = ['brandName', 'kindName', 'varietyName', 'seriesName']
-const childKeys = ['varieties', 'varietyKind', 'varietySeries']
+const nameKeys = ['brandName', 'varietyName', 'seriesName', 'modelName']
+const childKeys = ['varietyKind', 'varietySeries', 'modelList']
 
 /**
  * 处理品牌，车系，车型数据
