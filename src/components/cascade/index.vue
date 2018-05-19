@@ -1,9 +1,30 @@
 <template>
   <span>
-    <el-col :span="6" v-for="i in 4" :key="i" v-if="(i-1) >= cols[0] && (i-1) <= cols[1]">
-      <el-form-item :label="colLabel[i-1]">
-        <el-select :clearable="true" v-model="form[keys[i-1]]" :placeholder="placeholders[i-1]">
-          <el-option v-for="item in showData[i-1]" :label="item.label" :key="item.key" :value="item.value" />
+    <el-col :span="6" v-if="0 >= cols[0] && 0 <= cols[1]">
+      <el-form-item :label="colLabel[0]">
+        <el-select :clearable="true" v-model="form[keys[0]]" :placeholder="placeholders[0]">
+          <el-option v-for="item in showData[0]" :label="item.label" :key="item.key" :value="item.value" />
+        </el-select>
+      </el-form-item>
+    </el-col>
+    <el-col :span="6" v-if="1 >= cols[0] && 1 <= cols[1]">
+      <el-form-item :label="colLabel[1]">
+        <el-select :disabled="disabledB" :clearable="true" v-model="form[keys[1]]" :placeholder="placeholders[1]">
+          <el-option v-for="item in showData[1]" :label="item.label" :key="item.key" :value="item.value" />
+        </el-select>
+      </el-form-item>
+    </el-col>
+    <el-col :span="6" v-if="2 >= cols[0] && 2 <= cols[1]">
+      <el-form-item :label="colLabel[2]">
+        <el-select :disabled="disabledC" :clearable="true" v-model="form[keys[2]]" :placeholder="placeholders[2]">
+          <el-option v-for="item in showData[2]" :label="item.label" :key="item.key" :value="item.value" />
+        </el-select>
+      </el-form-item>
+    </el-col>
+    <el-col :span="6" v-if="3 >= cols[0] && 3 <= cols[1]">
+      <el-form-item :label="colLabel[3]">
+        <el-select :disabled="disabledD" :clearable="true" v-model="form[keys[3]]" :placeholder="placeholders[3]">
+          <el-option v-for="item in showData[3]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
@@ -25,6 +46,7 @@ const cacheAll = {
   c: '0',
   d: '0'
 }
+
 const all = {
   label: '全部',
   key: '0',
@@ -39,7 +61,7 @@ export default class Cascade extends Vue {
   // 是否包含“全部”选项发
   @Prop({default: true}) hasAll: boolean
   // 显示几项 1-4之间
-  @Prop({default: 4}) cols: number
+  @Prop({default: [0, 3]}) cols: number
   // 是否强制联动,(必须前面选了后面才能选)， 默认false
   @Prop({default: false}) force: boolean
   // 默认选中(暂不支持)
@@ -54,6 +76,10 @@ export default class Cascade extends Vue {
   showData: Array<any> = []
   keys: Array<any> = ['a', 'b', 'c', 'd']
   form: any = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
+
+  disabledB: boolean = this.force
+  disabledC: boolean = this.force
+  disabledD: boolean = this.force
 
   /**添加”全部“选型 */
   addAll() {
@@ -130,6 +156,15 @@ export default class Cascade extends Vue {
     return result.slice(cols[0], cols[1] + 1)
   }
 
+  changeDisabled(val, type) {
+    if(!this.force) return
+    if (!val) {
+      this[type] = true
+    } else {
+      this[type] = false
+    }
+  }
+
   created() {
     this.init()
   }
@@ -151,6 +186,7 @@ export default class Cascade extends Vue {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
+    this.changeDisabled(val, 'disabledB')
     if (val === '0' || !val) {
       this.showData = [showData[0], addOneAll(data[1]), addOneAll(data[2]), addOneAll(data[3])]
       return;
@@ -168,6 +204,7 @@ export default class Cascade extends Vue {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
+    this.changeDisabled(val, 'disabledC')
     if (val === '0' || !val) {
       this.showData = [showData[0], showData[1], addOneAll(data[2]), (data[3])]
       return;
@@ -178,6 +215,7 @@ export default class Cascade extends Vue {
       addOneAll(find(data[2], val)),
       addOneAll(find(data[3], val))
     ]
+    this.disabledB = false;
   }
 
   @Watch('form.c', {deep: true})
@@ -185,6 +223,7 @@ export default class Cascade extends Vue {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {d: all ? '0' : null})
+    this.changeDisabled(val, 'disabledD')
     if (val === '0' || !val) {
       this.showData = [showData[0], showData[1], showData[2], addOneAll(data[3])]
       return;
