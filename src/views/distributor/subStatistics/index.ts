@@ -215,8 +215,8 @@ import TimeRange from '../../../components/timeRanage/index.vue'
       {
         brand: data[0] ? data[0].label : null,
         variety: data[1] ? data[1].label : null,
-        vehModel: data[2] ? data[2].label : null,
-        vehSeries: data[3] ? data[3].label : null
+        vehSeries: data[2] ? data[2].label : null,
+        vehModel: data[3] ? data[3].label : null
       }
     )
   }
