@@ -11,7 +11,7 @@ import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, submersibleType,
   varieties, leadChannel2,
-  testDrive, createType, finalResult
+  testDrive, createType, finalResult, dealerleadChannel1
 } from '../../../dictionary'
 import ActiveMixin from '../../../mixins/activeMixin'
 import Brand from '../../../components/brand/index.vue'
@@ -99,6 +99,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   submersibleType: Array<any> = submersibleType
   varieties: Array<any> = varieties
   createType: Array<any> = createType
+  dealerleadChannel1: Array<any> = dealerleadChannel1
+
   submit: any = {}
   $refs: any
 
