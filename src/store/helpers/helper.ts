@@ -20,6 +20,7 @@ function formatData(data = []) {
 
     formatLevel1(item[childKeys[0]], weight)
   }
+
   return result
 }
 
@@ -54,5 +55,19 @@ function formatLevel3(data = [], w) {
     const item = data[j]
     const name = item[nameKeys[3]]
     result[3][weight] = { label: name, key: weight, value: weight }
+
+    // if (childKeys[3]) {
+    //   formatLevel4(item[childKeys[3]], weight)
+    // }
   }
 }
+
+// function formatLevel4(data = [], w) {
+//   if (!data) return
+//   for (let j = 0; j < data.length; j++) {
+//     const weight = w + '-' + (j + 1)
+//     const item = data[j]
+//     const name = item[nameKeys[4]]
+//     result[4][weight] = { label: name, key: weight, value: weight }
+//   }
+// }
