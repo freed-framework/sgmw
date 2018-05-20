@@ -42,7 +42,7 @@
           </el-col>
           <channel
             @change="handleChannelChange"
-            :cols="[0, 3]"
+            :cols="[0, 2]"
           />
           <el-col :span="6">
             <el-form-item label="线索类型">
