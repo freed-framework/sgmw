@@ -12,7 +12,7 @@ import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, carType, kinds, cityLevel
+  finalResult, testDrive, leadStatus, carType, kinds, pcaArea
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
@@ -105,7 +105,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  cityLevel: Array<any> = cityLevel
+  pcaArea: Array<any> = pcaArea
 
   $refs: any
 
