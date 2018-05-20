@@ -42,6 +42,7 @@
           </el-col>
           <channel
             @change="handleChannelChange"
+            :force="true"
             :cols="[0, 2]"
           />
           <el-col :span="6">

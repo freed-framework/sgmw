@@ -12,7 +12,7 @@ import ActiveMixin from '../../../mixins/activeMixin'
 import DownloadMixin from '../../../mixins/downloadMixin'
 import {
   dealerStatus, customerLevel, customerType, leadChannel, dealerleadChannel,
-  finalResult, testDrive, leadStatus, carType, kinds, cityLevel
+  finalResult, testDrive, leadStatus, carType, kinds, pcaArea
 } from '../../../dictionary'
 import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
@@ -105,7 +105,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   finalResult: Array<any> = finalResult
   carType: Array<any> = carType
   kinds: Array<any> = kinds
-  cityLevel: Array<any> = cityLevel
+  pcaArea: Array<any> = pcaArea
 
   $refs: any
 
@@ -141,8 +141,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.cascadeContext = vm
     Object.assign(this.cascade,
       {
-        vehModel: data[0] ? data[0].label : null,
-        vehSerices: data[1] ? data[1].label : null
+        vehSerices: data[0] ? data[0].label : null,
+        vehModel: data[1] ? data[1].label : null
       }
     )
   }
