@@ -258,4 +258,6 @@ export const download = {
   customerStatic: '/api/report/customerReportExport',
   // 销售顾问工作量
   salerWorkNum: '/api/workload/export',
+  userInfo: '/api/user/export',
+  roleInfo: '/api/role/export',
 }

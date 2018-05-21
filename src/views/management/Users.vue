@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="sg-top-button">
+      <el-button @click="createUser">新建用户</el-button>
+    </div>
+
     <!-- Header -->
     <div class="sg-header">
       <el-form ref="query" :model="query" label-width="50px">
@@ -62,6 +66,7 @@
           >
             <template slot-scope="scope">
               <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
+              <el-button @click="handleDel(scope.row)" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -177,6 +182,10 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   //   console.log(val)
   // }
 
+  createUser() {
+    
+  }
+
   handleEdit(row) {
     const { id } = row
     this.loading = false
@@ -192,6 +201,12 @@ export default class App extends mixins(TableColor, DownloadMixin) {
         this.roleChoosed = data.roles.map(item => item.id)
       }
     })
+  }
+
+  handleDel(row) {
+    const { id } = row
+
+
   }
 
   // show() {
