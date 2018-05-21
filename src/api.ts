@@ -240,6 +240,9 @@ export const feature = (params) => http.post('/report/salesSubmersibleReport', p
  */
 export const salerWorkNumList = (params) => http.post('/workload/statistics', params)
 
+export const userResetPwd = (params) => http.post('/user/resetPwd', params)
+export const userDel = (params) => http.post('/user/delete', params)
+
 /**
  * 导出相关
  */
