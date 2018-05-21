@@ -263,4 +263,6 @@ export const download = {
   salerWorkNum: '/api/workload/export',
   userInfo: '/api/user/export',
   roleInfo: '/api/role/export',
+  role: '/api/role/export',
+  user: '/api/user/export'
 }

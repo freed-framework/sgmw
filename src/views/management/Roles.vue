@@ -2,6 +2,7 @@
   <div>
     <div class="sg-top-button">
       <el-button @click="createRole">新建角色</el-button>
+      <el-button @click="exportList">导出</el-button>
     </div>
     <!-- Header -->
     <div class="sg-header">
@@ -168,6 +169,7 @@ import Permissions from './Permissions'
 import { mixins } from 'vue-class-component'
 import TableColor from '@/mixins/table-color/index.vue'
 import DownloadMixin from '@/mixins/downloadMixin'
+import { download } from '../../api'
 
 @Component({
   components: {
@@ -274,6 +276,12 @@ export default class App extends mixins(TableColor, DownloadMixin) {
         this.loading = false
       })
     })
+  }
+
+  exportList() {
+    const query = { ...this.query }
+
+    this.download(download.role, query)
   }
 
   @Watch('dialogFormVisible')

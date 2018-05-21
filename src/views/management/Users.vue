@@ -1,8 +1,9 @@
 <template>
   <div>
-    <!-- <div class="sg-top-button">
-      <el-button @click="createUser">新建用户</el-button>
-    </div> -->
+    <div class="sg-top-button">
+      <!-- <el-button @click="createUser">新建用户</el-button> -->
+      <el-button @click="exportList">导出</el-button>
+    </div>
 
     <!-- Header -->
     <div class="sg-header">
@@ -188,6 +189,7 @@ import { tabelHeader } from './helper'
 import { mixins } from 'vue-class-component'
 import TableColor from '@/mixins/table-color/index.vue'
 import DownloadMixin from '@/mixins/downloadMixin'
+import { download } from '../../api'
 
 @Component
 export default class App extends mixins(TableColor, DownloadMixin) {
@@ -376,6 +378,12 @@ export default class App extends mixins(TableColor, DownloadMixin) {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
     })
+  }
+
+  exportList() {
+    const query = { ...this.query }
+
+    this.download(download.user, query)
   }
 
   mounted() {
