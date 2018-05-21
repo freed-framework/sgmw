@@ -64,7 +64,7 @@
           />
           <el-table-column
             prop="activeText"
-            label="状态"
+            label="启用状态"
           />
 
           <el-table-column
