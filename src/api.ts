@@ -216,6 +216,10 @@ export const subStatisticsList = (params) => http.post('/report/submersibleRepor
  */
 export const salesStatisticsList = (params) => http.post('/report/salesReport', params)
 /**
+ * 销售统计-详情
+ */
+export const salesReportDetail = (params) => http.post('/report/salesReportDetail', params)
+/**
  * 客户统计
  */
 export const customerStatisticsList = (params) => http.post('/report/customerReport', params)

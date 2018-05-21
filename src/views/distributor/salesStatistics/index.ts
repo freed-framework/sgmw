@@ -18,12 +18,14 @@ import Brand from '../../../components/brand/index.vue'
 import Region from '../../../components/region/index.vue'
 import { download } from '../../../api'
 import TimeRange from '../../../components/timeRanage/index.vue'
+import DetailModal from '../../../components/detailModal/index.vue'
 
 @Component({
   components: {
     Brand,
     Region,
-    TimeRange
+    TimeRange,
+    DetailModal
   }
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
@@ -106,6 +108,9 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   carType: Array<any> = carType
   kinds: Array<any> = kinds
   pcaArea: Array<any> = pcaArea
+
+  visible: boolean = false
+  params: any = {}
 
   $refs: any
 
@@ -197,6 +202,21 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
     this.download(download.sales, submit)
+  }
+
+  rowClick() {
+    const $form: any = this.$refs['form']
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    this.params = {...submit}
+    this.visible = true
+  }
+
+  modalClose() {
+    this.visible = false
   }
 
   resetForm(form) {

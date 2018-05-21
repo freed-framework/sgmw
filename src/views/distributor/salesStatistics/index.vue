@@ -71,7 +71,9 @@
           :data="salesStatisticsList.list"
           border
           style="width: 100%"
-          :row-class-name="tableRowClassName">
+          :row-class-name="tableRowClassName"
+          @row-click="rowClick"
+        >
           <el-table-column v-for="item in salesStatisticsList.title"
             :prop="item"
             :label="item"
@@ -80,6 +82,7 @@
           </el-table-column>
         </el-table>
       </pag-table>
+      <detail-modal :visible="visible" fetchType="salesReportDetail" :params="params" @close="modalClose" />
     </div>
   </el-form>
 </template>
