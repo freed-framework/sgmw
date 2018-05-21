@@ -12,4 +12,5 @@ export default class Layout extends Vue {}
 </script>
 
 <style lang="scss">
+
 </style>

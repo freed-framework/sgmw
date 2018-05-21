@@ -61,6 +61,10 @@ export default class Layout extends Vue {
 }
 </script>
 <style lang="scss">
+#container {
+    min-width: 1170px;
+    overflow-x: auto;
+}
 .el-header {
   background-color: #eee;
   color: #333;
