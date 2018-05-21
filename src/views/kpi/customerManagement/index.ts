@@ -10,7 +10,8 @@ import moment from 'moment'
 import TableColor from '../../../mixins/table-color/index.vue'
 import {
   dealerStatus, customerLevel, customerType,
-  finalResult, testDrive, dealerleadChannel1
+  finalResult, testDrive, dealerleadChannel1,
+  submersibleType
 } from '../../../dictionary'
 import { kpi } from './kpi'
 import Brand from '../../../components/brand/index.vue'
@@ -68,6 +69,7 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
   customerType: Array<any> = customerType
   leadChannel: Array<any> = dealerleadChannel1
   finalResult: Array<any> = finalResult
+  submersibleType: Array<any> = submersibleType
   testDrive: Array<any> = testDrive
   kpi: Array<any> = kpi
   loading: boolean = false

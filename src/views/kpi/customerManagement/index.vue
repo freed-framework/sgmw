@@ -58,7 +58,7 @@
           <el-col :span="6">
             <el-form-item label="潜客类型">
               <el-select :clearable="true" v-model="form.custType" placeholder="请选择潜客类型">
-                <el-option v-for="(item, index) in customerType" :key="index" :label="item.lable" :value="item.label"></el-option>
+                <el-option v-for="(item, index) in submersibleType" :key="index" :label="item.lable" :value="item.label"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
