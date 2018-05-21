@@ -191,7 +191,7 @@ const getters = {
     data.list = data.list.map((item, index) => ({
       ...item,
       index: index + start,
-      activeText: item.active === 1 ? '是' : '否',
+      activeText: item.active === 1 ? '启用' : '禁用',
       typeName: item.type === 1 ? '菜单类型' : '数据类型'
     }))
 
