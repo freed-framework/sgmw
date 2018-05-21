@@ -306,6 +306,14 @@ export default class App extends mixins(TableColor, DownloadMixin) {
       { validator: this.validatePass2, trigger: 'blur' }
     ]
   }
+  
+  handlePassword(row) {
+    this.dialogPwdVisible = true
+    this.resetId = row.id
+
+    this.formPwd = {}
+  }
+
   dialogPwdVisible: boolean = false
   pwdLoading: boolean = false
   pwdUpdateSubmit() {
@@ -325,12 +333,6 @@ export default class App extends mixins(TableColor, DownloadMixin) {
         return false;
       }
     });
-  }
-
-  
-  handlePassword(row) {
-    this.dialogPwdVisible = true
-    this.resetId = row.id
   }
   // END Pwd
 
