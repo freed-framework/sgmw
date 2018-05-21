@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getUserList, getUserDetail, userUpdate } from '@/api'
+import { getUserList, getUserDetail, userUpdate, userResetPwd, userDel } from '@/api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 import moment from 'moment'
 
@@ -20,6 +20,24 @@ const mutations = {
 }
 
 const actions = {
+  async del({ commit }, id) {
+    try {
+      return await userDel({
+        id,
+      })
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  },
+
+  async resetPwd({ commit }, params) {
+    try {
+      return await userResetPwd(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
+  },
+
   async getList({ commit }, params) {
     try {
       const result = await getUserList(cutInvalidData(params))

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="sg-top-button">
+    <!-- <div class="sg-top-button">
       <el-button @click="createUser">新建用户</el-button>
-    </div>
+    </div> -->
 
     <!-- Header -->
     <div class="sg-header">
@@ -65,20 +65,20 @@
             width="100"
           >
             <template slot-scope="scope">
-              <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
-              <el-button @click="handlePassword(scope.row)" type="text" size="small">修改密码</el-button>
-              <el-button @click="handleDel(scope.row)" type="text" size="small">删除</el-button>
-
               <el-dropdown>
-                <span class="el-dropdown-link">
+                <span class="el-dropdown-link" style="font-size: 12px;">
                   更多操作<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>
                     <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
                   </el-dropdown-item>
-                  <el-dropdown-item>狮子头</el-dropdown-item>
-                  <el-dropdown-item>螺蛳粉</el-dropdown-item>
+                  <el-dropdown-item>
+                    <el-button @click="handlePassword(scope.row)" type="text" size="small">修改密码</el-button>
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <el-button @click="handleOpenDel(scope.row)" type="text" size="small">删除</el-button>
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
@@ -109,7 +109,7 @@
         :model="form"
       >
         <el-form-item label="名称" :label-width="formLabelWidth">
-          <el-input style="width: 200px" v-model="form.name" auto-complete="off" :disabled="true"></el-input>
+          <el-input style="width: 200px" v-model="form.name" auto-complete="off" :disabled="!isNew ? true : false"></el-input>
         </el-form-item>
         <el-form-item label="状态" :label-width="formLabelWidth">
           <el-radio-group v-model="form.active">
@@ -143,27 +143,40 @@
 
 
     <!-- 修改密码 -->
-    <el-dialog title="修改密码" :visible.sync="dialogPwdVisible">
-      <el-form :model="form">
-        <el-form-item label="原密码" :label-width="formLabelWidth">
-          <el-input v-model="formPwd.old" auto-complete="off"></el-input>
+    <el-dialog title="修改密码" width="480px" :visible.sync="dialogPwdVisible">
+      <el-form
+        :model="formPwd"
+        :rules="rulesPwd"
+        ref="formPwd"
+      >
+        <el-form-item prop="new" label="新密码" :label-width="formLabelWidth">
+          <el-input v-model="formPwd.new" style="width: 300px" type="password" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="新密码" :label-width="formLabelWidth">
-          <el-input v-model="formPwd.new" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" :label-width="formLabelWidth">
-          <el-input v-model="formPwd.new2" auto-complete="off"></el-input>
+        <el-form-item prop="new2" label="确认密码" :label-width="formLabelWidth">
+          <el-input v-model="formPwd.new2" style="width: 300px" type="password" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer" style="text-align: center;">
         <el-button @click="dialogPwdVisible = false">取 消</el-button>
-        <el-button type="primary" @click="pwdUpdateSubmit">确 定</el-button>
+        <el-button :loading="pwdLoading" type="primary" @click="pwdUpdateSubmit">确 定</el-button>
       </div>
     </el-dialog>
 
     <!-- 新建用户 -->
 
     <!-- 删除用户 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogDelVisible"
+      width="300px"
+      center
+    >
+      <div style="text-align: center">是否删除该用户</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogDelVisible = false">取 消</el-button>
+        <el-button :loading="dialogDelLoading" type="primary" @click="confirmDel">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -190,10 +203,14 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   @Getter('auth/user') user: any
   @Getter('auth/roleSelect') roleSelect: any
   @Action('user/update') update: any
+  @Action('user/del') del: any
+  @Action('user/resetPwd') resetPwd: any
 
   form: any = {
     ...this.detail
   }
+
+  pageNumber: number = 1
 
   loading: boolean = false
   // 已选角色
@@ -204,29 +221,23 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   }
 
   tabelHeader: any = []
+  dialogDelVisible: boolean = false
 
   currentPermissions: any = []
 
-  // @Watch('detail', { deep: true })
-  // onDetailChanged(data)  {
-  //   // this.form = { ...data }
-  //   // console.log(this.form, data)
-
-  //   // this.tabelHeader = tabelHeader[data.userType]
-  // }
-
-  // @Watch('roleChoosed', { deep: true })
-  // onRoleChoosedChanged(val) {
-  //   console.log(val)
-  // }
-
   createUser() {
+    this.dialogFormVisible = true
+    this.isNew = true
 
+    this.form = {}
+    this.roleChoosed = []
   }
 
+  isNew: boolean = false
   handleEdit(row) {
     const { id } = row
     this.loading = false
+    this.isNew = false
 
     this.getDetail(id).then(res => {
       this.dialogFormVisible = true
@@ -241,25 +252,87 @@ export default class App extends mixins(TableColor, DownloadMixin) {
     })
   }
 
-  handleDel(row) {
+  // DDDDDDDel
+  openedDelId: any
+  dialogDelLoading: boolean = false
+  handleOpenDel(row) {
     const { id } = row
-
-
+    this.openedDelId = id
+    this.dialogDelVisible = true
   }
 
+  confirmDel(done) {
+    this.dialogDelLoading = true
+    this.del(this.openedDelId).then(() => {
+      this.submitQuery()
+      this.dialogDelLoading = false
+      this.dialogDelVisible = false
+    }).catch(() => {
+      this.dialogDelLoading = false
+    })
+  }
+  // END DDDDDDDel
+
+  // IM PPPPPPPPassword
+  resetId: any
   formPwd: any = {
-    old: '',
     new: '',
     new2: ''
   }
+  validatePass(rule, value, callback) {
+    if (value === '') {
+      callback(new Error('请输入密码'));
+    } else {
+      if (this.formPwd.new2 !== '') {
+        this.$refs.formPwd.validateField('new2');
+      }
+      callback();
+    }
+  }
+  validatePass2(rule, value, callback) {
+    if (value === '') {
+      callback(new Error('请再次输入密码'));
+    } else if (value !== this.formPwd.new) {
+      callback(new Error('两次输入密码不一致!'));
+    } else {
+      callback();
+    }
+  }
+  rulesPwd: any = {
+    new: [
+      { validator: this.validatePass, trigger: 'blur' }
+    ],
+    new2: [
+      { validator: this.validatePass2, trigger: 'blur' }
+    ]
+  }
   dialogPwdVisible: boolean = false
+  pwdLoading: boolean = false
   pwdUpdateSubmit() {
-    this.dialogPwdVisible = false
+    this.$refs.formPwd.validate((valid, msg) => {
+      if (valid) {
+        this.pwdLoading = true
+        this.resetPwd({
+          id: this.resetId,
+          newPassword: this.formPwd.new,
+        }).then(() => {
+          this.dialogPwdVisible = false
+          this.pwdLoading = false
+        }).catch(() => {
+          this.pwdLoading = false
+        })
+      } else {
+        return false;
+      }
+    });
   }
 
+  
   handlePassword(row) {
     this.dialogPwdVisible = true
+    this.resetId = row.id
   }
+  // END Pwd
 
   // show() {
   //   console.log(this.$refs.permissions)
@@ -289,17 +362,16 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   }
 
   handleCurrentChange(pageNumber) {
-    this.getList({
-      ...this.query,
-      pageNumber,
-      pageSize: this.pageSize,
-    })
+    this.submitQuery(pageNumber)
   }
 
-  submitQuery() {
+  submitQuery(pageNumber = null) {
+    if (pageNumber != null) {
+      this.pageNumber = pageNumber
+    }
     this.getList({
       ...this.query,
-      pageNumber: 1,
+      pageNumber: this.pageNumber,
       pageSize: this.pageSize,
     })
   }
@@ -309,7 +381,7 @@ export default class App extends mixins(TableColor, DownloadMixin) {
     this.tabelHeader = tabelHeader[userType]
 
     this.getList({
-      pageNumber: 1,
+      pageNumber: this.pageNumber,
       pageSize: this.pageSize,
     })
   }
