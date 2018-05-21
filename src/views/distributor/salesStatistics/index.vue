@@ -36,7 +36,7 @@
           <el-col :span="6">
             <el-form-item label="省会/地级/县级">
               <el-select :clearable="true" v-model="form.cityLevel" placeholder="请选择省会/地级/县级">
-                <el-option v-for="(text, index) in cityLevel" :key="index" :label="text.label" :value="text.label" ></el-option>
+                <el-option v-for="(text, index) in pcaArea" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
           </el-col>

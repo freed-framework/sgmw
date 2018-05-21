@@ -191,7 +191,7 @@ import {
         platform: data[0] ? data[0].label : null,
 				mainChannel: data[1] ? data[1].label : null,
 				partChannel: data[2] ? data[2].label : null,
-				subChannel: data[3] ? data[3].label : null
+				// subChannel: data[3] ? data[3].label : null
       }
     )
   }
