@@ -66,7 +66,21 @@
           >
             <template slot-scope="scope">
               <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
+              <el-button @click="handlePassword(scope.row)" type="text" size="small">修改密码</el-button>
               <el-button @click="handleDel(scope.row)" type="text" size="small">删除</el-button>
+
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  更多操作<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item>
+                    <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
+                  </el-dropdown-item>
+                  <el-dropdown-item>狮子头</el-dropdown-item>
+                  <el-dropdown-item>螺蛳粉</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </template>
           </el-table-column>
         </el-table>
@@ -126,6 +140,30 @@
         <el-button :loading="loading" type="primary" @click="handleUpdate">确 定</el-button>
       </div>
     </el-dialog>
+
+
+    <!-- 修改密码 -->
+    <el-dialog title="修改密码" :visible.sync="dialogPwdVisible">
+      <el-form :model="form">
+        <el-form-item label="原密码" :label-width="formLabelWidth">
+          <el-input v-model="formPwd.old" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码" :label-width="formLabelWidth">
+          <el-input v-model="formPwd.new" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" :label-width="formLabelWidth">
+          <el-input v-model="formPwd.new2" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogPwdVisible = false">取 消</el-button>
+        <el-button type="primary" @click="pwdUpdateSubmit">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 新建用户 -->
+
+    <!-- 删除用户 -->
   </div>
 </template>
 
@@ -183,7 +221,7 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   // }
 
   createUser() {
-    
+
   }
 
   handleEdit(row) {
@@ -207,6 +245,20 @@ export default class App extends mixins(TableColor, DownloadMixin) {
     const { id } = row
 
 
+  }
+
+  formPwd: any = {
+    old: '',
+    new: '',
+    new2: ''
+  }
+  dialogPwdVisible: boolean = false
+  pwdUpdateSubmit() {
+    this.dialogPwdVisible = false
+  }
+
+  handlePassword(row) {
+    this.dialogPwdVisible = true
   }
 
   // show() {
