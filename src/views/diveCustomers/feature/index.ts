@@ -22,7 +22,7 @@ import {
 	
 	cache = {
 		visitTime: '',
-		custLevel: '',
+		custLevel: '直接来店',
   }
   
 	form: any = { ...this.cache }
