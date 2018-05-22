@@ -192,7 +192,7 @@ const asyncRoutes = [
         component: () => import('@/views/diveCustomers/salerWorkNum/index.vue'),
         meta: {
           role: [ 'salerWorkNum' ],
-          text: '销售顾问工作量'
+          text: '销售顾问统计报表'
         }
       },
       {
