@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="销量统计明细" :visible="visible" width="94%" top="20px" @close="handleClose">
-    <el-table :data="list" style="width: 100%, max-height: ">
+  <el-dialog title="销量统计明细" :visible="visible" width="98%" top="10px" @close="handleClose">
+    <el-table :data="list" style="width: 100%">
       <el-table-column v-for="(item) in tables"
         :prop="item.key"
         :label="item.label"
