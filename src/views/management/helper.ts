@@ -96,7 +96,7 @@ export const tabelHeader = {
       key: 'registDate'
     },
     {
-      title: '注销时间',
+      title: '禁用时间',
       key: 'cancelDate'
     },
     {
