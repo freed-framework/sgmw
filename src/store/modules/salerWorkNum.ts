@@ -43,8 +43,8 @@ const mutations = {
     const cacheData: any = formatData(data)
     const { list } = cacheData
     cacheData.list = list.slice(0, 20)
-    cache.list = payload.data.data
-    cache.total = payload.data.total
+    cache.list = payload.data ? payload.data.data : []
+    cache.total = payload.data ? payload.data.total : 0
     state.list = cacheData
   },
   [ActionType.FETCH_SALER_WORK_PAGE_LIST](state: any, payload: any) {
