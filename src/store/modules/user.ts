@@ -95,10 +95,11 @@ const getters = {
         ...item,
         activeText: item.active === 1 ? '已启用' : '已禁用',
         userTypeName,
-        registDate: moment(new Date()).format('YYYY-MM-DD HH:mm') 
+        registDate: item.registDate ? moment(item.registDate).format('YYYY-MM-DD HH:mm') : '',
+        cancelDate: item.cancelDate ? moment(item.cancelDate).format('YYYY-MM-DD HH:mm') : '',
       }
     })
-console.log(data)
+
     return data
   },
   detail: (state) => state.detail
