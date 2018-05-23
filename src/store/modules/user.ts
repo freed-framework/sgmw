@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getUserList, getUserDetail, userUpdate, userResetPwd, userDel } from '@/api'
+import { getUserList, getUserDetail, userUpdate, userResetPwd, userDel, userCreate } from '@/api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 import moment from 'moment'
 
@@ -64,6 +64,14 @@ const actions = {
     } catch (ex) {
       throw new Error(ex)
     }
+  },
+
+  async create({ commit }, params) {
+    try {
+      return await userCreate(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
   }
 }
 
@@ -90,7 +98,7 @@ const getters = {
         registDate: moment(new Date()).format('YYYY-MM-DD HH:mm') 
       }
     })
-
+console.log(data)
     return data
   },
   detail: (state) => state.detail

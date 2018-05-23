@@ -173,6 +173,7 @@ export const roleAdd = (params) => http.post('/role/add', params)
 export const getUserList = (params) => http.get('/user/query', params)
 export const getUserDetail = (id) => http.get('/user/detail', { id })
 export const userUpdate = (params) => http.post('/user/update', params)
+export const userCreate = (params) => http.post('/user/register', params)
 
 /**
  * common相关

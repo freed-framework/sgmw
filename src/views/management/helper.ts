@@ -1,5 +1,5 @@
 export const tabelHeader = {
-  // 厂家角色管理
+  // 物流商
   '3': [
     {
       title: '角色代码',
@@ -22,7 +22,7 @@ export const tabelHeader = {
       key: 'userTypeName'
     }
   ],
-  // 经销商操作员
+  // 经销商
   '2': [
     {
       title: '操作员代码',
@@ -104,4 +104,19 @@ export const tabelHeader = {
       key: 'phone'
     }
   ]
+}
+
+export default function getHeader(userType) {
+  return tabelHeader[1].map((item) => {
+    if (item.key === 'deptNo') {
+      if (userType === 2) {
+        item.title = '经销商号'
+      }
+      if (userType === 3) {
+        item.title = '物流商号'
+      }
+    }
+
+    return item
+  })
 }
