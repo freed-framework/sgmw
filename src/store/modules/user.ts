@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getUserList, getUserDetail, userUpdate, userResetPwd, userDel } from '@/api'
+import { getUserList, getUserDetail, userUpdate, userResetPwd, userDel, userCreate } from '@/api'
 import { formatData, initList, cutInvalidData } from '../helpers'
 import moment from 'moment'
 
@@ -64,6 +64,14 @@ const actions = {
     } catch (ex) {
       throw new Error(ex)
     }
+  },
+
+  async create({ commit }, params) {
+    try {
+      return await userCreate(params)
+    } catch (ex) {
+      throw new Error(ex)
+    }
   }
 }
 
@@ -87,7 +95,8 @@ const getters = {
         ...item,
         activeText: item.active === 1 ? '已启用' : '已禁用',
         userTypeName,
-        registDate: moment(new Date()).format('YYYY-MM-DD HH:mm') 
+        registDate: item.registDate ? moment(item.registDate).format('YYYY-MM-DD HH:mm') : '',
+        cancelDate: item.cancelDate ? moment(item.cancelDate).format('YYYY-MM-DD HH:mm') : '',
       }
     })
 
