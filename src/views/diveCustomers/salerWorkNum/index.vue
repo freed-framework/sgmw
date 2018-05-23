@@ -55,6 +55,13 @@
           >
           </el-table-column>
         </el-table>
+         <el-pagination
+          v-if="salerWorkNumList.pagination.total"
+          layout="prev, pager, next"
+          @current-change="handlePageChange"
+          :total="salerWorkNumList.pagination.total"
+          :page-size="20">
+        </el-pagination>
       </pag-table>
     </div>
   </div>
