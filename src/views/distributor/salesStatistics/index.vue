@@ -54,6 +54,7 @@
         </el-row>
         <el-row>
           <el-col :span="24" style="text-align: right;padding: 0 10px 10px 0;">
+            <el-button v-if="salesStatisticsList.list.length" type="success" @click="rowClick">查看明细</el-button>
             <el-button type="primary" @click="submitForm('form')">检索</el-button>
             <el-button type="success" @click="exportList('form')">导出</el-button>
             <el-button @click="resetForm('form')">重置</el-button>
@@ -72,7 +73,6 @@
           border
           style="width: 100%"
           :row-class-name="tableRowClassName"
-          @row-click="rowClick"
         >
           <el-table-column v-for="item in salesStatisticsList.title"
             :prop="item"
@@ -80,6 +80,15 @@
             :key="item"
           >
           </el-table-column>
+          <!-- <el-table-column
+            label="操作"
+            key="handle"
+            v-if="salesStatisticsList.list.length"
+          >
+            <template slot-scope="scope">
+              <el-button @click="rowClick" type="text" size="small">查看明细</el-button>
+            </template>
+          </el-table-column> -->
         </el-table>
       </pag-table>
       <detail-modal :visible="visible" fetchType="salesReportDetail" :params="params" @close="modalClose" />

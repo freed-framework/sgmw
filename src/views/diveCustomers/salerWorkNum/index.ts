@@ -23,6 +23,7 @@ import moment from 'moment'
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
   @Action('salerWorkNum/getSalerWorkNumList') actionSalerWorkNumList: any
+  @Action('salerWorkNum/getPageList') getPageList: any
   @Action('salerWorkNum/resetSalerWorkNumList') actionResetSalerWorkNumList: any
   @Getter('salerWorkNum/getList') salerWorkNumList: any
 
@@ -70,10 +71,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   //   clear() {}
   // }
 
-  handlePageChange(...props) {
-    // console.log(props)
-    // this.submit.cu = 
-    // this.actionGetFinalInVentStaList()
+  handlePageChange(num) {
+    this.getPageList(num)
   }
 
   // handleRegionChange(vm, data = {}) {
