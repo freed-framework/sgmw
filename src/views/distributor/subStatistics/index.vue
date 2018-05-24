@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" label-width="84px">
+  <el-form key="test" ref="ruleForm" :model="ruleForm" label-width="84px">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
           :key="index"
@@ -71,7 +71,7 @@
               <brand
                   @change="handleCacadeChange"
                   :cols="[0, 3]"
-                />
+              />
             </el-row>
             <el-row>
               <el-col :span="6">
