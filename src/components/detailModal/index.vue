@@ -8,7 +8,7 @@
       />
     </el-table>
     <el-pagination
-      layout="prev, pager, next"
+      layout="prev, pager, next, jumper"
       @current-change="handlePageChange"
       :total="total"
       :page-size="pageSize">
