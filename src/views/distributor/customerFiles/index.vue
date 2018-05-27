@@ -87,8 +87,8 @@
         </el-col>
         <el-col :span="6">
             <el-form-item label="车型">
-              <el-select v-model="form.factoryCard" placeholder="车型">
-                  <el-option v-for="(text, index) in carKinds" :key="index" :label="text.label" :value="text.label" ></el-option>
+              <el-select v-model="form.carBrands" placeholder="车型">
+                  <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>
@@ -107,8 +107,8 @@
       <el-row>
         <el-col :span="6">
             <el-form-item label="申请修改状态">
-              <el-select v-model="form.factoryCard" >
-                  <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
+              <el-select v-model="form.UpdateStatus" >
+                  <el-option v-for="(text, index) in UpdateStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>

@@ -13,7 +13,7 @@ import {
   import {
     dealerStatus, customerLevel, customerType,
     provincialCapital, factoryCard, cityCapital, countyAreaCapital,
-    carType, carKinds,
+    carType, carKinds, carBrands,
   } from '../../../dictionary'
   // import Brand from '../../../components/brand/index.vue'
   import Region from '../../../components/region/index.vue'
@@ -162,6 +162,7 @@ import {
 {fieldName:'座机',fieldValue:'CustTel'},
     ]
 
+    carBrands: any = carBrands
     SGMWAudiResults: Array<any> = [{label:'审核通过'},{label:'审核未通过'}]
     GroupVeh: Array<any> = [{label:'集团车'},{label:'非集团车'}]
     UpdateStatus: Array<any> = [{label:'审核通过'},{label:'审核未通过'}]
