@@ -22,6 +22,7 @@ import diveCusClue from './diveCusClue'
 import buyerIntention from './buyerIntention'
 import diveFeature from './diveFeature'
 import user from './user'
+import customerFiles from './customerFiles'
 
 export default {
   auth,
@@ -42,4 +43,5 @@ export default {
   diveFeature,
   salerWorkNum,
   user,
+  customerFiles,
 }

@@ -39,6 +39,7 @@ export default class DownloadMixin extends Vue {
       iframe = document.createElement('iframe')
       iframe.style.display = 'none'
       iframe.id = 'download_iframe'
+      // console.log(`${url}${this.parse(params)}`)
       iframe.src = `${url}${this.parse(params)}`
       container.appendChild(iframe)
     })

@@ -224,6 +224,12 @@ export const salesReportDetail = (params) => http.post('/report/salesReportDetai
  * 客户统计
  */
 export const customerStatisticsList = (params) => http.post('/report/customerReport', params)
+
+/**
+ * 客户
+ */
+export const customerFiles = (params) => http.post('/report/customerFilesReport', params)
+
 /**
  * 厂家潜客线索统计
  */
@@ -269,5 +275,6 @@ export const download = {
   userInfo: '/api/user/export',
   roleInfo: '/api/role/export',
   role: '/api/role/export',
-  user: '/api/user/export'
+  user: '/api/user/export',
+  custfiles: '/api/report/customerFilesExport'
 }
