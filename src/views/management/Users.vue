@@ -92,7 +92,7 @@
           :page-size="datas.pagination.pageSize"
           :current-page="datas.pagination.pageNum"
           :pager-count="11"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :total="datas.pagination.total"
           @current-change="handleCurrentChange"
         >
@@ -102,7 +102,7 @@
 
     <!-- modal -->
     <el-dialog
-      title="修改用户信息"
+      :title="isNew ? '新增用户' : '修改用户信息'"
       center
       :visible.sync="dialogFormVisible"
     >
