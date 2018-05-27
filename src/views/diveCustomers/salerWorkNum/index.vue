@@ -57,7 +57,7 @@
         </el-table>
          <el-pagination
           v-if="salerWorkNumList.pagination.total"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           @current-change="handlePageChange"
           :total="salerWorkNumList.pagination.total"
           :page-size="20">
