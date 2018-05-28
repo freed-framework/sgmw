@@ -11,7 +11,11 @@
     </el-tabs>
     <div class="sg-header">
       <el-row>
+<<<<<<< HEAD
         <time-range label="战败日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
+=======
+        <time-range @change="timeRangeChange" :label="战败日期" :type="timeRange.type" :format="timeRange.format"/>
+>>>>>>> 558dbd8e32bcec7b2fefbc8d2a58a69c034c84d8
         <el-col :span="6">
           <el-form-item label="经销商号">
             <el-input style="width: 193px" v-model="ruleForm.dealer" placeholder="请输入经销商"></el-input>
