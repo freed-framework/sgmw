@@ -85,7 +85,7 @@
           :page-size="datas.pagination.pageSize"
           :current-page="datas.pagination.pageNum"
           :pager-count="11"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :total="datas.pagination.total"
           @current-change="handleCurrentChange"
         >

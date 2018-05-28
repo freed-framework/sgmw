@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" label-width="84px">
+  <el-form key="test" ref="ruleForm" :model="ruleForm" label-width="84px">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
           :key="index"
@@ -12,7 +12,7 @@
     <div class="sg-sub-stati">
           <div class="sg-header">
             <el-row>
-              <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
+              <time-range label="潜客日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
                 <el-form-item label="经销商号">
                   <el-input v-model="ruleForm.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>
@@ -71,7 +71,7 @@
               <brand
                   @change="handleCacadeChange"
                   :cols="[0, 3]"
-                />
+              />
             </el-row>
             <el-row>
               <el-col :span="6">

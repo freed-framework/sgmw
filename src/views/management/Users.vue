@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sg-top-button">
-      <!-- <el-button @click="createUser">新建用户</el-button> -->
+      <el-button @click="createUser">新建用户</el-button>
       <el-button @click="exportList">导出</el-button>
     </div>
 
@@ -92,7 +92,7 @@
           :page-size="datas.pagination.pageSize"
           :current-page="datas.pagination.pageNum"
           :pager-count="11"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :total="datas.pagination.total"
           @current-change="handleCurrentChange"
         >
@@ -102,22 +102,78 @@
 
     <!-- modal -->
     <el-dialog
-      title="修改用户信息"
+      :title="isNew ? '新增用户' : '修改用户信息'"
       center
       :visible.sync="dialogFormVisible"
     >
       <el-form
         :model="form"
+        :rules="formRules"
+        ref="form"
       >
-        <el-form-item label="名称" :label-width="formLabelWidth">
-          <el-input style="width: 200px" v-model="form.name" auto-complete="off" :disabled="!isNew ? true : false"></el-input>
+        <el-form-item label="登录名" prop="loginName" :label-width="formLabelWidth">
+          <el-input :disabled="!isNew" style="width: 200px" v-model="form.loginName" auto-complete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="状态" :label-width="formLabelWidth">
-          <el-radio-group v-model="form.active">
-            <el-radio :label="1">已启用</el-radio>
-            <el-radio :label="0">已禁用</el-radio>
-          </el-radio-group>
+        <el-form-item label="用户姓名" prop="name" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.name" auto-complete="off" ></el-input>
         </el-form-item>
+        <el-form-item
+          v-if="isNew"
+          label="用户密码"
+          prop="password"
+          :label-width="formLabelWidth"
+        >
+          <el-input type="password" style="width: 200px" v-model="form.password" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item
+          v-if="isNew"
+          label="确认密码"
+          prop="password1"
+          :label-width="formLabelWidth"
+        >
+          <el-input type="password" style="width: 200px" v-model="form.password1" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item label="用户类型" prop="userType" :label-width="formLabelWidth">
+          <el-select :clearable="true" v-model="form.userType" :disabled="!isNew" placeholder="请选择用户类型">
+            <el-option label="厂家用户" :value="1" />
+            <el-option label="经销商" :value="2" />
+            <el-option label="物流商" :value="3" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item :label="deptNoName" prop="deptNo" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.deptNo" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item label="职务" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.position" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item label="所属区域" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.region" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item label="品牌" :label-width="formLabelWidth">
+          <el-select :clearable="true" v-model="form.brand" placeholder="请选择品牌">
+            <el-option label="五菱" :value="1" />
+            <el-option label="宝骏" :value="2" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="用户编码" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.code" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item label="电话号码" prop="phone" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.phone" auto-complete="off" ></el-input>
+        </el-form-item>
+
+        <el-form-item label="Email" :label-width="formLabelWidth">
+          <el-input style="width: 200px" v-model="form.email" auto-complete="off" ></el-input>
+        </el-form-item>
+
         <el-form-item label="角色" :label-width="formLabelWidth">
           <el-select
             v-model="roleChoosed"
@@ -133,6 +189,13 @@
             >
             </el-option>
           </el-select>
+        </el-form-item>
+
+        <el-form-item label="状态" :label-width="formLabelWidth">
+          <el-radio-group v-model="form.active">
+            <el-radio :label="1">已启用</el-radio>
+            <el-radio :label="0">已禁用</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
       <!-- buttons -->
@@ -185,7 +248,7 @@
 /* eslint-disable */
 import { State, Getter, Action } from 'vuex-class'
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { tabelHeader } from './helper'
+import getHeader, { tabelHeader } from './helper'
 import { mixins } from 'vue-class-component'
 import TableColor from '@/mixins/table-color/index.vue'
 import DownloadMixin from '@/mixins/downloadMixin'
@@ -205,9 +268,49 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   @Getter('auth/user') user: any
   @Getter('auth/roleSelect') roleSelect: any
   @Action('user/update') update: any
+  @Action('user/create') create: any
   @Action('user/del') del: any
   @Action('user/resetPwd') resetPwd: any
 
+  defaultForm: any = {
+    loginName: '',
+    name: '',
+    password: '',
+    email: '',
+    phone: '',
+    deptNo: '',
+    position: '',
+    code: '',
+    brand: '',
+    userType: '',
+    active: '',
+  }
+
+  formRules: any = {
+    loginName: [
+      { required: true, message: '登录名必填', trigger: 'blur' }
+    ],
+    name: [
+      { required: true, message: '用户姓名必填', trigger: 'blur' }
+    ],
+    password: [
+      { required: true, message: '密码必填', trigger: 'blur' },
+      { validator: this.validateAddPass, trigger: 'blur' }
+    ],
+    password1: [
+      { required: true, message: '密码必填', trigger: 'blur' },
+      { validator: this.validateAddPass1, trigger: 'blur' }
+    ],
+    phone: [
+      { required: true, message: '电话号码必填', trigger: 'blur' }
+    ],
+    deptNo: [
+      { required: true, message: '编号必填', trigger: 'blur' }
+    ],
+    userType: [
+      { required: true, message: '用户类型必填', trigger: 'blur' }
+    ]
+  }
   form: any = {
     ...this.detail
   }
@@ -222,6 +325,19 @@ export default class App extends mixins(TableColor, DownloadMixin) {
 
   }
 
+  deptNoName: string = '部门编号'
+
+  @Watch('form.userType')
+  watchTypeChange(val) {
+    if (val == 2) {
+      this.deptNoName = '经销商号'
+    } else if (val == 3) {
+      this.deptNoName = '物流商号'
+    } else {
+      this.deptNoName = '部门编号'
+    }
+  }
+
   tabelHeader: any = []
   dialogDelVisible: boolean = false
 
@@ -230,8 +346,11 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   createUser() {
     this.dialogFormVisible = true
     this.isNew = true
+    this.loading = false
 
-    this.form = {}
+    this.form = {
+      active: 1
+    }
     this.roleChoosed = []
   }
 
@@ -275,6 +394,27 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   }
   // END DDDDDDDel
 
+  validateAddPass(rule, value, callback) {
+    if (!/^.*(?=.{8,20})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/.test(value)) {
+      callback('密码必须包含大小写字母、数字、特殊字符，长度8至20位')
+    } else {
+      if (this.form.password1 !== '') {
+        this.$refs.form.validateField('password1');
+      }
+      callback();
+    }
+  }
+
+  validateAddPass1(rule, value, callback) {
+    if (!/^.*(?=.{8,20})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/.test(value)) {
+      callback('密码必须包含大小写字母、数字、特殊字符，长度8至20位')
+    } else if (value !== this.form.password) {
+      callback(new Error('两次输入密码不一致!'));
+    } else {
+      callback();
+    }
+  }
+
   // IM PPPPPPPPassword
   resetId: any
   formPwd: any = {
@@ -282,8 +422,8 @@ export default class App extends mixins(TableColor, DownloadMixin) {
     new2: ''
   }
   validatePass(rule, value, callback) {
-    if (value === '') {
-      callback(new Error('请输入密码'));
+    if (!/^.*(?=.{8,20})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/.test(value)) {
+      callback('密码必须包含大小写字母、数字、特殊字符，长度8至20位')
     } else {
       if (this.formPwd.new2 !== '') {
         this.$refs.formPwd.validateField('new2');
@@ -292,8 +432,8 @@ export default class App extends mixins(TableColor, DownloadMixin) {
     }
   }
   validatePass2(rule, value, callback) {
-    if (value === '') {
-      callback(new Error('请再次输入密码'));
+    if (!/^.*(?=.{8,20})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/.test(value)) {
+      callback('密码必须包含大小写字母、数字、特殊字符，长度8至20位')
     } else if (value !== this.formPwd.new) {
       callback(new Error('两次输入密码不一致!'));
     } else {
@@ -348,21 +488,42 @@ export default class App extends mixins(TableColor, DownloadMixin) {
     }))
   }
 
+  // create and update
   handleUpdate() {
     const { id, active } = this.form
+    const { password1, ...props } = this.form
 
     const postData = {
-      id,
-      active,
+      // id,
+      // active,
+      ...props,
       roles: this.formatRoleSelect()
     }
 
-    this.update(postData).then(() => {
-      this.dialogFormVisible = false
-      this.loading = true
-    }).catch(() => {
-      this.loading = false
-    })
+    this.$refs.form.validate((valid, msg) => {
+      if (valid) {
+        this.loading = true
+
+        let action: any
+
+        if (this.isNew) {
+          action = this.create
+        } else {
+          action = this.update
+        }
+
+        action(postData).then(() => {
+          this.dialogFormVisible = false
+          this.loading = true
+          this.submitQuery()
+          this.$refs.form.clearValidate()
+        }).catch(() => {
+          this.loading = false
+        })
+      } else {
+        return false;
+      }
+    });
   }
 
   handleCurrentChange(pageNumber) {
@@ -370,9 +531,13 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   }
 
   submitQuery(pageNumber = null) {
+    if (typeof pageNumber !== 'number') {
+      pageNumber = 1
+    }
     if (pageNumber != null) {
       this.pageNumber = pageNumber
     }
+
     this.getList({
       ...this.query,
       pageNumber: this.pageNumber,
@@ -388,7 +553,9 @@ export default class App extends mixins(TableColor, DownloadMixin) {
 
   mounted() {
     const { userType } = this.user
-    this.tabelHeader = tabelHeader[userType]
+    // this.tabelHeader = tabelHeader[userType]
+    // 目前需求仅仅使用 userType 1 的
+    this.tabelHeader = getHeader(userType)
 
     this.getList({
       pageNumber: this.pageNumber,

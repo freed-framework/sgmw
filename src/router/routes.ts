@@ -175,6 +175,14 @@ const asyncRoutes = [
           role: [ 'diveCusClue' ]
         }
       },
+      {
+        path: 'customerFiles',
+        component: () => import('@/views/distributor/customerFiles/index.vue'),
+        meta: {
+        text: '客户档案',
+        role: [ 'customerFiles' ]
+        }
+      },
     ]
   },
   {

@@ -1,27 +1,27 @@
 <template>
   <span>
-    <el-col :span="6" v-if="0 >= cols[0] && 0 <= cols[1]">
+    <el-col key="1" :span="6" v-if="0 >= cols[0] && 0 <= cols[1]">
       <el-form-item :label="colLabel[0]">
         <el-select :clearable="true" v-model="form[keys[0]]" :placeholder="placeholders[0]">
           <el-option v-for="item in showData[0]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
-    <el-col :span="6" v-if="1 >= cols[0] && 1 <= cols[1]">
+    <el-col key="2" :span="6" v-if="1 >= cols[0] && 1 <= cols[1]">
       <el-form-item :label="colLabel[1]">
         <el-select :disabled="disabledB" :clearable="true" v-model="form[keys[1]]" :placeholder="placeholders[1]">
           <el-option v-for="item in showData[1]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
-    <el-col :span="6" v-if="2 >= cols[0] && 2 <= cols[1]">
+    <el-col key="3" :span="6" v-if="2 >= cols[0] && 2 <= cols[1]">
       <el-form-item :label="colLabel[2]">
         <el-select :disabled="disabledC" :clearable="true" v-model="form[keys[2]]" :placeholder="placeholders[2]">
           <el-option v-for="item in showData[2]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
-    <el-col :span="6" v-if="3 >= cols[0] && 3 <= cols[1]">
+    <el-col key="4" :span="6" v-if="3 >= cols[0] && 3 <= cols[1]">
       <el-form-item :label="colLabel[3]">
         <el-select :disabled="disabledD" :clearable="true" v-model="form[keys[3]]" :placeholder="placeholders[3]">
           <el-option v-for="item in showData[3]" :label="item.label" :key="item.key" :value="item.value" />
@@ -80,6 +80,7 @@ export default class Cascade extends Vue {
   disabledB: boolean = this.force
   disabledC: boolean = this.force
   disabledD: boolean = this.force
+  timer: any = null
 
   /**添加”全部“选型 */
   addAll() {
@@ -165,15 +166,23 @@ export default class Cascade extends Vue {
     }
   }
 
-  created() {
-    this.init()
+  mounted() {
+    this.timer = setTimeout(() => {
+      this.init()
+      this.$forceUpdate()
+    }, 1500)
+  }
+
+  beforeDestroy() {
+    clearTimeout(this.timer)
   }
 
   @Watch('data', {deep: true})
   watchData(val) {
-    this.init()
-    this.$forceUpdate()
-    
+    Vue.nextTick(() => {
+      this.init()
+      this.$forceUpdate()
+    })
   }
 
   @Watch('form', {deep: true})
@@ -218,7 +227,7 @@ export default class Cascade extends Vue {
     this.disabledB = false;
   }
 
-  @Watch('form.c', {deep: true})
+  @Watch('form.c')
   watchC(val) {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
