@@ -11,7 +11,7 @@
     </el-tabs>
     <div class="sg-header">
         <el-row>
-          <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
+          <time-range  label="销量日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           <el-col :span="6">
             <el-form-item label="经销商" prop="dealerId">
               <el-input v-model="form.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>

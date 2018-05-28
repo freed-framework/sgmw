@@ -23,7 +23,7 @@
             <el-col :span="6">
               <el-form-item label="经销商状态" prop="dealerStatus">
                 <el-select :clearable="true" v-model="form.dealerStatus" placeholder="请选择经销商状态" >
-                  <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.key" ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>

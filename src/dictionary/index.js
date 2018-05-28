@@ -1,10 +1,11 @@
 /* eslint-disable */
+
 // 经销商状态
 export const dealerStatus = [
     {label: '全部', key: '全部'},
     {label: '非注销', key: '非注销'},
+    {label: '已注销', key: '0'},
 ]
-// export const dealerStatus = [{label: '全部'}, {label: '已注销'}, {lable: '已启用'}, {label: '申请中'}, {label: '已退出'}]
 // 客户类型
 export const dealerCustomerType = [
     {label: '全部', value: '全部'},

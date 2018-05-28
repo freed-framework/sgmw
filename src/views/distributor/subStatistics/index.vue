@@ -12,7 +12,7 @@
     <div class="sg-sub-stati">
           <div class="sg-header">
             <el-row>
-              <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
+              <time-range label="潜客日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
                 <el-form-item label="经销商号">
                   <el-input v-model="ruleForm.dealerId" placeholder="请输入经销商" style="width:193px"></el-input>
@@ -21,7 +21,7 @@
               <el-col :span="6">
                 <el-form-item label="经销商状态">
                   <el-select :clearable="true" v-model="ruleForm.dealerStatus" placeholder="请选择经销商状态" >
-                    <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
+                    <el-option v-for="(text, index) in dealerStatus" :key="index" :label="text.label" :value="text.key" ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
