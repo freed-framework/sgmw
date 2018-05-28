@@ -98,14 +98,22 @@
         <el-col :span="6">
             <el-form-item label="申请修改状态">
               <el-select v-model="form.UpdateStatus" >
-                  <el-option v-for="(text, index) in UpdateStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-option v-for="(text, index) in UpdateStatus" :key="index" :label="text.label" :value="text.value" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <!-- <el-col :span="6">
             <el-form-item label="状态">
               <el-select v-model="form.UpdateStatus" >
                   <el-option v-for="(text, index) in UpdateStatus" :key="index" :label="text.label" :value="text.label" ></el-option>
+              </el-select>
+            </el-form-item>
+        </el-col> -->
+
+        <el-col :span="6">
+            <el-form-item label="品牌">
+              <el-select v-model="form.oldVehBrand" >
+                  <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>
@@ -133,6 +141,7 @@
               </el-select>
             </el-form-item>
         </el-col>
+
         <el-col :span="18" class="no-margin">
           <el-form-item>
               <time-range label="经销商审核日期" @change="jxsshRangeChange" :type="timeRange.type" :format="timeRange.format"/>
