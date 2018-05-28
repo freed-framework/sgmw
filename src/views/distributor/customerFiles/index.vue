@@ -37,12 +37,12 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="客户姓名">
-            <el-input v-model="form.custName" placeholder="请输入客户姓名"></el-input>
+            <el-input v-model="form.custName" placeholder="请输入客户姓名" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="联系电话">
-            <el-input v-model="form.custPhone" placeholder="请输入联系电话"></el-input>
+            <el-input v-model="form.custPhone" placeholder="请输入联系电话" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12" class="no-margin">
@@ -55,17 +55,17 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="VIN">
-            <el-input v-model="form.vin" placeholder="请输入VIN"></el-input>
+            <el-input v-model="form.vin" placeholder="请输入VIN" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="发动机号">
-            <el-input v-model="form.EngineID" placeholder="请输入发动机号"></el-input>
+            <el-input v-model="form.EngineID" placeholder="请输入发动机号" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="车牌号">
-            <el-input v-model="form.PlateNum" placeholder="请输入车牌号"></el-input>
+            <el-input v-model="form.PlateNum" placeholder="请输入车牌号" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -84,12 +84,12 @@
         />
         <el-col :span="6">
           <el-form-item label="经销商号">
-            <el-input v-model="form.dealerId" placeholder="请输入经销商号"></el-input>
+            <el-input v-model="form.dealerId" placeholder="请输入经销商号" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="经销商名称">
-            <el-input v-model="form.dealerAbbr" placeholder="请输入经销商名称"></el-input>
+            <el-input v-model="form.dealerAbbr" placeholder="请输入经销商名称" clearable></el-input>
           </el-form-item>
         </el-col>
       </el-row>

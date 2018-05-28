@@ -164,10 +164,10 @@ import {
     ]
 
     carBrands: any = carBrands
-    SGMWAudiResults: Array<any> = [{label:'审核通过'},{label:'审核未通过'}]
-    GroupVeh: Array<any> = [{label:'集团车'},{label:'非集团车'}]
-    UpdateStatus: Array<any> = [{label:'审核通过'},{label:'审核未通过'}]
-    syxz: any = [{label:'个人用车'},{label:'单位用车'}]
+    SGMWAudiResults: Array<any> = [{label:'全部'},{label:'审核通过'},{label:'审核未通过'}]
+    GroupVeh: Array<any> = [{label:'全部'},{label:'集团车'},{label:'非集团车'}]
+    UpdateStatus: Array<any> = [{label:'全部'},{label:'审核通过'},{label:'审核未通过'}]
+    syxz: any = [{label:'全部'},{label:'个人用车'},{label:'单位用车'}]
   
     tjRangeChange(vm, val) {
       // console.log(val)
