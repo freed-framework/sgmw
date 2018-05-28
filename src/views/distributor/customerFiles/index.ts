@@ -221,10 +221,13 @@ import {
   
   
   
-    handlePageChange(...props) {
-      // console.log(props)
-      // this.submit.cu = 
-      // this.actionGetFinalInVentStaList()
+    handlePageChange(num) {
+      const all = Object.assign({}, this.form, this.cascade)
+      const params = Object.assign({}, all, {
+        pageNum: num
+      })
+
+      this.getCustomerFilesList(params)
     }
   
     handleRegionChange(vm, data = {}) {

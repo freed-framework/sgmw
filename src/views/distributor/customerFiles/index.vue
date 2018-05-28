@@ -182,6 +182,7 @@
         :size="customerFilesList.pagination.pageSize"
         :total="customerFilesList.pagination.total"
         :handlePageChange="handlePageChange"
+        :isPager="customerFilesList.pagination.total ? true : false"
       >
         <el-table
           :data="customerFilesList.list"
