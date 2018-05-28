@@ -70,7 +70,7 @@
         </el-col>
         <el-col :span="6">
             <el-form-item label="使用性质">
-              <el-select v-model="form.useType" placeholder="使用性质">
+              <el-select v-model="form.useType" placeholder="使用性质" clearable>
                   <el-option v-for="(text, index) in syxz" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
@@ -97,7 +97,7 @@
       <el-row>
         <el-col :span="6">
             <el-form-item label="申请修改状态">
-              <el-select v-model="form.UpdateStatus" >
+              <el-select v-model="form.UpdateStatus" clearable>
                   <el-option v-for="(text, index) in UpdateStatus" :key="index" :label="text.label" :value="text.value" ></el-option>
               </el-select>
             </el-form-item>
@@ -112,21 +112,21 @@
 
         <el-col :span="6">
             <el-form-item label="品牌">
-              <el-select v-model="form.oldVehBrand" >
+              <el-select v-model="form.oldVehBrand" clearable>
                   <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>
         <el-col :span="6">
             <el-form-item label="SGMW审核结果">
-              <el-select v-model="form.SGMWAudiResults" >
+              <el-select v-model="form.SGMWAudiResults" clearable>
                   <el-option v-for="(text, index) in SGMWAudiResults" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>
         <el-col :span="6">
             <el-form-item label="集团车">
-              <el-select v-model="form.GroupVeh" >
+              <el-select v-model="form.GroupVeh" clearable>
                   <el-option v-for="(text, index) in GroupVeh" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
@@ -136,7 +136,7 @@
       <el-row>
         <el-col :span="6">
             <el-form-item label="客户类型">
-              <el-select v-model="form.custType" >
+              <el-select v-model="form.custType" clearable>
                   <el-option v-for="(text, index) in customerType" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
