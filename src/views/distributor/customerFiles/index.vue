@@ -2,12 +2,12 @@
   <el-form ref="form" :model="form" label-width="84px">
     <div class="sg-header customerfiles">
       <el-row>
-        <el-col :span="12">
+        <el-col :span="12" class="no-margin">
           <el-form-item>
               <time-range label="统计时间" @change="tjRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" class="no-margin">
           <el-form-item >
               <time-range label="建档日期" @change="jdRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           </el-form-item>
@@ -15,12 +15,12 @@
       </el-row>
 
       <el-row>
-        <el-col :span="12">
+        <el-col :span="12" class="no-margin">
           <el-form-item>
               <time-range label="开票日期" @change="kpRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" class="no-margin">
           <el-form-item>
               <time-range label="交车日期" @change="jcRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           </el-form-item>
@@ -45,7 +45,7 @@
             <el-input v-model="form.custPhone" placeholder="请输入联系电话"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" class="no-margin">
           <el-form-item>
               <time-range label="客户生日" @change="khsrRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           </el-form-item>
@@ -71,27 +71,17 @@
         <el-col :span="6">
             <el-form-item label="使用性质">
               <el-select v-model="form.useType" placeholder="使用性质">
-                  <el-option v-for="(text, index) in factoryCard" :key="index" :label="text.label" :value="text.label" ></el-option>
+                  <el-option v-for="(text, index) in syxz" :key="index" :label="text.label" :value="text.label" ></el-option>
               </el-select>
             </el-form-item>
         </el-col>
       </el-row>
 
       <el-row>
-        <el-col :span="6">
-            <el-form-item label="车系">
-              <el-select v-model="form.vehSerices" placeholder="车系">
-                  <el-option v-for="(text, index) in carType" :key="index" :label="text.label" :value="text.label" ></el-option>
-              </el-select>
-            </el-form-item>
-        </el-col>
-        <el-col :span="6">
-            <el-form-item label="车型">
-              <el-select v-model="form.carBrands" placeholder="车型">
-                  <el-option v-for="(text, index) in carBrands" :key="index" :label="text.label" :value="text.label" ></el-option>
-              </el-select>
-            </el-form-item>
-        </el-col>
+        <brand
+          @change="handleCxcxChange"
+          :cols="[2, 3]"
+        />
         <el-col :span="6">
           <el-form-item label="经销商号">
             <el-input v-model="form.dealerId" placeholder="请输入经销商号"></el-input>
@@ -143,7 +133,7 @@
               </el-select>
             </el-form-item>
         </el-col>
-        <el-col :span="18">
+        <el-col :span="18" class="no-margin">
           <el-form-item>
               <time-range label="经销商审核日期" @change="jxsshRangeChange" :type="timeRange.type" :format="timeRange.format"/>
           </el-form-item>
@@ -221,6 +211,9 @@ export default Index
 
 .customerfiles .el-date-editor {
   width: 180px;
+}
+.customerfiles .no-margin > .el-form-item > .el-form-item__content {
+  margin-left: 0 !important;
 }
 </style>
 

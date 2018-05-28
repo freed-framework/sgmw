@@ -15,13 +15,14 @@ import {
     provincialCapital, factoryCard, cityCapital, countyAreaCapital,
     carType, carKinds, carBrands,
   } from '../../../dictionary'
-  // import Brand from '../../../components/brand/index.vue'
+  import Brand from '../../../components/brand/index.vue'
   import Region from '../../../components/region/index.vue'
   import TimeRange from '../../../components/timeRanage/index.vue'
   import { download } from '../../../api'
   
   @Component({
     components: {
+      Brand,
       Region,
       TimeRange
     }
@@ -235,6 +236,11 @@ import {
           region: data[2] ? data[2].label : '',
         }
       )
+    }
+
+    handleCxcxChange(vm, data = {}) {
+      this.form.vehSerices = data[0] ? data[0].label : ''
+      this.form.vehModel = data[1] ? data[1].label : ''
     }
   
     submitForm(form) {
