@@ -7,10 +7,7 @@
     </el-form-item>
     <el-form-item :label="division" label-width="25px">
         <el-date-picker :type="type" :value-format="format" :placeholder="endPlaceholder" v-model="endTime"
-          :picker-options="endStatisDate" v-if="!changeShow">
-        </el-date-picker>
-         <el-date-picker :type="type" :value-format="format" :placeholder="endPlaceholder"
-          :picker-options="endStatisDate" v-if="changeShow">
+          :picker-options="endStatisDate">
         </el-date-picker>
     </el-form-item>
   </el-col>
@@ -40,7 +37,6 @@ export default class Cascade extends Vue {
 
   beginTime: string = ''
   endTime: string = ''
-  changeShow: boolean = false
 
   clear() {
     this.beginTime = ''
@@ -59,8 +55,6 @@ export default class Cascade extends Vue {
       const { type }  = this
       const year = moment(date).format('YYYY')
       const month = moment(date).format('M')
-      const day = moment(date).format('D')
-
       if (!beginTime) return false
       if (type === 'year') {
         if (Number(beginTime) > Number(year)) {
@@ -73,10 +67,11 @@ export default class Cascade extends Vue {
         }
       } else if (type === 'date') {
         const arr = beginTime.split('-')
-        if (Number(arr[0]) !== Number(year) || Number(arr[1]) !== Number(month) || Number(arr[2]) > Number(day)) {
+        if (Number(arr[0]) !== Number(year) || Number(arr[1]) !== Number(month)) {
           return true
         }
       }
+
       return false
     }
   }
@@ -89,11 +84,6 @@ export default class Cascade extends Vue {
     }
     this.endTime = ''
     this.$emit('change', this, {beginTime, endTime})
-    // bugfix 解决组件不会重新渲染， 禁用不能实时更新
-    this.changeShow = true
-    Vue.nextTick(() => {
-      this.changeShow = false
-    })
   }
 
   @Watch('endTime')
