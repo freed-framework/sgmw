@@ -21,7 +21,7 @@
               <el-input v-model="form.name" />
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input type="password" v-model="form.password" @keyup.native="handleQuickLogin"></el-input>
+              <el-input type="password" v-model="form.password" @keyup.native="handleQuickLogin"  autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button
