@@ -32,6 +32,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   @Action('defeatCustomer/resetDefeatCustomerList') actionResetDefeatCustomerList: any
   @Getter('defeatCustomer/getList') defeatCustomerList: any
   cache = {
+    dateType: '',
     status: '',
     createType: '',
     channel: '',
@@ -73,6 +74,12 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }]
   tabIndex: number = 2
   dealer: any = 0
+
+  dateType: any = [
+    {label: "战败时间"},
+    {label: "创建时间"}
+  ]
+
   rules: any = {
     date: [
       { required: false, message: '请选择时间' }

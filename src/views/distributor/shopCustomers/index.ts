@@ -34,6 +34,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   @Action('shopCustomers/resetShopCustomersList') actionResetShopCustomersList: any
   @Getter('shopCustomers/getList') shopCustomersList: any
   cache = {
+    dateType: '',
     startDate: '',
     endDate: '',
     dealer: '',
@@ -78,6 +79,11 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
       { required: false, message: '请选择时间' }
     ]
   }
+  
+  dateType: any = [
+    {label: "到店时间"},
+    {label: "创建时间"}
+  ]
 
   cascadeContext: any = {
     clear() {}
