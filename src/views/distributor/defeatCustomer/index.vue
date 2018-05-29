@@ -12,7 +12,7 @@
     <div class="sg-header">
       <el-row>
         <el-col :span="6">
-          <el-form-item label="时间类型">
+          <el-form-item label="日期类型">
             <el-select :clearable="true" v-model="ruleForm.dateType" placeholder="请选择日期类型" >
               <el-option v-for="(text, index) in dateType" :key="index" :label="text.label" :value="text.label" ></el-option>
             </el-select>
