@@ -15,12 +15,12 @@
       </div>
 
       <!-- 分页 -->
-      <div v-if="false" class="pag-data-pagination">
+      <div v-if="isPager" class="pag-data-pagination">
         <el-pagination
           background
           :disabled="loading"
           layout="prev, pager, next"
-          :current-page.sync="curpage"
+          :current-page="curpage"
           @current-change="handlePageChange"
           :page-size="size"
           :total="total">
@@ -33,7 +33,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
-function noop() {}
+function noop(a) {}
 
 @Component
 export default class PagTable extends Vue {
@@ -42,13 +42,14 @@ export default class PagTable extends Vue {
   @Prop({ default: false }) hasTitle: boolean
   @Prop({ default: '' }) title: string
   @Prop({ default: false }) loading: boolean
-  @Prop({ default: noop }) handlePageChange: void
+  @Prop({ default: noop }) handlePageChange: any
   @Prop({ default: 0 }) total: number
   @Prop({ default: 1 }) curpage: number
   @Prop({ default: 20 }) size: number
   @Prop({ default: noop }) handleAction: Function
   @Prop({ default: '' }) actionType: string
   @Prop({ default: '' }) iconType: string
+  @Prop({ default: false }) isPager: boolean
 }
 </script>
 

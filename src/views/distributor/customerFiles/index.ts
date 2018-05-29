@@ -164,10 +164,10 @@ import {
     ]
 
     carBrands: any = carBrands
-    SGMWAudiResults: Array<any> = [{label:'审核通过'},{label:'审核未通过'}]
-    GroupVeh: Array<any> = [{label:'集团车'},{label:'非集团车'}]
-    UpdateStatus: Array<any> = [{label:'审核通过'},{label:'审核未通过'}]
-    syxz: any = [{label:'个人用车'},{label:'单位用车'}]
+    SGMWAudiResults: Array<any> = [{label:'全部'},{label:'审核通过'},{label:'审核未通过'}]
+    GroupVeh: Array<any> = [{label:'全部'},{label:'集团车'},{label:'非集团车'}]
+    UpdateStatus: Array<any> = [{label:'全部', value: ''},{label:'已修改', value: 1},{label:'未修改', value: 0}]
+    syxz: any = [{label:'全部'},{label:'个人用车'},{label:'单位用车'}]
   
     tjRangeChange(vm, val) {
       // console.log(val)
@@ -221,10 +221,13 @@ import {
   
   
   
-    handlePageChange(...props) {
-      // console.log(props)
-      // this.submit.cu = 
-      // this.actionGetFinalInVentStaList()
+    handlePageChange(num) {
+      const all = Object.assign({}, this.form, this.cascade)
+      const params = Object.assign({}, all, {
+        pageNum: num
+      })
+
+      this.getCustomerFilesList(params)
     }
   
     handleRegionChange(vm, data = {}) {
