@@ -19,7 +19,7 @@ export default class DownloadMixin extends Vue {
         result += `${key}=${value}&`
       }
     }
-    return result.slice(0, result.length - 1)
+    return encodeURI(result.slice(0, result.length - 1))
   }
 
   /**
