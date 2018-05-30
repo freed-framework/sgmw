@@ -166,7 +166,7 @@ import {
     carBrands: any = carBrands
     SGMWAudiResults: Array<any> = [{label:'全部'},{label:'审核通过'},{label:'审核未通过'}]
     GroupVeh: Array<any> = [{label:'全部'},{label:'集团车'},{label:'非集团车'}]
-    UpdateStatus: Array<any> = [{label:'全部', value: ''},{label:'已修改', value: 1},{label:'未修改', value: 0}]
+    UpdateStatus: Array<any> = [{label:'全部', value: '全部'},{label:'已修改', value: 1},{label:'未修改', value: 0}]
     syxz: any = [{label:'全部'},{label:'个人用车'},{label:'单位用车'}]
   
     tjRangeChange(vm, val) {
