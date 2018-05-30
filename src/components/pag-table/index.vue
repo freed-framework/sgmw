@@ -19,7 +19,7 @@
         <el-pagination
           background
           :disabled="loading"
-          layout="prev, pager, next"
+          layout="prev, pager, next, jumper"
           :current-page="curpage"
           @current-change="handlePageChange"
           :page-size="size"
