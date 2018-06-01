@@ -137,7 +137,9 @@ import {
     const { ...props } = this.form
     const submit : any = {}
     Object.assign(submit, props)
-    submit.queryType = this.activeName
+    
+    submit.lb = this.activeName
+    submit.queryType = '2'
 
     this.submit = cutInvalidData(submit)
     this.download(download.feature, this.submit)
