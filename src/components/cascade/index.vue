@@ -57,7 +57,7 @@ const all = {
 export default class Cascade extends Vue {
   name: string = 'Cascade'
 
-  @Prop({default: () => []}) data: Array<any>
+  @Prop({default: { list: [], fetched: false }}) data: any
   // 是否包含“全部”选项发
   @Prop({default: true}) hasAll: boolean
   // 显示几项 1-4之间
@@ -84,11 +84,11 @@ export default class Cascade extends Vue {
 
   /**添加”全部“选型 */
   addAll() {
-    for (let i = 0; i < this.data.length; i++) {
+    for (let i = 0; i < this.data.list.length; i++) {
       const newData = {
         0: all
       };
-      Object.assign(newData, this.data[i])
+      Object.assign(newData, this.data.list[i])
       this.showData[i] = newData
     }
   }
@@ -110,7 +110,7 @@ export default class Cascade extends Vue {
     if (this.hasAll) {
       this.addAll()
     } else {
-      this.showData = [...this.data]
+      this.showData = [...this.data.list]
     }
     this.$emit('change', this, this.getReult())
   }
@@ -135,7 +135,7 @@ export default class Cascade extends Vue {
     if (hasAll) {
       this.addAll()
     } else {
-      this.showData = [...this.data]
+      this.showData = [...this.data.list]
     }
     this.form = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
   }
@@ -177,7 +177,7 @@ export default class Cascade extends Vue {
     clearTimeout(this.timer)
   }
 
-  @Watch('data', {deep: true})
+  @Watch('data.fetched')
   watchData(val) {
     Vue.nextTick(() => {
       this.init()
