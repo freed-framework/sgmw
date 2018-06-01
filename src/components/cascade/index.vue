@@ -190,39 +190,39 @@ export default class Cascade extends Vue {
     this.$emit('change', this, this.getReult())
   }
 
-  @Watch('form.a', {deep: true})
+  @Watch('form.a')
   watchA(val) {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
     this.changeDisabled(val, 'disabledB')
     if (val === '0' || !val) {
-      this.showData = [showData[0], addOneAll(data[1]), addOneAll(data[2]), addOneAll(data[3])]
+      this.showData = [showData[0], addOneAll(data.list[1]), addOneAll(data.list[2]), addOneAll(data.list[3])]
       return;
     }
     this.showData = [
       showData[0],
-      addOneAll(find(data[1], val)),
-      addOneAll(find(data[2], val)),
-      addOneAll(find(data[3], val))
+      addOneAll(find(data.list[1], val)),
+      addOneAll(find(data.list[2], val)),
+      addOneAll(find(data.list[3], val))
     ]
   }
 
-  @Watch('form.b', {deep: true})
+  @Watch('form.b')
   watchB(val) {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
     this.changeDisabled(val, 'disabledC')
     if (val === '0' || !val) {
-      this.showData = [showData[0], showData[1], addOneAll(data[2]), (data[3])]
+      this.showData = [showData[0], showData[1], addOneAll(data.list[2]), (data.list[3])]
       return;
     }
     this.showData = [
       showData[0],
       showData[1],
-      addOneAll(find(data[2], val)),
-      addOneAll(find(data[3], val))
+      addOneAll(find(data.list[2], val)),
+      addOneAll(find(data.list[3], val))
     ]
     this.disabledB = false;
   }
@@ -234,14 +234,14 @@ export default class Cascade extends Vue {
     Object.assign(this.form, {d: all ? '0' : null})
     this.changeDisabled(val, 'disabledD')
     if (val === '0' || !val) {
-      this.showData = [showData[0], showData[1], showData[2], addOneAll(data[3])]
+      this.showData = [showData[0], showData[1], showData[2], addOneAll(data.list[3])]
       return;
     }
     this.showData = [
       showData[0],
       showData[1],
       showData[2],
-      addOneAll(find(data[3], val))
+      addOneAll(find(data.list[3], val))
     ]
   }
 }
