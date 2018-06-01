@@ -44,19 +44,25 @@
         </el-row>
       </div>
       <div class="sg-main">
-        <pag-table>
-        <el-table
-          :data="diveFeatureList.list"
-          border
-          style="width: 100%"
-          :row-class-name="tableRowClassName">
-          <el-table-column v-for="item in diveFeatureList.title"
-            :prop="item"
-            :label="item"
-            :key="item"
-          >
-          </el-table-column>
-        </el-table>
+        <pag-table
+          :curpage="diveFeatureList.pagination.pageNum"
+          :size="diveFeatureList.pagination.pageSize"
+          :total="diveFeatureList.pagination.total"
+          :handlePageChange="handlePageChange"
+          :isPager="diveFeatureList.pagination.total ? true : false"
+        >
+          <el-table
+            :data="diveFeatureList.list"
+            border
+            style="width: 100%"
+            :row-class-name="tableRowClassName">
+            <el-table-column v-for="item in diveFeatureList.title"
+              :prop="item"
+              :label="item"
+              :key="item"
+            >
+            </el-table-column>
+          </el-table>
         </pag-table>
       </div>
   </el-form>
