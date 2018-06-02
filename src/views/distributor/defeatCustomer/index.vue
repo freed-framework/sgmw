@@ -10,7 +10,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="sg-header">
-      <el-row>
+      <!-- <el-row>
         <el-col :span="6">
           <el-form-item label="日期类型">
             <el-select :clearable="true" v-model="ruleForm.dateType" placeholder="请选择日期类型" >
@@ -52,7 +52,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row>
         <el-col :span="6">
           <el-form-item label="潜客类型">
