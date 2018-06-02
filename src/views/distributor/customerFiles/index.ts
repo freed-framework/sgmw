@@ -296,11 +296,10 @@ import {
       // this.exparams = params
       const params = this.getExportParams(this.exportChecked)
       // this.download(download.custfiles, {exportMap: params})
-      this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+      // this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
 
       this.exparams = {exportMap: params}
     }
-  
   
     resetForm(form) {
       this.resetCustomerFilesList()
