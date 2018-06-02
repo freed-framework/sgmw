@@ -107,12 +107,12 @@ export default class Cascade extends Vue {
   }
 
   init() {
-    // if (this.hasAll) {
-    //   this.addAll()
-    // } else {
-    //   this.showData = [...this.data.list]
-    // }
-    // this.$emit('change', this, this.getReult())
+    if (this.hasAll) {
+      this.addAll()
+    } else {
+      this.showData = [...this.data.list]
+    }
+    this.$emit('change', this, this.getReult())
   }
 
   find(data, val) {
@@ -177,73 +177,73 @@ export default class Cascade extends Vue {
     clearTimeout(this.timer)
   }
 
-  // @Watch('data.fetched')
-  // watchData(val) {
-  //   Vue.nextTick(() => {
-  //     this.init()
-  //     this.$forceUpdate()
-  //   })
-  // }
+  @Watch('data.fetched')
+  watchData(val) {
+    Vue.nextTick(() => {
+      this.init()
+      this.$forceUpdate()
+    })
+  }
 
-  // @Watch('form', {deep: true})
-  // watchForm(val) {
-  //   this.$emit('change', this, this.getReult())
-  // }
+  @Watch('form', {deep: true})
+  watchForm(val) {
+    this.$emit('change', this, this.getReult())
+  }
 
-  // @Watch('form.a')
-  // watchA(val) {
-  //   const { showData, data, addOneAll, find, form } = this;
-  //   const all = this.hasAll && this.defaultAll
-  //   Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
-  //   this.changeDisabled(val, 'disabledB')
-  //   if (val === '0' || !val) {
-  //     this.showData = [showData[0], addOneAll(data.list[1]), addOneAll(data.list[2]), addOneAll(data.list[3])]
-  //     return;
-  //   }
-  //   this.showData = [
-  //     showData[0],
-  //     addOneAll(find(data.list[1], val)),
-  //     addOneAll(find(data.list[2], val)),
-  //     addOneAll(find(data.list[3], val))
-  //   ]
-  // }
+  @Watch('form.a')
+  watchA(val) {
+    const { showData, data, addOneAll, find, form } = this;
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
+    this.changeDisabled(val, 'disabledB')
+    if (val === '0' || !val) {
+      this.showData = [showData[0], addOneAll(data.list[1]), addOneAll(data.list[2]), addOneAll(data.list[3])]
+      return;
+    }
+    this.showData = [
+      showData[0],
+      addOneAll(find(data.list[1], val)),
+      addOneAll(find(data.list[2], val)),
+      addOneAll(find(data.list[3], val))
+    ]
+  }
 
-  // @Watch('form.b')
-  // watchB(val) {
-  //   const { showData, data, addOneAll, find, form } = this;
-  //   const all = this.hasAll && this.defaultAll
-  //   Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
-  //   this.changeDisabled(val, 'disabledC')
-  //   if (val === '0' || !val) {
-  //     this.showData = [showData[0], showData[1], addOneAll(data.list[2]), (data.list[3])]
-  //     return;
-  //   }
-  //   this.showData = [
-  //     showData[0],
-  //     showData[1],
-  //     addOneAll(find(data.list[2], val)),
-  //     addOneAll(find(data.list[3], val))
-  //   ]
-  //   this.disabledB = false;
-  // }
+  @Watch('form.b')
+  watchB(val) {
+    const { showData, data, addOneAll, find, form } = this;
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
+    this.changeDisabled(val, 'disabledC')
+    if (val === '0' || !val) {
+      this.showData = [showData[0], showData[1], addOneAll(data.list[2]), (data.list[3])]
+      return;
+    }
+    this.showData = [
+      showData[0],
+      showData[1],
+      addOneAll(find(data.list[2], val)),
+      addOneAll(find(data.list[3], val))
+    ]
+    this.disabledB = false;
+  }
 
-  // @Watch('form.c')
-  // watchC(val) {
-  //   const { showData, data, addOneAll, find, form } = this;
-  //   const all = this.hasAll && this.defaultAll
-  //   Object.assign(this.form, {d: all ? '0' : null})
-  //   this.changeDisabled(val, 'disabledD')
-  //   if (val === '0' || !val) {
-  //     this.showData = [showData[0], showData[1], showData[2], addOneAll(data.list[3])]
-  //     return;
-  //   }
-  //   this.showData = [
-  //     showData[0],
-  //     showData[1],
-  //     showData[2],
-  //     addOneAll(find(data.list[3], val))
-  //   ]
-  // }
+  @Watch('form.c')
+  watchC(val) {
+    const { showData, data, addOneAll, find, form } = this;
+    const all = this.hasAll && this.defaultAll
+    Object.assign(this.form, {d: all ? '0' : null})
+    this.changeDisabled(val, 'disabledD')
+    if (val === '0' || !val) {
+      this.showData = [showData[0], showData[1], showData[2], addOneAll(data.list[3])]
+      return;
+    }
+    this.showData = [
+      showData[0],
+      showData[1],
+      showData[2],
+      addOneAll(find(data.list[3], val))
+    ]
+  }
 }
 </script>
 <style lang="scss">
