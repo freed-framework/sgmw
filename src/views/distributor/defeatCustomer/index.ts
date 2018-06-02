@@ -234,10 +234,14 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   beforeDestroy() {
-    this.actionResetDefeatCustomerList()
-    this.ruleForm = { ...this.cache }
-    this.cascadeContext.clear()
-    this.regionContext.clear()
-    this.rangeVm.clear()
+    // this.actionResetDefeatCustomerList()
+    // this.ruleForm = { ...this.cache }
+    // this.cascadeContext.clear()
+    // this.regionContext.clear()
+    // this.rangeVm.clear()
+  }
+
+  mounted() {
+    console.log('defeat ctm mounted..')
   }
 }
