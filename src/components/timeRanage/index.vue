@@ -73,7 +73,10 @@ export default class Cascade extends Vue {
         }
       } else if (type === 'date') {
         const arr = beginTime.split('-')
-        if (Number(arr[0]) !== Number(year) || Number(arr[1]) !== Number(month) || Number(arr[2]) > Number(day)) {
+        //  || Number(arr[1]) !== Number(month) || Number(arr[2]) > Number(day)
+        if (Number(arr[0]) > Number(year)
+          || (Number(arr[0]) === Number(year) && Number(arr[1]) > Number(month))
+          || (Number(arr[0]) === Number(year) && Number(arr[1]) === Number(month) && Number(arr[2]) > Number(day))) {
           return true
         }
       }
@@ -112,4 +115,3 @@ export default class Cascade extends Vue {
   }
 }
 </script>
-

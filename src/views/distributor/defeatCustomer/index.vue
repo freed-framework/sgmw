@@ -11,12 +11,21 @@
     </el-tabs>
     <div class="sg-header">
       <el-row>
-        <time-range label="战败日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
+        <el-col :span="6">
+          <el-form-item label="日期类型">
+            <el-select :clearable="true" v-model="ruleForm.dateType" placeholder="请选择日期类型" >
+              <el-option v-for="(text, index) in dateType" :key="index" :label="text.label" :value="text.label" ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <time-range @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
         <el-col :span="6">
           <el-form-item label="经销商号">
             <el-input style="width: 193px" v-model="ruleForm.dealer" placeholder="请输入经销商"></el-input>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="6">
           <el-form-item label="经销商状态">
             <el-select :clearable="true" v-model="ruleForm.status" placeholder="请选择经销商状态" >
@@ -24,8 +33,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row>
         <el-col :span="6">
           <el-form-item label="销售顾问">
             <el-input style="width: 193px" v-model="ruleForm.salesPerson" placeholder="请输入销售顾问"></el-input>
@@ -45,6 +52,8 @@
             </el-select>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="6">
           <el-form-item label="潜客类型">
             <el-select :clearable="true" v-model="ruleForm.submersibleType" placeholder="请选择潜客类型" >
@@ -52,12 +61,12 @@
             </el-select>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row>
         <region
           @change="handleRegionChange"
           :cols="[1, 3]"
         />
+      </el-row>
+      <el-row>
         <el-col :span="6">
           <el-form-item label="线索渠道">
             <el-select :clearable="true" v-model="ruleForm.channel" placeholder="线索渠道" >
@@ -65,14 +74,10 @@
             </el-select>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row>
         <brand
           @change="handleCacadeChange"
           :cols="[0, 3]"
         />
-      </el-row>
-      <el-row>
         <el-col :span="6">
           <el-form-item label="是否试驾">
             <el-select :clearable="true" v-model="ruleForm.driving" placeholder="请选择是否试驾" >
@@ -92,6 +97,8 @@
             <el-input style="width: 193px" v-model="ruleForm.arrivedTimes" placeholder="请输入到店次数"></el-input>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="6">
           <el-form-item label="单据数：">
             {{defeatCustomerList.pagination.total}}

@@ -21,7 +21,7 @@
               <el-input v-model="form.name" />
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input type="password" v-model="form.password" @keyup.native="handleQuickLogin"></el-input>
+              <el-input type="password" v-model="form.password" @keyup.native="handleQuickLogin"  autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -31,6 +31,14 @@
               >登录</el-button>
             </el-form-item>
           </el-form>
+          <div class="download" v-show="!isChrome">
+            为了您更好的使用本系统，推荐您使用Chrome浏览器，
+            <br/>windows版本下载地址为：
+            <a href="http://down-www.newasp.net/pcdown/soft/soft1/google_chrome_installer.zip">32为浏览器</a>，
+            <a href="http://down-www.newasp.net/pcdown/soft/soft1/chrome64_installer.rar">64位浏览器</a>
+            <br/>mac版本下载地址为：
+            <a href="http://www.pc6.com/down.asp?id=110545">chrome浏览器</a>
+          </div>
         </div>
       </div>
     </el-main>
@@ -42,6 +50,10 @@
 /* eslint-disable */
 import { State, Getter, Action } from 'vuex-class'
 import { Component, Vue } from 'vue-property-decorator'
+
+const userAgent = navigator.userAgent; //取得浏览器的userAgent字符串 
+const isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器 
+  
 
 @Component
 export default class Login extends Vue {
@@ -59,6 +71,7 @@ export default class Login extends Vue {
   }
 
   loading: boolean = false
+  isChrome: boolean = isChrome
 
   form: any = {
     name: '',
@@ -72,7 +85,12 @@ export default class Login extends Vue {
 
         this.login(this.form).then((res) => {
           if (res.code === 200) {
-            this.$message.success('登录成功')
+            const { needUpdatePsw } = res.data
+            if (!needUpdatePsw || !Number(needUpdatePsw)) {
+              this.$message.success('登录成功')
+            } else {
+              this.$message.success('密码即将过期')
+            }
 
             setTimeout(() => {
               this.$router.replace('/')
@@ -97,6 +115,9 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss">
+.download {
+  text-align: center;
+}
 .el-header {
   border-bottom: 1px solid #ebebeb;
   background: #fff;
@@ -106,7 +127,6 @@ export default class Login extends Vue {
   .header-inner {
     width: 1000px;
     margin: 0 auto;
-
     .logo {
       display: inline-block;
       height: 40px;

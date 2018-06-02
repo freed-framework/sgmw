@@ -44,20 +44,26 @@
       </el-row>
     </div>
     <div class="sg-main">
-      <pag-table>
-      <el-table
-        :data="buyerIntentionList.list"
-        border
-        style="width: 100%"
-        :row-class-name="tableRowClassName">
-        <el-table-column v-for="item in buyerIntentionList.title"
-          :prop="item"
-          :label="item"
-          :key="item"
-        >
-        </el-table-column>
-      </el-table>
-    </pag-table>
+      <pag-table
+        :curpage="buyerIntentionList.pagination.pageNum"
+        :size="buyerIntentionList.pagination.pageSize"
+        :total="buyerIntentionList.pagination.total"
+        :handlePageChange="handlePageChange"
+        :isPager="buyerIntentionList.pagination.total ? true : false"
+      >
+        <el-table
+          :data="buyerIntentionList.list"
+          border
+          style="width: 100%"
+          :row-class-name="tableRowClassName">
+          <el-table-column v-for="item in buyerIntentionList.title"
+            :prop="item"
+            :label="item"
+            :key="item"
+          >
+          </el-table-column>
+        </el-table>
+      </pag-table>
     </div>
   </el-form>
 </div>

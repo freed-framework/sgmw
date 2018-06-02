@@ -25,7 +25,8 @@ const actions = {
 const mutations = {
   [ActionType.FETCH_CUSTOM_STATIST_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.list = formatData(data)
+    const list = formatData(data)
+    state.list = list
   },
 }
 
