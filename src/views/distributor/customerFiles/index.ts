@@ -287,13 +287,16 @@ import {
       return map
     }
   
-    exportList(form) {
+    exparams: any = {}
+    @Watch('exportChecked')
+    exportList() {
       const submit : any = {}
       const params = this.getExportParams(this.exportChecked)
 
-      this.exportChecked = []
+      // this.exportChecked = []
 
-      this.download(download.custfiles, params)
+      // this.download(download.custfiles, params)
+      this.exparams = params
     }
   
   

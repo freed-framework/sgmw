@@ -2,7 +2,7 @@
   <div>
     <div class="sg-top-button">
       <el-button @click="createUser">新建用户</el-button>
-      <el-button @click="exportList">导出</el-button>
+      <download api="user" :params="query" />
     </div>
 
     <!-- Header -->
@@ -546,9 +546,9 @@ export default class App extends mixins(TableColor, DownloadMixin) {
   }
 
   exportList() {
-    const query = { ...this.query }
+    // const query = { ...this.query }
 
-    this.download(download.user, query)
+    // this.download(download.user, query)
   }
 
   mounted() {
