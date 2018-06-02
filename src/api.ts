@@ -187,6 +187,7 @@ export const allChannelList = () => http.get('/basedata/platformChannelList')
 
 export const login = (params) => http.post('/profile/login', params)
 export const logout = () => http.post('/profile/logout')
+export const changePwd = (params) => http.post('/profile/changePwd', params)
 
 /**
  * kpi相关
