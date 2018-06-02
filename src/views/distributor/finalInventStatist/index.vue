@@ -30,7 +30,8 @@
             </el-col>
             <el-col :span="18" style="text-align: right;">
               <el-button type="primary" @click="submitForm('form')">检索</el-button>
-              <el-button type="success" @click="exportList('form')">导出</el-button>
+              <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
+              <download api="sales" :params="exquery" />
               <el-button @click="resetForm('form')">重置</el-button>
             </el-col>
           </el-row>

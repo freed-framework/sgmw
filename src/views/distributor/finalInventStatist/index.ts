@@ -171,6 +171,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.download(download.sales, submit)
   }
 
+  get exquery() {
+    const submit : any = {}
+    Object.assign(submit, this.cascade)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+
+    return submit
+  }
+
   resetForm(ruleForm) {
     this.cascadeContext.clear()
     this.regionContext.clear()

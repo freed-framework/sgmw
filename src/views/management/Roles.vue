@@ -2,7 +2,8 @@
   <div>
     <div class="sg-top-button">
       <el-button @click="createRole">新建角色</el-button>
-      <el-button @click="exportList">导出</el-button>
+      <!-- <el-button @click="exportList">导出</el-button> -->
+      <download api="role" :params="query" />
     </div>
     <!-- Header -->
     <div class="sg-header">

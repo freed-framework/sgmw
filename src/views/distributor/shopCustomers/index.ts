@@ -212,6 +212,18 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.download(download.shop, this.submit)
   }
 
+  get exquery() {
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+
+    Object.assign(submit, this.cascade)
+    this.submit = cutInvalidData(submit)
+
+    return this.submit
+  }
+
   resetForm(formName) {
     this.actionResetShopCustomersList()
     this.ruleForm = { ...this.cache }

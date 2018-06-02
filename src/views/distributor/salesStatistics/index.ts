@@ -204,6 +204,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.download(download.sales, submit)
   }
 
+  get exquery() {
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    return submit
+  }
+
   rowClick() {
     const $form: any = this.$refs['form']
     const { ...props } = this.form

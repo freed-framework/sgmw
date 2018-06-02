@@ -252,6 +252,18 @@ import {
 		console.log(this.submit)
     this.download(download.diveCusClue, this.submit)
 	}
+
+	get exquery() {
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+		Object.assign(submit, this.cascade)
+
+		this.submit = cutInvalidData(submit)
+		
+		return this.submit
+	}
 	
 	resetForm(formName) {
 		this.actionResetDiveCusClueList()

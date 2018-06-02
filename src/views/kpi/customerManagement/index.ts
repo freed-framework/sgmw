@@ -158,6 +158,17 @@ export default class Index extends mixins(TableColor, DownloadMixin) {
     this.download(download.kpi, submit)
   }
 
+  get exquery() {
+    const { date, ...props } = this.form
+    const submit: any = {}
+    if (date) {
+      submit.rq1 = moment(date[0]).format('YYYY-MM-DD')
+      submit.rq2 = moment(date[1]).format('YYYY-MM-DD')
+    }    
+    Object.assign(submit, props, this.cascade)
+    return submit
+  }
+
   @Watch('kpiList', {deep: true})
   watchListChange() {
     this.loading = false

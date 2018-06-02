@@ -142,6 +142,17 @@ import {
     this.download(download.buyerIntention, this.submit)
   }
 
+  get exquery() {
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+
+    this.submit = cutInvalidData(submit)
+
+    return this.submit
+  }
+
 	resetForm(formName) {
     this.actionResetBuyerIntention()
 		this.form = { ...this.cache }

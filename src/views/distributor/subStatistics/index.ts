@@ -276,6 +276,15 @@ import TimeRange from '../../../components/timeRanage/index.vue'
     this.download(download.subStatis, submit)
   }
 
+  get exquery() {
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+    return submit
+  }
+
   beforeDestroy() {
     this.actionResetSubStatisticsListList()
     this.ruleForm = { ...this.cache }

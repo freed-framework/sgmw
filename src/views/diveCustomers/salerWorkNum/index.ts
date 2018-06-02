@@ -125,6 +125,13 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.download(download.salerWorkNum, submit)
   }
 
+  get exquery() {
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    return submit
+  }
+
   resetForm(form) {
     this.actionResetSalerWorkNumList()
     this.form = { ...this.cache }

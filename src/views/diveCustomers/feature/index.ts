@@ -154,6 +154,19 @@ import {
     this.download(download.feature, this.submit)
   }
 
+  get exquery() {
+    const { ...props } = this.form
+    const submit : any = {}
+    Object.assign(submit, props)
+    
+    submit.lb = this.activeName
+    submit.queryType = '2'
+
+    this.submit = cutInvalidData(submit)
+
+    return this.submit
+  }
+
 	resetForm(formName) {
     this.actionResetDiveFeatureList()
 		this.form = { ...this.cache }
