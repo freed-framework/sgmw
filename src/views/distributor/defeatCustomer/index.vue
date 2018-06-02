@@ -109,7 +109,8 @@
         <el-col :span="24"  style="text-align: right;padding: 0 10px 10px 0;">
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
-              <el-button type="success" @click="exportList('form')">导出</el-button>
+              <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
+              <download api="defeatExport" :params="exquery" />
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
           </el-col>

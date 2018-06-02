@@ -300,6 +300,11 @@ import {
 
       this.exparams = {exportMap: params}
     }
+
+    mounted() {
+      const params = this.getExportParams(this.exportChecked)
+      this.exparams = {exportMap: params}
+    }
   
     resetForm(form) {
       this.resetCustomerFilesList()
