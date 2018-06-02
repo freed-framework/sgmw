@@ -187,6 +187,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         const submit : any = {}
         Object.assign(submit, props)
         submit.queryType = this.activeName
+
         Object.assign(submit, this.cascade)
         this.submit = cutInvalidData(submit)
         console.log('here submit', this.submit)
@@ -199,14 +200,15 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
   }
 
   exportList(form) {
-    console.log(111)
     const $form: any = this.$refs[form]
     const { ...props } = this.ruleForm
     const submit : any = {}
     Object.assign(submit, props)
     submit.queryType = this.activeName
 
+    Object.assign(submit, this.cascade)
     this.submit = cutInvalidData(submit)
+    console.log(this.submit)
     this.download(download.shop, this.submit)
   }
 

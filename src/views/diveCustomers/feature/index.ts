@@ -100,6 +100,15 @@ import {
 		// console.log(this.dealerStatus)
 	}
   
+  handlePageChange(num) {
+    const all = Object.assign({}, this.submit)
+    const params = Object.assign({}, all, {
+      pageNum: num
+    })
+
+    this.actionDiveFeature(params)
+  }
+
 	submitForm(form) {
     const $form: any = this.$refs[form]
 
