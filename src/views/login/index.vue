@@ -53,7 +53,7 @@
       :close-on-click-modal="false"
       center
     >
-      <div style="text-align: center">密码即将过期，请尽快修改密码</div>
+      <div style="text-align: center">您的密码即将过期，请修改您的密码</div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handle2Login">继续登陆</el-button>
         <el-button :loading="dialogDelLoading" type="primary" @click="confirmDel">立即修改</el-button>
