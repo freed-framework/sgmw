@@ -80,7 +80,7 @@ import {
     carType: any = carType
     carKinds: any = carKinds
 
-    exportChecked: any = []
+    exportChecked: any = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
 
     exportFieldsOption: Array<any> = [
 {fieldName:'经销商号',fieldValue:'DealerId'},
@@ -274,26 +274,26 @@ import {
     }
 
     getExportParams(arr = []) {
-      const map = {}
-
+      const map = []
       arr.forEach(k => {
         const finder = this.exportFieldsOption.find(item => item.fieldValue === k)
 
         if (finder) {
-          map[k] = finder.fieldName
+          const value = `${finder.fieldName} = ${finder.fieldValue}`
+          map.push(value)
         }
       })
-
-      return map
+      const str = map.join(',');
+      return str
     }
   
     exportList(form) {
       const submit : any = {}
+
       const params = this.getExportParams(this.exportChecked)
 
-      this.exportChecked = []
-
-      this.download(download.custfiles, params)
+      this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+      this.download(download.custfiles, {exportMap: params})
     }
   
   
