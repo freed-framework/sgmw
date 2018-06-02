@@ -67,15 +67,15 @@ function beforeRole(to, next) {
       const hackto: any = { ...to, replace: true }
 
       createRoutes(action).then(() => {
-        console.log('[role] next before')
+        // console.log('[role] next before')
         next(hackto)
-        console.log('[role] next after')
+        // console.log('[role] next after')
       })
     }
   } else {
-    console.log('[!]next before')
+    // console.log('[!]next before')
     next()
-    console.log('[!]next after')
+    // console.log('[!]next after')
   }
 }
 
