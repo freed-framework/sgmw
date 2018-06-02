@@ -179,7 +179,7 @@
 
               <div style="margin: 15px 0 0 30px;">
               <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
-                <download api="custfiles" :params="exparams" />
+                <download api="custfiles" :params="exquery" />
               </div>
             </template>
           </div>

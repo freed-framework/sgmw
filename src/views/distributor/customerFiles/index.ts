@@ -320,8 +320,41 @@ import {
       const params = this.getExportParams(this.exportChecked)
       // this.download(download.custfiles, {exportMap: params})
       // this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+      Object.assign(
+        submit,
+        this.form,
+        this.cascade
+      )
 
-      this.exparams = {exportMap: params}
+      this.exparams = {
+        ...submit,
+        exportMap: params
+      }
+    }
+
+    get exquery() {
+      const submit : any = {}
+
+      // this.download(download.custfiles, params)
+      // this.exparams = params
+      const params = this.getExportParams(this.exportChecked)
+      // this.download(download.custfiles, {exportMap: params})
+      // this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+      Object.assign(
+        submit,
+        this.form,
+        this.cascade
+      )
+
+      // this.exparams = {
+      //   ...submit,
+      //   exportMap: params
+      // }
+
+      return {
+        ...submit,
+        exportMap: params
+      }
     }
 
     mounted() {
