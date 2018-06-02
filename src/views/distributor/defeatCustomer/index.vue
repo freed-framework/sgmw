@@ -10,7 +10,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="sg-header">
-      <el-row>
+      <!-- <el-row>
         <el-col :span="6">
           <el-form-item label="日期类型">
             <el-select :clearable="true" v-model="ruleForm.dateType" placeholder="请选择日期类型" >
@@ -97,7 +97,7 @@
             <el-input style="width: 193px" v-model="ruleForm.arrivedTimes" placeholder="请输入到店次数"></el-input>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row>
         <el-col :span="6">
           <el-form-item label="单据数：">
