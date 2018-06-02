@@ -25,6 +25,7 @@
                 <el-option label="全部" value="" />
                 <el-option label="禁用" :value="0" />
                 <el-option label="可用" :value="1" />
+                <el-option label="锁定" :value="2" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -195,6 +196,7 @@
           <el-radio-group v-model="form.active">
             <el-radio :label="1">已启用</el-radio>
             <el-radio :label="0">已禁用</el-radio>
+            <el-radio :label="2">已锁定</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>

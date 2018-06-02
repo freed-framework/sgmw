@@ -93,7 +93,7 @@ const getters = {
 
       return {
         ...item,
-        activeText: item.active === 1 ? '已启用' : '已禁用',
+        activeText: item.active === 1 ? '已启用' : item.active === 0 ? '已禁用': '已锁定',
         userTypeName,
         registDate: item.registDate ? moment(item.registDate).format('YYYY-MM-DD HH:mm') : '',
         cancelDate: item.cancelDate ? moment(item.cancelDate).format('YYYY-MM-DD HH:mm') : '',

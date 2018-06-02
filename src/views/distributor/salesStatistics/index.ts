@@ -212,6 +212,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
     this.params = {...submit}
+    console.log('here',this.params)
     this.visible = true
   }
 
