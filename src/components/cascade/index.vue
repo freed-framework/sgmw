@@ -57,7 +57,7 @@ const all = {
 export default class Cascade extends Vue {
   name: string = 'Cascade'
 
-  @Prop({default: () => []}) data: Array<any>
+  @Prop({default: { list: [], fetched: false }}) data: any
   // 是否包含“全部”选项发
   @Prop({default: true}) hasAll: boolean
   // 显示几项 1-4之间
@@ -84,11 +84,11 @@ export default class Cascade extends Vue {
 
   /**添加”全部“选型 */
   addAll() {
-    for (let i = 0; i < this.data.length; i++) {
+    for (let i = 0; i < this.data.list.length; i++) {
       const newData = {
         0: all
       };
-      Object.assign(newData, this.data[i])
+      Object.assign(newData, this.data.list[i])
       this.showData[i] = newData
     }
   }
@@ -110,7 +110,7 @@ export default class Cascade extends Vue {
     if (this.hasAll) {
       this.addAll()
     } else {
-      this.showData = [...this.data]
+      this.showData = [...this.data.list]
     }
     this.$emit('change', this, this.getReult())
   }
@@ -135,7 +135,7 @@ export default class Cascade extends Vue {
     if (hasAll) {
       this.addAll()
     } else {
-      this.showData = [...this.data]
+      this.showData = [...this.data.list]
     }
     this.form = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
   }
@@ -177,7 +177,7 @@ export default class Cascade extends Vue {
     clearTimeout(this.timer)
   }
 
-  @Watch('data', {deep: true})
+  @Watch('data.fetched')
   watchData(val) {
     Vue.nextTick(() => {
       this.init()
@@ -190,39 +190,39 @@ export default class Cascade extends Vue {
     this.$emit('change', this, this.getReult())
   }
 
-  @Watch('form.a', {deep: true})
+  @Watch('form.a')
   watchA(val) {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
     this.changeDisabled(val, 'disabledB')
     if (val === '0' || !val) {
-      this.showData = [showData[0], addOneAll(data[1]), addOneAll(data[2]), addOneAll(data[3])]
+      this.showData = [showData[0], addOneAll(data.list[1]), addOneAll(data.list[2]), addOneAll(data.list[3])]
       return;
     }
     this.showData = [
       showData[0],
-      addOneAll(find(data[1], val)),
-      addOneAll(find(data[2], val)),
-      addOneAll(find(data[3], val))
+      addOneAll(find(data.list[1], val)),
+      addOneAll(find(data.list[2], val)),
+      addOneAll(find(data.list[3], val))
     ]
   }
 
-  @Watch('form.b', {deep: true})
+  @Watch('form.b')
   watchB(val) {
     const { showData, data, addOneAll, find, form } = this;
     const all = this.hasAll && this.defaultAll
     Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
     this.changeDisabled(val, 'disabledC')
     if (val === '0' || !val) {
-      this.showData = [showData[0], showData[1], addOneAll(data[2]), (data[3])]
+      this.showData = [showData[0], showData[1], addOneAll(data.list[2]), (data.list[3])]
       return;
     }
     this.showData = [
       showData[0],
       showData[1],
-      addOneAll(find(data[2], val)),
-      addOneAll(find(data[3], val))
+      addOneAll(find(data.list[2], val)),
+      addOneAll(find(data.list[3], val))
     ]
     this.disabledB = false;
   }
@@ -234,14 +234,14 @@ export default class Cascade extends Vue {
     Object.assign(this.form, {d: all ? '0' : null})
     this.changeDisabled(val, 'disabledD')
     if (val === '0' || !val) {
-      this.showData = [showData[0], showData[1], showData[2], addOneAll(data[3])]
+      this.showData = [showData[0], showData[1], showData[2], addOneAll(data.list[3])]
       return;
     }
     this.showData = [
       showData[0],
       showData[1],
       showData[2],
-      addOneAll(find(data[3], val))
+      addOneAll(find(data.list[3], val))
     ]
   }
 }

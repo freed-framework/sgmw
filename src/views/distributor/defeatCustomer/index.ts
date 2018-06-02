@@ -230,7 +230,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     Object.assign(submit, props)
     submit.queryType = this.activeName
     Object.assign(submit, this.cascade)
-    this.download(download.defeat, submit)
+    this.download(download.defeatExport, submit)
   }
 
   beforeDestroy() {

@@ -12,9 +12,9 @@ const ActionType = {
 // initial state
 const state = {
   isLoading: false,
-  brandList: [],
-  regionList: [],
-  channelList: []
+  brandList: { list: [], fetched: false },
+  regionList: { list: [], fetched: false },
+  channelList: { list: [], fetched: false }
 }
 
 const actions = {
@@ -49,15 +49,15 @@ const mutations = {
   },
   [ActionType.FETCH_COMMON_BRAND_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.brandList = formatBrandData(data)
+    state.brandList = { list: formatBrandData(data), fetched: true }
   },
   [ActionType.FETCH_COMMON_REGION_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.regionList = formatRegionData(data)
+    state.regionList = { list: formatRegionData(data), fetched: true }
   },
   [ActionType.FETCH_COMMON_CHANNEL_LIST](state: any, payload: any) {
     const { data = [] } = payload
-    state.channelList = formatChannelData(data)
+    state.channelList = { list: formatChannelData(data), fetched: true }
   },
 }
 

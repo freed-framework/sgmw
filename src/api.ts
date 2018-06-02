@@ -276,5 +276,7 @@ export const download = {
   roleInfo: '/api/role/export',
   role: '/api/role/export',
   user: '/api/user/export',
-  custfiles: '/api/report/customerFilesExport'
+  custfiles: '/api/report/customerFilesExport',
+  // 战败客户统计
+  defeatExport: '/api/defeat/export'
 }
