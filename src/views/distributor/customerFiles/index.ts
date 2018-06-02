@@ -80,7 +80,7 @@ import {
     carType: any = carType
     carKinds: any = carKinds
 
-    exportChecked: any = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+    exportChecked: any = ['DealerId','DealerAbbr','VIN', 'CustName', 'CustTel', 'CustPhone', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
 
     exportFieldsOption: Array<any> = [
 {fieldName:'经销商号',fieldValue:'DealerId'},
