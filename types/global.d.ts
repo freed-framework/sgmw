@@ -8,6 +8,8 @@ interface ExtendsWindow extends Window {
     startTime: '',
     endTime: ''
   }
+
+  reload: any;
 }
 
 declare var window: ExtendsWindow;
