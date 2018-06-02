@@ -27,9 +27,7 @@
       </el-header>
       <div id="container-outer">
         <div id="container-inner">
-          <keep-alive>
           <router-view />
-          </keep-alive>
         </div>
       </div>
     </div>

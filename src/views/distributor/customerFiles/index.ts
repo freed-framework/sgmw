@@ -286,6 +286,29 @@ import {
       const str = map.join(',');
       return str
     }
+
+    // getExportParams(arr = []) {
+    //   const map = []
+    //   arr.forEach(k => {
+    //     const finder = this.exportFieldsOption.find(item => item.fieldValue === k)
+
+    //     if (finder) {
+    //       const value = `${finder.fieldName} = ${finder.fieldValue}`
+    //       map.push(value)
+    //     }
+    //   })
+    //   const str = map.join(',');
+    //   return str
+    // }
+  
+    // exportList(form) {
+    //   const submit : any = {}
+
+    //   const params = this.getExportParams(this.exportChecked)
+
+    //   this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+    //   this.download(download.custfiles, {exportMap: params})
+    // }
   
     exparams: any = {}
     @Watch('exportChecked')
