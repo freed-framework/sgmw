@@ -1,14 +1,15 @@
+/* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import constantRoutes from './routes'
-import Progress from 'nprogress'
+// import Progress from 'nprogress'
 import store from '../store'
-import 'nprogress/nprogress.css'
+// import 'nprogress/nprogress.css'
 // import { ssoLogin, hasTokenRedirect, replaceTokenByUrl } from '../util/auth'
 
 Vue.use(VueRouter)
 
-Progress.configure({ showSpinner: false })
+// Progress.configure({ showSpinner: false })
 
 const router = new VueRouter({
   mode: 'history',
@@ -65,10 +66,16 @@ function beforeRole(to, next) {
     } else {
       const hackto: any = { ...to, replace: true }
 
-      createRoutes(action).then(() => next(hackto))
+      createRoutes(action).then(() => {
+        // console.log('[role] next before')
+        next(hackto)
+        // console.log('[role] next after')
+      })
     }
   } else {
+    // console.log('[!]next before')
     next()
+    // console.log('[!]next after')
   }
 }
 
@@ -77,14 +84,14 @@ const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
   const isAuth = store.getters['auth/isAuth']
   // process start
-  Progress.start()
+  // Progress.start()
 
   if (isAuth) {
     if (to.path === '/login') {
       next({ path: '/' })
 
       // process done
-      Progress.done()
+      // Progress.done()
     } else {
       beforeRole(to, next)
     }
@@ -96,13 +103,13 @@ router.beforeEach((to, from, next) => {
       next('/login')
 
       // process done
-      Progress.done()
+      // Progress.done()
     }
   }
 })
 
-router.afterEach(() => {
-  Progress.done()
-})
+// router.afterEach(() => {
+//   // Progress.done()
+// })
 
 export default router

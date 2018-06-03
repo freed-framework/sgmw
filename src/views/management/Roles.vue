@@ -2,7 +2,8 @@
   <div>
     <div class="sg-top-button">
       <el-button @click="createRole">新建角色</el-button>
-      <el-button @click="exportList">导出</el-button>
+      <!-- <el-button @click="exportList">导出</el-button> -->
+      <download api="role" :params="query" />
     </div>
     <!-- Header -->
     <div class="sg-header">
@@ -264,14 +265,14 @@ export default class App extends mixins(TableColor, DownloadMixin) {
 
       $action(this.form).then(() => {
         // this.loading = false
-        this.dialogFormVisible = false
-
+        window.location.href = window.location.href
+        // this.dialogFormVisible = false
         // 刷新列表
-        this.getList({
-          ...this.query,
-          pageNumber: this.pageNumber,
-          pageSize: this.pageSize,
-        })
+        // this.getList({
+        //   ...this.query,
+        //   pageNumber: this.pageNumber,
+        //   pageSize: this.pageSize,
+        // })
       }).catch(() => {
         this.loading = false
       })

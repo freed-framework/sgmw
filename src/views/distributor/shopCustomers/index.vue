@@ -10,7 +10,7 @@
         >
         </el-tab-pane>
       </el-tabs>
-        <div class="sg-header">
+    <div class="sg-header" v-if="deal">
           <el-row>
             <el-col :span="6">
               <el-form-item label="日期类型">
@@ -68,6 +68,12 @@
             />
           </el-row>
           <el-row>
+            <brand
+              @change="handleCacadeChange"
+              :cols="[0, 3]"
+            />
+          </el-row>
+          <el-row>
             <el-col :span="6">
               <el-form-item label="线索渠道">
                 <el-select :clearable="true" v-model="ruleForm.channel" placeholder="线索渠道" >
@@ -75,10 +81,6 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <brand
-              @change="handleCacadeChange"
-              :cols="[0, 3]"
-            />
             <el-col :span="6">
               <el-form-item label="是否试驾">
                 <el-select :clearable="true" v-model="ruleForm.driving" placeholder="请选择是否试驾" >
@@ -109,11 +111,13 @@
           <el-row>
             <el-col :span="24" style="text-align: right;margin-bottom: 20px;">
               <el-button type="primary" @click="submitForm('ruleForm')">检索</el-button>
-              <el-button type="success" @click="exportList('form')">导出</el-button>
+              <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
+              <download api="shop" :params="exquery" />
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-col>
           </el-row>
         </div>
+
         <div class="sg-main">
           <pag-table>
             <el-table

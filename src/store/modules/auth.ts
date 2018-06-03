@@ -1,7 +1,7 @@
 import ls from '@/util/localStorage'
 import { ssoLogin, ssoLogout } from '@/util/auth'
 import { constantRoutes, asyncRoutes } from '@/router/routes'
-import { login, init, logout, getRoleAll } from '@/api'
+import { login, init, logout, getRoleAll, changePwd } from '@/api'
 import { getAuthRoutes, getMenus } from '@/util/permission'
 
 const TOKEN_KEY = 'SGMW_TOKEN'
@@ -124,8 +124,14 @@ const actions = {
         loginName: params.name,
         password: params.password
       })
+      // console.log(res)
+      // res.data.needUpdatePsw = 1
+      // 用户已经无法登陆
+      if (res && res.data && res.data.needUpdatePsw !== 2) {
+        commit(ActionType.IS_AUTH, true)
+      }
 
-      commit(ActionType.IS_AUTH, true)
+      // commit(ActionType.IS_AUTH, true)
       return res
     } catch (ex) {
       throw new Error(ex)
@@ -133,6 +139,15 @@ const actions = {
 
     // commit(ActionType.SET_USER, res.data)
     // commit(ActionType.SET_TOKEN, '1')
+  },
+
+  async changePwd({ commit }, params) {
+    try {
+      const result = await changePwd(params)
+      return result
+    } catch (ex) {
+      throw new Error(ex)
+    }
   },
   // 通过权限接口的返回创建最终路由
   // async getRoles({ commit }, data) {

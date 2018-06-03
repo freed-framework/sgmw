@@ -97,7 +97,8 @@
             <el-col :span="6" :offset="18">
               <el-form-item>
                 <el-button type="primary" @click="submitForm('form')">检索</el-button>
-                <el-button type="success">导出</el-button>
+                <!-- <el-button type="success">导出</el-button> -->
+                <!-- <download api="subStatis" :params="exquery" /> -->
                 <el-button @click="resetForm('form')">重置</el-button>
               </el-form-item>
             </el-col>

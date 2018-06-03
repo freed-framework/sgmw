@@ -1,6 +1,6 @@
 <template>
   <el-form ref="form" :model="form" label-width="84px">
-    <div class="sg-header customerfiles">
+    <div class="sg-header customerfiles" v-if="deal">
       <el-row>
         <el-col :span="12" class="no-margin">
           <el-form-item>
@@ -178,7 +178,8 @@
               </el-checkbox-group>
 
               <div style="margin: 15px 0 0 30px;">
-              <el-button type="success" @click="exportList('form')">导出</el-button>
+              <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
+                <download api="custfiles" :params="exquery" />
               </div>
             </template>
           </div>

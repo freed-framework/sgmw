@@ -8,6 +8,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import Skeleton from './components/skeleton'
 import Boxer from './components/boxer/index.vue'
+import Donwload from './components/donwload.vue'
 import './assets/common.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 import PagTable from '@/components/pag-table/index.vue'
@@ -33,6 +34,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(ElementUI, { size: 'small' })
 Vue.component('boxer', Boxer)
 Vue.component('PagTable', PagTable)
+Vue.component('download', Donwload)
 // 加载骨架
 Vue.use(Skeleton)
 

@@ -38,26 +38,33 @@
       <el-row>
         <el-col :span="24" style="text-align: right;margin-bottom: 20px;">
           <el-button type="primary" @click="submitForm('form')">检索</el-button>
-          <el-button type="success" @click="exportList('form')">导出</el-button>
+          <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
+          <download api="buyerIntention" :params="exquery" />
           <el-button @click="resetForm('form')">重置</el-button>
         </el-col>
       </el-row>
     </div>
     <div class="sg-main">
-      <pag-table>
-      <el-table
-        :data="buyerIntentionList.list"
-        border
-        style="width: 100%"
-        :row-class-name="tableRowClassName">
-        <el-table-column v-for="item in buyerIntentionList.title"
-          :prop="item"
-          :label="item"
-          :key="item"
-        >
-        </el-table-column>
-      </el-table>
-    </pag-table>
+      <pag-table
+        :curpage="buyerIntentionList.pagination.pageNum"
+        :size="buyerIntentionList.pagination.pageSize"
+        :total="buyerIntentionList.pagination.total"
+        :handlePageChange="handlePageChange"
+        :isPager="buyerIntentionList.pagination.total ? true : false"
+      >
+        <el-table
+          :data="buyerIntentionList.list"
+          border
+          style="width: 100%"
+          :row-class-name="tableRowClassName">
+          <el-table-column v-for="item in buyerIntentionList.title"
+            :prop="item"
+            :label="item"
+            :key="item"
+          >
+          </el-table-column>
+        </el-table>
+      </pag-table>
     </div>
   </el-form>
 </div>

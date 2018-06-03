@@ -80,19 +80,29 @@ import {
     carType: any = carType
     carKinds: any = carKinds
 
-    exportChecked: any = []
+    exportChecked: any = ['DealerId','DealerAbbr','VIN', 'CustName', 'CustTel', 'CustPhone', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
 
     exportFieldsOption: Array<any> = [
+{fieldName:'经销商号',fieldValue:'DealerId'},
+{fieldName:'经销商简称',fieldValue:'DealerAbbr'},
+{fieldName:'车架号',fieldValue:'VIN'},
+{fieldName:'客户名称',fieldValue:'CustName'},
+{fieldName:'座机',fieldValue:'CustTel'},
+{fieldName:'手机',fieldValue:'CustPhone'},
+{fieldName:'建档时间',fieldValue:'BuilRecoDate'},
+{fieldName:'交车日期',fieldValue:'SubmVehDate'},
+{fieldName:'开票日期',fieldValue:'InvoiceDate'},
+{fieldName:'制造日期',fieldValue:'MadeTime'},
+{fieldName:'合格证号',fieldValue:'QualifiedID'},
+{fieldName:'车型代码',fieldValue:'VehModelID'},
 {fieldName:'QQ',fieldValue:'QQ'},
 {fieldName:'SGMW审核结果',fieldValue:'SGMWAudiResults'},
 {fieldName:'厂发线索编号',fieldValue:'SGMWClueID'},
 {fieldName:'厂发线索渠道',fieldValue:'SGMWClueChannelName'},
-{fieldName:'车架号',fieldValue:'VIN'},
 {fieldName:'车辆使用场所',fieldValue:'VehUsePosition'},
 {fieldName:'车辆用途',fieldValue:'VehUse'},
 {fieldName:'车牌号',fieldValue:'PlateNum'},
 {fieldName:'车系',fieldValue:'VehSerices'},
-{fieldName:'车型代码',fieldValue:'VehModelID'},
 {fieldName:'出生年月日',fieldValue:'Birthday'},
 {fieldName:'电子邮件',fieldValue:'CustMail'},
 {fieldName:'发动机号',fieldValue:'EngineID'},
@@ -103,24 +113,17 @@ import {
 {fieldName:'付款方式一次性方式',fieldValue:'PayWay_Once'},
 {fieldName:'个人月收入水平',fieldValue:'CustIncome'},
 {fieldName:'购买类型',fieldValue:'PurcType'},
-{fieldName:'合格证号',fieldValue:'QualifiedID'},
 {fieldName:'基地代码',fieldValue:'BaseID'},
 {fieldName:'集团车',fieldValue:'GroupVeh'},
 {fieldName:'家庭月收入水平',fieldValue:'FamiIncome'},
-{fieldName:'建档时间',fieldValue:'BuilRecoDate'},
-{fieldName:'交车日期',fieldValue:'SubmVehDate'},
-{fieldName:'经销商号',fieldValue:'DealerId'},
-{fieldName:'经销商简称',fieldValue:'DealerAbbr'},
 {fieldName:'经销商申请修改人',fieldValue:'Updater'},
 {fieldName:'经销商申请修改状态',fieldValue:'UpdateStatus'},
 {fieldName:'经销商申请修改时间',fieldValue:'UpdateTime'},
 {fieldName:'经销商审核人',fieldValue:'DealAuditor '},
 {fieldName:'经销商审核时间',fieldValue:'DealAudiTime'},
 {fieldName:'开票价格',fieldValue:'InvoPrice'},
-{fieldName:'开票日期',fieldValue:'InvoiceDate'},
 {fieldName:'客户编号',fieldValue:'CustID'},
 {fieldName:'客户类型',fieldValue:'CustType'},
-{fieldName:'客户名称',fieldValue:'CustName'},
 {fieldName:'客户性别',fieldValue:'CustSex'},
 {fieldName:'渠道',fieldValue:'Channel'},
 {fieldName:'身份证地址/户籍地址',fieldValue:'PermAdd'},
@@ -130,7 +133,6 @@ import {
 {fieldName:'实际地址',fieldValue:'ActulAddr'},
 {fieldName:'使用性质',fieldValue:'UseType'},
 {fieldName:'是否愿意参加活动',fieldValue:'IfActivity'},
-{fieldName:'手机',fieldValue:'CustPhone'},
 {fieldName:'所属城市',fieldValue:'City'},
 {fieldName:'所属地区',fieldValue:'Region'},
 {fieldName:'所在省份',fieldValue:'Province'},
@@ -157,10 +159,8 @@ import {
 {fieldName:'证件号码',fieldValue:'CustCardId'},
 {fieldName:'证件类型',fieldValue:'CustIDType'},
 {fieldName:'职业',fieldValue:'Job'},
-{fieldName:'制造日期',fieldValue:'MadeTime'},
 {fieldName:'自建线索流水号',fieldValue:'DealClueID'},
 {fieldName:'最后修改时间',fieldValue:'FinalUpdaTime'},
-{fieldName:'座机',fieldValue:'CustTel'},
     ]
 
     carBrands: any = carBrands
@@ -274,34 +274,95 @@ import {
     }
 
     getExportParams(arr = []) {
-      const map = {}
-
+      const map = []
       arr.forEach(k => {
         const finder = this.exportFieldsOption.find(item => item.fieldValue === k)
 
         if (finder) {
-          map[k] = finder.fieldName
+          const value = `${finder.fieldName} = ${finder.fieldValue}`
+          map.push(value)
         }
       })
-
-      return map
+      const str = map.join(',');
+      return str
     }
+
+    // getExportParams(arr = []) {
+    //   const map = []
+    //   arr.forEach(k => {
+    //     const finder = this.exportFieldsOption.find(item => item.fieldValue === k)
+
+    //     if (finder) {
+    //       const value = `${finder.fieldName} = ${finder.fieldValue}`
+    //       map.push(value)
+    //     }
+    //   })
+    //   const str = map.join(',');
+    //   return str
+    // }
   
-    exportList(form) {
+    // exportList(form) {
+    //   const submit : any = {}
+
+    //   const params = this.getExportParams(this.exportChecked)
+
+    //   this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+    //   this.download(download.custfiles, {exportMap: params})
+    // }
+  
+    exparams: any = {}
+    @Watch('exportChecked')
+    exportList() {
       const submit : any = {}
+
+      // this.download(download.custfiles, params)
+      // this.exparams = params
       const params = this.getExportParams(this.exportChecked)
+      // this.download(download.custfiles, {exportMap: params})
+      // this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+      Object.assign(
+        submit,
+        this.form,
+        this.cascade
+      )
 
-      this.exportChecked = []
-
-      this.download(download.custfiles, params)
+      this.exparams = {
+        ...submit,
+        exportMap: params
+      }
     }
-  
+
+    get exquery() {
+      const submit : any = {}
+
+      // this.download(download.custfiles, params)
+      // this.exparams = params
+      const params = this.getExportParams(this.exportChecked)
+      // this.download(download.custfiles, {exportMap: params})
+      // this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
+      Object.assign(
+        submit,
+        this.form,
+        this.cascade
+      )
+
+      // this.exparams = {
+      //   ...submit,
+      //   exportMap: params
+      // }
+
+      return {
+        ...submit,
+        exportMap: params
+      }
+    }
   
     resetForm(form) {
       this.resetCustomerFilesList()
       this.form = { ...this.cache }
       this.regionContext.clear()
       this.rangeVm.clear()
+      this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'CustTel', 'CustPhone', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
     }
   
     beforeDestroy() {
@@ -311,5 +372,18 @@ import {
       this.rangeVm.clear()
     }
 
+    timer: any = null
+    deal: boolean = false
+    mounted() {
+      this.timer = setTimeout(() => {
+        this.deal = true
+        const params = this.getExportParams(this.exportChecked)
+        this.exparams = {exportMap: params}
+      }, 1200)
+    }
+  
+    destroy() {
+      clearTimeout(this.timer)
+    }
   }
   

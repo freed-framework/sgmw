@@ -56,7 +56,8 @@
           <el-col :span="24" style="text-align: right;padding: 0 10px 10px 0;">
             <el-button v-if="salesStatisticsList.list.length" type="success" @click="rowClick">查看明细</el-button>
             <el-button type="primary" @click="submitForm('form')">检索</el-button>
-            <el-button type="success" @click="exportList('form')">导出</el-button>
+            <!-- <el-button type="success" @click="exportList('form')">导出</el-button> -->
+            <download api="sales" :params="exquery" />
             <el-button @click="resetForm('form')">重置</el-button>
           </el-col>
         </el-row>

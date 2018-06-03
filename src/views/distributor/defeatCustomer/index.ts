@@ -14,17 +14,20 @@ import {
   testDrive, createType, finalResult
 } from '../../../dictionary'
 import ActiveMixin from '../../../mixins/activeMixin'
-import Brand from '../../../components/brand/index.vue'
-import Region from '../../../components/region/index.vue'
-import TimeRange from '../../../components/timeRanage/index.vue'
+// import Brand from '../../../components/brand/index.vue'
+// import Region from '../../../components/region/index.vue'
+// import TimeRange from '../../../components/timeRanage/index.vue'
 import { download } from '../../../api'
 import DownloadMixin from '../../../mixins/downloadMixin'
 
 @Component({
   components: {
-    Brand,
-    Region,
-    TimeRange
+    // Brand,
+    // Region,
+    // TimeRange
+    'brand': ()  => import('../../../components/brand/index.vue'),
+    'region': () => import('../../../components/region/index.vue'),
+    'time-range': () => import('../../../components/timeRanage/index.vue')
   }
 })
 export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin) {
@@ -233,11 +236,33 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.download(download.defeatExport, submit)
   }
 
+  get exquery() {
+    const { ...props } = this.ruleForm
+    const submit : any = {}
+    Object.assign(submit, props)
+    submit.queryType = this.activeName
+    Object.assign(submit, this.cascade)
+
+    return submit
+  }
+
   beforeDestroy() {
     this.actionResetDefeatCustomerList()
     this.ruleForm = { ...this.cache }
     this.cascadeContext.clear()
     this.regionContext.clear()
     this.rangeVm.clear()
+  }
+
+  timer: any = null
+  deal: boolean = false
+  mounted() {
+    this.timer = setTimeout(() => {
+      this.deal = true
+    }, 1200)
+  }
+
+  destroy() {
+    clearTimeout(this.timer)
   }
 }
