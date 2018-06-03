@@ -1,5 +1,5 @@
 <template>
-  <cascade
+  <!-- <cascade
     :data="regionList"
     :hasAll="hasAll"
     :cols="cols"
@@ -8,7 +8,8 @@
     :placeholders="placeholders"
     :defaultAll="defaultAll"
     @change="change"
-  />
+  /> -->
+  <div></div>
 </template>
 
 <script lang="ts">
