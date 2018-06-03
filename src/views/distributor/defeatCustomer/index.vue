@@ -62,10 +62,10 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <region
+        <!-- <region
           @change="handleRegionChange"
           :cols="[1, 3]"
-        />
+        /> -->
       </el-row>
       <el-row>
         <el-col :span="6">
