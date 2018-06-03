@@ -1,6 +1,6 @@
 <template>
   <el-form ref="form" :model="form" label-width="84px">
-    <div class="sg-header customerfiles" v-if="deal">
+    <div class="sg-header customerfiles">
       <el-row>
         <el-col :span="12" class="no-margin">
           <el-form-item>

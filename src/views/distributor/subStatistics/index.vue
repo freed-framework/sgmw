@@ -10,7 +10,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="sg-sub-stati">
-          <div class="sg-header" v-if="deal">
+          <div class="sg-header">
             <el-row>
               <time-range label="潜客日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
               <el-col :span="6">
