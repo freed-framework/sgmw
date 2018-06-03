@@ -10,7 +10,6 @@
       </el-tab-pane>
     </el-tabs>
     <div class="sg-sub-stati">
-        <keep-alive>
           <div class="sg-header" v-if="deal">
             <el-row>
               <time-range label="潜客日期" @change="timeRangeChange" :type="timeRange.type" :format="timeRange.format"/>
@@ -102,7 +101,6 @@
               </el-col>
             </el-row>
           </div>
-        </keep-alive>
           <div class="sg-main">
             <pag-table
               :curpage="subStatisticsList.pagination.pageNum"

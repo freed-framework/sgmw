@@ -9,7 +9,6 @@
         >
       </el-tab-pane>
     </el-tabs>
-    <keep-alive>
     <div class="sg-header" v-if="deal">
       <el-row>
         <el-col :span="6">
@@ -117,7 +116,6 @@
           </el-col>
       </el-row>
     </div>
-    </keep-alive>
     <div class="sg-main">
       <pag-table
         :curpage="defeatCustomerList.pagination.pageNum"
