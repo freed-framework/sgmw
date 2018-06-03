@@ -207,7 +207,12 @@ import {
 				partChannel: data[2] ? data[2].label : null,
 				// subChannel: data[3] ? data[3].label : null
       }
-    )
+		)
+		
+		this.form = {
+			...this.form,
+			...this.cascade,
+		}
   }
   
   
@@ -260,9 +265,8 @@ import {
     submit.queryType = this.activeName
 		Object.assign(submit, this.cascade)
 
-		this.submit = cutInvalidData(submit)
-		
-		return this.submit
+		// this.submit = cutInvalidData(submit)
+		return submit
 	}
 	
 	resetForm(formName) {

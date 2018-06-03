@@ -150,7 +150,7 @@ import {
 
     this.submit = cutInvalidData(submit)
 
-    return this.submit
+    return submit
   }
 
 	resetForm(formName) {
