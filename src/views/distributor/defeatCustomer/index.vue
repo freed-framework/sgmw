@@ -9,7 +9,8 @@
         >
       </el-tab-pane>
     </el-tabs>
-    <div class="sg-header">
+    <keep-alive>
+    <div class="sg-header" v-if="deal">
       <el-row>
         <el-col :span="6">
           <el-form-item label="日期类型">
@@ -116,6 +117,7 @@
           </el-col>
       </el-row>
     </div>
+    </keep-alive>
     <div class="sg-main">
       <pag-table
         :curpage="defeatCustomerList.pagination.pageNum"

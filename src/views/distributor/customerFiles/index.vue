@@ -1,6 +1,7 @@
 <template>
   <el-form ref="form" :model="form" label-width="84px">
-    <div class="sg-header customerfiles">
+    <keep-alive>
+    <div class="sg-header customerfiles" v-if="deal">
       <el-row>
         <el-col :span="12" class="no-margin">
           <el-form-item>
@@ -186,6 +187,7 @@
           </el-collapse-item>
       </el-collapse>
     </div>
+    </keep-alive>
     <div class="sg-main">
       <pag-table
         :curpage="customerFilesList.pagination.pageNum"

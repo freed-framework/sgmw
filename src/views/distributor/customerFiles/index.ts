@@ -356,17 +356,13 @@ import {
         exportMap: params
       }
     }
-
-    mounted() {
-      const params = this.getExportParams(this.exportChecked)
-      this.exparams = {exportMap: params}
-    }
   
     resetForm(form) {
       this.resetCustomerFilesList()
       this.form = { ...this.cache }
       this.regionContext.clear()
       this.rangeVm.clear()
+      this.exportChecked = ['DealerId','DealerAbbr','VIN', 'CustName', 'CustTel', 'CustPhone', 'BuilRecoDate', 'SubmVehDate', 'InvoiceDate', 'MadeTime', 'QualifiedID' ]
     }
   
     beforeDestroy() {
@@ -376,5 +372,18 @@ import {
       this.rangeVm.clear()
     }
 
+    timer: any = null
+    deal: boolean = false
+    mounted() {
+      this.timer = setTimeout(() => {
+        this.deal = true
+        const params = this.getExportParams(this.exportChecked)
+        this.exparams = {exportMap: params}
+      }, 1200)
+    }
+  
+    destroy() {
+      clearTimeout(this.timer)
+    }
   }
   

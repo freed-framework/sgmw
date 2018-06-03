@@ -239,4 +239,16 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     this.regionContext.clear()
     this.rangeVm.clear()
   }
+
+  timer: any = null
+  deal: boolean = false
+  mounted() {
+    this.timer = setTimeout(() => {
+      this.deal = true
+    }, 1200)
+  }
+
+  destroy() {
+    clearTimeout(this.timer)
+  }
 }
