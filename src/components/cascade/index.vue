@@ -9,21 +9,21 @@
     </el-col>
     <el-col key="2" :span="6" v-if="1 >= cols[0] && 1 <= cols[1]">
       <el-form-item :label="colLabel[1]">
-        <el-select :disabled="disabledB" :clearable="true" v-model="form[keys[1]]" :placeholder="placeholders[1]">
+        <el-select :disabled="1 != cols[0] && disabledB" :clearable="true" v-model="form[keys[1]]" :placeholder="placeholders[1]">
           <el-option v-for="item in showData[1]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
     <el-col key="3" :span="6" v-if="2 >= cols[0] && 2 <= cols[1]">
       <el-form-item :label="colLabel[2]">
-        <el-select :disabled="disabledC" :clearable="true" v-model="form[keys[2]]" :placeholder="placeholders[2]">
+        <el-select :disabled="2 != cols[0] && disabledC" :clearable="true" v-model="form[keys[2]]" :placeholder="placeholders[2]">
           <el-option v-for="item in showData[2]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
     </el-col>
     <el-col key="4" :span="6" v-if="3 >= cols[0] && 3 <= cols[1]">
       <el-form-item :label="colLabel[3]">
-        <el-select :disabled="disabledD" :clearable="true" v-model="form[keys[3]]" :placeholder="placeholders[3]">
+        <el-select :disabled="3 != cols[0] && disabledD" :clearable="true" v-model="form[keys[3]]" :placeholder="placeholders[3]">
           <el-option v-for="item in showData[3]" :label="item.label" :key="item.key" :value="item.value" />
         </el-select>
       </el-form-item>
@@ -73,7 +73,7 @@ export default class Cascade extends Vue {
   // 是否默认选中全部
   @Prop({default: false}) defaultAll: boolean
 
-  showData: Array<any> = []
+  showData: Array<any> = [{}, {}, {}, {}]
   keys: Array<any> = ['a', 'b', 'c', 'd']
   form: any = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
 
@@ -83,7 +83,7 @@ export default class Cascade extends Vue {
   timer: any = null
 
   /**添加”全部“选型 */
-  addAll() {
+  addAll(index) {
     for (let i = 0; i < this.data.list.length; i++) {
       const newData = {
         0: all
@@ -107,10 +107,13 @@ export default class Cascade extends Vue {
   }
 
   init() {
+    const { cols } = this
+    const index = cols[0]
+    this.showData = [{}, {}, {}, {}]
     if (this.hasAll) {
-      this.addAll()
+      this.showData[index] = this.addOneAll(this.data.list[index])
     } else {
-      this.showData = [...this.data.list]
+      this.showData[index] = this.data.list[index]
     }
     this.$emit('change', this, this.getReult())
   }
@@ -131,11 +134,13 @@ export default class Cascade extends Vue {
   }
 
   clear() {
-    const { hasAll, addAll } = this
-    if (hasAll) {
-      this.addAll()
+    const { hasAll, addAll, cols } = this
+    this.showData = [{}, {}, {}, {}]
+    const index = cols[0]
+    if (this.hasAll) {
+      this.showData[index] = this.addOneAll(this.data.list[index])
     } else {
-      this.showData = [...this.data.list]
+      this.showData[index] = this.data.list[index]
     }
     this.form = this.hasAll && this.defaultAll ? {...cacheAll} : {...cache}
   }
@@ -197,14 +202,14 @@ export default class Cascade extends Vue {
     Object.assign(this.form, {b: all ? '0' : null, c: all ? '0' : null, d: all ? '0' : null})
     this.changeDisabled(val, 'disabledB')
     if (val === '0' || !val) {
-      this.showData = [showData[0], addOneAll(data.list[1]), addOneAll(data.list[2]), addOneAll(data.list[3])]
+      this.showData = [showData[0], addOneAll(data.list[1]), {}, {}]
       return;
     }
     this.showData = [
       showData[0],
       addOneAll(find(data.list[1], val)),
-      addOneAll(find(data.list[2], val)),
-      addOneAll(find(data.list[3], val))
+      {},
+      {}
     ]
   }
 
@@ -215,14 +220,14 @@ export default class Cascade extends Vue {
     Object.assign(this.form, {c: all ? '0' : null, d: all ? '0' : null})
     this.changeDisabled(val, 'disabledC')
     if (val === '0' || !val) {
-      this.showData = [showData[0], showData[1], addOneAll(data.list[2]), (data.list[3])]
+      this.showData = [showData[0], showData[1], addOneAll(data.list[2]), {}]
       return;
     }
     this.showData = [
       showData[0],
       showData[1],
       addOneAll(find(data.list[2], val)),
-      addOneAll(find(data.list[3], val))
+      {}
     ]
     this.disabledB = false;
   }

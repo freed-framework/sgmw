@@ -30,7 +30,7 @@ export default class Region extends Vue {
   // 显示几项 1-4之间
   @Prop({default: () => [0, 3]}) cols: Array<any>
   // 是否强制联动,(必须前面选了后面才能选)， 默认false
-  @Prop({default: false}) force: boolean
+  @Prop({default: true}) force: boolean
   // 默认选中(暂不支持)
   @Prop() default: Array<any>
   // 没项label
