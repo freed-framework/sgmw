@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <!-- <span>
     <el-col key="1" :span="6" v-if="0 >= cols[0] && 0 <= cols[1]">
       <el-form-item :label="colLabel[0]">
         <el-select :clearable="true" v-model="form[keys[0]]" :placeholder="placeholders[0]">
@@ -28,7 +28,8 @@
         </el-select>
       </el-form-item>
     </el-col>
-  </span>
+  </span> -->
+  <div></div>
 </template>
 <script lang="ts">
 /* eslint-disable */
