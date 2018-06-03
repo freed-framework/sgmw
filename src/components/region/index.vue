@@ -1,15 +1,14 @@
 <template>
-  <!-- <cascade
+  <cascade
     :data="regionList"
     :hasAll="hasAll"
-    :cols="cols"
+    :cols="[0, 1]"
     :force="force"
     :colLabel="colLabel"
     :placeholders="placeholders"
     :defaultAll="defaultAll"
     @change="change"
-  /> -->
-  <div></div>
+  />
 </template>
 
 <script lang="ts">
