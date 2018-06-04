@@ -122,10 +122,10 @@ import {
         submit.queryType = this.activeName
 
 				this.submit = cutInvalidData(submit)
-				console.log('here submit',this.submit)
+				// console.log('here submit',this.submit)
         this.actionBuyerIntentionList(this.submit)
       } else {
-        console.log('error submit!!')
+        // console.log('error submit!!')
         return false
       }
     })

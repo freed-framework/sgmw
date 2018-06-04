@@ -184,7 +184,7 @@ import {
   }
 
   handlePageChange(val) {
-    console.log(val)
+    // console.log(val)
     let param = this.submit;
     param.pageNum = val;
     this.actionDiveCusClueList(param)
@@ -237,10 +237,10 @@ import {
 				Object.assign(submit, this.cascade)
 
 				this.submit = cutInvalidData(submit)
-				console.log('here submit',this.submit)
+				// console.log('here submit',this.submit)
         this.actionDiveCusClueList(this.submit)
       } else {
-        console.log('error submit!!')
+        // console.log('error submit!!')
         return false
       }
     })
@@ -254,7 +254,7 @@ import {
 		Object.assign(submit, this.cascade)
 
     this.submit = cutInvalidData(submit)
-		console.log(this.submit)
+		// console.log(this.submit)
     this.download(download.diveCusClue, this.submit)
 	}
 

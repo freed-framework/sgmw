@@ -151,8 +151,8 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
     )
   }
   handlePageChange(val) {
-    console.log(val)
-    console.log(val)
+    // console.log(val)
+    // console.log(val)
     let param = this.submit;
     param.pageNum = val;
     this.actionGetShopCustomersList(param)
@@ -190,10 +190,10 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
         Object.assign(submit, this.cascade)
         this.submit = cutInvalidData(submit)
-        console.log('here submit', this.submit)
+        // console.log('here submit', this.submit)
         this.actionGetShopCustomersList(this.submit)
       } else {
-        console.log('error submit!!')
+        // console.log('error submit!!')
         return false
       }
     })
@@ -208,7 +208,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
 
     Object.assign(submit, this.cascade)
     this.submit = cutInvalidData(submit)
-    console.log(this.submit)
+    // console.log(this.submit)
     this.download(download.shop, this.submit)
   }
 

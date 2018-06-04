@@ -111,7 +111,7 @@ export default class Index extends mixins(TableColor, ActiveMixin, DownloadMixin
         // Object.assign(submit, this.cascade)
         this.actionSalerWorkNumList(submit)
       } else {
-        console.log('error submit!!')
+        // console.log('error submit!!')
         return false
       }
     })

@@ -132,10 +132,10 @@ import {
         submit.queryType = '2'
 
 				this.submit = cutInvalidData(submit)
-				console.log('here submit',this.submit)
+				// console.log('here submit',this.submit)
         this.actionDiveFeature(this.submit)
       } else {
-        console.log('error submit!!')
+        // console.log('error submit!!')
         return false
       }
     })
